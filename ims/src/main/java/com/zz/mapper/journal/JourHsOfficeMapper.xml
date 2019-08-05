@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourHsOfficeMapper">
+	<resultMap id="JourHsOfficeResultMap" type="com.zz.po.journal.JourHsOfficeExpand" >
+		<id column="jho_id" property="jhoId" jdbcType="INTEGER"/>
+		<result column="jho_hs_id" property="jhoHsId" jdbcType="INTEGER"/>
+		<result column="jho_office_id" property="jhoOfficeId" jdbcType="INTEGER"/>
+		<result column="jho_device_id" property="jhoDeviceId" jdbcType="INTEGER"/>
+	</resultMap>
+	
+	 <insert id="insertOfficeAssociateHsList"  parameterType="java.util.List" >
+		insert  into jour_hs_office (jho_hs_id,jho_office_id,jho_device_id)
+		values
+		<foreach collection="list" item="item" index="index" separator="," close=";">
+			(#{item.jhoHsId,jdbcType=INTEGER},#{item.jhoOfficeId,jdbcType=INTEGER},#{item.jhoDeviceId,jdbcType=INTEGER})
+		</foreach>
+	</insert> 
+	
+	<delete id="removeOfficeAssociateHsList" parameterType="java.util.List" >
+		delete from jour_hs_office
+		where jho_hs_id in 
+		<foreach collection="list" item="item" index="no" open="("
+			separator="," close=")">
+				(#{item,jdbcType=INTEGER})
+		</foreach>
+	</delete>
+	
+	<delete id="removeOfficeAssociateByIds" parameterType="java.util.List" >
+		delete from jour_hs_office
+		where jho_id in 
+		<foreach collection="list" item="item" index="no" open="("
+			separator="," close=")">
+				(#{item.jhoId,jdbcType=INTEGER})
+		</foreach>
+	</delete>
+	
+	<delete id="removeOfficeAssociateByOfficeId" parameterType="Integer">
+		delete from jour_hs_office
+		where jho_office_id=#{jhoOfficeId,jdbcType=INTEGER}
+	</delete>
+	
+	<select id="selectHssByJhoOfficeId" resultType="Integer" parameterType="Integer">
+		select 
+			jho_hs_id
+		from jour_hs_office 
+		where
+			jho_office_id = #{jhoOfficeId,jdbcType=INTEGER}
+		group by 	
+			 jho_hs_id 
+	</select>
+
+	<select id="selectDevIdsByJhoOfficeId" resultType="Integer" parameterType="Integer">
+		select 
+			jho_device_id
+		from jour_hs_office 
+		where
+			jho_office_id = #{jhoOfficeId,jdbcType=INTEGER}
+		group by 	
+			 jho_device_id 
+	</select>
+	
+	<select id="selectJourHsOfficeExpandByOfficeId" resultMap="JourHsOfficeResultMap" parameterType="Integer">
+		select 
+			*
+		from jour_hs_office 
+		where
+			jho_office_id = #{jhoOfficeId,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectDevIdByHsId" resultType="Integer" parameterType="Integer">
+		select
+			jho_device_id
+		from jour_hs_office
+		where
+			jho_hs_id = #{jhoHsId,jdbcType=INTEGER}
+	</select>
+
+</mapper>

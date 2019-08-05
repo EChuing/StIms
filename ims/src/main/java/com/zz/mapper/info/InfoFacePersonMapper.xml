@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoFacePersonMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoFacePerson" >
+    <id column="ifp_id" property="ifpId" jdbcType="INTEGER" />
+    <result column="ifp_name" property="ifpName" jdbcType="VARCHAR" />
+    <result column="ifp_pop_id" property="ifpPopId" jdbcType="INTEGER" />
+    <result column="ifp_guid" property="ifpGuid" jdbcType="VARCHAR" />
+    <result column="ifp_guid_photo" property="guidPhoto" jdbcType="VARCHAR" />
+    <result column="ifp_cardno" property="ifpCardno" jdbcType="VARCHAR" />
+    <result column="ifp_tag" property="ifpTag" jdbcType="VARCHAR" />
+    <result column="ifp_phone" property="ifpPhone" jdbcType="VARCHAR" />
+    <result column="ifp_create_time" property="ifpCreateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zz.po.info.InfoFacePerson" extends="BaseResultMap" >
+    <result column="ifp_path" property="ifpPath" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    *
+    from info_face_person
+    where ifp_pop_id = #{popId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryTag" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select
+    *
+    from info_face_person
+    where ifp_tag = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_face_person
+    where ifp_id = #{popId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoFacePerson" >
+    insert into info_face_person
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ifpId != null" >
+        ifp_id,
+      </if>
+      <if test="ifpName != null" >
+        ifp_name,
+      </if>
+      <if test="ifpPopId != null" >
+        ifp_pop_id,
+      </if>
+      <if test="ifpGuid != null" >
+        ifp_guid,
+      </if>
+      <if test="ifpCardno != null" >
+        ifp_cardno,
+      </if>
+      <if test="ifpTag != null" >
+        ifp_tag,
+      </if>
+      <if test="ifpPhone != null" >
+        ifp_phone,
+      </if>
+      <if test="ifpCreateTime != null" >
+        ifp_create_time,
+      </if>
+      <if test="ifpPath != null" >
+        ifp_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ifpId != null" >
+        #{ifpId,jdbcType=INTEGER},
+      </if>
+      <if test="ifpName != null" >
+        #{ifpName,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpPopId != null" >
+        #{ifpPopId,jdbcType=INTEGER},
+      </if>
+      <if test="ifpGuid != null" >
+        #{ifpGuid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpCardno != null" >
+        #{ifpCardno,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpTag != null" >
+        #{ifpTag,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpPhone != null" >
+        #{ifpPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpCreateTime != null" >
+        #{ifpCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifpPath != null" >
+        #{ifpPath,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoFacePerson" >
+    update info_face_person
+    <set >
+      <if test="ifpName != null" >
+        ifp_name = #{ifpName,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpPopId != null" >
+        ifp_pop_id = #{ifpPopId,jdbcType=INTEGER},
+      </if>
+      <if test="ifpGuid != null" >
+        ifp_guid = #{ifpGuid,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpCardno != null" >
+        ifp_cardno = #{ifpCardno,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpTag != null" >
+        ifp_tag = #{ifpTag,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpPhone != null" >
+        ifp_phone = #{ifpPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="ifpCreateTime != null" >
+        ifp_create_time = #{ifpCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ifpPath != null" >
+        ifp_path = #{ifpPath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ifp_id = #{ifpId,jdbcType=INTEGER}
+  </update>
+</mapper>

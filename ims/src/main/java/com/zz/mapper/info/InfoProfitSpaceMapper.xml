@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoProfitSpaceMapper">
+	<resultMap id="BaseResultMap" type="com.zz.po.info.InfoProfitSpace">
+		<id column="ips_id" property="ipsId" jdbcType="INTEGER" />
+		<result column="ips_income_deposit_house" property="ipsIncomeDepositHouse"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_deposit_house" property="ipsExpendDepositHouse"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_deposit_water_ele" property="ipsIncomeDepositWaterEle"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_deposit_water_ele" property="ipsExpendDepositWaterEle"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_deposit_door_card" property="ipsIncomeDepositDoorCard"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_deposit_door_card" property="ipsExpendDepositDoorCard"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_deposit_car_card" property="ipsIncomeDepositCarCard"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_deposit_car_card" property="ipsExpendDepositCarCard"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_deposit_landlord" property="ipsIncomeDepositLandlord"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_deposit_renter" property="ipsExpendDepositRenter"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_deposit_deposit" property="ipsIncomeDepositDeposit"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_deposit_deposit" property="ipsExpendDepositDeposit"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_deposit_decorate" property="ipsIncomeDepositDecorate"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_deposit_decorate" property="ipsExpendDepositDecorate"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_deposit" property="ipsIncomeDeposit"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_deposit" property="ipsExpendDeposit"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_energy_water" property="ipsIncomeEnergyWater"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_energy_water" property="ipsExpendEnergyWater"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_energy_electricity" property="ipsIncomeEnergyElectricity"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_energy_electricity" property="ipsExpendEnergyElectricity"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_energy_gas" property="ipsIncomeEnergyGas"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_energy_gas" property="ipsExpendEnergyGas"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_energy_network" property="ipsIncomeEnergyNetwork"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_energy_network" property="ipsExpendEnergyNetwork"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_energy_tv" property="ipsIncomeEnergyTv"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_energy_tv" property="ipsExpendEnergyTv"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_energy_management" property="ipsIncomeEnergyManagement"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_energy_management" property="ipsExpendEnergyManagement"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_energy_balance" property="ipsIncomeEnergyBalance"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_energy_balance" property="ipsExpendEnergyBalance"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_energy" property="ipsIncomeEnergy"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_energy" property="ipsExpendEnergy"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_main_rental" property="ipsIncomeMainRental"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_main_rental" property="ipsExpendMainRental"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_main_commission" property="ipsIncomeMainCommission"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_main_commission" property="ipsExpendMainCommission"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_main_car_rental" property="ipsIncomeMainCarRental"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_main_car_rental" property="ipsExpendMainCarRental"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_main" property="ipsIncomeMain"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_main" property="ipsExpendMain"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_maintenance_material" property="ipsIncomeMaintenanceMaterial"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_maintenance_material" property="ipsExpendMaintenanceMaterial"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_maintenance_artificial" property="ipsIncomeMaintenanceArtificial"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_maintenance_artificial" property="ipsExpendMaintenanceArtificial"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_maintenance_clean" property="ipsIncomeMaintenanceClean"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_maintenance_clean" property="ipsExpendMaintenanceClean"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_maintenance_lock" property="ipsIncomeMaintenanceLock"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_maintenance_lock" property="ipsExpendMaintenanceLock"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_maintenance" property="ipsIncomeMaintenance"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_maintenance" property="ipsExpendMaintenance"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_financial_taxes" property="ipsIncomeFinancialTaxes"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_financial_taxes" property="ipsExpendFinancialTaxes"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_financial_pos" property="ipsIncomeFinancialPos"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_financial_pos" property="ipsExpendFinancialPos"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_financial_financial" property="ipsIncomeFinancialFinancial"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_financial_financial" property="ipsExpendFinancialFinancial"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_financial" property="ipsIncomeFinancial"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_financial" property="ipsExpendFinancial"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_other_behalf" property="ipsIncomeOtherBehalf"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_other_behalf" property="ipsExpendOtherBehalf"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_other_transfer" property="ipsIncomeOtherTransfer"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_other_transfer" property="ipsExpendOtherTransfer"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_other" property="ipsIncomeOther"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_other" property="ipsExpendOther"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_debt_borrowed" property="ipsIncomeDebtBorrowed"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_creditor_loan" property="ipsExpendCreditorLoan"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_creditor_loan" property="ipsIncomeCreditorLoan"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_debt_reimbursement" property="ipsExpendDebtReimbursement"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_creditor_interest" property="ipsIncomeCreditorInterest"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_debt_interest" property="ipsExpendDebtInterest"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_debt_creditor" property="ipsIncomeDebtCreditor"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_debt_creditor" property="ipsExpendDebtCreditor"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_default_penalty" property="ipsIncomeDefaultPenalty"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_default_penalty" property="ipsExpendDefaultPenalty"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_default_overdue" property="ipsIncomeDefaultOverdue"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_default_overdue" property="ipsExpendDefaultOverdue"
+			jdbcType="DOUBLE" />
+		<result column="ips_income_default" property="ipsIncomeDefault"
+			jdbcType="DOUBLE" />
+		<result column="ips_expend_default" property="ipsExpendDefault"
+			jdbcType="DOUBLE" />
+		<result column="ips_income" property="ipsIncome" jdbcType="DOUBLE" />
+		<result column="ips_expend" property="ipsExpend" jdbcType="DOUBLE" />
+		<result column="ips_type" property="ipsType" jdbcType="VARCHAR" />
+		<result column="ips_time" property="ipsTime" jdbcType="TIMESTAMP" />
+
+		<!-- 其他 -->
+		<result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ips_id, ips_income_deposit_house, ips_expend_deposit_house,
+		ips_income_deposit_water_ele,
+		ips_expend_deposit_water_ele, ips_income_deposit_door_card, ips_expend_deposit_door_card,
+		ips_income_deposit_car_card, ips_expend_deposit_car_card,
+		ips_income_deposit_landlord,
+		ips_expend_deposit_renter, ips_income_deposit_deposit, ips_expend_deposit_deposit,
+		ips_income_deposit_decorate, ips_expend_deposit_decorate,
+		ips_income_deposit, ips_expend_deposit,
+		ips_income_energy_water, ips_expend_energy_water, ips_income_energy_electricity,
+		ips_expend_energy_electricity, ips_income_energy_gas,
+		ips_expend_energy_gas, ips_income_energy_network,
+		ips_expend_energy_network, ips_income_energy_tv, ips_expend_energy_tv,
+		ips_income_energy_management,
+		ips_expend_energy_management, ips_income_energy_balance, ips_expend_energy_balance,
+		ips_income_energy, ips_expend_energy, ips_income_main_rental,
+		ips_expend_main_rental,
+		ips_income_main_commission, ips_expend_main_commission, ips_income_main_car_rental,
+		ips_expend_main_car_rental, ips_income_main, ips_expend_main,
+		ips_income_maintenance_material,
+		ips_expend_maintenance_material, ips_income_maintenance_artificial, ips_expend_maintenance_artificial,
+		ips_income_maintenance_clean, ips_expend_maintenance_clean,
+		ips_income_maintenance_lock,
+		ips_expend_maintenance_lock, ips_income_maintenance, ips_expend_maintenance,
+		ips_income_financial_taxes,
+		ips_expend_financial_taxes, ips_income_financial_pos, ips_expend_financial_pos,
+		ips_income_financial_financial,
+		ips_expend_financial_financial, ips_income_financial, ips_expend_financial, ips_income_other_behalf,
+		ips_expend_other_behalf, ips_income_other_transfer,
+		ips_expend_other_transfer, ips_income_other,
+		ips_expend_other, ips_income_debt_borrowed, ips_expend_creditor_loan,
+		ips_income_creditor_loan,
+		ips_expend_debt_reimbursement, ips_income_creditor_interest, ips_expend_debt_interest,
+		ips_income_debt_creditor, ips_expend_debt_creditor,
+		ips_income_default_penalty, ips_expend_default_penalty,
+		ips_income_default_overdue, ips_expend_default_overdue,
+		ips_income_default, ips_expend_default,
+		ips_income, ips_expend, ips_type, ips_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from stat_profit_space
+		where ips_id = #{ipsId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from stat_profit_space
+		where ips_id = #{ipsId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zz.po.info.InfoProfitSpace">
+		insert into stat_profit_space (ips_id, ips_income_deposit_house,
+		ips_expend_deposit_house,
+		ips_income_deposit_water_ele, ips_expend_deposit_water_ele,
+		ips_income_deposit_door_card, ips_expend_deposit_door_card,
+		ips_income_deposit_car_card, ips_expend_deposit_car_card,
+		ips_income_deposit_landlord, ips_expend_deposit_renter,
+		ips_income_deposit_deposit, ips_expend_deposit_deposit,
+		ips_income_deposit_decorate, ips_expend_deposit_decorate,
+		ips_income_deposit, ips_expend_deposit, ips_income_energy_water,
+		ips_expend_energy_water, ips_income_energy_electricity,
+		ips_expend_energy_electricity, ips_income_energy_gas,
+		ips_expend_energy_gas, ips_income_energy_network,
+		ips_expend_energy_network, ips_income_energy_tv,
+		ips_expend_energy_tv, ips_income_energy_management,
+		ips_expend_energy_management, ips_income_energy_balance,
+		ips_expend_energy_balance, ips_income_energy,
+		ips_expend_energy, ips_income_main_rental, ips_expend_main_rental,
+		ips_income_main_commission, ips_expend_main_commission,
+		ips_income_main_car_rental, ips_expend_main_car_rental,
+		ips_income_main, ips_expend_main, ips_income_maintenance_material,
+		ips_expend_maintenance_material, ips_income_maintenance_artificial,
+		ips_expend_maintenance_artificial, ips_income_maintenance_clean,
+		ips_expend_maintenance_clean, ips_income_maintenance_lock,
+		ips_expend_maintenance_lock, ips_income_maintenance,
+		ips_expend_maintenance, ips_income_financial_taxes,
+		ips_expend_financial_taxes, ips_income_financial_pos,
+		ips_expend_financial_pos, ips_income_financial_financial,
+		ips_expend_financial_financial, ips_income_financial,
+		ips_expend_financial, ips_income_other_behalf,
+		ips_expend_other_behalf, ips_income_other_transfer,
+		ips_expend_other_transfer, ips_income_other, ips_expend_other,
+		ips_income_debt_borrowed, ips_expend_creditor_loan,
+		ips_income_creditor_loan, ips_expend_debt_reimbursement,
+		ips_income_creditor_interest, ips_expend_debt_interest,
+		ips_income_debt_creditor, ips_expend_debt_creditor,
+		ips_income_default_penalty, ips_expend_default_penalty,
+		ips_income_default_overdue, ips_expend_default_overdue,
+		ips_income_default, ips_expend_default, ips_income,
+		ips_expend, ips_type, ips_time
+		)
+		values (#{ipsId,jdbcType=INTEGER}, #{ipsIncomeDepositHouse,jdbcType=DOUBLE},
+		#{ipsExpendDepositHouse,jdbcType=DOUBLE},
+		#{ipsIncomeDepositWaterEle,jdbcType=DOUBLE},
+		#{ipsExpendDepositWaterEle,jdbcType=DOUBLE},
+		#{ipsIncomeDepositDoorCard,jdbcType=DOUBLE},
+		#{ipsExpendDepositDoorCard,jdbcType=DOUBLE},
+		#{ipsIncomeDepositCarCard,jdbcType=DOUBLE},
+		#{ipsExpendDepositCarCard,jdbcType=DOUBLE},
+		#{ipsIncomeDepositLandlord,jdbcType=DOUBLE},
+		#{ipsExpendDepositRenter,jdbcType=DOUBLE},
+		#{ipsIncomeDepositDeposit,jdbcType=DOUBLE},
+		#{ipsExpendDepositDeposit,jdbcType=DOUBLE},
+		#{ipsIncomeDepositDecorate,jdbcType=DOUBLE},
+		#{ipsExpendDepositDecorate,jdbcType=DOUBLE},
+		#{ipsIncomeDeposit,jdbcType=DOUBLE},
+		#{ipsExpendDeposit,jdbcType=DOUBLE},
+		#{ipsIncomeEnergyWater,jdbcType=DOUBLE},
+		#{ipsExpendEnergyWater,jdbcType=DOUBLE},
+		#{ipsIncomeEnergyElectricity,jdbcType=DOUBLE},
+		#{ipsExpendEnergyElectricity,jdbcType=DOUBLE},
+		#{ipsIncomeEnergyGas,jdbcType=DOUBLE},
+		#{ipsExpendEnergyGas,jdbcType=DOUBLE},
+		#{ipsIncomeEnergyNetwork,jdbcType=DOUBLE},
+		#{ipsExpendEnergyNetwork,jdbcType=DOUBLE},
+		#{ipsIncomeEnergyTv,jdbcType=DOUBLE},
+		#{ipsExpendEnergyTv,jdbcType=DOUBLE},
+		#{ipsIncomeEnergyManagement,jdbcType=DOUBLE},
+		#{ipsExpendEnergyManagement,jdbcType=DOUBLE},
+		#{ipsIncomeEnergyBalance,jdbcType=DOUBLE},
+		#{ipsExpendEnergyBalance,jdbcType=DOUBLE},
+		#{ipsIncomeEnergy,jdbcType=DOUBLE},
+		#{ipsExpendEnergy,jdbcType=DOUBLE},
+		#{ipsIncomeMainRental,jdbcType=DOUBLE},
+		#{ipsExpendMainRental,jdbcType=DOUBLE},
+		#{ipsIncomeMainCommission,jdbcType=DOUBLE},
+		#{ipsExpendMainCommission,jdbcType=DOUBLE},
+		#{ipsIncomeMainCarRental,jdbcType=DOUBLE},
+		#{ipsExpendMainCarRental,jdbcType=DOUBLE},
+		#{ipsIncomeMain,jdbcType=DOUBLE}, #{ipsExpendMain,jdbcType=DOUBLE},
+		#{ipsIncomeMaintenanceMaterial,jdbcType=DOUBLE},
+		#{ipsExpendMaintenanceMaterial,jdbcType=DOUBLE},
+		#{ipsIncomeMaintenanceArtificial,jdbcType=DOUBLE},
+		#{ipsExpendMaintenanceArtificial,jdbcType=DOUBLE},
+		#{ipsIncomeMaintenanceClean,jdbcType=DOUBLE},
+		#{ipsExpendMaintenanceClean,jdbcType=DOUBLE},
+		#{ipsIncomeMaintenanceLock,jdbcType=DOUBLE},
+		#{ipsExpendMaintenanceLock,jdbcType=DOUBLE},
+		#{ipsIncomeMaintenance,jdbcType=DOUBLE},
+		#{ipsExpendMaintenance,jdbcType=DOUBLE},
+		#{ipsIncomeFinancialTaxes,jdbcType=DOUBLE},
+		#{ipsExpendFinancialTaxes,jdbcType=DOUBLE},
+		#{ipsIncomeFinancialPos,jdbcType=DOUBLE},
+		#{ipsExpendFinancialPos,jdbcType=DOUBLE},
+		#{ipsIncomeFinancialFinancial,jdbcType=DOUBLE},
+		#{ipsExpendFinancialFinancial,jdbcType=DOUBLE},
+		#{ipsIncomeFinancial,jdbcType=DOUBLE},
+		#{ipsExpendFinancial,jdbcType=DOUBLE},
+		#{ipsIncomeOtherBehalf,jdbcType=DOUBLE},
+		#{ipsExpendOtherBehalf,jdbcType=DOUBLE},
+		#{ipsIncomeOtherTransfer,jdbcType=DOUBLE},
+		#{ipsExpendOtherTransfer,jdbcType=DOUBLE},
+		#{ipsIncomeOther,jdbcType=DOUBLE}, #{ipsExpendOther,jdbcType=DOUBLE},
+		#{ipsIncomeDebtBorrowed,jdbcType=DOUBLE},
+		#{ipsExpendCreditorLoan,jdbcType=DOUBLE},
+		#{ipsIncomeCreditorLoan,jdbcType=DOUBLE},
+		#{ipsExpendDebtReimbursement,jdbcType=DOUBLE},
+		#{ipsIncomeCreditorInterest,jdbcType=DOUBLE},
+		#{ipsExpendDebtInterest,jdbcType=DOUBLE},
+		#{ipsIncomeDebtCreditor,jdbcType=DOUBLE},
+		#{ipsExpendDebtCreditor,jdbcType=DOUBLE},
+		#{ipsIncomeDefaultPenalty,jdbcType=DOUBLE},
+		#{ipsExpendDefaultPenalty,jdbcType=DOUBLE},
+		#{ipsIncomeDefaultOverdue,jdbcType=DOUBLE},
+		#{ipsExpendDefaultOverdue,jdbcType=DOUBLE},
+		#{ipsIncomeDefault,jdbcType=DOUBLE},
+		#{ipsExpendDefault,jdbcType=DOUBLE}, #{ipsIncome,jdbcType=DOUBLE},
+		#{ipsExpend,jdbcType=DOUBLE}, #{ipsType,jdbcType=VARCHAR},
+		#{ipsTime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.zz.po.info.InfoProfitSpace">
+		insert into stat_profit_space
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ipsId != null">
+				ips_id,
+			</if>
+			<if test="ipsIncomeDepositHouse != null">
+				ips_income_deposit_house,
+			</if>
+			<if test="ipsExpendDepositHouse != null">
+				ips_expend_deposit_house,
+			</if>
+			<if test="ipsIncomeDepositWaterEle != null">
+				ips_income_deposit_water_ele,
+			</if>
+			<if test="ipsExpendDepositWaterEle != null">
+				ips_expend_deposit_water_ele,
+			</if>
+			<if test="ipsIncomeDepositDoorCard != null">
+				ips_income_deposit_door_card,
+			</if>
+			<if test="ipsExpendDepositDoorCard != null">
+				ips_expend_deposit_door_card,
+			</if>
+			<if test="ipsIncomeDepositCarCard != null">
+				ips_income_deposit_car_card,
+			</if>
+			<if test="ipsExpendDepositCarCard != null">
+				ips_expend_deposit_car_card,
+			</if>
+			<if test="ipsIncomeDepositLandlord != null">
+				ips_income_deposit_landlord,
+			</if>
+			<if test="ipsExpendDepositRenter != null">
+				ips_expend_deposit_renter,
+			</if>
+			<if test="ipsIncomeDepositDeposit != null">
+				ips_income_deposit_deposit,
+			</if>
+			<if test="ipsExpendDepositDeposit != null">
+				ips_expend_deposit_deposit,
+			</if>
+			<if test="ipsIncomeDepositDecorate != null">
+				ips_income_deposit_decorate,
+			</if>
+			<if test="ipsExpendDepositDecorate != null">
+				ips_expend_deposit_decorate,
+			</if>
+			<if test="ipsIncomeDeposit != null">
+				ips_income_deposit,
+			</if>
+			<if test="ipsExpendDeposit != null">
+				ips_expend_deposit,
+			</if>
+			<if test="ipsIncomeEnergyWater != null">
+				ips_income_energy_water,
+			</if>
+			<if test="ipsExpendEnergyWater != null">
+				ips_expend_energy_water,
+			</if>
+			<if test="ipsIncomeEnergyElectricity != null">
+				ips_income_energy_electricity,
+			</if>
+			<if test="ipsExpendEnergyElectricity != null">
+				ips_expend_energy_electricity,
+			</if>
+			<if test="ipsIncomeEnergyGas != null">
+				ips_income_energy_gas,
+			</if>
+			<if test="ipsExpendEnergyGas != null">
+				ips_expend_energy_gas,
+			</if>
+			<if test="ipsIncomeEnergyNetwork != null">
+				ips_income_energy_network,
+			</if>
+			<if test="ipsExpendEnergyNetwork != null">
+				ips_expend_energy_network,
+			</if>
+			<if test="ipsIncomeEnergyTv != null">
+				ips_income_energy_tv,
+			</if>
+			<if test="ipsExpendEnergyTv != null">
+				ips_expend_energy_tv,
+			</if>
+			<if test="ipsIncomeEnergyManagement != null">
+				ips_income_energy_management,
+			</if>
+			<if test="ipsExpendEnergyManagement != null">
+				ips_expend_energy_management,
+			</if>
+			<if test="ipsIncomeEnergyBalance != null">
+				ips_income_energy_balance,
+			</if>
+			<if test="ipsExpendEnergyBalance != null">
+				ips_expend_energy_balance,
+			</if>
+			<if test="ipsIncomeEnergy != null">
+				ips_income_energy,
+			</if>
+			<if test="ipsExpendEnergy != null">
+				ips_expend_energy,
+			</if>
+			<if test="ipsIncomeMainRental != null">
+				ips_income_main_rental,
+			</if>
+			<if test="ipsExpendMainRental != null">
+				ips_expend_main_rental,
+			</if>
+			<if test="ipsIncomeMainCommission != null">
+				ips_income_main_commission,
+			</if>
+			<if test="ipsExpendMainCommission != null">
+				ips_expend_main_commission,
+			</if>
+			<if test="ipsIncomeMainCarRental != null">
+				ips_income_main_car_rental,
+			</if>
+			<if test="ipsExpendMainCarRental != null">
+				ips_expend_main_car_rental,
+			</if>
+			<if test="ipsIncomeMain != null">
+				ips_income_main,
+			</if>
+			<if test="ipsExpendMain != null">
+				ips_expend_main,
+			</if>
+			<if test="ipsIncomeMaintenanceMaterial != null">
+				ips_income_maintenance_material,
+			</if>
+			<if test="ipsExpendMaintenanceMaterial != null">
+				ips_expend_maintenance_material,
+			</if>
+			<if test="ipsIncomeMaintenanceArtificial != null">
+				ips_income_maintenance_artificial,
+			</if>
+			<if test="ipsExpendMaintenanceArtificial != null">
+				ips_expend_maintenance_artificial,
+			</if>
+			<if test="ipsIncomeMaintenanceClean != null">
+				ips_income_maintenance_clean,
+			</if>
+			<if test="ipsExpendMaintenanceClean != null">
+				ips_expend_maintenance_clean,
+			</if>
+			<if test="ipsIncomeMaintenanceLock != null">
+				ips_income_maintenance_lock,
+			</if>
+			<if test="ipsExpendMaintenanceLock != null">
+				ips_expend_maintenance_lock,
+			</if>
+			<if test="ipsIncomeMaintenance != null">
+				ips_income_maintenance,
+			</if>
+			<if test="ipsExpendMaintenance != null">
+				ips_expend_maintenance,
+			</if>
+			<if test="ipsIncomeFinancialTaxes != null">
+				ips_income_financial_taxes,
+			</if>
+			<if test="ipsExpendFinancialTaxes != null">
+				ips_expend_financial_taxes,
+			</if>
+			<if test="ipsIncomeFinancialPos != null">
+				ips_income_financial_pos,
+			</if>
+			<if test="ipsExpendFinancialPos != null">
+				ips_expend_financial_pos,
+			</if>
+			<if test="ipsIncomeFinancialFinancial != null">
+				ips_income_financial_financial,
+			</if>
+			<if test="ipsExpendFinancialFinancial != null">
+				ips_expend_financial_financial,
+			</if>
+			<if test="ipsIncomeFinancial != null">
+				ips_income_financial,
+			</if>
+			<if test="ipsExpendFinancial != null">
+				ips_expend_financial,
+			</if>
+			<if test="ipsIncomeOtherBehalf != null">
+				ips_income_other_behalf,
+			</if>
+			<if test="ipsExpendOtherBehalf != null">
+				ips_expend_other_behalf,
+			</if>
+			<if test="ipsIncomeOtherTransfer != null">
+				ips_income_other_transfer,
+			</if>
+			<if test="ipsExpendOtherTransfer != null">
+				ips_expend_other_transfer,
+			</if>
+			<if test="ipsIncomeOther != null">
+				ips_income_other,
+			</if>
+			<if test="ipsExpendOther != null">
+				ips_expend_other,
+			</if>
+			<if test="ipsIncomeDebtBorrowed != null">
+				ips_income_debt_borrowed,
+			</if>
+			<if test="ipsExpendCreditorLoan != null">
+				ips_expend_creditor_loan,
+			</if>
+			<if test="ipsIncomeCreditorLoan != null">
+				ips_income_creditor_loan,
+			</if>
+			<if test="ipsExpendDebtReimbursement != null">
+				ips_expend_debt_reimbursement,
+			</if>
+			<if test="ipsIncomeCreditorInterest != null">
+				ips_income_creditor_interest,
+			</if>
+			<if test="ipsExpendDebtInterest != null">
+				ips_expend_debt_interest,
+			</if>
+			<if test="ipsIncomeDebtCreditor != null">
+				ips_income_debt_creditor,
+			</if>
+			<if test="ipsExpendDebtCreditor != null">
+				ips_expend_debt_creditor,
+			</if>
+			<if test="ipsIncomeDefaultPenalty != null">
+				ips_income_default_penalty,
+			</if>
+			<if test="ipsExpendDefaultPenalty != null">
+				ips_expend_default_penalty,
+			</if>
+			<if test="ipsIncomeDefaultOverdue != null">
+				ips_income_default_overdue,
+			</if>
+			<if test="ipsExpendDefaultOverdue != null">
+				ips_expend_default_overdue,
+			</if>
+			<if test="ipsIncomeDefault != null">
+				ips_income_default,
+			</if>
+			<if test="ipsExpendDefault != null">
+				ips_expend_default,
+			</if>
+			<if test="ipsIncome != null">
+				ips_income,
+			</if>
+			<if test="ipsExpend != null">
+				ips_expend,
+			</if>
+			<if test="ipsType != null">
+				ips_type,
+			</if>
+			<if test="ipsTime != null">
+				ips_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ipsId != null">
+				#{ipsId,jdbcType=INTEGER},
+			</if>
+			<if test="ipsIncomeDepositHouse != null">
+				#{ipsIncomeDepositHouse,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositHouse != null">
+				#{ipsExpendDepositHouse,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositWaterEle != null">
+				#{ipsIncomeDepositWaterEle,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositWaterEle != null">
+				#{ipsExpendDepositWaterEle,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositDoorCard != null">
+				#{ipsIncomeDepositDoorCard,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositDoorCard != null">
+				#{ipsExpendDepositDoorCard,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositCarCard != null">
+				#{ipsIncomeDepositCarCard,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositCarCard != null">
+				#{ipsExpendDepositCarCard,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositLandlord != null">
+				#{ipsIncomeDepositLandlord,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositRenter != null">
+				#{ipsExpendDepositRenter,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositDeposit != null">
+				#{ipsIncomeDepositDeposit,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositDeposit != null">
+				#{ipsExpendDepositDeposit,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositDecorate != null">
+				#{ipsIncomeDepositDecorate,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositDecorate != null">
+				#{ipsExpendDepositDecorate,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDeposit != null">
+				#{ipsIncomeDeposit,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDeposit != null">
+				#{ipsExpendDeposit,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyWater != null">
+				#{ipsIncomeEnergyWater,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyWater != null">
+				#{ipsExpendEnergyWater,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyElectricity != null">
+				#{ipsIncomeEnergyElectricity,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyElectricity != null">
+				#{ipsExpendEnergyElectricity,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyGas != null">
+				#{ipsIncomeEnergyGas,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyGas != null">
+				#{ipsExpendEnergyGas,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyNetwork != null">
+				#{ipsIncomeEnergyNetwork,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyNetwork != null">
+				#{ipsExpendEnergyNetwork,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyTv != null">
+				#{ipsIncomeEnergyTv,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyTv != null">
+				#{ipsExpendEnergyTv,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyManagement != null">
+				#{ipsIncomeEnergyManagement,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyManagement != null">
+				#{ipsExpendEnergyManagement,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyBalance != null">
+				#{ipsIncomeEnergyBalance,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyBalance != null">
+				#{ipsExpendEnergyBalance,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergy != null">
+				#{ipsIncomeEnergy,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergy != null">
+				#{ipsExpendEnergy,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMainRental != null">
+				#{ipsIncomeMainRental,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMainRental != null">
+				#{ipsExpendMainRental,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMainCommission != null">
+				#{ipsIncomeMainCommission,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMainCommission != null">
+				#{ipsExpendMainCommission,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMainCarRental != null">
+				#{ipsIncomeMainCarRental,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMainCarRental != null">
+				#{ipsExpendMainCarRental,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMain != null">
+				#{ipsIncomeMain,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMain != null">
+				#{ipsExpendMain,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenanceMaterial != null">
+				#{ipsIncomeMaintenanceMaterial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenanceMaterial != null">
+				#{ipsExpendMaintenanceMaterial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenanceArtificial != null">
+				#{ipsIncomeMaintenanceArtificial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenanceArtificial != null">
+				#{ipsExpendMaintenanceArtificial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenanceClean != null">
+				#{ipsIncomeMaintenanceClean,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenanceClean != null">
+				#{ipsExpendMaintenanceClean,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenanceLock != null">
+				#{ipsIncomeMaintenanceLock,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenanceLock != null">
+				#{ipsExpendMaintenanceLock,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenance != null">
+				#{ipsIncomeMaintenance,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenance != null">
+				#{ipsExpendMaintenance,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeFinancialTaxes != null">
+				#{ipsIncomeFinancialTaxes,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendFinancialTaxes != null">
+				#{ipsExpendFinancialTaxes,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeFinancialPos != null">
+				#{ipsIncomeFinancialPos,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendFinancialPos != null">
+				#{ipsExpendFinancialPos,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeFinancialFinancial != null">
+				#{ipsIncomeFinancialFinancial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendFinancialFinancial != null">
+				#{ipsExpendFinancialFinancial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeFinancial != null">
+				#{ipsIncomeFinancial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendFinancial != null">
+				#{ipsExpendFinancial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeOtherBehalf != null">
+				#{ipsIncomeOtherBehalf,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendOtherBehalf != null">
+				#{ipsExpendOtherBehalf,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeOtherTransfer != null">
+				#{ipsIncomeOtherTransfer,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendOtherTransfer != null">
+				#{ipsExpendOtherTransfer,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeOther != null">
+				#{ipsIncomeOther,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendOther != null">
+				#{ipsExpendOther,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDebtBorrowed != null">
+				#{ipsIncomeDebtBorrowed,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendCreditorLoan != null">
+				#{ipsExpendCreditorLoan,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeCreditorLoan != null">
+				#{ipsIncomeCreditorLoan,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDebtReimbursement != null">
+				#{ipsExpendDebtReimbursement,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeCreditorInterest != null">
+				#{ipsIncomeCreditorInterest,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDebtInterest != null">
+				#{ipsExpendDebtInterest,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDebtCreditor != null">
+				#{ipsIncomeDebtCreditor,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDebtCreditor != null">
+				#{ipsExpendDebtCreditor,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDefaultPenalty != null">
+				#{ipsIncomeDefaultPenalty,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDefaultPenalty != null">
+				#{ipsExpendDefaultPenalty,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDefaultOverdue != null">
+				#{ipsIncomeDefaultOverdue,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDefaultOverdue != null">
+				#{ipsExpendDefaultOverdue,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDefault != null">
+				#{ipsIncomeDefault,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDefault != null">
+				#{ipsExpendDefault,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncome != null">
+				#{ipsIncome,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpend != null">
+				#{ipsExpend,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsType != null">
+				#{ipsType,jdbcType=VARCHAR},
+			</if>
+			<if test="ipsTime != null">
+				#{ipsTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoProfitSpace">
+		update stat_profit_space
+		<set>
+			<if test="ipsIncomeDepositHouse != null">
+				ips_income_deposit_house = #{ipsIncomeDepositHouse,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositHouse != null">
+				ips_expend_deposit_house = #{ipsExpendDepositHouse,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositWaterEle != null">
+				ips_income_deposit_water_ele =
+				#{ipsIncomeDepositWaterEle,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositWaterEle != null">
+				ips_expend_deposit_water_ele =
+				#{ipsExpendDepositWaterEle,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositDoorCard != null">
+				ips_income_deposit_door_card =
+				#{ipsIncomeDepositDoorCard,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositDoorCard != null">
+				ips_expend_deposit_door_card =
+				#{ipsExpendDepositDoorCard,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositCarCard != null">
+				ips_income_deposit_car_card =
+				#{ipsIncomeDepositCarCard,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositCarCard != null">
+				ips_expend_deposit_car_card =
+				#{ipsExpendDepositCarCard,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositLandlord != null">
+				ips_income_deposit_landlord =
+				#{ipsIncomeDepositLandlord,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositRenter != null">
+				ips_expend_deposit_renter =
+				#{ipsExpendDepositRenter,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositDeposit != null">
+				ips_income_deposit_deposit =
+				#{ipsIncomeDepositDeposit,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositDeposit != null">
+				ips_expend_deposit_deposit =
+				#{ipsExpendDepositDeposit,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDepositDecorate != null">
+				ips_income_deposit_decorate =
+				#{ipsIncomeDepositDecorate,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDepositDecorate != null">
+				ips_expend_deposit_decorate =
+				#{ipsExpendDepositDecorate,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDeposit != null">
+				ips_income_deposit = #{ipsIncomeDeposit,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDeposit != null">
+				ips_expend_deposit = #{ipsExpendDeposit,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyWater != null">
+				ips_income_energy_water = #{ipsIncomeEnergyWater,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyWater != null">
+				ips_expend_energy_water = #{ipsExpendEnergyWater,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyElectricity != null">
+				ips_income_energy_electricity =
+				#{ipsIncomeEnergyElectricity,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyElectricity != null">
+				ips_expend_energy_electricity =
+				#{ipsExpendEnergyElectricity,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyGas != null">
+				ips_income_energy_gas = #{ipsIncomeEnergyGas,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyGas != null">
+				ips_expend_energy_gas = #{ipsExpendEnergyGas,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyNetwork != null">
+				ips_income_energy_network =
+				#{ipsIncomeEnergyNetwork,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyNetwork != null">
+				ips_expend_energy_network =
+				#{ipsExpendEnergyNetwork,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyTv != null">
+				ips_income_energy_tv = #{ipsIncomeEnergyTv,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyTv != null">
+				ips_expend_energy_tv = #{ipsExpendEnergyTv,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyManagement != null">
+				ips_income_energy_management =
+				#{ipsIncomeEnergyManagement,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyManagement != null">
+				ips_expend_energy_management =
+				#{ipsExpendEnergyManagement,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergyBalance != null">
+				ips_income_energy_balance =
+				#{ipsIncomeEnergyBalance,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergyBalance != null">
+				ips_expend_energy_balance =
+				#{ipsExpendEnergyBalance,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeEnergy != null">
+				ips_income_energy = #{ipsIncomeEnergy,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendEnergy != null">
+				ips_expend_energy = #{ipsExpendEnergy,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMainRental != null">
+				ips_income_main_rental = #{ipsIncomeMainRental,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMainRental != null">
+				ips_expend_main_rental = #{ipsExpendMainRental,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMainCommission != null">
+				ips_income_main_commission =
+				#{ipsIncomeMainCommission,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMainCommission != null">
+				ips_expend_main_commission =
+				#{ipsExpendMainCommission,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMainCarRental != null">
+				ips_income_main_car_rental =
+				#{ipsIncomeMainCarRental,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMainCarRental != null">
+				ips_expend_main_car_rental =
+				#{ipsExpendMainCarRental,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMain != null">
+				ips_income_main = #{ipsIncomeMain,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMain != null">
+				ips_expend_main = #{ipsExpendMain,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenanceMaterial != null">
+				ips_income_maintenance_material =
+				#{ipsIncomeMaintenanceMaterial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenanceMaterial != null">
+				ips_expend_maintenance_material =
+				#{ipsExpendMaintenanceMaterial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenanceArtificial != null">
+				ips_income_maintenance_artificial =
+				#{ipsIncomeMaintenanceArtificial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenanceArtificial != null">
+				ips_expend_maintenance_artificial =
+				#{ipsExpendMaintenanceArtificial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenanceClean != null">
+				ips_income_maintenance_clean =
+				#{ipsIncomeMaintenanceClean,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenanceClean != null">
+				ips_expend_maintenance_clean =
+				#{ipsExpendMaintenanceClean,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenanceLock != null">
+				ips_income_maintenance_lock =
+				#{ipsIncomeMaintenanceLock,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenanceLock != null">
+				ips_expend_maintenance_lock =
+				#{ipsExpendMaintenanceLock,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeMaintenance != null">
+				ips_income_maintenance = #{ipsIncomeMaintenance,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendMaintenance != null">
+				ips_expend_maintenance = #{ipsExpendMaintenance,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeFinancialTaxes != null">
+				ips_income_financial_taxes =
+				#{ipsIncomeFinancialTaxes,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendFinancialTaxes != null">
+				ips_expend_financial_taxes =
+				#{ipsExpendFinancialTaxes,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeFinancialPos != null">
+				ips_income_financial_pos = #{ipsIncomeFinancialPos,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendFinancialPos != null">
+				ips_expend_financial_pos = #{ipsExpendFinancialPos,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeFinancialFinancial != null">
+				ips_income_financial_financial =
+				#{ipsIncomeFinancialFinancial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendFinancialFinancial != null">
+				ips_expend_financial_financial =
+				#{ipsExpendFinancialFinancial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeFinancial != null">
+				ips_income_financial = #{ipsIncomeFinancial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendFinancial != null">
+				ips_expend_financial = #{ipsExpendFinancial,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeOtherBehalf != null">
+				ips_income_other_behalf = #{ipsIncomeOtherBehalf,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendOtherBehalf != null">
+				ips_expend_other_behalf = #{ipsExpendOtherBehalf,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeOtherTransfer != null">
+				ips_income_other_transfer =
+				#{ipsIncomeOtherTransfer,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendOtherTransfer != null">
+				ips_expend_other_transfer =
+				#{ipsExpendOtherTransfer,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeOther != null">
+				ips_income_other = #{ipsIncomeOther,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendOther != null">
+				ips_expend_other = #{ipsExpendOther,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDebtBorrowed != null">
+				ips_income_debt_borrowed = #{ipsIncomeDebtBorrowed,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendCreditorLoan != null">
+				ips_expend_creditor_loan = #{ipsExpendCreditorLoan,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeCreditorLoan != null">
+				ips_income_creditor_loan = #{ipsIncomeCreditorLoan,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDebtReimbursement != null">
+				ips_expend_debt_reimbursement =
+				#{ipsExpendDebtReimbursement,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeCreditorInterest != null">
+				ips_income_creditor_interest =
+				#{ipsIncomeCreditorInterest,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDebtInterest != null">
+				ips_expend_debt_interest = #{ipsExpendDebtInterest,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDebtCreditor != null">
+				ips_income_debt_creditor = #{ipsIncomeDebtCreditor,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDebtCreditor != null">
+				ips_expend_debt_creditor = #{ipsExpendDebtCreditor,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDefaultPenalty != null">
+				ips_income_default_penalty =
+				#{ipsIncomeDefaultPenalty,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDefaultPenalty != null">
+				ips_expend_default_penalty =
+				#{ipsExpendDefaultPenalty,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDefaultOverdue != null">
+				ips_income_default_overdue =
+				#{ipsIncomeDefaultOverdue,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDefaultOverdue != null">
+				ips_expend_default_overdue =
+				#{ipsExpendDefaultOverdue,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncomeDefault != null">
+				ips_income_default = #{ipsIncomeDefault,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpendDefault != null">
+				ips_expend_default = #{ipsExpendDefault,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsIncome != null">
+				ips_income = #{ipsIncome,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsExpend != null">
+				ips_expend = #{ipsExpend,jdbcType=DOUBLE},
+			</if>
+			<if test="ipsType != null">
+				ips_type = #{ipsType,jdbcType=VARCHAR},
+			</if>
+			<if test="ipsTime != null">
+				ips_time = #{ipsTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ips_id = #{ipsId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zz.po.info.InfoProfitSpace">
+		update stat_profit_space
+		set ips_income_deposit_house = #{ipsIncomeDepositHouse,jdbcType=DOUBLE},
+		ips_expend_deposit_house = #{ipsExpendDepositHouse,jdbcType=DOUBLE},
+		ips_income_deposit_water_ele =
+		#{ipsIncomeDepositWaterEle,jdbcType=DOUBLE},
+		ips_expend_deposit_water_ele =
+		#{ipsExpendDepositWaterEle,jdbcType=DOUBLE},
+		ips_income_deposit_door_card =
+		#{ipsIncomeDepositDoorCard,jdbcType=DOUBLE},
+		ips_expend_deposit_door_card =
+		#{ipsExpendDepositDoorCard,jdbcType=DOUBLE},
+		ips_income_deposit_car_card =
+		#{ipsIncomeDepositCarCard,jdbcType=DOUBLE},
+		ips_expend_deposit_car_card =
+		#{ipsExpendDepositCarCard,jdbcType=DOUBLE},
+		ips_income_deposit_landlord =
+		#{ipsIncomeDepositLandlord,jdbcType=DOUBLE},
+		ips_expend_deposit_renter = #{ipsExpendDepositRenter,jdbcType=DOUBLE},
+		ips_income_deposit_deposit =
+		#{ipsIncomeDepositDeposit,jdbcType=DOUBLE},
+		ips_expend_deposit_deposit = #{ipsExpendDepositDeposit,jdbcType=DOUBLE},
+		ips_income_deposit_decorate =
+		#{ipsIncomeDepositDecorate,jdbcType=DOUBLE},
+		ips_expend_deposit_decorate =
+		#{ipsExpendDepositDecorate,jdbcType=DOUBLE},
+		ips_income_deposit = #{ipsIncomeDeposit,jdbcType=DOUBLE},
+		ips_expend_deposit = #{ipsExpendDeposit,jdbcType=DOUBLE},
+		ips_income_energy_water = #{ipsIncomeEnergyWater,jdbcType=DOUBLE},
+		ips_expend_energy_water = #{ipsExpendEnergyWater,jdbcType=DOUBLE},
+		ips_income_energy_electricity =
+		#{ipsIncomeEnergyElectricity,jdbcType=DOUBLE},
+		ips_expend_energy_electricity =
+		#{ipsExpendEnergyElectricity,jdbcType=DOUBLE},
+		ips_income_energy_gas = #{ipsIncomeEnergyGas,jdbcType=DOUBLE},
+		ips_expend_energy_gas = #{ipsExpendEnergyGas,jdbcType=DOUBLE},
+		ips_income_energy_network = #{ipsIncomeEnergyNetwork,jdbcType=DOUBLE},
+		ips_expend_energy_network = #{ipsExpendEnergyNetwork,jdbcType=DOUBLE},
+		ips_income_energy_tv = #{ipsIncomeEnergyTv,jdbcType=DOUBLE},
+		ips_expend_energy_tv = #{ipsExpendEnergyTv,jdbcType=DOUBLE},
+		ips_income_energy_management =
+		#{ipsIncomeEnergyManagement,jdbcType=DOUBLE},
+		ips_expend_energy_management =
+		#{ipsExpendEnergyManagement,jdbcType=DOUBLE},
+		ips_income_energy_balance = #{ipsIncomeEnergyBalance,jdbcType=DOUBLE},
+		ips_expend_energy_balance = #{ipsExpendEnergyBalance,jdbcType=DOUBLE},
+		ips_income_energy = #{ipsIncomeEnergy,jdbcType=DOUBLE},
+		ips_expend_energy = #{ipsExpendEnergy,jdbcType=DOUBLE},
+		ips_income_main_rental = #{ipsIncomeMainRental,jdbcType=DOUBLE},
+		ips_expend_main_rental = #{ipsExpendMainRental,jdbcType=DOUBLE},
+		ips_income_main_commission =
+		#{ipsIncomeMainCommission,jdbcType=DOUBLE},
+		ips_expend_main_commission = #{ipsExpendMainCommission,jdbcType=DOUBLE},
+		ips_income_main_car_rental =
+		#{ipsIncomeMainCarRental,jdbcType=DOUBLE},
+		ips_expend_main_car_rental = #{ipsExpendMainCarRental,jdbcType=DOUBLE},
+		ips_income_main = #{ipsIncomeMain,jdbcType=DOUBLE},
+		ips_expend_main = #{ipsExpendMain,jdbcType=DOUBLE},
+		ips_income_maintenance_material = #{ipsIncomeMaintenanceMaterial,jdbcType=DOUBLE},
+		ips_expend_maintenance_material =
+		#{ipsExpendMaintenanceMaterial,jdbcType=DOUBLE},
+		ips_income_maintenance_artificial =
+		#{ipsIncomeMaintenanceArtificial,jdbcType=DOUBLE},
+		ips_expend_maintenance_artificial =
+		#{ipsExpendMaintenanceArtificial,jdbcType=DOUBLE},
+		ips_income_maintenance_clean =
+		#{ipsIncomeMaintenanceClean,jdbcType=DOUBLE},
+		ips_expend_maintenance_clean =
+		#{ipsExpendMaintenanceClean,jdbcType=DOUBLE},
+		ips_income_maintenance_lock =
+		#{ipsIncomeMaintenanceLock,jdbcType=DOUBLE},
+		ips_expend_maintenance_lock =
+		#{ipsExpendMaintenanceLock,jdbcType=DOUBLE},
+		ips_income_maintenance = #{ipsIncomeMaintenance,jdbcType=DOUBLE},
+		ips_expend_maintenance = #{ipsExpendMaintenance,jdbcType=DOUBLE},
+		ips_income_financial_taxes = #{ipsIncomeFinancialTaxes,jdbcType=DOUBLE},
+		ips_expend_financial_taxes =
+		#{ipsExpendFinancialTaxes,jdbcType=DOUBLE},
+		ips_income_financial_pos = #{ipsIncomeFinancialPos,jdbcType=DOUBLE},
+		ips_expend_financial_pos = #{ipsExpendFinancialPos,jdbcType=DOUBLE},
+		ips_income_financial_financial =
+		#{ipsIncomeFinancialFinancial,jdbcType=DOUBLE},
+		ips_expend_financial_financial =
+		#{ipsExpendFinancialFinancial,jdbcType=DOUBLE},
+		ips_income_financial = #{ipsIncomeFinancial,jdbcType=DOUBLE},
+		ips_expend_financial = #{ipsExpendFinancial,jdbcType=DOUBLE},
+		ips_income_other_behalf = #{ipsIncomeOtherBehalf,jdbcType=DOUBLE},
+		ips_expend_other_behalf = #{ipsExpendOtherBehalf,jdbcType=DOUBLE},
+		ips_income_other_transfer = #{ipsIncomeOtherTransfer,jdbcType=DOUBLE},
+		ips_expend_other_transfer = #{ipsExpendOtherTransfer,jdbcType=DOUBLE},
+		ips_income_other = #{ipsIncomeOther,jdbcType=DOUBLE},
+		ips_expend_other = #{ipsExpendOther,jdbcType=DOUBLE},
+		ips_income_debt_borrowed = #{ipsIncomeDebtBorrowed,jdbcType=DOUBLE},
+		ips_expend_creditor_loan = #{ipsExpendCreditorLoan,jdbcType=DOUBLE},
+		ips_income_creditor_loan = #{ipsIncomeCreditorLoan,jdbcType=DOUBLE},
+		ips_expend_debt_reimbursement =
+		#{ipsExpendDebtReimbursement,jdbcType=DOUBLE},
+		ips_income_creditor_interest =
+		#{ipsIncomeCreditorInterest,jdbcType=DOUBLE},
+		ips_expend_debt_interest = #{ipsExpendDebtInterest,jdbcType=DOUBLE},
+		ips_income_debt_creditor = #{ipsIncomeDebtCreditor,jdbcType=DOUBLE},
+		ips_expend_debt_creditor = #{ipsExpendDebtCreditor,jdbcType=DOUBLE},
+		ips_income_default_penalty =
+		#{ipsIncomeDefaultPenalty,jdbcType=DOUBLE},
+		ips_expend_default_penalty = #{ipsExpendDefaultPenalty,jdbcType=DOUBLE},
+		ips_income_default_overdue =
+		#{ipsIncomeDefaultOverdue,jdbcType=DOUBLE},
+		ips_expend_default_overdue = #{ipsExpendDefaultOverdue,jdbcType=DOUBLE},
+		ips_income_default = #{ipsIncomeDefault,jdbcType=DOUBLE},
+		ips_expend_default = #{ipsExpendDefault,jdbcType=DOUBLE},
+		ips_income = #{ipsIncome,jdbcType=DOUBLE},
+		ips_expend = #{ipsExpend,jdbcType=DOUBLE},
+		ips_type = #{ipsType,jdbcType=VARCHAR},
+		ips_time = #{ipsTime,jdbcType=TIMESTAMP}
+		where ips_id = #{ipsId,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectAll" resultMap="BaseResultMap"
+		parameterType="com.zz.po.info.InfoProfitSpace">
+		select a.*,b.totalNum
+		from stat_profit_space a,
+		(select count(*) totalNum from stat_profit_space) b
+		order by ips_id DESC
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+</mapper>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourGateLockRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourGateLockRecord" >
+    <id column="jglr_id" property="jglrId" jdbcType="INTEGER" />
+    <result column="jglr_brand_id" property="jglrBrandId" jdbcType="INTEGER" />
+    <result column="jglr_device_type" property="jglrDeviceType" jdbcType="VARCHAR" />
+    <result column="jglr_sn" property="jglrSn" jdbcType="VARCHAR" />
+    <result column="jglr_record_type" property="jglrRecordType" jdbcType="VARCHAR" />
+    <result column="jglr_content" property="jglrContent" jdbcType="VARCHAR" />
+    <result column="jglr_pop_id" property="jglrPopId" jdbcType="INTEGER" />
+    <result column="jglr_user_id" property="jglrUserId" jdbcType="INTEGER" />
+    <result column="jglr_time" property="jglrTime" jdbcType="TIMESTAMP" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="su_name" property="suName" jdbcType="VARCHAR" />
+    <result column="pop_name" property="popName" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="queryDeviceRecord" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourGateLockRecord">
+    select a.*,b.total_num from
+    (select jglr.*,su.su_name,ipt.pop_name
+    from jour_gate_lock_record jglr
+    left outer join sys_users su on su.user_coding = jglr.jglr_user_id
+    left outer join info_pop_tmp ipt on ipt.pop_id = jglr.jglr_pop_id
+    <where>
+      <if test="jglrBrandId != null and jglrBrandId != ''">
+        and jglr_brand_id = #{jglrBrandId}
+      </if>
+      <if test="jglrSn != null and jglrSn != ''">
+        and jglr_sn = #{jglrSn}
+      </if>
+    </where>
+    )a,
+    (select count(jglr_id) total_num
+    from jour_gate_lock_record jglr
+    left outer join sys_users su on su.user_coding = jglr.jglr_user_id
+    left outer join info_pop_tmp ipt on ipt.pop_id = jglr.jglr_pop_id
+    <where>
+      <if test="jglrBrandId != null and jglrBrandId != ''">
+        and jglr_brand_id = #{jglrBrandId}
+      </if>
+      <if test="jglrSn != null and jglrSn != ''">
+        and jglr_sn = #{jglrSn}
+      </if>
+    </where>
+    )b
+    <if test="startNum != '' and startNum != null">
+      limit ${startNum}
+      <if test="endNum != '' and endNum != null">
+        ,${endNum}
+      </if>
+    </if>
+  </select>
+
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourGateLockRecord" >
+    insert into jour_gate_lock_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jglrId != null" >
+        jglr_id,
+      </if>
+      <if test="jglrBrandId != null" >
+        jglr_brand_id,
+      </if>
+      <if test="jglrDeviceType != null" >
+        jglr_device_type,
+      </if>
+      <if test="jglrSn != null" >
+        jglr_sn,
+      </if>
+      <if test="jglrRecordType != null" >
+        jglr_record_type,
+      </if>
+      <if test="jglrContent != null" >
+        jglr_content,
+      </if>
+      <if test="jglrPopId != null" >
+        jglr_pop_id,
+      </if>
+      <if test="jglrUserId != null" >
+        jglr_user_id,
+      </if>
+      <if test="jglrTime != null" >
+        jglr_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jglrId != null" >
+        #{jglrId,jdbcType=INTEGER},
+      </if>
+      <if test="jglrBrandId != null" >
+        #{jglrBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="jglrDeviceType != null" >
+        #{jglrDeviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="jglrSn != null" >
+        #{jglrSn,jdbcType=VARCHAR},
+      </if>
+      <if test="jglrRecordType != null" >
+        #{jglrRecordType,jdbcType=VARCHAR},
+      </if>
+      <if test="jglrContent != null" >
+        #{jglrContent,jdbcType=VARCHAR},
+      </if>
+      <if test="jglrPopId != null" >
+        #{jglrPopId,jdbcType=INTEGER},
+      </if>
+      <if test="jglrUserId != null" >
+        #{jglrUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jglrTime != null" >
+        #{jglrTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourGateLockRecord" >
+    update jour_gate_lock_record
+    <set >
+      <if test="jglrBrandId != null" >
+        jglr_brand_id = #{jglrBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="jglrDeviceType != null" >
+        jglr_device_type = #{jglrDeviceType,jdbcType=VARCHAR},
+      </if>
+      <if test="jglrSn != null" >
+        jglr_sn = #{jglrSn,jdbcType=VARCHAR},
+      </if>
+      <if test="jglrRecordType != null" >
+        jglr_record_type = #{jglrRecordType,jdbcType=VARCHAR},
+      </if>
+      <if test="jglrContent != null" >
+        jglr_content = #{jglrContent,jdbcType=VARCHAR},
+      </if>
+      <if test="jglrPopId != null" >
+        jglr_pop_id = #{jglrPopId,jdbcType=INTEGER},
+      </if>
+      <if test="jglrUserId != null" >
+        jglr_user_id = #{jglrUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jglrTime != null" >
+        jglr_time = #{jglrTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where jglr_id = #{jglrId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourUserDeviceMapper">
+	<resultMap type="com.zz.po.journal.JourUserDevice" id="JourUserDevice">
+		<id column="jud_id" property="judId" jdbcType="INTEGER"/>
+		<result column="jud_user_id" property="judUserId" jdbcType="INTEGER"/>
+		<result column="jud_device_id" property="judDeviceId" jdbcType="INTEGER"/>
+		<result column="jud_create_time" property="judCreateTime" jdbcType="DATE"/>
+		<result column="user_coding" property="userId" jdbcType="INTEGER" />
+		<result column="su_name" property="suName" jdbcType="VARCHAR"/>
+		<result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR"/>
+		<result column="department_name" property="departmentName" jdbcType="VARCHAR"/>
+		<result column="dev_type" property="devType" jdbcType="VARCHAR"/>
+		<result column="dev_nickname" property="devNickname" jdbcType="VARCHAR"/>
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="devUsername" property="devUsername" jdbcType="VARCHAR"/>
+		<result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR"/>
+	</resultMap>
+	<select id="selectById" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		select * from jour_user_device
+		<where>
+			<if test="judUserId !=null and judUserId != ''">
+				and jud_user_id = #{judUserId,jdbcType=INTEGER}
+			</if>
+			<if test="judDeviceId !=null and judDeviceId !=''">
+				and jud_device_id = #{judDeviceId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<select id="selectHssByJhoOfficeId" resultType="Integer" parameterType="java.util.List">
+		select jud_device_id from jour_user_device where jud_device_id = #{judDeviceId,jdbcType=INTEGER}
+	</select>
+	<select id="selectJouUserId" resultType="Integer" parameterType="java.util.List">
+		select jud_user_id from jour_user_device where jud_user_id = #{judUserId,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllUserDevice" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		select * from jour_user_device where jud_device_id = #{judDeviceId,jdbcType=INTEGER}
+	</select>
+	<select id="selectAllUserdevice" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		select * from jour_user_device 
+		where jud_device_id 
+		<foreach collection="list" item="item" index="no" open="("
+			separator="," close=")">
+				(#{item.judDeviceId,jdbcType=INTEGER})
+		</foreach>
+	</select>
+	<select id="selectAllUser" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		select * from jour_user_device where jud_user_id = #{judUserId,jdbcType=INTEGER}
+	</select>
+	<select id="selectHssByJhoOfficeId2" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		select * from jour_user_device
+		<where>
+			<if test="judDeviceId !=null and judDeviceId !=''">
+				and jud_device_id = #{judDeviceId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<select id="selectJourHsOfficeExpandByOfficeId" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		select * from jour_user_device where jud_id = #{judId,jdbcType=INTEGER}
+	</select>
+	<delete id="removeOfficeAssociateByOfficeId" parameterType="java.lang.Integer">
+		delete from jour_user_device
+			where jud_device_id = #{judDeviceId,jdbcType=INTEGER}
+	</delete>
+	<delete id="removeJouUserId" parameterType="java.lang.Integer">
+		delete from jour_user_device
+			where jud_user_id = #{judUserId,jdbcType=INTEGER}
+	</delete>
+	<delete id="removeOfficeAssociateByIds" parameterType="java.util.List">
+		delete from jour_user_device
+		where jud_id in 
+		<foreach collection="list" item="item" index="no" open="("
+			separator="," close=")">
+				(#{item.judId,jdbcType=INTEGER})
+		</foreach>
+	</delete>
+	<insert id="insertOfficeAssociateHsList"  parameterType="java.util.List">
+		insert  into jour_user_device (jud_user_id,jud_device_id)
+		values
+		<foreach collection="list" item="item" index="index" separator="," close=";">
+			(#{item.judUserId,jdbcType=INTEGER},#{item.judDeviceId,jdbcType=INTEGER})
+		</foreach>
+		
+	</insert> 
+	<select id="selectUser" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		select jour_user_device.*,sys_users.su_department_id,sys_users.su_name suName,sys_users.su_staff_name suStaffName,sys_users.user_coding userId,sys_department.department_name department_name from jour_user_device 
+		left outer join sys_users  on sys_users.user_coding = jour_user_device.jud_user_id
+		left outer join sys_department on  sys_users.su_department_id = sys_department.department_id
+		<where>
+			<if test="judDeviceId !=null and judDeviceId !=''">
+				jud_device_id=#{judDeviceId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<select id="selectDeivce" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		SELECT jour_user_device.*,jour_device.dev_type devType,jour_device.dev_nickname devNickname,info_house_4store.hs_add_community hsAddCommunity,jour_device.id id
+		FROM jour_user_device
+		LEFT OUTER
+		JOIN jour_device ON jour_device.id = jour_user_device.jud_device_id
+		JOIN jour_hs_device  ON jour_hs_device.jhd_device_id = jour_user_device.jud_device_id
+		LEFT OUTER
+		JOIN info_house_4store  ON info_house_4store.hs_id=jour_hs_device.jhd_hs_id
+		<where>
+			<if test="judUserId !=null and judUserId !=''">
+				jud_user_id=#{judUserId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+	<select id="selectDeivce2" resultMap="JourUserDevice" parameterType="com.zz.po.journal.JourUserDevice">
+		select jd.*,idft.idft_name,idst.idst_name,jhd.*,ihs.* from jour_device jd
+		LEFT OUTER
+		JOIN jour_hs_device jhd ON jd.id = jhd.jhd_device_id
+		LEFT OUTER
+		JOIN info_house_4store ihs ON jhd.jhd_hs_id = ihs.hs_id
+		left outer join info_device_first_type idft on idft.idft_id=jd.dev_idft_id
+		left outer join info_device_second_type idst on idst.idst_id=jd.dev_idst_id
+		<where>
+				(hs_add_city = '公区' or hs_add_city = '教室' or hs_add_city = '办公室') and hs_state="正常" and
+				((dev_first_type = 1 AND dev_second_type = 1) OR (dev_first_type = 4 AND dev_second_type = 4)
+				OR (dev_first_type = 6 AND dev_second_type = 6) OR (dev_first_type = 2 AND dev_second_type = 25)
+				OR (dev_first_type = 23 AND dev_second_type = 31)OR (dev_first_type = 17 AND dev_second_type = 17)
+				OR (dev_first_type = 23 AND dev_second_type = 36)OR (dev_first_type = 2 AND dev_second_type =37)
+				OR (dev_first_type = 6 AND dev_second_type =38)OR (dev_first_type = 6 AND dev_second_type =41))
+			<if test="hsAddCommunity !=null and hsAddCommunity !=''">
+				and hs_add_community like '${hsAddCommunity}%'
+			</if>
+			<if test="devNickname !=null and devNickname !=''">
+				and dev_nickname like '%${devNickname}%'
+			</if>
+			<if test="hsAddCity !=null and hsAddCity !=''">
+				and hs_add_city like '%${hsAddCity}%'
+			</if>
+		</where>
+	</select>
+	
+</mapper>

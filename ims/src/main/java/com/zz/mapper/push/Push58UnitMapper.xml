@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.push.Push58UnitMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.push.Push58Unit" >
+    <id column="p5u_id" property="p5uId" jdbcType="INTEGER" />
+    <result column="p5u_hs_id" property="p5uHsId" jdbcType="INTEGER" />
+    <result column="p5u_house_type" property="p5uHouseType" jdbcType="VARCHAR" />
+    <result column="p5u_gmt_create" property="p5uGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="p5u_gmt_modified" property="p5uGmtModified" jdbcType="TIMESTAMP" />
+    <result column="p5u_detail" property="p5uDetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from push_58_unit
+    where p5u_id = #{p5uId,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.push.Push58Unit" keyProperty="p5uId" useGeneratedKeys="true">
+    insert into push_58_unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="p5uId != null" >
+        p5u_id,
+      </if>
+      <if test="p5uHsId != null" >
+        p5u_hs_id,
+      </if>
+      <if test="p5uHouseType != null" >
+        p5u_house_type,
+      </if>
+      <if test="p5uGmtCreate != null" >
+        p5u_gmt_create,
+      </if>
+      <if test="p5uGmtModified != null" >
+        p5u_gmt_modified,
+      </if>
+      <if test="p5uDetail != null" >
+        p5u_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="p5uId != null" >
+        #{p5uId,jdbcType=INTEGER},
+      </if>
+      <if test="p5uHsId != null" >
+        #{p5uHsId,jdbcType=INTEGER},
+      </if>
+      <if test="p5uHouseType != null" >
+        #{p5uHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="p5uGmtCreate != null" >
+        #{p5uGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5uGmtModified != null" >
+        #{p5uGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5uDetail != null" >
+        #{p5uDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.push.Push58Unit" >
+    update push_58_unit
+    <set >
+      <if test="p5uHsId != null" >
+        p5u_hs_id = #{p5uHsId,jdbcType=INTEGER},
+      </if>
+      <if test="p5uHouseType != null" >
+        p5u_house_type = #{p5uHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="p5uGmtCreate != null" >
+        p5u_gmt_create = #{p5uGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5uGmtModified != null" >
+        p5u_gmt_modified = #{p5uGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5uDetail != null" >
+        p5u_detail = #{p5uDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where p5u_id = #{p5uId,jdbcType=INTEGER}
+  </update>
+</mapper>

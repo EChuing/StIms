@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.zz.datasource.MyDataSourceMapper">
+	<resultMap id="BaseResultMap" type="com.zz.datasource.MyDataSource" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="company_name" property="companyName" jdbcType="VARCHAR" />
+	    <result column="company_contact" property="companyContact" jdbcType="VARCHAR" />
+	    <result column="company_tel" property="companyTel" jdbcType="VARCHAR" />
+	    <result column="company_address" property="companyAddress" jdbcType="VARCHAR" />
+	    <result column="system_brand" property="systemBrand" jdbcType="VARCHAR" />
+	    <result column="system_type" property="systemType" jdbcType="VARCHAR" />
+	    <result column="package_name" property="packageName" jdbcType="VARCHAR" />
+	    <result column="logo_company" property="logoCompany" jdbcType="VARCHAR" />
+	    <result column="code_version" property="codeVersion" jdbcType="VARCHAR" />
+	    <result column="driver" property="driver" jdbcType="VARCHAR" />
+	    <result column="url" property="url" jdbcType="VARCHAR" />
+	    <result column="username" property="username" jdbcType="VARCHAR" />
+	    <result column="password" property="password" jdbcType="VARCHAR" />
+	    <result column="dbname" property="dbname" jdbcType="VARCHAR" />
+	    <result column="nodepath" property="nodepath" jdbcType="VARCHAR" />
+	    <result column="state" property="state" jdbcType="INTEGER" />
+	    <result column="registration_time" property="registrationTime" jdbcType="TIMESTAMP" />
+	    <result column="company_rent_province" property="companyRentProvince" jdbcType="VARCHAR" />
+	    <result column="company_rent_city" property="companyRentCity" jdbcType="VARCHAR" />
+	    <result column="authority_switch" property="authoritySwitch" jdbcType="LONGVARCHAR" />
+	    <result column="appId" property="appId" jdbcType="VARCHAR" />
+	    <result column="wx_key" property="wxKey" jdbcType="VARCHAR" />
+	    <result column="wx_merchant_number" property="wxMerchantNumber" jdbcType="VARCHAR" />
+		<result column="wx_merchant_name" property="wxMerchantName" jdbcType="VARCHAR" />
+	    <result column="device_brand" property="deviceBrand" jdbcType="VARCHAR" />
+	    <result column="max_hs_num" property="maxHsNum" jdbcType="INTEGER" />
+	    <result column="max_user_num" property="maxUserNum" jdbcType="INTEGER" />
+	    <result column="ant_user_id" property="antUserId" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getDataSource" parameterType="String" resultMap="BaseResultMap">
+	    SELECT * FROM datasource WHERE name = #{name}
+	</select>
+	<select id="getComparyId" parameterType="Integer" resultMap="BaseResultMap">
+	    SELECT * FROM datasource WHERE id = #{id}
+	</select>
+</mapper>

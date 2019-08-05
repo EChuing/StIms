@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalHousingFollowMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.journal.JournalHousingFollowExpand" >
+    <id column="jhf_id" property="jhfId" jdbcType="INTEGER" />
+    <result column="jhf_house_id" property="jhfHouseId" jdbcType="INTEGER" />
+    <result column="jhf_house_4rent_id" property="jhfHouse4rentId" jdbcType="INTEGER" />
+    <result column="jhf_house_4store_id" property="jhfHouse4storeId" jdbcType="INTEGER" />
+    <result column="jhf_user_id" property="jhfUserId" jdbcType="INTEGER" />
+    <result column="jhf_follow_time" property="jhfFollowTime" jdbcType="TIMESTAMP" />
+    <result column="jhf_follow_remark" property="jhfFollowRemark" jdbcType="VARCHAR" />
+    <result column="jhf_payment_way" property="jhfPaymentWay" jdbcType="VARCHAR" />
+    <result column="jhf_follow_result" property="jhfFollowResult" jdbcType="VARCHAR" />
+    <result column="jhf_follow_belong" property="jhfFollowBelong" jdbcType="VARCHAR" />
+    <!-- user -->
+    <result column="username" property="jhfUserName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="jhf_department" property="jhfDepartment" jdbcType="INTEGER" />
+    <result column="jhf_storefront" property="jhfStorefront" jdbcType="INTEGER" />
+    <result column="fromTime" property="fromTime" jdbcType="VARCHAR" />
+    <result column="toTime" property="toTime" jdbcType="VARCHAR" />
+    
+    <result column="add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="jhf_remind" property="jhfRemind" jdbcType="VARCHAR" />
+    <result column="jhf_img_path" property="jhfImgPath" jdbcType="LONGVARCHAR" />
+    <result column="jhf_img_num" property="jhfImgNum" jdbcType="VARCHAR" />
+    <result column="house_signed_state" property="houseSignedState" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <!-- 查询所有跟进 数据和统计分开 -->
+  <select id="selectAllHouseFollow" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalHousingFollowExpand" >
+	  select 
+			<if test="splitFlag ==0">
+				<!-- 统计查询 -->
+				COUNT(jhf_id) totalNum
+			</if>
+			<if test="splitFlag ==1">
+				<!-- 数据查询 -->
+				jhf.*, u.su_staff_name username, h.add_zone, h.add_community, 
+				h.add_building, h.add_doorplateno, h.house_signed_state
+			</if>
+			from jour_event_followup_records jhf 
+			left outer join sys_users u on jhf.jhf_user_id = u.user_coding
+			left outer join info_house_paper h on h.house_coding = jhf.jhf_house_id
+		<where>
+			<if test="jhfHouseId != null" >
+				and jhf_house_id = #{jhfHouseId}</if>
+			<if test="jhfHouse4rentId != null and jhfHouse4rentId != ''" >
+				and jhf_house_4rent_id = #{jhfHouse4rentId,jdbcType=INTEGER}</if>
+			<if test="jhfHouse4storeId != null and jhfHouse4storeId != ''" >
+				and jhf_house_4store_id = #{jhfHouse4storeId,jdbcType=INTEGER}</if>
+			<if test="jhfUserId != null and jhfUserId != ''" >
+				and jhf_user_id = #{jhfUserId,jdbcType=INTEGER}</if>
+			<if test="jhfDepartment != null and jhfDepartment != ''" >
+				and jhf_department = #{jhfDepartment,jdbcType=INTEGER}</if>
+			<!-- <if test="jhfFollowTime != null and jhfFollowTime != ''" >
+				and jhf_follow_time = #{jhfFollowTime,jdbcType=TIMESTAMP}</if> -->
+			<if test="fromTime != null and fromTime != '' and toTime != null and toTime != ''" >
+				and (jhf_follow_time between '${fromTime}' and '${toTime}') </if>
+			<if test="jhfFollowBelong != null and jhfFollowBelong != ''" >
+				and jhf_follow_belong = #{jhfFollowBelong,jdbcType=VARCHAR}</if>
+			<if test="jhfPaymentWay != null and jhfPaymentWay != ''" >
+				and jhf_payment_way = #{jhfPaymentWay,jdbcType=VARCHAR}</if>
+			<if test="jhfRemind != null and jhfRemind != ''" >
+				and jhf_remind =#{jhfRemind}
+			</if>
+			<if test="houseSignedState != null and houseSignedState != ''" >
+				and house_signed_state =#{houseSignedState}
+			</if>
+		</where>	
+		<if test="splitFlag == 1">
+			<if test="startNum != '' and startNum != null">
+				ORDER BY jhf_id DESC 
+		        limit ${startNum}
+		        <if test="endNum != '' and endNum != null">
+		            ,${endNum}
+		        </if>
+		    </if>
+	    </if>
+	</select>
+    <!-- ********************* -->
+  <select id="selectByHouse4rentId" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalHousingFollowExpand" >
+    select
+	jhf.*,u.su_staff_name username
+	from
+	jour_event_followup_records jhf,
+	sys_users u
+	<where>
+		jhf.jhf_user_id = u.user_coding
+		<if test="jhfHouse4rentId != null and jhfHouse4rentId != '' ">
+			and jhf.jhf_house_4rent_id= #{jhfHouse4rentId,jdbcType=INTEGER}
+		</if>
+		<if test="jhfHouseId != null">
+			and jhf.jhf_house_id= #{jhfHouseId}
+		</if>		
+		<if test="jhfHouse4storeId != null and jhfHouse4storeId != '' ">
+			and jhf_house_4store_id =#{jhfHouse4storeId}
+		</if>
+		<if test="jhfPaymentWay != null and jhfPaymentWay != '' ">
+			and jhf_payment_way =#{jhfPaymentWay}
+		</if>
+		<if test="fromTime != null and fromTime != '' and toTime != null and toTime != ''" >
+			and jhf_follow_time between '${fromTime}' and '${toTime}' 
+		</if>
+		<if test="jhfRemind != null and jhfRemind != ''" >
+			and jhf_remind =#{jhfRemind}
+		</if>
+	</where>
+	ORDER BY jhf_id DESC 
+  </select>
+  
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalHousingFollowExpand" >
+    select
+		aa.*, bb.total_num
+	from 
+		(select jhf.*, u.su_staff_name username, h.add_zone, h.add_community, h.add_building, h.add_doorplateno
+		from 
+		jour_event_followup_records jhf 
+		left outer join sys_users u on jhf.jhf_user_id = u.user_coding
+		left outer join info_house_paper h on h.house_coding = jhf.jhf_house_id
+	<where>
+		<if test="jhfHouseId != null" >
+			and jhf_house_id = #{jhfHouseId}</if>
+		<if test="jhfHouse4rentId != null and jhfHouse4rentId != ''" >
+			and jhf_house_4rent_id = #{jhfHouse4rentId,jdbcType=INTEGER}</if>
+		<if test="jhfHouse4storeId != null and jhfHouse4storeId != ''" >
+			and jhf_house_4store_id = #{jhfHouse4storeId,jdbcType=INTEGER}</if>
+		<if test="jhfUserId != null and jhfUserId != ''" >
+			and jhf_user_id = #{jhfUserId,jdbcType=INTEGER}</if>
+		<if test="jhfDepartment != null and jhfDepartment != ''" >
+			and jhf_department = #{jhfDepartment,jdbcType=INTEGER}</if>
+		<!-- <if test="jhfFollowTime != null and jhfFollowTime != ''" >
+			and jhf_follow_time = #{jhfFollowTime,jdbcType=TIMESTAMP}</if> -->
+		<if test="fromTime != null and fromTime != '' and toTime != null and toTime != ''" >
+			and (jhf_follow_time between '${fromTime}' and '${toTime}') </if>
+		<if test="jhfFollowBelong != null and jhfFollowBelong != ''" >
+			and jhf_follow_belong = #{jhfFollowBelong,jdbcType=VARCHAR}</if>
+		<if test="jhfPaymentWay != null and jhfPaymentWay != ''" >
+			and jhf_payment_way = #{jhfPaymentWay,jdbcType=VARCHAR}</if>
+		<if test="jhfRemind != null and jhfRemind != ''" >
+			and jhf_remind =#{jhfRemind}
+		</if>
+	</where>	
+	)  aa ,
+	(select count(jhf_id) total_num 
+		from 
+		jour_event_followup_records jhf
+		left outer join sys_users u on jhf.jhf_user_id = u.user_coding
+		left outer join info_house_paper h on h.house_coding = jhf.jhf_house_id
+	<where>
+		<if test="jhfHouseId != null" >
+			and jhf_house_id = #{jhfHouseId}</if>
+		<if test="jhfHouse4rentId != null and jhfHouse4rentId != ''" >
+			and jhf_house_4rent_id = #{jhfHouse4rentId,jdbcType=INTEGER}</if>
+		<if test="jhfHouse4storeId != null and jhfHouse4storeId != ''" >
+			and jhf_house_4store_id = #{jhfHouse4storeId,jdbcType=INTEGER}</if>
+		<if test="jhfUserId != null and jhfUserId != ''" >
+			and jhf_user_id = #{jhfUserId,jdbcType=INTEGER}</if>
+		<if test="jhfDepartment != null and jhfDepartment != ''" >
+			and jhf_department = #{jhfDepartment,jdbcType=INTEGER}</if>
+		<!-- <if test="jhfFollowTime != null and jhfFollowTime != ''" >
+			and jhf_follow_time = #{jhfFollowTime,jdbcType=TIMESTAMP}</if> -->
+		<if test="fromTime != null and fromTime != '' and toTime != null and toTime != ''" >
+			and (jhf_follow_time between '${fromTime}' and '${toTime}' )</if>
+		<if test="jhfFollowBelong != null and jhfFollowBelong != ''" >
+			and jhf_follow_belong = #{jhfFollowBelong,jdbcType=VARCHAR}</if>
+		<if test="jhfPaymentWay != null and jhfPaymentWay != ''" >
+			and jhf_payment_way = #{jhfPaymentWay,jdbcType=VARCHAR}</if>
+		<if test="jhfRemind != null and jhfRemind != ''" >
+			and jhf_remind =#{jhfRemind}
+		</if>
+	</where>
+	) bb
+	ORDER BY jhf_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+</select>
+  <!-- ********************* -->
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from jour_event_followup_records
+    where jhf_id = #{jhfId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_event_followup_records
+    where jhf_id = #{jhfId,jdbcType=INTEGER}
+  </delete>
+  
+ <!--  批量插入跟进 -->
+ <insert id="insertFollowList" parameterType="java.util.List">
+  	insert into jour_event_followup_records
+  	(   
+  		jhf_house_4store_id,
+  		jhf_user_id,
+  		jhf_department,
+  		jhf_storefront,
+  		jhf_follow_time,
+  		jhf_follow_remark,
+  		jhf_payment_way,
+  		jhf_follow_result,
+  		jhf_follow_belong,
+  		jhf_remind
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+    	#{item.jhfHouse4storeId},
+		#{item.jhfUserId},
+		#{item.jhfDepartment},
+		#{item.jhfStorefront},
+		#{item.jhfFollowTime},
+		#{item.jhfFollowRemark},
+		#{item.jhfPaymentWay},
+		#{item.jhfFollowResult},
+		#{item.jhfFollowBelong},
+		#{item.jhfRemind}
+    )
+    </foreach>
+  </insert>
+ <!--  收支批量插入跟进 -->
+ <insert id="financialInsertHousingFollow" parameterType="java.util.List">
+  	insert into jour_event_followup_records
+  	(   
+  		jhf_house_4store_id,
+  		jhf_house_id,
+  		jhf_house_4rent_id,
+  		jhf_user_id,
+  		jhf_department,
+  		jhf_storefront,
+  		jhf_follow_remark,
+  		jhf_payment_way,
+  		jhf_follow_result
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+    	#{item.jhfHouse4storeId},
+    	#{item.jhfHouseId},
+    	#{item.jhfHouse4rentId},
+		#{item.jhfUserId},
+		#{item.jhfDepartment},
+		#{item.jhfStorefront},
+		#{item.jhfFollowRemark},
+		#{item.jhfPaymentWay},
+		#{item.jhfFollowResult}
+    )
+    </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalHousingFollowExpand" 
+  		useGeneratedKeys="true" keyProperty="jhfId"> 
+    insert into jour_event_followup_records
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jhfHouseId != null" >
+        jhf_house_id,
+      </if>
+      <if test="jhfHouse4rentId != null and jhfHouse4rentId != ''" >
+        jhf_house_4rent_id,
+      </if>
+      <if test="jhfHouse4storeId != null and jhfHouse4storeId != ''" >
+        jhf_house_4store_id,
+      </if>
+      <if test="jhfUserId != null and jhfUserId != ''" >
+        jhf_user_id,
+      </if>
+      <if test="jhfFollowTime != null and jhfFollowTime != ''" >
+        jhf_follow_time,
+      </if>
+      <if test="jhfFollowRemark != null and jhfFollowRemark != ''" >
+        jhf_follow_remark,
+      </if>
+      <if test="jhfPaymentWay != null and jhfPaymentWay != ''" >
+        jhf_payment_way,
+      </if>
+      <if test="jhfFollowResult != null and jhfFollowResult != ''" >
+        jhf_follow_result,
+      </if>
+      <if test="jhfFollowBelong != null and jhfFollowBelong != ''" >
+        jhf_follow_belong,
+      </if>
+	  <if test="jhfDepartment != null and jhfDepartment !=''" >
+    	jhf_department,
+	  </if>
+	  <if test="jhfStorefront != null and jhfStorefront !=''" >
+	   	jhf_storefront,
+	  </if>
+	  <if test="jhfRemind != null and jhfRemind !=''" >
+	   	jhf_remind,
+	  </if>
+	    
+	  <if test="jhfImgPath != null and jhfImgPath !=''" >
+	    jhf_img_path,
+	  </if>
+	  <if test="jhfImgNum != null and jhfImgNum !=''" >
+	    jhf_img_num,
+	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jhfHouseId != null" >
+        #{jhfHouseId},
+      </if>
+      <if test="jhfHouse4rentId != null and jhfHouse4rentId != ''" >
+        #{jhfHouse4rentId,jdbcType=INTEGER},
+      </if>
+      <if test="jhfHouse4storeId != null and  jhfHouse4storeId!= ''" >
+        #{jhfHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="jhfUserId != null and jhfUserId != ''" >
+        #{jhfUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jhfFollowTime != null and jhfFollowTime != ''" >
+        #{jhfFollowTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jhfFollowRemark != null and jhfFollowRemark != ''" >
+        #{jhfFollowRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jhfPaymentWay != null and jhfPaymentWay != ''" >
+        #{jhfPaymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="jhfFollowResult != null and jhfFollowResult != ''" >
+        #{jhfFollowResult,jdbcType=VARCHAR},
+      </if>
+      <if test="jhfFollowBelong != null and jhfFollowBelong != ''" >
+         #{jhfFollowBelong,jdbcType=VARCHAR},
+      </if>
+	  <if test="jhfDepartment != null and jhfDepartment !=''" >
+	     #{jhfDepartment,jdbcType=INTEGER},
+	    </if>
+	    <if test="jhfStorefront != null and jhfStorefront !=''" >
+	     #{jhfStorefront,jdbcType=INTEGER},
+	    </if>
+	     <if test="jhfRemind != null and jhfRemind !=''" >
+	     #{jhfRemind,jdbcType=VARCHAR},
+	    </if>
+	    
+	  <if test="jhfImgPath != null and jhfImgPath !=''" >
+	    #{jhfImgPath},
+	  </if>
+	  <if test="jhfImgNum != null and jhfImgNum !=''" >
+	    #{jhfImgNum},
+	  </if>
+    </trim>
+  </insert>
+  <update id="updateByHouse4rentId" parameterType="com.zz.po.journal.JournalHousingFollowExpand" >
+    update jour_event_followup_records
+    <set >
+      <if test="jhfUserId != null and jhfUserId != ''" >
+        jhf_user_id = #{jhfUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jhfFollowTime != null and jhfFollowTime != ''" >
+        jhf_follow_time = #{jhfFollowTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jhfFollowRemark != null and jhfFollowRemark != ''" >
+        jhf_follow_remark = #{jhfFollowRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jhfPaymentWay != null and jhfPaymentWay != ''" >
+        jhf_payment_way = #{jhfPaymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="jhfFollowResult != null and jhfFollowResult != ''" >
+        jhf_follow_result = #{jhfFollowResult,jdbcType=VARCHAR},
+      </if>
+	  <if test="jhfDepartment != null and jhfDepartment !=''" >
+	    jhf_department = #{jhfDepartment,jdbcType=INTEGER},
+	   </if>
+	   <if test="jhfStorefront != null and jhfStorefront !=''" >
+	    jhf_storefront = #{jhfStorefront,jdbcType=INTEGER},
+	   </if>
+	   
+	   <if test="jhfImgPath != null and jhfImgPath !=''" >
+	    jhf_img_path = #{jhfImgPath},
+	  </if>
+	  <if test="jhfImgNum != null and jhfImgNum !=''" >
+	    jhf_img_num = #{jhfImgNum},
+	  </if>
+    </set>
+    <where>
+    	<choose>
+    		<when test="jhfHouseId != null">
+    			jhf_house_id = #{jhfHouseId}
+    		</when>
+    		<when test="jhfHouse4rentId != null and jhfHouse4rentId != ''">
+    			jhf_house_4rent_id = #{jhfHouse4rentId,jdbcType=INTEGER}
+    		</when>
+    		<when test="jhfHouse4storeId != null and jhfHouse4storeId != ''">
+    			jhf_house_4store_id = #{jhfHouse4storeId,jdbcType=INTEGER}
+    		</when>
+    		<otherwise>
+    			1=0
+    		</otherwise>
+    	</choose>
+    </where>
+  </update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalHousingFollowExpand" >
+    update jour_event_followup_records
+    <set >
+      <if test="jhfHouseId != null" >
+        jhf_house_id = #{jhfHouseId},
+      </if>
+      <if test="jhfHouse4rentId != null and jhfHouse4rentId != ''" >
+        jhf_house_4rent_id = #{jhfHouse4rentId,jdbcType=INTEGER},
+      </if>
+      <if test="jhfHouse4storeId != null and jhfHouse4storeId != ''" >
+        jhf_house_4store_id = #{jhfHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="jhfUserId != null and jhfUserId != ''" >
+        jhf_user_id = #{jhfUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jhfFollowTime != null and jhfFollowTime != ''" >
+        jhf_follow_time = #{jhfFollowTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jhfFollowRemark != null and jhfFollowRemark != ''" >
+        jhf_follow_remark = #{jhfFollowRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jhfPaymentWay != null and jhfPaymentWay != ''" >
+        jhf_payment_way = #{jhfPaymentWay,jdbcType=VARCHAR},
+      </if>
+      <if test="jhfFollowResult != null and jhfFollowResult != ''" >
+        jhf_follow_result = #{jhfFollowResult,jdbcType=VARCHAR},
+      </if>
+	  <if test="jhfRemind != null and jhfRemind != ''" >
+		jhf_remind = #{jhfRemind,jdbcType=VARCHAR},
+	  </if>
+	  <if test="jhfDepartment != null and jhfDepartment !=''" >
+	    jhf_department = #{jhfDepartment,jdbcType=INTEGER},
+	   </if>
+	   <if test="jhfStorefront != null and jhfStorefront !=''" >
+	    jhf_storefront = #{jhfStorefront,jdbcType=INTEGER},
+	   </if>
+   	  <if test="jhfImgPath != null and jhfImgPath !=''" >
+	    jhf_img_path = #{jhfImgPath},
+	  </if>
+	  <if test="jhfImgNum != null and jhfImgNum !=''" >
+	    jhf_img_num = #{jhfImgNum},
+	  </if>
+    </set>
+    where jhf_id = #{jhfId,jdbcType=INTEGER}
+  </update>
+</mapper>

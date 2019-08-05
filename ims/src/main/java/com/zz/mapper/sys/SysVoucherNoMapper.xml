@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysVoucherNoMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.sys.SysVoucherNo" >
+    <result column="vn_id" property="vnId" jdbcType="INTEGER" />
+    <result column="vn_time" property="vnTime" jdbcType="TIMESTAMP" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+     <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectVoucherNo" resultMap="BaseResultMap" parameterType="com.zz.po.sys.SysVoucherNo" >
+  	select * from 
+  	where vn_time between  #{startTime}  and  #{endTime}
+  	ORDER BY vn_id ASC
+  </select>
+  
+  <insert id="insert" parameterType="com.zz.po.sys.SysVoucherNo" 
+  		useGeneratedKeys="true" keyProperty="vnId">
+    insert into jour_proof_bills_number (vn_time)
+    values (#{vnTime,jdbcType=TIMESTAMP})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.sys.SysVoucherNo" 
+  		useGeneratedKeys="true" keyProperty="vnId">
+    insert into jour_proof_bills_number
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="vnId == null" >
+        vn_id,
+      </if>
+      <if test="vnTime != null" >
+        vn_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="vnId == null" >
+        #{vnId,jdbcType=INTEGER},
+      </if>
+      <if test="vnTime != null" >
+        #{vnTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>

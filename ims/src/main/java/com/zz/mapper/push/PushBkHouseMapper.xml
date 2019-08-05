@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.push.PushBkHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.push.PushBkHouse" >
+    <id column="pbh_id" property="pbhId" jdbcType="INTEGER" />
+    <result column="pbh_hs_id" property="pbhHsId" jdbcType="INTEGER" />
+    <result column="pbh_house_id" property="pbhHouseId" jdbcType="VARCHAR" />
+    <result column="pbh_house_address" property="pbhHouseAddress" jdbcType="VARCHAR" />
+    <result column="pbh_rent_type" property="pbhRentType" jdbcType="VARCHAR" />
+    <result column="pbh_gmt_create" property="pbhGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="pbh_gmt_modified" property="pbhGmtModified" jdbcType="TIMESTAMP" />
+    <result column="pbh_detail" property="pbhDetail" jdbcType="LONGVARCHAR" />
+    <result column="pbh_img_path" property="pbhImgPath" jdbcType="LONGVARCHAR" />
+    <result column="pbh_img_num" property="pbhImgNum" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from push_bk_house
+    where pbh_id = #{pbhId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="queryBkHouse" resultMap="BaseResultMap" parameterType="com.zz.po.push.PushBkHouse" >
+    select *
+    from push_bk_house
+    <where>
+    	<if test="pbhId != null and pbhId !=''">
+    		and pbh_id = #{pbhId}
+    	</if>
+    	<if test="pbhHouseId != null and pbhHouseId !=''">
+    		and pbh_house_id = #{pbhHouseId}
+    	</if>
+    	<if test="pbhHouseAddress != null and pbhHouseAddress !=''">
+    		and pbh_house_address = #{pbhHouseAddress}
+    	</if>
+   		<if test="pbhGmtCreate != null and pbhGmtCreate !=''">
+    		and pbh_gmt_create = #{pbhGmtCreate}
+    	</if>
+    	<if test="pbhGmtModified != null and pbhGmtModified !=''">
+    		and pbh_gmt_modified = #{pbhGmtModified}
+    	</if>
+    	<if test="pbhDetail != null and pbhDetail !=''">
+    		and pbh_detail = #{pbhDetail}
+    	</if>
+    </where>
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.push.PushBkHouse" >
+    insert into push_bk_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pbhId != null" >
+        pbh_id,
+      </if>
+      <if test="pbhHsId != null" >
+        pbh_hs_id,
+      </if>
+      <if test="pbhHouseId != null" >
+        pbh_house_id,
+      </if>
+      <if test="pbhHouseAddress != null" >
+        pbh_house_address,
+      </if>
+      <if test="pbhRentType != null" >
+        pbh_rent_type,
+      </if>
+      <if test="pbhGmtCreate != null" >
+        pbh_gmt_create,
+      </if>
+      <if test="pbhGmtModified != null" >
+        pbh_gmt_modified,
+      </if>
+      <if test="pbhDetail != null" >
+        pbh_detail,
+      </if>
+      <if test="pbhImgPath != null" >
+        pbh_img_path,
+      </if>
+      <if test="pbhImgNum != null" >
+        pbh_img_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pbhId != null" >
+        #{pbhId,jdbcType=INTEGER},
+      </if>
+      <if test="pbhHsId != null" >
+        #{pbhHsId,jdbcType=INTEGER},
+      </if>
+      <if test="pbhHouseId != null" >
+       	#{pbhHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhHouseAddress != null" >
+        #{pbhHouseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhRentType != null" >
+        #{pbhRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhGmtCreate != null" >
+        #{pbhGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbhGmtModified != null" >
+        #{pbhGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbhDetail != null" >
+        #{pbhDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbhImgPath != null" >
+        #{pbhImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbhImgNum != null" >
+        #{pbhImgNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.push.PushBkHouse" >
+    update push_bk_house
+    <set >
+      <if test="pbhHsId != null" >
+        pbh_hs_id = #{pbhHsId},
+      </if>
+      <if test="pbhHouseId != null" >
+        pbh_house_id = #{pbhHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhHouseAddress != null" >
+        pbh_house_address = #{pbhHouseAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhRentType != null" >
+        pbh_rent_type = #{pbhRentType,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhGmtCreate != null" >
+        pbh_gmt_create = #{pbhGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbhGmtModified != null" >
+        pbh_gmt_modified = #{pbhGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbhDetail != null" >
+        pbh_detail = #{pbhDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbhImgPath != null" >
+        pbh_img_path = #{pbhImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbhImgNum != null" >
+        pbh_img_num = #{pbhImgNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pbh_id = #{pbhId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysUserClassMapper" >
+
+    <resultMap id="BaseResultMap" type="com.zz.po.sys.SysUserClass" >
+    <id column="suc_id" property="sucId" jdbcType="INTEGER" />
+    <result column="suc_user_id" property="sucUserId" jdbcType="INTEGER" />
+    <result column="suc_class_id" property="sucClassId" jdbcType="INTEGER" />
+
+    <!--班级信息-->
+    <result column="hs_add_city" property="hsAddCity" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="hs_state" property="hsState" jdbcType="VARCHAR" />
+
+    <result column="startNum"  property= "startNum"  jdbcType="VARCHAR" />
+    <result column="endNum"  property= "endNum"  jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <select id="queryAllStudent" resultMap="BaseResultMap" parameterType="com.zz.po.sys.SysUserClass" >
+    select  * from  sys_user_class suc
+    left outer join info_house_4store jhs  ON suc.suc_class_id=jhs.hs_id
+    where suc_user_id =  #{sucUserId,jdbcType=INTEGER }
+    and hs_state="正常"
+  </select>
+
+
+    <select id="queryClassRoom" resultMap="BaseResultMap" parameterType="com.zz.po.sys.SysUserClass" >
+      select a.*, b.totalNum from
+      (select ihs.hs_add_community, ihs.hs_state,ihs.hs_id, suc.suc_id
+      from info_house_4store ihs
+      left outer join sys_user_class suc on suc.suc_class_id = ihs.hs_id and suc_user_id = #{sucUserId}
+      <where>
+        <if test="type != null and type != '' ">
+            <if test= "type =='已绑定' ">
+                and suc_user_id = #{sucUserId}
+            </if>
+            <if test= "type =='未绑定' ">
+                and (suc_user_id != #{sucUserId} or suc_user_id is null)
+            </if>
+        </if>
+        <if test="hsAddCity != null and hsAddCity!= '' ">
+            and hs_add_city = #{hsAddCity}
+        </if>
+          <if test="hsAddCommunity != null and hsAddCommunity!= '' ">
+              and hs_add_community like '%${hsAddCommunity}%'
+          </if>
+        <if test="hsState != null and hsState!= '' ">
+            and hs_state = #{hsState}
+        </if>
+      </where>
+      )a,
+      (select count(ihs.hs_id) totalNum from info_house_4store ihs
+      left outer join sys_user_class suc on suc.suc_class_id = ihs.hs_id and suc_user_id = #{sucUserId}
+      <where>
+        <if test="type != null and type != '' ">
+            <if test="type =='已绑定' ">
+                and suc_user_id = #{sucUserId}
+            </if>
+            <if test= "type =='未绑定' ">
+                and (suc_user_id != #{sucUserId} or suc_user_id is null)
+            </if>
+        </if>
+        <if test="hsAddCity != null and hsAddCity!= '' ">
+            and hs_add_city = #{hsAddCity}
+        </if>
+        <if test="hsAddCommunity != null and hsAddCommunity!= '' ">
+            and hs_add_community like '%${hsAddCommunity}%'
+        </if>
+        <if test="hsState != null and hsState!= '' ">
+            and hs_state = #{hsState}
+        </if>
+      </where>
+      )b
+      order by hs_id DESC
+      <if test="startNum != '' and startNum != null">
+        limit ${startNum}
+        <if test="endNum != '' and endNum != null">
+            ,${endNum}
+        </if>
+      </if>
+    </select>
+
+    <!--绑定班级-->
+    <insert id="insertUserClass" parameterType="java.util.List">
+        insert into sys_user_class
+        (
+        suc_user_id,
+        suc_class_id
+        )
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+            (
+            #{item.sucUserId},
+            #{item.sucClassId}
+            )
+        </foreach>
+    </insert>
+
+    <!--离职交接班级-->
+    <update id="updateBySucUserId" parameterType="com.zz.po.sys.SysUserClass">
+        update sys_user_class set suc_user_id = #{userId} where suc_user_id = #{sucUserId}
+    </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.util.List">
+        delete from sys_user_class
+        where suc_id in
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item.sucId}
+        </foreach>
+    </delete>
+</mapper>

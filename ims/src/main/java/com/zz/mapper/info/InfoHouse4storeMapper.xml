@@ -1,0 +1,2540 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoHouse4storeMapper">
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoHouse4storeExpand" >
+    <id column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="hs_renter_id" property="hsRenterId" jdbcType="INTEGER" />
+    <result column="hs_landlord_id" property="hsLandlordId" jdbcType="INTEGER" />
+    <result column="hs_house_id" property="hsHouseId" jdbcType="INTEGER" />
+    <result column="hs_user_id" property="hsUserId" jdbcType="INTEGER" />
+    <result column="hs_admin_user_id" property="hsAdminUserId" jdbcType="INTEGER" />
+    <result column="hs_house_dict_id" property="hsHouseDictId" jdbcType="INTEGER" />
+    <result column="hs_time_price" property="hsTimePrice" jdbcType="INTEGER" />
+    <result column="hs_section_type" property="hsSectionType" jdbcType="VARCHAR" />
+    <result column="hs_house_type" property="hsHouseType" jdbcType="VARCHAR" />
+    <result column="hs_house_direction" property="hsHouseDirection" jdbcType="VARCHAR" />
+    <result column="hs_house_owner" property="hsHouseOwner" jdbcType="VARCHAR" />
+    <result column="hs_house_square" property="hsHouseSquare" jdbcType="DOUBLE" />
+    <result column="hs_furniture_config" property="hsFurnitureConfig" jdbcType="VARCHAR" />
+    <result column="hs_house_price" property="hsHousePrice" jdbcType="DOUBLE" />
+    <result column="hs_water_vol_first" property="hsWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_electrit_vol_first" property="hsElectritVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_gas_vol_first" property="hsGasVolFirst" jdbcType="DOUBLE" />
+    
+    <result column="hs_hotwater_vol_first" property="hsHotWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_hotair_vol_first" property="hsHotAirVolFirst" jdbcType="DOUBLE" />
+    
+    <result column="hs_payment_type" property="hsPaymentType" jdbcType="VARCHAR" />
+    <result column="hs_register_time" property="hsRegisterTime" jdbcType="DATE" />
+    <result column="hs_add_province" property="hsAddProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="hsAddCity" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="hsAddDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="hsAddZone" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="hsAddStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_add_floor" property="hsAddFloor" jdbcType="VARCHAR" />
+    <result column="hs_house_deposit" property="hsHouseDeposit" jdbcType="DOUBLE" />
+    <result column="hs_the_term" property="hsTheTerm" jdbcType="VARCHAR" />
+    <result column="hs_begin_time" property="hsBeginTime" jdbcType="DATE" />
+    <result column="hs_end_time" property="hsEndTime" jdbcType="DATE" />
+    <result column="hs_lease_state" property="hsLeaseState" jdbcType="VARCHAR" />
+    <result column="hs_house_key" property="hsHouseKey" jdbcType="VARCHAR" />
+    <result column="hs_rent_holiday" property="hsRentHoliday" jdbcType="INTEGER" />
+    <result column="hs_house_note" property="hsHouseNote" jdbcType="VARCHAR" />
+    <result column="hs_vacancy_day" property="hsVacancyDay" jdbcType="INTEGER" />
+    <result column="hs_state" property="hsState" jdbcType="VARCHAR" />
+    <result column="hs_assist" property="hsAssist" jdbcType="VARCHAR" />
+    <result column="hs_meter_reading_record" property="hsMeterReadingRecord" jdbcType="VARCHAR" />
+    <result column="hs_primitive_mother" property="hsPrimitiveMother" jdbcType="INTEGER" />
+	<result column="hs_not_rent_split" property="hsNotRentSplit" jdbcType="INTEGER" />
+	<result column="hs_split_identifier" property="hsSplitIdentifier" jdbcType="VARCHAR" />
+	<result column="hs_release_status" property="hsReleaseStatus" jdbcType="VARCHAR" />
+	<result column="hs_release_picture" property="hsReleasePicture" jdbcType="VARCHAR" />
+	<result column="hs_main_img" property="hsMainImg" jdbcType="VARCHAR" />
+	<result column="hs_other_img" property="hsOtherImg" jdbcType="LONGVARCHAR" />
+	<result column="hs_device_json" property="hsDeviceJson" jdbcType="LONGVARCHAR" />
+	<result column="hs_transaction_price" property="hsTransactionPrice" jdbcType="DOUBLE" />
+	<result column="hs_in_price" property="hsInPrice" jdbcType="DOUBLE" />
+	<result column="hs_out_price" property="hsOutPrice" jdbcType="DOUBLE" />
+	<result column="hs_total_vacancy_day" property="hsTotalVacancyDay" jdbcType="INTEGER" />
+	<result column="hs_total_vacancy_cost" property="hsTotalVacancyCost" jdbcType="DOUBLE" />
+	<result column="hs_latest_vacancy_cost" property="hsLatestVacancyCost" jdbcType="DOUBLE" />
+	<result column="hs_pop_id" property="hsPopId" jdbcType="INTEGER" />
+	<result column="hs_price_ladder" property="hsPriceLadder" jdbcType="VARCHAR" />
+	<result column="hs_room_type" property="hsRoomType" jdbcType="VARCHAR" />
+	<result column="hs_residentiality" property="hsResidentiality" jdbcType="INTEGER" />
+
+    <!-- house_dict -->
+    <result column="hd_city" property="hdCity" jdbcType="VARCHAR" />
+    <result column="hd_district" property="hdDistrict" jdbcType="VARCHAR" />
+    <result column="hd_zone" property="hdZone" jdbcType="VARCHAR" />
+    <result column="hd_road" property="hdRoad" jdbcType="VARCHAR" />
+    <result column="hd_community" property="hdCommunity" jdbcType="VARCHAR" />
+    <result column="hd_pinyin" property="hdPinyin" jdbcType="VARCHAR" />
+    <result column="hd_baidu_longitude_x" property="hdBaiduLongitudeX" jdbcType="VARCHAR" />
+    <result column="hd_baidu_latitude_y" property="hdBaiduLatitudeY" jdbcType="VARCHAR" />
+    <result column="hd_building_form" property="hdBuildingForm" jdbcType="VARCHAR" />
+    <result column="hd_property_type" property="hdPropertyType" jdbcType="VARCHAR" />
+    <result column="hd_building_developers" property="hdBuildingDevelopers" jdbcType="VARCHAR" />
+    <result column="hd_be_completed_time" property="hdBeCompletedTime" jdbcType="DATE" />
+    <result column="hd_item_features" property="hdItemFeatures" jdbcType="VARCHAR" />
+    <result column="hd_loop_position" property="hdLoopPosition" jdbcType="VARCHAR" />
+    <result column="hd_plot_ratio" property="hdPlotRatio" jdbcType="DOUBLE" />
+    <result column="hd_afforestation_rate" property="hdAfforestationRate" jdbcType="DOUBLE" />
+    <result column="hd_property_fee" property="hdPropertyFee" jdbcType="VARCHAR" />
+    <result column="hd_property_company" property="hdPropertyCompany" jdbcType="VARCHAR" />
+    <result column="hd_additional_information" property="hdAdditionalInformation" jdbcType="VARCHAR" />
+    <result column="hd_covers_an_area_of" property="hdCoversAnAreaOf" jdbcType="DOUBLE" />
+    <result column="hd_floor_area" property="hdFloorArea" jdbcType="DOUBLE" />
+    <result column="hd_sum_households" property="hdSumHouseholds" jdbcType="VARCHAR" />
+    <result column="hd_the_current_number" property="hdTheCurrentNumber" jdbcType="INTEGER" />
+    <result column="hd_parking_space_top" property="hdParkingSpaceTop" jdbcType="INTEGER" />
+    <result column="hd_parking_space_nuder" property="hdParkingSpaceNuder" jdbcType="VARCHAR" />
+    <result column="hd_zone_bit_introduce" property="hdZoneBitIntroduce" jdbcType="VARCHAR" />
+    <result column="hs_decoration_holiday" property="hsDecorationHoliday" jdbcType="INTEGER" />
+    
+    <result column="hs_release_status" property="hsReleaseStatus" jdbcType="VARCHAR" />
+    <result column="hs_release_picture" property="hsReleasePicture" jdbcType="VARCHAR" />
+    <result column="hs_auto_send_msg" property="hsAutoSendMsg" jdbcType="VARCHAR" />
+    <result column="hs_housing_introduction" property="hsHousingIntroduction" jdbcType="VARCHAR" />
+    <result column="hs_parking_spaces" property="hsParkingSpaces" jdbcType="VARCHAR" />
+   
+    <!--user  -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <result column="adminname" property="adminName" jdbcType="VARCHAR" />
+    <result column="adminPhone" property="adminPhone" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_page" property="totalPage" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="total_num2" property="totalNum2" jdbcType="VARCHAR" />
+    <result column="total_num3" property="totalNum3" jdbcType="VARCHAR" />
+    <result column="total_num4" property="totalNum4" jdbcType="VARCHAR" />
+    <result column="max_num" property="maxNum" jdbcType="VARCHAR" />
+    <result column="hs_manager_user_id" property="hsManagerUserId" jdbcType="INTEGER" />
+    <result column="hs_storefront" property="hsStorefront" jdbcType="INTEGER" />
+    <result column="hs_department" property="hsDepartment" jdbcType="INTEGER" />
+    <!-- 排序 -->
+    <result column="theSortTerm" property="theSortTerm" jdbcType="VARCHAR" />
+    <result column="theSortContrary" property="theSortContrary" jdbcType="VARCHAR" />
+    <result column="hs_base" property="hsBase" jdbcType="DOUBLE" />
+    <result column="tempBase" property="tempBase" jdbcType="DOUBLE" />
+    <result column="hs_guide_price" property="hsGuidePrice" jdbcType="DOUBLE" />
+    <result column="hs_relations_cost" property="hsRelationsCost" jdbcType="DOUBLE" />
+    <result column="hs_managed_cost" property="hsManagedCost" jdbcType="DOUBLE" />
+    <result column="tempAssist" property="tempAssist" jdbcType="VARCHAR" />
+    
+    <result column="hs_bank_type" property="hsBankType" jdbcType="VARCHAR" />
+    <result column="hs_bank_num" property="hsBankNum" jdbcType="VARCHAR" />
+    <result column="hs_bank_name" property="hsBankName" jdbcType="VARCHAR" />
+    
+    <result column="hs_down_deposit" property="hsDownDeposit" jdbcType="VARCHAR" />
+  	<result column="hs_deposit_amount" property="hsDepositAmount" jdbcType="DOUBLE" />
+  	<result column="hs_desposit_json" property="hsDespositJson" jdbcType="VARCHAR" />
+  	<result column="hs_intentional_id" property="hsIntentionalId" jdbcType="INTEGER" />
+  	<result column="hs_salesman_id" property="hsSalesmanId" jdbcType="INTEGER" />
+  	<result column="hs_start_date" property="hsStartDate" jdbcType="DATE" />
+  	<result column="hs_end_date" property="hsEndDate" jdbcType="DATE" />
+  	<result column="hs_desposit_account" property="hsDespositAccount" jdbcType="INTEGER" />
+  	<result column="hs_meter_reading_record" property="hsMeterReadingRecord" jdbcType="VARCHAR" />
+    <result column="hs_ovary_cost_price" property="hsOvaryCostPrice" jdbcType="VARCHAR" />
+  	
+  	<result column="assist_userId" property="assistUserId" jdbcType="INTEGER" />
+  	<result column="assist_department" property="assistDepartment" jdbcType="INTEGER" />
+  	
+  	<result column="hs_daily_rent" property="hsDailyRent" jdbcType="DOUBLE" />
+  	<result column="hs_hot_daily_rent" property="hsHotDailyRent" jdbcType="DOUBLE" />
+  	<result column="hs_dirty_house" property="hsDirtyHouse" jdbcType="INTEGER" />
+  	
+  	<result column="pop_name" property="popName" jdbcType="VARCHAR" />
+  	<result column="pop_telephone" property="popTelephone" jdbcType="VARCHAR" />
+  	<result column="pop_idcard" property="popIdcard" jdbcType="VARCHAR" />
+  	<result column="pop_name_remark" property="popNameRemark" jdbcType="VARCHAR" />
+  	
+  	<result column="la_pop_name" property="laPopName" jdbcType="VARCHAR" />
+  	<result column="la_pop_telephone" property="laPopTelephone" jdbcType="VARCHAR" />
+  	
+  	<result column="jrl_renewal_coding" property="jrlRenewalCoding" jdbcType="VARCHAR" />
+    <result column="jrl_house_4store_id" property="jrlHouse4storeId" jdbcType="INTEGER" />
+    <result column="jrl_landlord_id" property="jrlLandlordId" jdbcType="INTEGER" />
+    <result column="jrl_user_id" property="jrlUserId" jdbcType="INTEGER" />
+    <result column="jrl_department" property="jrlDepartment" jdbcType="INTEGER" />
+    <result column="jrl_storefront" property="jrlStorefront" jdbcType="INTEGER" />
+    <result column="jrl_contract_type" property="jrlContractType" jdbcType="VARCHAR" />
+    <result column="jrl_rental_type" property="jrlRentalType" jdbcType="VARCHAR" />
+    <result column="jrl_begin_time" property="jrlBeginTime" jdbcType="DATE" />
+    <result column="jrl_end_time" property="jrlEndTime" jdbcType="DATE" />
+    <result column="jrl_signed_time" property="jrlSignedTime" jdbcType="DATE" />
+    <result column="jrl_registration_time" property="jrlRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="jrl_the_term" property="jrlTheTerm" jdbcType="VARCHAR" />
+    <result column="jrl_in_advance_pay" property="jrlInAdvancePay" jdbcType="INTEGER" />
+    <result column="jrl_price_ladder" property="jrlPriceLadder" jdbcType="VARCHAR" />
+    <result column="jrl_rent_free_days" property="jrlRentFreeDays" jdbcType="INTEGER" />
+    <result column="jrl_rent_free_segment" property="jrlRentFreeSegment" jdbcType="VARCHAR" />
+    <result column="jrl_payment_method" property="jrlPaymentMethod" jdbcType="VARCHAR" />
+    <result column="jrl_remark" property="jrlRemark" jdbcType="VARCHAR" />
+    <result column="jrl_img_path" property="jrlImgPath" jdbcType="LONGVARCHAR" />
+    <result column="jrl_img_num" property="jrlImgNum" jdbcType="VARCHAR" />
+    <result column="hsManagerUserName" property="hsManagerUserName" jdbcType="VARCHAR" />
+   
+	<result column="hs_lease_type" property="hsLeaseType" jdbcType="INTEGER" />
+	<result column="hs_house_title" property="hsHouseTitle" jdbcType="VARCHAR" />
+    <result column="hs_corridor" property="hsCorridor" jdbcType="VARCHAR" />
+    <result column="hs_appliance_settings" property="hsApplianceSettings" jdbcType="VARCHAR" />
+    <result column="hs_open_home" property="hsOpenHome" jdbcType="VARCHAR" />
+    <result column="hs_release_time" property="hsReleaseTime" jdbcType="VARCHAR" />
+    <result column="hs_charges_paid" property="hsChargesPaid" jdbcType="VARCHAR" />
+    <result column="hs_decoration_label" property="hsDecorationLabel" jdbcType="VARCHAR" />
+    
+    <result column="hs_custom_contacts" property="hsCustomContacts" jdbcType="VARCHAR" />
+    
+    <result column="judge" property="judge" jdbcType="INTEGER" />
+    
+    <result column="hs_micronet_identification" property="hsMicronetIdentification" jdbcType="INTEGER" />
+	<result column="jsrc_state" property="jsrcState" jdbcType="VARCHAR"/>
+    <result column="defaultName" property="defaultName" jdbcType="VARCHAR" />
+    <result column="defaultPhone" property="defaultPhone" jdbcType="VARCHAR" />
+    <result column="nrc_id" property="nrcId" jdbcType="INTEGER" />
+	<!--智能设备表-->
+	<result column="dev_id" property="devId" jdbcType="VARCHAR" />
+	<result column="dev_brand_id" property="devBrandId" jdbcType="INTEGER" />
+	<result column="dev_nickname" property="devNickname" jdbcType="VARCHAR" />
+	<result column="dev_username" property="devUsername" jdbcType="VARCHAR" />
+
+	<result column="dev_type" property="devType" jdbcType="VARCHAR" />
+	<result column="dev_difference" property="devDifference" jdbcType="VARCHAR" />
+
+	<result column="dev_password" property="devPassword" jdbcType="VARCHAR" />
+	<result column="dev_auth_id" property="devAuthId" jdbcType="VARCHAR" />
+	<result column="dev_auth_secret" property="devAuthSecret" jdbcType="VARCHAR" />
+	<result column="dev_spare1" property="devSpare1" jdbcType="VARCHAR" />
+	<result column="dev_spare2" property="devSpare2" jdbcType="VARCHAR" />
+	<result column="dev_first_type" property="devFirstType" jdbcType="INTEGER" />
+	<result column="dev_second_type" property="devSecondType" jdbcType="INTEGER" />
+
+	<result column="jhd_sub_device_number" property="jhdSubDeviceNumber" jdbcType="INTEGER" />
+  </resultMap>
+  <!--查短租房信息  -->
+  <select id="selectShortRentHouse" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+	 	 select
+	 	   *
+		 from info_house_4store ihs
+		<where>
+		<if test="hsLeaseState != null and hsLeaseState != ''" >
+			<!--<if test="hsLeaseState =='所有未租'" >
+				and (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租') and hs_state = '正常' and hs_lease_type = 0
+			</if>
+			<if test="hsLeaseState =='正办退房'" >
+				and (hs_state='正办理退房' or hs_state='退房待审核' or hs_state='退房待复核' or hs_state='退房待出账')
+			</if>
+			<if test="hsLeaseState =='已退房'" >
+				and hs_state='退房完成'
+			</if>
+			<if test="hsLeaseState !='所有未租' and hsLeaseState !='正办退房' and hsLeaseState !='已退房' and hsLeaseState !='短租房' and hsLeaseState !='全部'" >
+				and hs_lease_state = #{hsLeaseState} and hs_state = '正常' and hs_lease_type = 0
+			</if>-->
+			<if test="hsLeaseState =='短租房'" >
+				and (hs_lease_type = 1 or hs_lease_type = 3)
+			</if>
+			<if test="hsLeaseState =='全部'" >
+				and hs_lease_type = 0
+			</if>
+		</if>
+		<if test="hsId != null and hsId != ''" >
+			and hs_id =  #{hsId,jdbcType=INTEGER}
+		</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+			or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<if test="hsRoomType != null and hsRoomType != '' ">
+			and hs_room_type = #{hsRoomType,jdbcType=VARCHAR}
+		</if>
+		<if test="hsSectionType != null and hsSectionType != '' ">
+			and hs_section_type = #{hsSectionType,jdbcType=VARCHAR}
+		</if>
+		<if test="hsMicronetIdentification != null and hsMicronetIdentification != ''" >
+			and  hs_micronet_identification = #{hsMicronetIdentification,jdbcType=INTEGER}
+		</if>
+  	</where>
+  	ORDER BY hs_id DESC
+  </select>
+  
+  <!--查短租房信息  -->
+  <select id="selectHsHouse" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+ 	 select
+ 	  <if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			count(hs_id) total_num
+		</if>
+		<if test="splitFlag ==1 or splitFlag == null">
+			<!-- 数据查询 -->
+			*
+		</if>
+		from info_house_4store ihs
+		left outer join jour_short_rent_contract jsrc on jsrc.jsrc_hs_id=ihs.hs_id
+		<where>
+		<if test="hsLeaseState != null and hsLeaseState != ''" >
+			<if test="hsLeaseState =='所有未租'" >
+				and (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租') and hs_state = '正常' and hs_lease_type = 0
+			</if>
+			<if test="hsLeaseState =='正办退房'" >
+				and (hs_state='正办理退房' or hs_state='退房待审核' or hs_state='退房待复核' or hs_state='退房待出账')
+			</if>
+			<if test="hsLeaseState =='已退房'" >
+				and hs_state='退房完成'
+			</if>
+			<if test="hsLeaseState !='所有未租' and hsLeaseState !='正办退房' and hsLeaseState !='已退房' and hsLeaseState !='短租房' and hsLeaseState !='全部'" >
+				and hs_lease_state = #{hsLeaseState} and hs_state = '正常' and hs_lease_type = 0
+			</if>
+			<if test="hsLeaseState =='短租房'" >
+				and (hs_lease_type = 1 or hs_lease_type = 3 or hs_lease_type = 4)
+			</if>
+			<if test="hsLeaseState =='全部'" >
+				and hs_lease_type = 0
+			</if>
+		</if>
+		<if test="jsrcState != '' and jsrcState != null">
+			and jsrc_state = #{jsrcState}
+		</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+				and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+				and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+				and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+				and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+				or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<if test="hsRoomType != null and hsRoomType != '' ">
+				and hs_room_type = #{hsRoomType,jdbcType=VARCHAR}
+			</if>
+			<if test="hsAddFloor != null and hsAddFloor != '' ">
+				and hs_add_floor = #{hsAddFloor,jdbcType=VARCHAR}
+			</if>
+		<if test="hsMicronetIdentification != null and hsMicronetIdentification != ''" >
+				and  hs_micronet_identification = #{hsMicronetIdentification,jdbcType=INTEGER}
+		</if>
+		and 
+		(jsrc.jsrc_id = (select max(jsrc2.jsrc_id) from info_house_4store ihs2
+		left outer join jour_short_rent_contract jsrc2 on jsrc2.jsrc_hs_id=ihs2.hs_id
+		WHERE ihs.hs_id = ihs2.hs_id
+		 GROUP BY ihs.hs_id) or jsrc.jsrc_id is null
+		)
+  	</where> 
+  	ORDER BY hs_id DESC
+  	<if test="splitFlag ==1">
+  	 <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+   </if> 
+  </select>
+  
+   <select id="selectHouse" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select * from info_house_4store
+  	<where>
+  		<if test="hsPrimitiveMother != null and hsPrimitiveMother != ''">
+      	and hs_primitive_mother = #{hsPrimitiveMother}
+      </if>
+       <if test="hsNotRentSplit == 0">
+      	and hs_not_rent_split = #{hsNotRentSplit}
+      </if>
+        and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+  	</where> 	
+  </select>
+  
+  <!-- 查询未租房间 -->
+  <!-- 两个where相同 -->
+  <select id="queryHouseStore" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select bb.total_num, dict.*, u1.su_staff_name adminname, store.*,u.su_staff_name username, u2.su_staff_name hsManagerUserName,store.hs_micronet_identification hsMicronetIdentification,ip.*
+	from info_house_4store store 
+	left outer join info_landlord il on il.la_id = store.hs_landlord_id
+	left outer join info_pop_tmp ip on il.la_population_id = ip.pop_id
+	left outer join sys_users u on store.hs_user_id = u.user_coding
+	left outer join sys_users u1 on store.hs_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on store.hs_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = store.hs_manager_user_id
+	left outer join info_stored_checkout ck on ck.nrc_store_id = store.hs_id,
+	(select count(hs_id) total_num from info_house_4store store
+		left outer join info_landlord il on il.la_id = store.hs_landlord_id
+		left outer join info_pop_tmp ip on il.la_population_id = ip.pop_id
+		left outer join sys_users u on store.hs_user_id = u.user_coding 
+		left outer join sys_users u1 on store.hs_admin_user_id = u1.user_coding
+		left outer join sys_house_dict dict on store.hs_house_dict_id = dict.hd_id
+		left outer join sys_users u2 on u2.user_coding = store.hs_manager_user_id
+		left outer join info_stored_checkout ck on ck.nrc_store_id = store.hs_id
+	<where>
+		<if test="personal == 1 ">
+			and (hs_user_id = #{hsUserId}
+			or hs_admin_user_id = #{hsUserId}
+			or hs_manager_user_id = #{hsUserId}
+			<!-- or FIND_IN_SET('${hsUserId}', hs_assist) -->)
+		</if>
+		<if test="hsDepartment != null and hsDepartment != ''" >
+			and (hs_department = #{hsDepartment}
+				or #{hsDepartment} = (select su_department_id from sys_users where user_coding = hs_user_id)
+				or #{hsDepartment} = (select su_department_id from sys_users where user_coding = hs_manager_user_id and su_state = '正常')
+			)
+		</if>
+		<if test="hsMicronetIdentification != null and hsMicronetIdentification != ''" >
+			and  hs_micronet_identification = #{hsMicronetIdentification,jdbcType=INTEGER}</if>
+		<if test="hsStorefront != null and hsStorefront != ''" >
+			and  hs_storefront = #{hsStorefront,jdbcType=INTEGER}</if>
+     	<if test="hsId != null and hsId != ''" >
+			and hs_id = #{hsId,jdbcType=INTEGER}</if>
+		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区'</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+			and hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR}
+		</if>
+		<if test="hsManagerUserId != null and hsManagerUserId != ''">
+			 and hs_manager_user_id = #{hsManagerUserId}
+		</if>
+		<if test="hsLeaseState != null and hsLeaseState != ''" >
+			<if test="hsLeaseState =='所有未租'" >
+				and (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租') and hs_state = '正常' and hs_lease_type = 0
+			</if>
+			<if test="hsLeaseState =='正办退房'" >
+				and (hs_state='正办理退房' or hs_state='退房待审核' or hs_state='退房待复核' or hs_state='退房待出账')
+			</if>
+			<if test="hsLeaseState =='已退房'" >
+				and hs_state='退房完成'
+			</if>
+			<if test="hsLeaseState !='所有未租' and hsLeaseState !='正办退房' and hsLeaseState !='已退房' and hsLeaseState !='短租房' and hsLeaseState !='全部'" >
+				and hs_lease_state = #{hsLeaseState} and hs_state = '正常' and hs_lease_type = 0
+			</if>
+			<if test="hsLeaseState =='短租房'" >
+				and (hs_lease_type = 1 or hs_lease_type = 3)
+			</if>
+			<if test="hsLeaseState =='全部'" >
+				and hs_lease_type = 0
+			</if>
+		</if>
+		<if test="hsState != null and hsState != ''" >
+			and hs_state = #{hsState}
+		</if>
+		<if test="hsLeaseType != null" >
+			and hs_lease_type = #{hsLeaseType}
+		</if>
+		<if test="hsState == null or hsState == ''">
+			<if test="hsLeaseState == null or hsLeaseState == ''">
+				and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+			</if>
+		</if>
+		<if test="hsPrimitiveMother != null">
+			<!-- 合租房 -->
+			<if test="hsPrimitiveMother == 1 ">
+				and hs_primitive_mother in (select hs_id from info_house_4store where hs_not_rent_split = 1)
+			</if>
+			<!-- 整租房 -->
+			<if test="hsPrimitiveMother == 2 ">
+				and hs_primitive_mother = 0 and hs_not_rent_split = 0
+			</if>
+			<!-- 被拆分房 -->
+			<if test="hsPrimitiveMother == 3 ">
+				and hs_primitive_mother = 0 and (hs_not_rent_split = 1 or hs_not_rent_split = 2)
+			</if>
+			<!-- 可租房=非被拆分房 -->
+			<if test="hsPrimitiveMother == 4 ">
+				and hs_not_rent_split = 0
+			</if>
+			<!-- 拆分房 -->
+			<if test="hsPrimitiveMother == 5 ">
+				and hs_primitive_mother in (select hs_id from info_house_4store where hs_not_rent_split = 2)
+			</if>
+		</if>
+		<if test="popName != null and popName != ''" >
+			and pop_name like '%${popName}%'
+		</if>
+		<if test="popTelephone != null and popTelephone != ''" >
+			and pop_telephone like '%${popTelephone}%'
+		</if>
+		<if test="hsVacancyDay ==15">
+			and hs_vacancy_day &gt; 14
+		</if>
+		<if test="dateType == 40 ">
+			and hs_end_time between curdate() and date_add(curdate(),interval 40 day)
+		</if>
+		<if test="hsRoomType != null and hsRoomType != '' ">
+			and hs_room_type = #{hsRoomType,jdbcType=VARCHAR}
+		</if>
+		<if test="hsSectionType != null and hsSectionType != '' ">
+			and hs_section_type = #{hsSectionType,jdbcType=VARCHAR}
+		</if>
+	</where>
+ 	) bb
+	<where>
+		<if test="personal == 1 ">
+			and (hs_user_id = #{hsUserId}
+			or hs_admin_user_id = #{hsUserId}
+			or hs_manager_user_id = #{hsUserId}
+			<!-- or FIND_IN_SET('${hsUserId}', hs_assist) -->)
+		</if>
+		<if test="hsDepartment != null and hsDepartment != ''" >
+			and (hs_department = #{hsDepartment}
+				or #{hsDepartment} = (select su_department_id from sys_users where user_coding = hs_user_id)
+				or #{hsDepartment} = (select su_department_id from sys_users where user_coding = hs_manager_user_id and su_state = '正常')
+			)
+		</if>
+		<if test="hsMicronetIdentification != null and hsMicronetIdentification != ''" >
+			and  hs_micronet_identification = #{hsMicronetIdentification,jdbcType=INTEGER}</if>
+		<if test="hsStorefront != null and hsStorefront != ''" >
+			and  hs_storefront = #{hsStorefront,jdbcType=INTEGER}</if>
+     	<if test="hsId != null and hsId != ''" >
+			and hs_id = #{hsId,jdbcType=INTEGER}</if>
+		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区'</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+			and hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR}
+		</if>
+		<if test="hsManagerUserId != null and hsManagerUserId != ''">
+			 and hs_manager_user_id = #{hsManagerUserId}
+		</if>
+		<if test="hsLeaseState != null and hsLeaseState != ''" >
+			<if test="hsLeaseState =='所有未租'" >
+				and (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租') and hs_state = '正常' and hs_lease_type = 0
+			</if>
+			<if test="hsLeaseState =='正办退房'" >
+				and (hs_state='正办理退房' or hs_state='退房待审核' or hs_state='退房待复核' or hs_state='退房待出账')
+			</if>
+			<if test="hsLeaseState =='已退房'" >
+				and hs_state='退房完成'
+			</if>
+			<if test="hsLeaseState !='所有未租' and hsLeaseState !='正办退房' and hsLeaseState !='已退房' and hsLeaseState !='短租房' and hsLeaseState !='全部'" >
+				and hs_lease_state = #{hsLeaseState} and hs_state = '正常' and hs_lease_type = 0
+			</if>
+			<if test="hsLeaseState =='短租房'" >
+				and (hs_lease_type = 1 or hs_lease_type = 3)
+			</if>
+			<if test="hsLeaseState =='全部'" >
+				and hs_lease_type = 0
+			</if>
+		</if>
+		<if test="hsState != null and hsState != ''" >
+			and hs_state = #{hsState}
+		</if>
+		<if test="hsLeaseType != null" >
+			and hs_lease_type = #{hsLeaseType}
+		</if>
+		<if test="hsState == null or hsState == ''">
+			<if test="hsLeaseState == null or hsLeaseState == ''">
+				and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+			</if>
+		</if>
+		<if test="hsPrimitiveMother != null">
+			<!-- 合租房 -->
+			<if test="hsPrimitiveMother == 1 ">
+				and hs_primitive_mother in (select hs_id from info_house_4store where hs_not_rent_split = 1)
+
+			</if>
+			<!-- 整租房 -->
+			<if test="hsPrimitiveMother == 2 ">
+				and hs_primitive_mother = 0 and hs_not_rent_split = 0
+			</if>
+			<!-- 被拆分房 -->
+			<if test="hsPrimitiveMother == 3 ">
+				and hs_primitive_mother = 0 and (hs_not_rent_split = 1 or hs_not_rent_split = 2)
+			</if>
+			<!-- 可租房=非被拆分房 -->
+			<if test="hsPrimitiveMother == 4 ">
+				and hs_not_rent_split = 0
+			</if>
+			<!-- 拆分房 -->
+			<if test="hsPrimitiveMother == 5 ">
+				and hs_primitive_mother in (select hs_id from info_house_4store where hs_not_rent_split = 2)
+			</if>
+		</if>
+		<if test="popName != null and popName != ''" >
+			and pop_name like '%${popName}%'
+		</if>
+		<if test="popTelephone != null and popTelephone != ''" >
+			and pop_telephone like '%${popTelephone}%'
+		</if>
+		<if test="hsVacancyDay ==15">
+			and hs_vacancy_day &gt; 14
+		</if>
+		<if test="dateType == 40 ">
+			and hs_end_time between curdate() and date_add(curdate(),interval 40 day)
+		</if>
+		<if test="hsRoomType != null and hsRoomType != '' ">
+			and hs_room_type = #{hsRoomType,jdbcType=VARCHAR}
+		</if>
+		<if test="hsSectionType != null and hsSectionType != '' ">
+			and hs_section_type = #{hsSectionType,jdbcType=VARCHAR}
+		</if>
+	</where>
+	<if test="theSortTerm != null and theSortTerm != '' and theSortContrary != null and theSortContrary != ''">
+	 	<if test="theSortTerm ==1 ">
+	 		ORDER BY hs_add_community 
+ 		</if>
+ 		<if test="theSortTerm ==2 ">
+	 		ORDER BY hs_add_building 
+ 		</if>
+ 		<if test="theSortTerm ==3 ">
+	 		ORDER BY hs_add_doorplateno 
+ 		</if>
+ 		<if test="theSortTerm ==4 ">
+	 		ORDER BY hs_id
+ 		</if>
+ 		<if test="theSortTerm ==5 ">
+	 		ORDER BY hs_begin_time 
+ 		</if>
+ 		<if test="theSortTerm ==6 ">
+	 		ORDER BY hs_end_time 
+ 		</if>
+ 		<if test="theSortTerm ==7 ">
+	 		ORDER BY hs_house_square 
+ 		</if>
+ 		<if test="theSortTerm ==8 ">
+	 		ORDER BY hs_in_price 
+ 		</if>
+ 		<if test="theSortTerm ==9 ">
+	 		ORDER BY hs_managed_cost 
+ 		</if>
+ 		<if test="theSortTerm ==10 ">
+	 		ORDER BY hs_vacancy_day 
+ 		</if>
+ 		<if test="theSortTerm ==11 ">
+	 		ORDER BY hs_transaction_price 
+ 		</if>
+ 		<if test="theSortContrary ==1 ">
+ 			ASC
+ 		</if>
+ 		<if test="theSortContrary ==2 ">
+ 			DESC
+ 		</if>
+	</if>
+	<if test="theSortTerm == null or theSortTerm == '' or theSortContrary == null or theSortContrary == ''">
+	 	ORDER BY hs_id DESC
+	</if>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <select id="queryHouseStoreCommon" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select a.*, bb.total_num from
+  	(select hs.*, pop.pop_name la_pop_name, pop.pop_telephone la_pop_telephone
+  	from info_house_4store hs
+  	left outer join info_landlord la on la.la_id = hs.hs_landlord_id
+	left outer join info_pop_tmp pop on la.la_population_id = pop.pop_id
+	<where>
+  		<if test="hsId != null and hsId != ''" >
+			and hs_id = #{hsId}</if>
+		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区'</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<if test="hsLeaseState != null and hsLeaseState != ''" >
+			<if test="hsLeaseState =='所有未租'" >
+				and (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租') and hs_state = '正常'
+			</if>
+			<if test="hsLeaseState =='正办退房'" >
+				and (hs_state='正办理退房' or hs_state='退房待审核' or hs_state='退房待复核' or hs_state='退房待出账')
+			</if>
+			<if test="hsLeaseState =='已退房'" >
+				and hs_state='退房完成'
+			</if>
+			<if test="hsLeaseState !='所有未租' and hsLeaseState !='正办退房' and hsLeaseState !='已退房'" >
+				and hs_lease_state = #{hsLeaseState} and hs_state = '正常'
+			</if>
+		</if>
+		<if test="hsState != null and hsState != ''" >
+			and hs_state = #{hsState}
+		</if>
+		<if test="hsState == null or hsState == ''">
+			<if test="hsLeaseState == null or hsLeaseState == ''">
+				and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+			</if>
+		</if>
+		<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+			and hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR}
+		</if>
+		<if test="hsPrimitiveMother != null">
+			<!-- 合租房 -->
+			<if test="hsPrimitiveMother == 1 ">
+				and hs_primitive_mother != 0
+			</if>
+			<!-- 整租房 -->
+			<if test="hsPrimitiveMother == 2 ">
+				and hs_primitive_mother = 0 and hs_not_rent_split = 0
+			</if>
+			<!-- 被拆分房 -->
+			<if test="hsPrimitiveMother == 3 ">
+				and hs_primitive_mother = 0 and (hs_not_rent_split = 1 or hs_not_rent_split = 2)
+			</if>
+			<!-- 可租房=非被拆分房 -->
+			<if test="hsPrimitiveMother == 4 ">
+				and hs_not_rent_split = 0
+			</if>
+			<!-- 拆分房 -->
+			<if test="hsPrimitiveMother == 5 ">
+				and hs_primitive_mother != 0
+			</if>
+		</if>
+		<if test="popName != null and popName != ''" >
+			and pop_name like '%${popName}%'
+		</if>
+		<if test="popTelephone != null and popTelephone != ''" >
+			and pop_telephone like '%${popTelephone}%'
+		</if>
+		<if test="hsMicronetIdentification != null" >
+			and hs_micronet_identification = #{hsMicronetIdentification}
+		</if>
+		<if test="hsHousingIntroduction != null" >
+			and hs_housing_introduction = #{hsHousingIntroduction}
+		</if>
+  	</where>
+	) a,
+  	(select count(hs_id) total_num from info_house_4store
+  	<where>
+  		<if test="hsId != null and hsId != ''" >
+			and hs_id = #{hsId}</if>
+		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区'</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<if test="hsLeaseState != null and hsLeaseState != ''" >
+			<if test="hsLeaseState =='所有未租'" >
+				and (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租') and hs_state = '正常'
+			</if>
+			<if test="hsLeaseState =='正办退房'" >
+				and (hs_state='正办理退房' or hs_state='退房待审核' or hs_state='退房待复核' or hs_state='退房待出账')
+			</if>
+			<if test="hsLeaseState =='已退房'" >
+				and hs_state='退房完成'
+			</if>
+			<if test="hsLeaseState !='所有未租' and hsLeaseState !='正办退房' and hsLeaseState !='已退房'" >
+				and hs_lease_state = #{hsLeaseState} and hs_state = '正常'
+			</if>
+		</if>
+		<if test="hsState != null and hsState != ''" >
+			and hs_state = #{hsState}
+		</if>
+		<if test="hsState == null or hsState == ''">
+			<if test="hsLeaseState == null or hsLeaseState == ''">
+				and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+			</if>
+		</if>
+		<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+			and hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR}
+		</if>
+		<if test="hsPrimitiveMother != null">
+			<!-- 合租房 -->
+			<if test="hsPrimitiveMother == 1 ">
+				and hs_primitive_mother != 0
+			</if>
+			<!-- 整租房 -->
+			<if test="hsPrimitiveMother == 2 ">
+				and hs_primitive_mother = 0 and hs_not_rent_split = 0
+			</if>
+			<!-- 被拆分房 -->
+			<if test="hsPrimitiveMother == 3 ">
+				and hs_primitive_mother = 0 and (hs_not_rent_split = 1 or hs_not_rent_split = 2)
+			</if>
+			<!-- 可租房=非被拆分房 -->
+			<if test="hsPrimitiveMother == 4 ">
+				and hs_not_rent_split = 0
+			</if>
+			<!-- 拆分房 -->
+			<if test="hsPrimitiveMother == 5 ">
+				and hs_primitive_mother != 0
+			</if>
+		</if>
+		<if test="popName != null and popName != ''" >
+			and pop_name like '%${popName}%'
+		</if>
+		<if test="popTelephone != null and popTelephone != ''" >
+			and pop_telephone like '%${popTelephone}%'
+		</if>
+		<if test="hsMicronetIdentification != null" >
+			and hs_micronet_identification = #{hsMicronetIdentification}
+		</if>
+			<if test="hsHousingIntroduction != null" >
+			and hs_housing_introduction = #{hsHousingIntroduction}
+		</if>
+  	</where>
+  	) bb
+  	ORDER BY hs_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 根据ID查找 -->
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select * from info_house_4store where hs_id = #{hsId}
+  </select>
+  
+  <!-- 这里是未租查询维保的 -->
+  <select id="queryMaintenance" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+	select a.*, bb.total_num from
+  	(select dict.*, u1.su_staff_name adminname, store.*,u.su_staff_name username, u2.su_staff_name hsManagerUserName,ip.*
+	from info_house_4store store 
+	left outer join info_landlord il on il.la_id = store.hs_landlord_id
+	left outer join info_pop_tmp ip on il.la_population_id = ip.pop_id
+	left outer join sys_users u on store.hs_user_id = u.user_coding
+	left outer join sys_users u1 on store.hs_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on store.hs_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = store.hs_manager_user_id
+	left outer join info_stored_checkout ck on ck.nrc_store_id = store.hs_id
+	left outer join jour_oddjobs jo on store.hs_id = jo.rep_house_4store_id
+	<where>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区'</if>
+		<if test="maintenanceSituation == '维保情况' ">
+			and (jo.rep_state = '未领取' or jo.rep_state = '跟进中') and (jo.rep_type_rp = '空置维修' OR jo.rep_type_rp = '退房维修')
+		</if>
+	</where>
+	group by hs_id
+	)a,
+	(select count(distinct hs_id) total_num from info_house_4store store
+		left outer join info_landlord il on il.la_id = store.hs_landlord_id
+		left outer join info_pop_tmp ip on il.la_population_id = ip.pop_id
+		left outer join sys_users u on store.hs_user_id = u.user_coding 
+		left outer join sys_users u1 on store.hs_admin_user_id = u1.user_coding
+		left outer join sys_house_dict dict on store.hs_house_dict_id = dict.hd_id
+		left outer join sys_users u2 on u2.user_coding = store.hs_manager_user_id
+		left outer join info_stored_checkout ck on ck.nrc_store_id = store.hs_id
+		left outer join jour_oddjobs jo on store.hs_id = jo.rep_house_4store_id
+	<where>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区'</if>
+		<if test="maintenanceSituation == '维保情况' ">
+			and (jo.rep_state = '未领取' or jo.rep_state = '跟进中') and (jo.rep_type_rp = '空置维修' OR jo.rep_type_rp = '退房维修') 
+		</if>
+	</where>
+ 	) bb
+	<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+	 	<if test="theSortTerm ==1 ">
+	 		ORDER BY hs_add_community 
+ 		</if>
+ 		<if test="theSortTerm ==2 ">
+	 		ORDER BY hs_add_building 
+ 		</if>
+ 		<if test="theSortTerm ==3 ">
+	 		ORDER BY hs_add_doorplateno 
+ 		</if>
+ 		<if test="theSortTerm ==4 ">
+	 		ORDER BY hs_id
+ 		</if>
+ 		<if test="theSortTerm ==5 ">
+	 		ORDER BY hs_begin_time 
+ 		</if>
+ 		<if test="theSortTerm ==6 ">
+	 		ORDER BY hs_end_time 
+ 		</if>
+ 		<if test="theSortTerm ==7 ">
+	 		ORDER BY hs_house_square 
+ 		</if>
+ 		<if test="theSortTerm ==8 ">
+	 		ORDER BY hs_in_price 
+ 		</if>
+ 		<if test="theSortTerm ==9 ">
+	 		ORDER BY hs_managed_cost 
+ 		</if>
+ 		<if test="theSortTerm ==10 ">
+	 		ORDER BY hs_vacancy_day 
+ 		</if>
+ 		<if test="theSortTerm ==11 ">
+	 		ORDER BY hs_transaction_price 
+ 		</if>
+ 		<if test="theSortContrary ==1 ">
+ 			ASC
+ 		</if>
+ 		<if test="theSortContrary ==2 ">
+ 			DESC
+ 		</if>
+	</if>
+	<if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+	 	ORDER BY hs_id DESC
+	</if>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 未租房查询数量 -->
+  <!-- 
+  	a:业主即将到期
+  	b:严重空置
+  	c:已定房间
+  	d:正在维保
+   -->
+  <select id="getInfoHouse4storeNum" resultMap="MyBaseResultMap"><!--  or hs_state = '正办理退房' and nrc_procedures = '正常' -->
+  	select a.total_num, b.total_num2, c.total_num3 ,d.total_num4 from
+
+	(select count(*) total_num from info_house_4store hs
+		left outer join info_stored_checkout ck on ck.nrc_store_id = hs.hs_id
+	where hs_end_time between curdate() and date_add(curdate(),interval 40 day) and hs_add_city != '公区'
+	and hs_state = '正常')a,
+	
+	(select count(*) total_num2 from info_house_4store hs
+	where hs_vacancy_day > 14  and hs_not_rent_split = 0  and hs_add_city != '公区'
+	and hs_state = '正常')b,
+	
+	(select count(*) total_num3 from info_house_4store hs
+	where hs_down_deposit = '是'  and hs_add_city != '公区'
+	and hs_state = '正常')c,
+	
+	(select count(distinct hs_id) total_num4 from info_house_4store hs
+	left outer join jour_oddjobs jo on hs.hs_id = jo.rep_house_4store_id
+	where (jo.rep_state = '未领取' or jo.rep_state = '跟进中') and (jo.rep_type_rp = '空置维修' OR jo.rep_type_rp = '退房维修')  and hs_add_city != '公区'
+	and hs_state != '退房完成')d
+  </select>
+  <!-- 房管员、默认联系人的姓名联系方式 -->
+  <select id="publishAContact" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand" >
+  	 select a.*, b.* from
+		(select hs.hs_manager_user_id, hs.hs_custom_contacts, u.su_staff_name adminName, u.su_contact adminPhone
+		from info_house_4store hs
+		left outer join sys_users u on u.user_coding = hs.hs_manager_user_id
+		where hs_id = #{hsId} )a,
+		(select sc.default_contact, u1.su_staff_name defaultName, u1.su_contact defaultPhone
+		from sys_company_var sc
+		left outer join sys_users u1 on u1.user_coding = sc.default_contact
+		where variables_id = 1
+		)b
+  </select>
+  
+  <!-- 根据母房id查询子房 -->
+  <select id="flatShareRealQuery" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select * from info_house_4store where hs_primitive_mother = #{hsPrimitiveMother}
+  </select>
+  
+  <!-- 统计未租房源 -->
+  <select id="queryHouseStoreNum" resultType="java.lang.Integer" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select count(*) from info_house_4store
+  	<where>
+  		<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+  			and hs_down_deposit = #{hsDownDeposit}
+  		</if>
+	  		and (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租')
+	  		and hs_state = '正常'  and hs_add_city != '公区'
+  	</where> 	
+  </select>
+  
+  <!-- 统计不同状态的未租房数量 -->
+  <select id="countVacantHouse" resultType="java.lang.Integer" parameterType="java.lang.String">
+  	select count(*) from info_house_4store
+  	<where>
+  		hs_not_rent_split = 0  and hs_add_city != '公区'
+  		<if test="state == '空置未租'" >
+  			and hs_lease_state = #{state} and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+  		</if>
+  		<if test="state == '全部房源'" >
+	  		and ((hs_lease_state = '空置未租' and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')) or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租' or hs_lease_state = '已租')
+	  	</if>
+  		<if test="state != '空置未租' and state != '全部房源'" >
+	  		and hs_lease_state = #{state}
+	  	</if>
+  	</where>
+  </select>
+  
+  <!-- 未租退房查询 -->
+  <!-- 两个where相同 -->
+  <select id="queryLandlordCheckOut" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select store.*, u.su_staff_name username, u1.su_staff_name adminname,  dict.*, la.*, 
+  	pop.pop_name,pop.pop_name_remark, pop.pop_telephone, pop.pop_idcard, u2.su_staff_name hsManagerUserName,
+	ck.nrc_id,ck.nrc_a_refund_of_time, bb.total_num
+	from info_house_4store store 
+	left outer join sys_users u on store.hs_user_id = u.user_coding 
+	left outer join sys_users u1 on store.hs_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on store.hs_house_dict_id = dict.hd_id
+	left outer join info_landlord_contract la on la.jrl_house_4store_id = store.hs_id
+	left outer join info_landlord la1 on la1.la_id = store.hs_landlord_id
+	left outer join info_pop_tmp pop on pop.pop_id = la1.la_population_id
+	left outer join sys_users u2 on u2.user_coding = store.hs_manager_user_id
+	left outer join info_stored_checkout ck on ck.nrc_store_id = store.hs_id,
+	(select count(hs_id) total_num 
+	from info_house_4store store
+	left outer join sys_users u on store.hs_user_id = u.user_coding 
+	left outer join sys_users u1 on store.hs_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on store.hs_house_dict_id = dict.hd_id
+	left outer join info_landlord_contract la on la.jrl_house_4store_id = store.hs_id
+	left outer join info_landlord la1 on la1.la_id = store.hs_landlord_id
+	left outer join info_pop_tmp pop on pop.pop_id = la1.la_population_id
+	left outer join sys_users u2 on u2.user_coding = store.hs_manager_user_id
+	left outer join info_stored_checkout ck on ck.nrc_store_id = store.hs_id
+	<where>
+		jrl_id in (
+			select rr.jrl_id from info_landlord_contract rr where EXISTS (
+			 select jrl_id from (SELECT max(jrl_id) as jrl_id FROM info_landlord_contract 
+			 group by jrl_house_4store_id) t where t.jrl_id = rr.jrl_id
+			))
+		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区' </if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<choose>
+			<when test="hsState == null or hsState == '' ">
+				and (hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账' or hs_state = '退房完成')
+			</when>
+			<when test="hsState == '未办手续' ">
+				
+			</when>
+			<when test="hsState != null and hsState != '' ">
+				and hs_state = #{hsState}
+			</when>
+		</choose>
+		<if test="hsState == '未办手续'" >
+			and nrc_procedures = '未办手续'</if>
+		<if test="hsState != '未办手续'" >
+			and nrc_procedures = '正常'</if>
+	</where>
+	) bb
+	<where>
+		jrl_id in (
+			select rr.jrl_id from info_landlord_contract rr where EXISTS (
+			 select jrl_id from (SELECT max(jrl_id) as jrl_id FROM info_landlord_contract 
+			 group by jrl_house_4store_id) t where t.jrl_id = rr.jrl_id
+			))
+		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区' </if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<choose>
+			<when test="hsState == null or hsState == '' ">
+				and (hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账' or hs_state = '退房完成')
+			</when>
+			<when test="hsState == '未办手续' ">
+				
+			</when>
+			<when test="hsState != null and hsState != '' ">
+				and hs_state = #{hsState}
+			</when>
+		</choose>
+		<if test="hsState == '未办手续'" >
+			and nrc_procedures = '未办手续'</if>
+		<if test="hsState != '未办手续'" >
+			and nrc_procedures = '正常'</if>
+	</where>
+	ORDER BY nrc_a_refund_of_time DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 日常账号管理查询未租房 -->
+  <!-- 两个where相同 -->
+  <select id="getAllHouseForStoreInCard" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select a.*, b.totalNum from
+	(select hs.hs_id, hs.hs_landlord_id, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, 
+			hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno, pop.pop_name, pop.pop_telephone, pop.pop_idcard
+	from info_house_4store hs
+	left outer join info_landlord la on la.la_id = hs.hs_landlord_id
+	left outer join info_pop_tmp pop on pop.pop_id = la.la_population_id
+	<where>
+		<if test="hsAddCity != null and hsAddCity != '' ">
+			and hs_add_city = #{hsAddCity}
+		</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区' </if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''">
+			and hs_add_district = #{hsAddDistrict}
+		</if>
+		<if test="hsAddZone != null and hsAddZone != ''">
+			and hs_add_zone = #{hsAddZone}
+		</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''">
+			and hs_add_street like '%${hsAddStreet}%'
+		</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''">
+			and hs_add_community like '%${hsAddCommunity}%'
+		</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''">
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')
+		</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''">
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')
+		</if>
+	</where>
+	) a,
+	(select count(hs.hs_id) totalNum
+	from info_house_4store hs
+	left outer join info_landlord la on la.la_id = hs.hs_landlord_id
+	left outer join info_pop_tmp pop on pop.pop_id = la.la_population_id
+	<where>
+		<if test="hsAddCity != null and hsAddCity != '' ">
+			and hs_add_city = #{hsAddCity}
+		</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区' </if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''">
+			and hs_add_district = #{hsAddDistrict}
+		</if>
+		<if test="hsAddZone != null and hsAddZone != ''">
+			and hs_add_zone = #{hsAddZone}
+		</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''">
+			and hs_add_street like '%${hsAddStreet}%'
+		</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''">
+			and hs_add_community like '%${hsAddCommunity}%'
+		</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''">
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')
+		</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''">
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')
+		</if>
+	</where>
+	) b
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 已租房修改托管信息查询 -->
+  <select id="selectModifiedHosting" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select hs.hs_id, ita.assist_userId, ita.assist_department, u.su_department_id from info_house_4store hs
+		left outer join info_business_assistor ita on ita.assist_house_4store = hs.hs_id
+		left outer join sys_users u on u.user_coding = hs.hs_user_id
+		<where>
+			hs.hs_id = #{hsId}
+			<if test="assistDepartment == null and assistDepartment == ''">
+				and ita.assist_house_4rent is null
+			</if>
+			<if  test= "assistUserId != null and assistUserId != '' ">
+				 and ita.assist_userId = #{assistUserId}
+			</if>
+			<if test="assistDepartment != null and assistDepartment != ''">
+				and u.su_department_id = #{assistDepartment}
+			</if>
+		</where>
+  </select>
+  
+  <!-- 转移查询 -->
+  <select id="getStoreUserId" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select * from info_house_4store
+	where hs_user_id = #{hsUserId} or hs_manager_user_id = #{hsManagerUserId}
+  </select>
+  
+  <!-- 数据导入查询 -->
+  <select id="selectStoreData" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select * from info_house_4store
+  	<where>
+	  	<if test="hsHouseId != null and hsHouseId != '' ">
+	  		hs_house_id = #{hsHouseId}
+	  	</if>
+	  	<if test="hsId != null and hsId != ''">
+	  		hs_id = #{hsId}
+	  	</if>
+  	</where>
+  </select>
+  
+  <!-- 修改欠结款 -->
+  <update id="modifyTheBase" parameterType="com.zz.po.info.InfoHouse4storeExpand" >
+  	update info_house_4store 
+  	<set>
+  		hs_base = hs_base + #{tempBase,jdbcType=DOUBLE}
+  	</set>
+  	where hs_id = #{hsId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 两个where相同 -->
+  <select id="huosestoreWeg" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+  	select hs_id,hs_landlord_id,hs_house_id,hs_add_province,hs_add_city,hs_add_district,hs_add_zone,
+	  hs_add_street,hs_add_community,hs_add_building,hs_add_doorplateno,hs_meter_reading_record,bb.total_num,hs_device_json
+	  from info_house_4store,
+  	(select count(hs_id) total_num from info_house_4store
+  	<where>
+  		hs_state != "退房完成"
+  		<if test="hsId != null and hsId != ''" >
+			and hs_id = #{hsId}
+		</if>
+		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}
+		</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区'
+		</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}
+		</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}
+		</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'
+		</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<if test="hsState != null and hsState != ''">
+			and hs_state = #{hsState,jdbcType=VARCHAR}
+		</if>
+		<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+			and  hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR}</if>
+		<if test="hsDeviceJson == 1" >
+			and ( hs_device_json is null or hs_device_json = "")</if>
+		<if test="hsDeviceJson == 2" >
+			and ( hs_device_json is not null and hs_device_json != "")</if>
+  	</where>
+  	) bb
+  	<where>
+  		hs_state != "退房完成"
+  		<if test="hsId != null and hsId != ''" >
+			and hs_id = #{hsId}</if>
+		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city != '公区' </if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		<if test="hsState != null and hsState != ''">
+			and hs_state = #{hsState,jdbcType=VARCHAR}
+		</if>
+		<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+			and  hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR}</if>
+		<if test="hsDeviceJson == 1" >
+			and ( hs_device_json is null or hs_device_json = "")</if>
+		<if test="hsDeviceJson == 2" >
+			and ( hs_device_json is not null and hs_device_json != "")</if>
+  	</where>
+  	<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+	 	<if test="theSortTerm ==1 ">
+	 		ORDER BY hs_add_community 
+ 		</if>
+ 		<if test="theSortTerm ==2 ">
+	 		ORDER BY hs_add_building 
+ 		</if>
+ 		<if test="theSortTerm ==3 ">
+	 		ORDER BY hs_add_doorplateno 
+ 		</if>
+ 		<if test="theSortContrary ==1 ">
+ 			ASC
+ 		</if>
+ 		<if test="theSortContrary ==2 ">
+ 			DESC
+ 		</if>
+	</if>
+	<if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+	 	ORDER BY hs_id DESC
+	</if>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  
+  
+  <!-- 业绩受益人管理：查当前正在托管的房中还没添加业绩受益人的房 -->
+  <select id="selectNoAssist" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand" >
+  	select aa.*, bb.total_num from 
+	(select * from info_house_4store 
+  		where hs_id not in (
+  			select distinct assist_house_4store from info_business_assistor where assist_house_4store is not null and assist_type = "存房"
+  		) and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+  		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city = '公区'</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+  	) aa,
+	(select count(hs_id) total_num from info_house_4store 
+  		where hs_id not in (
+  			select distinct assist_house_4store from info_business_assistor where assist_house_4store is not null and assist_type = "存房"
+  		) and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+  		<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddCity == null or hsAddCity == ''" >
+			and hs_add_city = '公区'</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+  	) bb ORDER BY hs_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+	</if>
+	<if test="endNum != '' and endNum != null">
+		,${endNum}
+	</if>
+  </select>  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_house_4store
+    where hs_id = #{hsId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoHouse4store" useGeneratedKeys="true" keyProperty="hsId">
+    insert into info_house_4store
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+   	  <if test="hsTimePrice != null and hsTimePrice != ''" >
+        hs_time_price,
+      </if>
+      <if test="hsLandlordId != null and hsLandlordId != ''" >
+        hs_landlord_id,
+      </if>
+      <if test="hsRenterId != null and hsRenterId != ''" >
+        hs_renter_id,
+      </if>
+      <if test="hsHouseId != null and hsHouseId != ''" >
+        hs_house_id,
+      </if>
+      <if test="hsUserId != null and hsUserId != ''" >
+        hs_user_id,
+      </if>
+      <if test="hsAdminUserId != null and hsAdminUserId != ''" >
+        hs_admin_user_id,
+      </if>
+      <if test="hsHouseDictId != null and hsHouseDictId != ''" >
+        hs_house_dict_id,
+      </if>
+      <if test="hsSectionType != null and hsSectionType != ''" >
+        hs_section_type,
+      </if>
+      <if test="hsHouseType != null and hsHouseType != ''" >
+        hs_house_type,
+      </if>
+      <if test="hsHouseDirection != null and hsHouseDirection != ''" >
+        hs_house_direction,
+      </if>
+      <if test="hsHouseOwner != null and hsHouseOwner != ''" >
+        hs_house_owner,
+      </if>
+      <if test="hsHouseSquare != null and hsHouseSquare != ''" >
+        hs_house_square,
+      </if>
+      <if test="hsFurnitureConfig != null and hsFurnitureConfig != ''" >
+        hs_furniture_config,
+      </if>
+      <if test="hsHousePrice != null and hsHousePrice != ''" >
+        hs_house_price,
+      </if>
+      <if test="hsWaterVolFirst != null and hsWaterVolFirst != ''" >
+        hs_water_vol_first,
+      </if>
+      <if test="hsElectritVolFirst != null and hsElectritVolFirst != ''" >
+        hs_electrit_vol_first,
+      </if>
+      <if test="hsGasVolFirst != null and hsGasVolFirst != ''" >
+        hs_gas_vol_first,
+      </if>
+      
+      <if test="hsHotWaterVolFirst != null and hsHotWaterVolFirst != ''" >
+        hs_hotwater_vol_first,
+      </if>
+      <if test="hsHotAirVolFirst != null and hsHotAirVolFirst != ''" >
+        hs_hotair_vol_first,
+      </if>
+      
+      <if test="hsPaymentType != null and hsPaymentType != ''" >
+        hs_payment_type,
+      </if>
+      <if test="hsRegisterTime != null and hsRegisterTime != ''" >
+        hs_register_time,
+      </if>
+      <if test="hsAddProvince != null and hsAddProvince != ''" >
+        hs_add_province,
+      </if>
+      <if test="hsAddCity != null and hsAddCity != ''" >
+        hs_add_city,
+      </if>
+      <if test="hsAddDistrict != null and hsAddDistrict != ''" >
+        hs_add_district,
+      </if>
+      <if test="hsAddZone != null and hsAddZone != ''" >
+        hs_add_zone,
+      </if>
+      <if test="hsAddStreet != null and hsAddStreet != ''" >
+        hs_add_street,
+      </if>
+      <if test="hsAddCommunity != null and hsAddCommunity != ''" >
+        hs_add_community,
+      </if>
+      <if test="hsAddBuilding != null and hsAddBuilding != ''" >
+        hs_add_building,
+      </if>
+      <if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+        hs_add_doorplateno,
+      </if> 
+      <if test="hsAddFloor != null and hsAddFloor != ''" >
+        hs_add_floor,
+      </if>
+      <if test="hsHouseDeposit != null and hsHouseDeposit != ''" >
+        hs_house_deposit,
+      </if>
+      <if test="hsTheTerm != null and hsTheTerm != ''" >
+        hs_the_term,
+      </if>
+      <if test="hsBeginTime != null and hsBeginTime != ''" >
+        hs_begin_time,
+      </if>
+      <if test="hsEndTime != null and hsEndTime != ''" >
+        hs_end_time,
+      </if>
+      <if test="hsLeaseState != null and hsLeaseState != ''" >
+        hs_lease_state,
+      </if>
+      <if test="hsHouseKey != null and hsHouseKey != ''" >
+        hs_house_key,
+      </if>
+      <if test="hsRentHoliday != null" >
+        hs_rent_holiday,
+      </if>
+      <if test="hsHouseNote != null and hsHouseNote != ''" >
+        hs_house_note,
+      </if>
+      <if test="hsVacancyDay != null" >
+        hs_vacancy_day,
+      </if>
+      <if test="hsState != null and hsState != ''" >
+        hs_state,
+      </if>
+      <if test="hsAssist != null and hsAssist != ''" >
+        hs_assist,
+      </if>
+      <if test="hsStorefront != null and hsStorefront != ''" >
+        hs_storefront,
+      </if>
+      <if test="hsDepartment != null and hsDepartment != ''" >
+        hs_department,
+      </if>
+      <if test="hsGuidePrice != null and hsGuidePrice != ''" >
+        hs_guide_price,
+      </if>
+      <if test="hsRelationsCost != null and hsRelationsCost != ''" >
+        hs_relations_cost,
+      </if>
+      <if test="hsManagedCost != null and hsManagedCost != ''" >
+        hs_managed_cost,
+      </if>
+      <if test="hsDecorationHoliday != null" >
+        hs_decoration_holiday,
+      </if>
+      <if test="hsBankType != null and hsBankType != '' ">
+      	hs_bank_type,
+      </if>
+      <if test="hsBankNum != null and hsBankNum != '' ">
+      	hs_bank_num,
+      </if>
+      <if test="hsBankName != null and hsBankName != '' ">
+      	hs_bank_name,
+      </if>
+      <if test="hsDownDeposit != null and hsDownDeposit != '' ">
+      	hs_down_deposit,
+      </if>
+      <if test="hsDepositAmount != null and hsDepositAmount != '' ">
+      	hs_deposit_amount,
+      </if>
+      <if test="hsIntentionalId != null and hsIntentionalId != '' ">
+      	hs_intentional_id,
+      </if>
+      <if test="hsSalesmanId != null and hsSalesmanId != '' ">
+      	hs_salesman_id,
+      </if>
+      <if test="hsStartDate != null and hsStartDate != '' ">
+      	hs_start_date,
+      </if>
+      <if test="hsEndDate != null and hsEndDate != '' ">
+      	hs_end_date,
+      </if>
+      <if test="hsDespositAccount != null and hsDespositAccount != '' ">
+      	hs_desposit_account,
+      </if>
+      <if test="hsMeterReadingRecord != null and hsMeterReadingRecord != '' ">
+      	hs_meter_reading_record,
+      </if>
+      <if test="hsManagerUserId != null and hsManagerUserId != '' ">
+      	hs_manager_user_id,
+      </if>
+      <if test="hsPrimitiveMother != null and hsPrimitiveMother != '' ">
+      	hs_primitive_mother,
+      </if>
+      <if test="hsNotRentSplit != null">
+      	hs_not_rent_split,
+      </if>
+      <if test="hsSplitIdentifier != null and hsSplitIdentifier != '' ">
+      	hs_split_identifier,
+      </if>
+      <if test="hsReleaseStatus != null and hsReleaseStatus != '' ">
+        hs_release_status,
+      </if>
+      <if test="hsReleasePicture != null and hsReleasePicture != '' ">
+        hs_release_picture,
+      </if>
+      <if test="hsMainImg != null and hsMainImg != '' ">
+        hs_main_img,
+      </if>
+      <if test="hsOtherImg != null and hsOtherImg != '' ">
+        hs_other_img,
+      </if>
+      <if test="hsHouseTitle != null and hsHouseTitle != '' ">
+        hs_house_title,
+      </if>
+      <if test="hsCorridor != null and hsCorridor != '' ">
+        hs_corridor,
+      </if>
+      <if test="hsApplianceSettings != null and hsApplianceSettings != '' ">
+        hs_appliance_settings,
+      </if>
+      <if test="hsOpenHome != null and hsOpenHome != '' ">
+        hs_open_home,
+      </if>
+      <if test="hsReleaseTime != null and hsReleaseTime != '' ">
+        hs_release_time,  
+      </if>
+      <if test="hsChargesPaid != null and hsChargesPaid != '' ">
+        hs_charges_paid, 
+      </if>
+      <if test="hsDecorationLabel != null and hsDecorationLabel != '' ">
+        hs_decoration_label, 
+      </if>
+      <if test="hsCustomContacts != null and hsCustomContacts != '' ">
+        hs_custom_contacts, 
+      </if>
+      <if test="hsMicronetIdentification != null and hsMicronetIdentification != '' ">
+      	hs_micronet_identification,
+      </if>
+      <if test="hsTransactionPrice != null ">
+      	hs_transaction_price,
+      </if>
+      <if test="hsInPrice != null ">
+      	hs_in_price,
+      </if>
+      <if test="hsOutPrice != null ">
+      	hs_out_price,
+      </if>
+      <if test="hsTotalVacancyDay != null ">
+      	hs_total_vacancy_day,
+      </if>
+      <if test="hsTotalVacancyCost != null ">
+      	hs_total_vacancy_cost,
+      </if>
+      <if test="hsLatestVacancyCost != null ">
+      	hs_latest_vacancy_cost,
+      </if>
+      <if test="hsPopId != null ">
+      	hs_pop_id,
+      </if>
+      <if test="hsPriceLadder != null and hsPriceLadder != '' ">
+      	hs_price_ladder,
+      </if>
+      <if test="hsDailyRent != null and hsDailyRent != '' ">
+      	hs_daily_rent,
+      </if>
+      <if test="hsHotDailyRent != null and hsHotDailyRent != '' ">
+      	hs_hot_daily_rent,
+      </if>
+      <if test="hsRoomType != null and hsRoomType != '' ">
+      	hs_room_type,
+      </if>
+      <if test="hsResidentiality != null and hsResidentiality != '' ">
+      	hs_residentiality,
+      </if>
+      <if test="hsLeaseType != null and hsLeaseType != '' ">
+      	hs_lease_type,
+      </if>
+	 <if test="hsOvaryCostPrice != null and hsOvaryCostPrice != '' ">
+		 hs_ovary_cost_price,
+	 </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hsTimePrice != null and hsTimePrice != ''" >
+        #{hsTimePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hsLandlordId != null and hsLandlordId != ''" >
+        #{hsLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="hsRenterId != null and hsRenterId != ''" >
+        #{hsRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseId != null and hsHouseId != ''" >
+        #{hsHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="hsUserId != null and hsUserId != ''" >
+        #{hsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hsAdminUserId != null and hsAdminUserId != ''" >
+        #{hsAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseDictId != null and hsHouseDictId != ''" >
+        #{hsHouseDictId,jdbcType=INTEGER},
+      </if>
+      <if test="hsSectionType != null and hsSectionType != ''" >
+        #{hsSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseType != null and hsHouseType != ''" >
+        #{hsHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseDirection != null and hsHouseDirection != ''" >
+        #{hsHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseOwner != null and hsHouseOwner != ''" >
+        #{hsHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseSquare != null and hsHouseSquare != ''" >
+        #{hsHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="hsFurnitureConfig != null and hsFurnitureConfig != ''" >
+        #{hsFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHousePrice != null and hsHousePrice != ''" >
+        #{hsHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hsWaterVolFirst != null and hsWaterVolFirst != ''" >
+        #{hsWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsElectritVolFirst != null and hsElectritVolFirst != ''" >
+        #{hsElectritVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsGasVolFirst != null and hsGasVolFirst != ''" >
+        #{hsGasVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsHotWaterVolFirst != null and hsHotWaterVolFirst != ''" >
+        #{hsHotWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+       <if test="hsHotAirVolFirst != null and hsHotAirVolFirst != ''" >
+        #{hsHotAirVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsPaymentType != null and hsPaymentType != ''" >
+        #{hsPaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsRegisterTime != null and hsRegisterTime != ''" >
+        #{hsRegisterTime,jdbcType=DATE},
+      </if>
+      <if test="hsAddProvince != null and hsAddProvince != ''" >
+        #{hsAddProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddCity != null and hsAddCity != ''" >
+        #{hsAddCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddDistrict != null and hsAddDistrict != ''" >
+        #{hsAddDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddZone != null and hsAddZone != ''" >
+        #{hsAddZone,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddStreet != null and hsAddStreet != ''" >
+        #{hsAddStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddCommunity != null and hsAddCommunity != ''" >
+        #{hsAddCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddBuilding != null and hsAddBuilding != ''" >
+        #{hsAddBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+        #{hsAddDoorplateno,jdbcType=VARCHAR},
+      </if>
+        <if test="hsAddFloor != null and hsAddFloor != ''" >
+        #{hsAddFloor,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseDeposit != null and hsHouseDeposit != ''" >
+        #{hsHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hsTheTerm != null and hsTheTerm != ''" >
+        #{hsTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBeginTime != null and hsBeginTime != ''" >
+        #{hsBeginTime,jdbcType=DATE},
+      </if>
+      <if test="hsEndTime != null and hsEndTime != ''" >
+        #{hsEndTime,jdbcType=DATE},
+      </if>
+      <if test="hsLeaseState != null and hsLeaseState != ''" >
+        #{hsLeaseState,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseKey != null and hsHouseKey != ''" >
+        #{hsHouseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="hsRentHoliday != null" >
+        #{hsRentHoliday,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseNote != null and hsHouseNote != ''" >
+        #{hsHouseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="hsVacancyDay != null" >
+        #{hsVacancyDay},
+      </if>
+      <if test="hsState != null and hsState != ''" >
+        #{hsState,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAssist != null and hsAssist != ''" >
+        #{hsAssist,jdbcType=VARCHAR},
+      </if>
+      <if test="hsStorefront != null and hsStorefront != ''" >
+        #{hsStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="hsDepartment != null and hsDepartment != ''" >
+        #{hsDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="hsGuidePrice != null and hsGuidePrice != ''" >
+        #{hsGuidePrice,jdbcType=DOUBLE},
+      </if>
+       <if test="hsRelationsCost != null and hsRelationsCost != ''" >
+        #{hsRelationsCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hsManagedCost != null and hsManagedCost != ''" >
+        #{hsManagedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hsDecorationHoliday != null" >
+        #{hsDecorationHoliday,jdbcType=INTEGER},
+      </if>
+      <if test="hsBankType != null and hsBankType != '' ">
+      	#{hsBankType},
+      </if>
+      <if test="hsBankNum != null and hsBankNum != '' ">
+      	#{hsBankNum},
+      </if>
+      <if test="hsBankName != null and hsBankName != '' ">
+      	#{hsBankName},
+      </if>
+      <if test="hsDownDeposit != null and hsDownDeposit != '' ">
+      	#{hsDownDeposit},
+      </if>
+      <if test="hsDepositAmount != null and hsDepositAmount != '' ">
+      	#{hsDepositAmount},
+      </if>
+      <if test="hsIntentionalId != null and hsIntentionalId != '' ">
+      	#{hsIntentionalId},
+      </if>
+      <if test="hsSalesmanId != null and hsSalesmanId != '' ">
+      	#{hsSalesmanId},
+      </if>
+      <if test="hsStartDate != null and hsStartDate != '' ">
+      	#{hsStartDate},
+      </if>
+      <if test="hsEndDate != null and hsEndDate != '' ">
+      	#{hsEndDate},
+      </if>
+      <if test="hsDespositAccount != null and hsDespositAccount != '' ">
+      	#{hsDespositAccount},
+      </if>
+      <if test="hsMeterReadingRecord != null and hsMeterReadingRecord != '' ">
+      	#{hsMeterReadingRecord},
+      </if>
+      <if test="hsManagerUserId != null and hsManagerUserId != '' ">
+      	#{hsManagerUserId},
+      </if>
+      <if test="hsPrimitiveMother != null and hsPrimitiveMother != '' ">
+      	#{hsPrimitiveMother},
+      </if>
+      <if test="hsNotRentSplit != null">
+      	#{hsNotRentSplit},
+      </if>
+      <if test="hsSplitIdentifier != null and hsSplitIdentifier != '' ">
+      	#{hsSplitIdentifier},
+      </if>
+      <if test="hsReleaseStatus != null and hsReleaseStatus != '' ">
+        #{hsReleaseStatus},
+      </if>
+      <if test="hsReleasePicture != null and hsReleasePicture != '' ">
+        #{hsReleasePicture},
+      </if>
+      <if test="hsMainImg != null and hsMainImg != '' ">
+        #{hsMainImg},
+      </if>
+      <if test="hsOtherImg != null and hsOtherImg != '' ">
+        #{hsOtherImg},
+      </if>
+      <if test="hsHouseTitle != null and hsHouseTitle != '' ">
+        #{hsHouseTitle},
+      </if>
+      <if test="hsCorridor != null and hsCorridor != '' ">
+        #{hsCorridor},
+      </if>
+      <if test="hsApplianceSettings != null and hsApplianceSettings != '' ">
+        #{hsApplianceSettings},
+      </if>
+      <if test="hsOpenHome != null and hsOpenHome != '' ">
+        #{hsOpenHome},
+      </if>
+      <if test="hsReleaseTime != null and hsReleaseTime != '' ">
+        #{hsReleaseTime},  
+      </if>
+      <if test="hsChargesPaid != null and hsChargesPaid != '' ">
+        #{hsChargesPaid},
+      </if>
+      <if test="hsDecorationLabel != null and hsDecorationLabel != '' ">
+        #{hsDecorationLabel}, 
+      </if>
+      <if test="hsCustomContacts != null and hsCustomContacts != '' ">
+        #{hsCustomContacts}, 
+      </if>
+      <if test="hsMicronetIdentification != null and hsMicronetIdentification != '' ">
+      	#{hsMicronetIdentification},
+      </if>
+      <if test="hsTransactionPrice != null ">
+      	#{hsTransactionPrice},
+      </if>
+      <if test="hsInPrice != null ">
+      	#{hsInPrice},
+      </if>
+      <if test="hsOutPrice != null ">
+      	#{hsOutPrice},
+      </if>
+      <if test="hsTotalVacancyDay != null ">
+      	#{hsTotalVacancyDay},
+      </if>
+      <if test="hsTotalVacancyCost != null ">
+      	#{hsTotalVacancyCost},
+      </if>
+      <if test="hsLatestVacancyCost != null ">
+      	#{hsLatestVacancyCost},
+      </if>
+      <if test="hsPopId != null ">
+      	#{hsPopId},
+      </if>
+      <if test="hsPriceLadder != null and hsPriceLadder != '' ">
+      	#{hsPriceLadder},
+      </if>
+      <if test="hsDailyRent != null and hsDailyRent != '' ">
+      	#{hsDailyRent},
+      </if>
+      <if test="hsHotDailyRent != null and hsHotDailyRent != '' ">
+      	#{hsHotDailyRent},
+      </if>
+      <if test="hsRoomType != null and hsRoomType != '' ">
+      	#{hsRoomType},
+      </if>
+      <if test="hsResidentiality != null and hsResidentiality != '' ">
+      	#{hsResidentiality},
+      </if>
+      <if test="hsLeaseType != null and hsLeaseType != '' ">
+      	#{hsLeaseType},
+      </if>
+	  <if test="hsOvaryCostPrice != null and hsOvaryCostPrice != '' ">
+		#{hsOvaryCostPrice},
+	  </if>
+
+    </trim>
+  </insert>
+  
+  <!-- 批量添加短租房 -->
+  <insert id="insertShortRentList" parameterType="java.util.List">
+	 insert into info_house_4store
+	 (
+		hs_user_id,
+		hs_department,	
+		hs_storefront,
+		hs_add_province,
+		hs_add_city,
+		hs_add_district,
+		hs_furniture_config,
+		hs_add_community,
+		hs_add_building,
+		hs_add_doorplateno,
+		hs_section_type,
+		hs_daily_rent,
+		hs_hot_daily_rent,
+		hs_room_type,
+		hs_residentiality,
+		hs_lease_type,
+		hs_lease_state
+	 )
+ 	 values
+  	<foreach collection="list" item="item" index= "index" separator =",">
+	  (
+	  	#{item.hsUserId},
+	  	#{item.hsDepartment},
+	  	#{item.hsStorefront},
+	  	#{item.hsAddProvince},
+	  	#{item.hsAddCity},
+	  	#{item.hsAddDistrict},
+	  	#{item.hsFurnitureConfig},
+	  	#{item.hsAddCommunity},
+	  	#{item.hsAddBuilding},
+	  	#{item.hsAddDoorplateno},
+	  	#{item.hsSectionType},
+	  	#{item.hsDailyRent},
+	  	#{item.hsHotDailyRent},
+	  	#{item.hsRoomType},
+	  	#{item.hsResidentiality},
+	  	#{item.hsLeaseType},
+	  	#{item.hsLeaseState}
+	  )
+  	</foreach>
+  </insert>
+
+  <!--批量添加房间-->
+  <insert id="insertHouseRoomList" parameterType="java.util.List">
+	  insert into info_house_4store
+	  (
+	  hs_user_id,
+	  hs_department,
+	  hs_storefront,
+	  hs_add_province,
+	  hs_add_city,
+	  hs_add_zone,
+	  hs_add_district,
+	  hs_add_community,
+	  hs_add_building,
+	  hs_add_doorplateno,
+	  hs_house_direction,
+	  hs_house_owner,
+	  hs_house_square,
+	  hs_section_type,
+	  hs_begin_time,
+	  hs_end_time,
+	  hs_lease_type,
+	  hs_house_dictId
+	  )
+	  values
+	  <foreach collection="list" item="item" index= "index" separator =",">
+		  (
+		  #{item.hsUserId},
+		  #{item.hsDepartment},
+		  #{item.hsStorefront},
+		  #{item.hsAddProvince},
+		  #{item.hsAddCity},
+		  #{item.hsAddZone},
+		  #{item.hsAddDistrict},
+		  #{item.hsAddCommunity},
+		  #{item.hsAddBuilding},
+		  #{item.hsAddDoorplateno},
+		  #{item.hsHouseDirection},
+		  #{item.hsHouseOwner},
+		  #{item.hsHouseSquare},
+		  #{item.hsSectionType},
+		  #{item.hsBeginTime},
+		  #{item.hsEndTime},
+		  #{item.hsLeaseType},
+		  #{item.hsHouseDictId}
+		  )
+	  </foreach>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoHouse4storeExpand" >
+    update info_house_4store
+    <set >
+      <if test="hsBankType != null and hsBankType != '' ">
+      	hs_bank_type = #{hsBankType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBankType != null and hsBankType != '' ">
+      	hs_bank_type = #{hsBankType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBankNum != null and hsBankNum != '' ">
+      	hs_bank_num = #{hsBankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBankName != null and hsBankName != '' ">
+      	hs_bank_name = #{hsBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="hsLandlordId != null and hsLandlordId != ''" >
+        hs_landlord_id = #{hsLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="hsRenterId != null and hsRenterId != ''" >
+        hs_renter_id = #{hsRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseId != null and hsHouseId != ''" >
+        hs_house_id = #{hsHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="hsUserId != null and hsUserId != ''" >
+        hs_user_id = #{hsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hsAdminUserId != null and hsAdminUserId != ''" >
+        hs_admin_user_id = #{hsAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseDictId != null and hsHouseDictId != ''" >
+        hs_house_dict_id = #{hsHouseDictId,jdbcType=INTEGER},
+      </if>
+      <if test="hsTimePrice != null and hsTimePrice != ''" >
+        hs_time_price = #{hsTimePrice,jdbcType=INTEGER},
+      </if>
+      <if test="hsSectionType != null and hsSectionType != ''" >
+        hs_section_type = #{hsSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseType != null and hsHouseType != ''" >
+        hs_house_type = #{hsHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseDirection != null and hsHouseDirection != ''" >
+        hs_house_direction = #{hsHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseOwner != null and hsHouseOwner != ''" >
+        hs_house_owner = #{hsHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseSquare != null and hsHouseSquare != ''" >
+        hs_house_square = #{hsHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="hsFurnitureConfig != null" >
+        hs_furniture_config = #{hsFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHousePrice != null and hsHousePrice != ''" >
+        hs_house_price = #{hsHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hsWaterVolFirst != null" >
+        hs_water_vol_first = #{hsWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsElectritVolFirst != null" >
+        hs_electrit_vol_first = #{hsElectritVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsGasVolFirst != null" >
+        hs_gas_vol_first = #{hsGasVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="hsHotWaterVolFirst != null" >
+        hs_hotwater_vol_first = #{hsHotWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsHotAirVolFirst != null" >
+        hs_hotair_vol_first = #{hsHotAirVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="hsPaymentType != null and hsPaymentType != ''" >
+        hs_payment_type = #{hsPaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsRegisterTime != null and hsRegisterTime != ''" >
+        hs_register_time = #{hsRegisterTime,jdbcType=DATE},
+      </if>
+      <if test="hsAddProvince != null and hsAddProvince != ''" >
+        hs_add_province = #{hsAddProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddCity != null and hsAddCity != ''" >
+        hs_add_city = #{hsAddCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddDistrict != null and hsAddDistrict != ''" >
+        hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddZone != null and hsAddZone != ''" >
+        hs_add_zone = #{hsAddZone,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddStreet != null and hsAddStreet != ''" >
+        hs_add_street = #{hsAddStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddCommunity != null and hsAddCommunity != ''" >
+        hs_add_community = #{hsAddCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddBuilding != null and hsAddBuilding != ''" >
+        hs_add_building = #{hsAddBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+        hs_add_doorplateno = #{hsAddDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseDeposit != null and hsHouseDeposit != ''" >
+        hs_house_deposit = #{hsHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hsTheTerm != null and hsTheTerm != ''" >
+        hs_the_term = #{hsTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBeginTime != null and hsBeginTime != ''" >
+        hs_begin_time = #{hsBeginTime,jdbcType=DATE},
+      </if>
+      <if test="hsEndTime != null and hsEndTime != ''" >
+        hs_end_time = #{hsEndTime,jdbcType=DATE},
+      </if>
+      <if test="hsLeaseState != null and hsLeaseState != ''" >
+        hs_lease_state = #{hsLeaseState,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseKey != null and hsHouseKey != ''" >
+        hs_house_key = #{hsHouseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="hsRentHoliday != null" >
+        hs_rent_holiday = #{hsRentHoliday,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseNote != null and hsHouseNote != ''" >
+        hs_house_note = #{hsHouseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="hsVacancyDay != null" >
+        hs_vacancy_day = #{hsVacancyDay},
+      </if>
+      <if test="hsState != null and hsState != ''" >
+        hs_state = #{hsState,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAssist != null and hsAssist != ''" >
+        hs_assist = #{hsAssist,jdbcType=VARCHAR},
+      </if>
+      <if test="hsStorefront != null and hsStorefront != ''" >
+        hs_storefront = #{hsStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="hsDepartment != null and hsDepartment != ''" >
+        hs_department = #{hsDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="hsGuidePrice != null" >
+        hs_guide_price = #{hsGuidePrice,jdbcType=DOUBLE},
+      </if>
+       <if test="hsRelationsCost != null" >
+        hs_relations_cost = #{hsRelationsCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hsManagedCost != null and hsManagedCost != ''" >
+        hs_managed_cost = #{hsManagedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hsDecorationHoliday != null" >
+        hs_decoration_holiday = #{hsDecorationHoliday,jdbcType=INTEGER},
+      </if>
+      <if test="hsDownDeposit != null and hsDownDeposit != '' ">
+      	hs_down_deposit = #{hsDownDeposit},
+      </if>
+      <if test="hsDespositJson != null and hsDespositJson != '' ">
+      	hs_desposit_json = #{hsDespositJson},
+      </if>
+      <if test="hsDepositAmount != null and hsDepositAmount != '' ">
+      	hs_deposit_amount = #{hsDepositAmount},
+      </if>
+      <if test="hsIntentionalId != null and hsIntentionalId != '' ">
+      	hs_intentional_id = #{hsIntentionalId},
+      </if>
+      <if test="hsSalesmanId != null and hsSalesmanId != '' ">
+      	hs_salesman_id = #{hsSalesmanId},
+      </if>
+      <if test="hsStartDate != null and hsStartDate != '' ">
+      	hs_start_date = #{hsStartDate},
+      </if>
+      <if test="hsEndDate != null and hsEndDate != '' ">
+      	hs_end_date = #{hsEndDate},
+      </if>
+      <if test="hsDespositAccount != null and hsDespositAccount != '' ">
+      	hs_desposit_account = #{hsDespositAccount},
+      </if>
+      <if test="hsMeterReadingRecord != null and hsMeterReadingRecord != '' ">
+      	hs_meter_reading_record = #{hsMeterReadingRecord},
+      </if>
+      <if test="hsManagerUserId != null and hsManagerUserId != '' ">
+      	hs_manager_user_id = #{hsManagerUserId},
+      </if>
+      <if test="hsPrimitiveMother != null ">
+      	hs_primitive_mother = #{hsPrimitiveMother},
+      </if>
+      <if test="hsNotRentSplit != null">
+      	hs_not_rent_split = #{hsNotRentSplit},
+      </if>
+      <if test="hsSplitIdentifier != null ">
+      	hs_split_identifier = #{hsSplitIdentifier},
+      </if>
+      <if test="hsReleaseStatus != null ">
+        hs_release_status = #{hsReleaseStatus},
+      </if>
+      <if test="hsReleasePicture != null ">
+        hs_release_picture = #{hsReleasePicture},
+      </if>
+      <if test="hsMainImg != null ">
+        hs_main_img = #{hsMainImg},
+      </if>
+      <if test="hsOtherImg != null ">
+        hs_other_img = #{hsOtherImg},
+      </if>
+      <if test="hsHouseTitle != null and hsHouseTitle != '' ">
+        hs_house_title = #{hsHouseTitle},
+      </if>
+      <if test="hsCorridor != null and hsCorridor != '' ">
+        hs_corridor = #{hsCorridor},
+      </if>
+      <if test="hsApplianceSettings != null and hsApplianceSettings != '' ">
+        hs_appliance_settings = #{hsApplianceSettings},
+      </if>
+      <if test="hsOpenHome != null and hsOpenHome != '' ">
+        hs_open_home = #{hsOpenHome},
+      </if>
+      <if test="hsReleaseTime != null and hsReleaseTime != '' ">
+        hs_release_time = #{hsReleaseTime},  
+      </if>
+      <if test="hsChargesPaid != null and hsChargesPaid != '' ">
+        hs_charges_paid = #{hsChargesPaid},
+      </if>
+      <if test="hsDecorationLabel != null and hsDecorationLabel != '' ">     
+        hs_decoration_label = #{hsDecorationLabel},
+      </if>
+      <if test="hsCustomContacts != null and hsCustomContacts != '' ">
+        hs_custom_contacts = #{hsCustomContacts},
+      </if>
+      <if test="hsDeviceJson != null">
+        hs_device_json = #{hsDeviceJson},
+      </if>
+      <if test="hsMicronetIdentification != null and hsMicronetIdentification != '' ">
+      	hs_micronet_identification = #{hsMicronetIdentification},
+      </if>
+      <if test="hsTransactionPrice != null ">
+      	hs_transaction_price = #{hsTransactionPrice},
+      </if>
+      <if test="hsInPrice != null ">
+      	hs_in_price = #{hsInPrice},
+      </if>
+      <if test="hsOutPrice != null ">
+      	hs_out_price = #{hsOutPrice},
+      </if>
+      <if test="hsTotalVacancyDay != null ">
+      	hs_total_vacancy_day = #{hsTotalVacancyDay},
+      </if>
+      <if test="hsTotalVacancyCost != null ">
+      	hs_total_vacancy_cost = #{hsTotalVacancyCost},
+      </if>
+      <if test="hsLatestVacancyCost != null ">
+      	hs_latest_vacancy_cost = #{hsLatestVacancyCost},
+      </if>
+      <if test="hsPopId != null ">
+      	hs_pop_id = #{hsPopId},
+      </if>
+      <if test="hsPriceLadder != null and hsPriceLadder != '' ">
+      	hs_price_ladder = #{hsPriceLadder},
+      </if>
+      <if test="hsDailyRent != null and hsDailyRent != ''" >
+        hs_daily_rent = #{hsDailyRent},
+      </if>
+      <if test="hsHotDailyRent != null and hsHotDailyRent != ''" >
+        hs_hot_daily_rent = #{hsHotDailyRent},
+      </if>
+      <if test="hsDirtyHouse != null" >
+        hs_dirty_house = #{hsDirtyHouse},
+      </if>
+       <if test="hsRoomType != null" >
+        hs_room_type = #{hsRoomType},
+      </if>
+      <if test="hsAutoSendMsg!= null">
+      	hs_auto_send_msg = #{hsAutoSendMsg},
+      </if>
+       <if test="hsHousingIntroduction != null">
+      	hs_housing_introduction = #{hsHousingIntroduction},
+      </if>
+      <if test="hsResidentiality != null" >
+        hs_residentiality = #{hsResidentiality},
+      </if>
+      <if test="hsLeaseType != null" >
+        hs_lease_type = #{hsLeaseType},
+      </if>
+	  <if test="hsBase != null" >
+		hs_base = #{hsBase},
+	  </if>
+	  <if test="hsParkingSpaces != null" >
+		hs_parking_spaces = #{hsParkingSpaces},
+	  </if>
+    </set>
+    where hs_id = #{hsId,jdbcType=INTEGER}
+  </update> 
+  
+  <!-- 批量修改房间	 -->
+  <update id="updateDirtyRoomList" parameterType="java.util.List">
+  		update info_house_4store
+		<trim prefix="set" suffixOverrides=",">
+	      <trim prefix="hs_dirty_house =case" suffix="end,">
+	          <foreach collection="list" item="i" index="index">
+                 <if test="i.hsDirtyHouse!=null">
+                  when hs_id=#{i.hsId} then #{i.hsDirtyHouse}
+                 </if>
+	          </foreach>
+	      </trim>
+	      <trim prefix="hs_micronet_identification =case" suffix="end,">
+	          <foreach collection="list" item="i" index="index">
+                 <if test="i.hsMicronetIdentification!=null">
+                  when hs_id=#{i.hsId} then #{i.hsMicronetIdentification}
+                 </if>
+	          </foreach>
+	      </trim>
+	      <trim prefix="hs_lease_type =case" suffix="end,">
+	          <foreach collection="list" item="i" index="index">
+                 <if test="i.hsLeaseType!=null">
+                  when hs_id=#{i.hsId} then #{i.hsLeaseType}
+                 </if>
+	          </foreach>
+	      </trim>
+	     </trim>
+	    where hs_id in
+	   <foreach collection="list" index="index" item="i" separator="," open="(" close=")">
+	       #{i.hsId}
+	   </foreach>
+  </update>
+  
+  <update id="updateOffice" parameterType="com.zz.po.info.InfoHouse4storeExpand" >
+    update info_house_4store
+    <set>
+      <if test="hsHouseId != null and hsHouseId != ''" >
+        hs_house_id = #{hsHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="hsUserId != null and hsUserId != ''" >
+        hs_user_id = #{hsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hsAddCity != null and hsAddCity != ''" >
+        hs_add_city = #{hsAddCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hsAddCommunity != null and hsAddCommunity != ''" >
+        hs_add_community = #{hsAddCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="hsState != null and hsState != ''" >
+        hs_state = #{hsState,jdbcType=VARCHAR},
+      </if>
+      <if test="hsStorefront != null and hsStorefront != ''" >
+        hs_storefront = #{hsStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="hsDepartment != null and hsDepartment != ''" >
+        hs_department = #{hsDepartment,jdbcType=INTEGER},
+      </if>
+    </set>
+    where hs_house_id = #{hsHouseId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="clearDeposit"  parameterType="com.zz.po.info.InfoHouse4storeExpand" >
+   	update info_house_4store set
+		hs_down_deposit = #{hsDownDeposit},
+		hs_deposit_amount = #{hsDepositAmount},
+		hs_intentional_id = #{hsIntentionalId},
+      	hs_pop_id = #{hsPopId},
+		hs_salesman_id = #{hsSalesmanId},
+		hs_start_date = #{hsStartDate},
+		hs_end_date = #{hsEndDate},
+		hs_desposit_account = #{hsDespositAccount} 
+	where hs_id = #{hsId}
+  </update>
+  
+  <!-- 通过id list 批量搜索 -->  
+<!--  <select id="selectHsByHsIdList" resultMap="MyBaseResultMap" parameterType="java.util.List">
+  		select * from info_house_4store
+  		where hs_house_id in
+ 		<foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+	 		  #{item}
+		</foreach>
+  </select> -->
+
+	<select id="selectHotel" resultMap="MyBaseResultMap">
+		select * from jour_short_rent_contract
+		where jsrc_state = '已住' and jsrc_hs_id in
+		<foreach collection="list" index="index" item="i" separator="," open="(" close=")">
+			#{i.hsId}
+		</foreach>
+	</select>
+
+	<!-- 两个where相同 -->
+	<select id="remoteMeterReading" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4storeExpand">
+		select a.*,d.total_num from
+		(select
+		hs.hs_id,
+		hs.hs_state,
+		hs.hs_add_city,
+		hs.hs_add_zone,
+		hs.hs_add_street,
+		hs.hs_add_district,
+		hs.hs_add_building,
+		hs.hs_add_community,
+		hs.hs_add_doorplateno,
+		hs.hs_meter_reading_record
+		from info_house_4store hs
+		left outer join jour_hs_device jhd on jhd.jhd_hs_id = hs.hs_id
+		left outer join jour_device jd on jd.id = jhd.jhd_device_id
+		<where>
+			hs_state != "退房完成"
+			<if test="hsId != null and hsId != ''" >
+				and hs_id = #{hsId}</if>
+			<if test="hsAddCity != null and hsAddCity != ''" >
+				and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+			<if test="hsAddCity == null or hsAddCity == ''" >
+				and hs_add_city != '公区' </if>
+			<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+				and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+			<if test="hsAddZone != null and hsAddZone != ''" >
+				and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+			<if test="hsAddStreet != null and hsAddStreet != ''" >
+				and hs_add_street like '%${hsAddStreet}%'</if>
+			<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+				and hs_add_community like '%${hsAddCommunity}%'</if>
+			<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+				and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+			<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+				and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+				or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+			<if test="hsState != null and hsState != ''">
+				and hs_state = #{hsState,jdbcType=VARCHAR}
+			</if>
+			<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+				and  hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR}</if>
+			and ((dev_first_type = 14 and dev_second_type = 14) or (dev_first_type = 15 and dev_second_type = 15) or (dev_first_type = 16 and dev_second_type = 16))
+		</where>
+		GROUP BY hs_id
+		) a,
+		(select count(*) as total_num from
+			(select count(*) as total_num from info_house_4store hs
+			left outer join jour_hs_device jhd on jhd.jhd_hs_id = hs.hs_id
+			left outer join jour_device jd on jd.id = jhd.jhd_device_id
+			<where>
+				hs_state != "退房完成"
+				<if test="hsId != null and hsId != ''" >
+					and hs_id = #{hsId}</if>
+				<if test="hsAddCity != null and hsAddCity != ''" >
+					and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+				<if test="hsAddCity == null or hsAddCity == ''" >
+					and hs_add_city != '公区' </if>
+				<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+					and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+				<if test="hsAddZone != null and hsAddZone != ''" >
+					and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+				<if test="hsAddStreet != null and hsAddStreet != ''" >
+					and hs_add_street like '%${hsAddStreet}%'</if>
+				<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+					and hs_add_community like '%${hsAddCommunity}%'</if>
+				<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+					and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+				<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+					and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+				<if test="hsState != null and hsState != ''">
+					and hs_state = #{hsState,jdbcType=VARCHAR}
+				</if>
+				<if test="hsDownDeposit != null and hsDownDeposit != ''" >
+					and  hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR}
+				</if>
+				and ((dev_first_type = 14 and dev_second_type = 14) or (dev_first_type = 15 and dev_second_type = 15) or (dev_first_type = 16 and dev_second_type = 16))
+			</where>
+			GROUP BY hs_id
+			) b
+		) d
+		<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+			<if test="theSortTerm ==1 ">
+				ORDER BY hs_add_community
+			</if>
+			<if test="theSortTerm ==2 ">
+				ORDER BY hs_add_building
+			</if>
+			<if test="theSortTerm ==3 ">
+				ORDER BY hs_add_doorplateno
+			</if>
+			<if test="theSortContrary ==1 ">
+				ASC
+			</if>
+			<if test="theSortContrary ==2 ">
+				DESC
+			</if>
+		</if>
+		<if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+			ORDER BY hs_id DESC
+		</if>
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+</mapper>

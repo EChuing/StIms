@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.stat.StatDeviceWarningMapper">
+	<resultMap id="MyStatDeviceWarning" type="com.zz.po.stat.StatDeviceWarning" >
+		<id column="sdw_id" property="sdwId" jdbcType="INTEGER"/>
+		<result column="sdw_online" property="sdwOnline" jdbcType="VARCHAR"/>
+		<result column="sdw_offline" property="sdwOffline" jdbcType="INTEGER"/>
+		<result column="sdw_warning" property="sdwWarning" jdbcType="VARCHAR"/>
+		<result column="sdw_time" property="sdwTime" jdbcType="VARCHAR"/>
+		<result column="startTime" property="startTime" jdbcType="VARCHAR"/>
+		<result column="endTime" property="endTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="selectDeviceWarning" resultMap="MyStatDeviceWarning">
+		select sdw_online, sdw_offline, sdw_warning ,sdw_time from stat_device_warning
+		WHERE sdw_time BETWEEN #{startTime,jdbcType=VARCHAR} AND #{endTime,jdbcType=VARCHAR}
+		group by DATE_FORMAT (sdw_time,"%Y-%m-%d")
+	</select>
+</mapper>

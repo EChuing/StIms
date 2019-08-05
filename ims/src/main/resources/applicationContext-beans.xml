@@ -1,0 +1,1091 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<!-- spring 普通bean管理 -->
+	<!-- 注意：spring中的struts action一定要配置成多例的 scope="prototype"，一个请求对应一个实例，防止struts值栈冲突 -->
+	
+	<!-- ******************************************************************* -->
+	<!-- <bean id="warehouseFormService" class="com.icss.service.WarehouseFormServiceImpl">
+	     Mapper不用额外再注册，mybatis自动扫描机制已经注册到spring容器中，直接引用即可
+		<property name="warehouseMapperCustom" ref="warehouseMapperCustom"></property>
+	</bean>
+	<bean id="warehouseFormAction" class="com.icss.action.WarehouseFormAction" scope="prototype">
+		<property name="warehouseFormService" ref="warehouseFormService"></property>
+	</bean> -->
+	<!-- ********************************蚂蚁平台设备密码********************************* -->
+	<bean id="jourAntPasswordService" class="com.zz.service.journal.JourAntPasswordServiceImpl">
+	</bean>
+	<bean id="jourAntPasswordAction" class="com.zz.actions.journal.JourAntPasswordAction" scope="prototype">
+	</bean>
+	<!-- ********************************添加班级权限管理********************************* -->
+	<bean id="sysUserClassService" class="com.zz.service.sys.SysUserClassServiceImpl">
+	</bean>
+	<bean id="sysUserClassAction" class="com.zz.actions.sys.SysUserClassAction" scope="prototype">
+	</bean>
+	<!-- ********************************添加情景********************************* -->
+	<bean id="jourPublicScenarioService" class="com.zz.service.journal.JourPublicScenarioServiceImpl">
+	</bean>
+	<bean id="jourPublicScenarioAction" class="com.zz.actions.journal.JourPublicScenarioAction" scope="prototype">
+	</bean>
+	<!-- ********************************定时任务********************************* -->
+	<bean id="jourTimingTasksService" class="com.zz.service.journal.JourTimingTasksServiceImpl">
+	</bean>
+	<bean id="jourTimingTasksAction" class="com.zz.actions.journal.JourTimingTasksAction" scope="prototype">
+	</bean>
+	<!-- ********************************开锁记录********************************* -->
+	<bean id="jourGateLockRecordService" class="com.zz.service.journal.JourGateLockRecordServiceImpl">
+	</bean>
+	<bean id="jourGateLockRecordAction" class="com.zz.actions.journal.JourGateLockRecordAction" scope="prototype">
+	</bean>
+	<!-- ********************************短信模版********************************* -->
+	<bean id="jourSmsTemplateService" class="com.zz.service.journal.JourSmsTemplateServiceImpl">
+	</bean>
+	<bean id="jourSmsTemplateAction" class="com.zz.actions.journal.JourSmsTemplateAction" scope="prototype">
+	</bean>
+	<!-- ********************************客户关怀********************************* -->
+	<bean id="jourCareService" class="com.zz.service.journal.JourCareServiceImpl">
+	</bean>
+	<bean id="jourCareAction" class="com.zz.actions.journal.JourCareAction" scope="prototype">
+	</bean>
+	<!-- ********************************集控设置********************************* -->
+	<bean id="deviceMenuService" class="com.zz.service.info.DeviceMenuServiceImpl">
+	</bean>
+	<bean id="deviceMenuAction" class="com.zz.actions.info.DeviceMenuAction" scope="prototype">
+	</bean>
+	<!-- ********************************合同客户********************************* -->
+	<bean id="csOutsideCustomerService" class="com.zz.service.cs.CsOutsideCustomerServiceImpl">
+	
+	</bean>
+	<bean id="csOutsideCustomerAction" class="com.zz.actions.cs.CsOutsideCustomerAction" scope="prototype">
+	</bean>
+	<!-- ********************************银行客户********************************* -->
+	<bean id="CsAccountReceiptService" class="com.zz.service.cs.CsAccountReceiptServiceImpl">
+		
+	</bean>
+	<bean id="CsAccountReceiptAction" class="com.zz.actions.cs.CsAccountReceiptAction" scope="prototype">
+	</bean>
+	<!-- ********************************人脸识别信息表********************************* -->
+	<bean id="jourFaceRecognitionInformation" class="com.zz.po.journal.JourFaceRecognitionInformation"></bean>
+	<bean id="jourFaceRecognitionInformationAction" class="com.zz.actions.journal.JourFaceRecognitionInformationAction"></bean>
+	<bean id="jourFaceRecognitionInformationService" class="com.zz.service.journal.JourFaceRecognitionInformationServiceImpl"></bean>
+	<!-- ********************************销售合同表********************************* -->
+	<bean id="csOutsideCustomerExpansion" class="com.zz.po.cs.CsOutsideCustomerExpansion">
+	</bean>
+	<bean id="CsSalesClientContractService" class="com.zz.service.cs.CsSalesClientContractServiceImpl">
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper"></property>
+		<property name="infoPopulationMapper" ref="infoPopulationMapper"></property>
+		<property name="sysVariablesMapper" ref="sysVariablesMapper"></property>
+		<property name="csOutsideCustomerMapper" ref="csOutsideCustomerMapper"></property>
+	</bean>
+	<bean id="CsSalesClientContractAction" class="com.zz.actions.cs.CsSalesClientContractAction" scope="prototype">
+		<property name="csOutsideCustomerExpansion" ref="csOutsideCustomerExpansion"></property>
+	</bean>
+	<bean id="csOutsideCustomerExpansionAction" class="com.zz.actions.cs.CsOutsideCustomerExpansionAction" scope="prototype">
+		<property name="csSalesClientContractService" ref="CsSalesClientContractService"></property>
+		<property name="shortMessageService" ref="shortMessageService"></property>
+	</bean>
+	<!-- ********************************用户和设备表********************************* -->
+	<bean id="jourUserDeviceService" class="com.zz.service.journal.JourUserDeviceServiceImpl">
+	</bean>
+	<bean id="jourUserDeviceAction" class="com.zz.actions.journal.JourUserDeviceAction">
+	</bean>
+	<!-- ********************************集中设置********************************* -->
+	<bean id="jourCaTemporaryService" class="com.zz.service.journal.JourCaTemporaryServiceImpl">
+	</bean>
+	<bean id="jourCaTemporaryAction" class="com.zz.actions.journal.JourCaTemporaryAction" scope="prototype">
+		
+	</bean>
+	<!-- ********************************租客换房********************************* -->
+	<bean id="exchangeHousesService" class="com.zz.service.info.ExchangeHousesServiceImpl">
+	</bean>
+	<bean id="exchangeHousesAction" class="com.zz.actions.info.ExchangeHousesAction" scope="prototype">
+		
+	</bean>
+	<!-- ********************************能源信息********************************* -->
+	<bean id="codeStoragAction" class="com.zz.deviceevents.CodeStorageAction" scope="prototype">
+	
+	</bean>
+	<!-- ********************************能源信息********************************* -->
+	<bean id="waterElectricMeterAction" class="com.zz.deviceevents.WaterElectricMeterAction" scope="prototype">
+		
+	</bean>
+	<!-- ********************************安防********************************* -->
+	<bean id="smokeAlertEventsAction" class="com.zz.deviceevents.SmokeAlertEventsAction" scope="prototype">
+
+	</bean>
+	<bean id="jourDeviceWarningService" class="com.zz.service.journal.JourDeviceWarningServiceImpl" scope="prototype">
+	</bean>
+	<!-- ********************************业主与租客合约********************************* -->
+	<bean id="contractAction" class="com.zz.actions.info.ContractAction" scope="prototype">
+	</bean>
+	<bean id="contractService" class="com.zz.service.info.ContractServiceImpl" scope="prototype">
+	
+	</bean>
+	<!-- ********************************设备状态********************************* -->
+	<bean id="statDeviceWarningService" class="com.zz.service.stat.StatDeviceWarningServiceImpl">
+		<property name="statDeviceWarningMapper" ref="statDeviceWarningMapper"></property>
+	</bean>
+	<!-- ********************************渠道单位表********************************* -->
+	<bean id="jourPricePlanService" class="com.zz.service.journal.JourPricePlanServiceImpl">
+	</bean>
+	<bean id="jourPricePlanAction" class="com.zz.actions.journal.JourPricePlanAction" scope="prototype">
+	</bean>
+	<!-- ********************************价格方案表********************************* -->
+	<bean id="jourChannelUnitService" class="com.zz.service.journal.JourChannelUnitServiceImpl">
+	</bean>
+	<bean id="jourChannelUnitAction" class="com.zz.actions.journal.JourChannelUnitAction" scope="prototype">
+	</bean>
+	<!-- ********************************短租设置 表********************************* -->
+	<bean id="jourShortRentSetUpService" class="com.zz.service.journal.JourShortRentSetUpServiceImpl">
+	</bean>
+	<bean id="jourShortRentSetUpAction" class="com.zz.actions.journal.JourShortRentSetUpAction" scope="prototype">
+		<property name="jourShortRentSetUpService" ref="jourShortRentSetUpService"></property>
+	</bean>
+	<!-- ********************************短租顾客表********************************* -->
+	<bean id="jourShortRentRenterService" class="com.zz.service.journal.JourShortRentRenterServiceImpl">
+	</bean>
+	<bean id="jourShortRentRenterAction" class="com.zz.actions.journal.JourShortRentRenterAction" scope="prototype">
+	</bean>
+	<!-- ********************************发送短信服务********************************* -->
+	<bean id="sendShortMessageService" class="com.zz.service.sys.SendShortMessageServiceImpl">
+	</bean>
+	<!-- ********************************商超优惠方案表********************************* -->
+	<bean id="csGoodsDiscountService" class="com.zz.service.cs.CsGoodsDiscountServiceImpl">
+		<property name="csGoodsDiscountMapper" ref="csGoodsDiscountMapper"></property>
+	</bean>
+	<bean id="csGoodsDiscountAction" class="com.zz.actions.cs.CsGoodsDiscountAction" scope="prototype">
+		<property name="csGoodsDiscountService" ref="csGoodsDiscountService"></property>
+	</bean>
+	<!-- ********************************盘点记录表********************************* -->
+	<bean id="csGoodsInventoryService" class="com.zz.service.cs.CsGoodsInventoryServiceImpl">
+		<property name="csGoodsInventoryMapper" ref="csGoodsInventoryMapper"></property>
+	</bean>
+	<bean id="csGoodsInventoryAction" class="com.zz.actions.cs.CsGoodsInventoryAction" scope="prototype">
+		<property name="csGoodsInventoryService" ref="csGoodsInventoryService"></property>
+	</bean>
+	<!-- ********************************短租房********************************* -->
+	<bean id="jourShortRentHouseService" class="com.zz.service.journal.JourShortRentHouseServiceImpl">
+	</bean>
+	<bean id="jourShortRentHouseAction" class="com.zz.actions.journal.JourShortRentHouseAction" scope="prototype">
+	</bean>
+	<!-- ********************************短租合约表********************************* -->
+	<bean id="jourShortRentContractService" class="com.zz.service.journal.JourShortRentContractServiceImpl">
+		<property name="jourShortRentContractMapper" ref="jourShortRentContractMapper"></property>
+	</bean>
+	<bean id="jourShortRentContractAction" class="com.zz.actions.journal.JourShortRentContractAction" scope="prototype">
+		<property name="jourShortRentContractService" ref="jourShortRentContractService"></property>
+	</bean>
+	<!-- ********************************商超设置表********************************* -->
+	<bean id="csGoodsSetUpService" class="com.zz.service.cs.CsGoodsSetUpServiceImpl">
+		<property name="csGoodsSetUpMapper" ref="csGoodsSetUpMapper"></property>
+	</bean>
+	<bean id="csGoodsSetUpAction" class="com.zz.actions.cs.CsGoodsSetUpAction" scope="prototype">
+		<property name="csGoodsSetUpService" ref="csGoodsSetUpService"></property>
+	</bean>
+	<!-- ********************************商超出货表********************************* -->
+	<bean id="csGoodsSellService" class="com.zz.service.cs.CsGoodsSellServiceImpl">
+		<property name="csGoodsSellMapper" ref="csGoodsSellMapper"></property>
+	</bean>
+	<bean id="csGoodsSellAction" class="com.zz.actions.cs.CsGoodsSellAction" scope="prototype">
+		<property name="csGoodsSellService" ref="csGoodsSellService"></property>
+	</bean>
+	<!-- ********************************商超订单表********************************* -->
+	<bean id="csGoodsBillingService" class="com.zz.service.cs.CsGoodsBillingServiceImpl">
+		<property name="csGoodsBillingMapper" ref="csGoodsBillingMapper"></property>
+	</bean>
+	<bean id="csGoodsBillingAction" class="com.zz.actions.cs.CsGoodsBillingAction" scope="prototype">
+		<property name="csGoodsBillingService" ref="csGoodsBillingService"></property>
+	</bean>
+	<!-- ********************************货物流水表********************************* -->
+	<bean id="csGoodsPurchaseService" class="com.zz.service.cs.CsGoodsPurchaseServiceImpl">
+		<property name="csGoodsPurchaseMapper" ref="csGoodsPurchaseMapper"></property>
+	</bean>
+	<bean id="csGoodsPurchaseAction" class="com.zz.actions.cs.CsGoodsPurchaseAction" scope="prototype">
+		<property name="csGoodsPurchaseService" ref="csGoodsPurchaseService"></property>
+	</bean>
+	<!-- ********************************货物类目表********************************* -->
+	<bean id="csGoodsCategoryService" class="com.zz.service.cs.CsGoodsCategoryServiceImpl">
+		<property name="csGoodsCategoryMapper" ref="csGoodsCategoryMapper"></property>
+	</bean>
+	<bean id="csGoodsCategoryAction" class="com.zz.actions.cs.CsGoodsCategoryAction" scope="prototype">
+		<property name="csGoodsCategoryService" ref="csGoodsCategoryService"></property>
+	</bean>
+	<!-- ********************************货物表********************************* -->
+	<bean id="csGoodsService" class="com.zz.service.cs.CsGoodsServiceImpl">
+		<property name="csGoodsMapper" ref="csGoodsMapper"></property>
+		<property name="csGoodsCategoryMapper" ref="csGoodsCategoryMapper"></property>
+	</bean>
+	<bean id="csGoodsAction" class="com.zz.actions.cs.CsGoodsAction" scope="prototype">
+		<property name="csGoodsService" ref="csGoodsService"></property>
+	</bean>
+	<!-- ********************************智能门卡表********************************* -->
+	<bean id="jourDoorCardService" class="com.zz.service.journal.JourDoorCardServiceImpl">
+		<property name="jourDoorCardMapper" ref="jourDoorCardMapper"></property>
+	</bean>
+	<bean id="jourDoorCardAction" class="com.zz.actions.journal.JourDoorCardAction" scope="prototype">
+		<property name="jourDoorCardService" ref="jourDoorCardService"></property>
+	</bean>
+	<!-- ********************************电子合同********************************* -->
+	<bean id="jourElectronicContractService" class="com.zz.service.journal.JourElectronicContractServiceImpl">
+		<property name="infoPopulationMapper" ref="infoPopulationMapper"></property>
+		<property name="sysVariablesMapper" ref="sysVariablesMapper"></property>
+		<property name="jourElectronicContractMapper" ref="jourElectronicContractMapper"></property>
+		
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper"></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+		<property name="journalContractDatabaseMapper" ref="journalContractDatabaseMapper"></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper"></property>
+		<property name="infoRenewalRenterMapper" ref="infoRenewalRenterMapper"></property>
+		<property name="journalHousingFollowMapper" ref="journalHousingFollowMapper"></property>
+	</bean>
+	<bean id="electronicContractAction" class="com.zz.actions.journal.ElectronicContractAction" scope="prototype">
+		<property name="jourElectronicContractService" ref="jourElectronicContractService"></property>
+		<property name="shortMessageService" ref="shortMessageService"></property>
+	</bean>
+	<!-- ***************************房 源 管 理 模 块********************************* -->
+	<!-- ***************************房屋字典信息**************************************** -->
+	<bean id="houseService" class="com.zz.service.info.HouseServiceImpl">
+		<property name="infoHouseMapper" ref="infoHouseMapper"></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+		<property name="journalFinancialMapper" ref="journalFinancialMapper"></property>
+	</bean>
+	<bean id="houseAction" class="com.zz.actions.info.HouseAction" scope="prototype">
+		<property name="houseService" ref="houseService"></property>
+		<property name="landlordIntentionPersonService" ref="landlordIntentionPersonService"></property>	
+		<property name="financialService" ref="financialService"></property>
+	</bean>
+	<!-- ***************************未租房屋信息**************************************** -->
+	<bean id="houseForStoreService" class="com.zz.service.info.HouseForStoreServiceImpl">
+		<property name="jourShortRentContractMapper" ref="jourShortRentContractMapper"></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+		<property name="infoLandlordMapper" ref="infoLandlordMapper"></property>
+		<property name="infoPopulationMapper" ref="infoPopulationMapper"></property>
+		<property name="infoRenewalLandlordMapper" ref="infoRenewalLandlordMapper"></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper"></property>
+		<property name="infoHouseMapper" ref="infoHouseMapper"></property>
+		<property name="itamMapper"  ref="infoTransactionAssistanceMapper"></property>
+		<property name="journalContractDatabaseMapper"  ref="journalContractDatabaseMapper"></property>
+		<property name="infoLandlordIntentionPersonMapper"  ref="infoLandlordIntentionPersonMapper"></property>
+		<property name="sysHouseDictMapper"  ref="sysHouseDictMapper"></property>
+		<property name="sysAssetsService" ref="sysAssetsService" ></property>
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper" ></property>
+		<property name="journalHousingFollowMapper" ref="journalHousingFollowMapper"></property>
+		<property name="sysVariablesMapper" ref="sysVariablesMapper"></property>
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper"></property>
+	</bean>
+	<bean id="houseForStoreAction" class="com.zz.actions.info.HouseForStoreAction" scope="prototype">
+		<property name="houseForStoreService" ref="houseForStoreService"></property>
+		<property name="houseForRentService" ref="houseForRentService"></property>
+	</bean>
+	<!-- ***************************未租房的设备关系**************************************** -->
+	<bean id="jourHsDeviceService" class="com.zz.service.journal.JourHsDeviceServiceImpl">
+		<property name="jourHsDeviceMapper" ref="jourHsDeviceMapper"></property>
+	</bean>
+	<bean id="jourHsDeviceActions" class="com.zz.actions.journal.JourHsDeviceActions" scope="prototype">
+		<property name="jourHsDeviceService" ref="jourHsDeviceService"></property>
+		<property name="deviceService" ref="deviceService"></property>
+
+	</bean>
+	<!-- ***************************未租房与办公区关系**************************************** -->
+    <bean id="jourHsOfficeService" class="com.zz.service.journal.JourHsOfficeServiceImpl">
+	</bean>
+	<bean id="jourHsOfficeActions" class="com.zz.actions.journal.JourHsOfficeActions" scope="prototype">
+	</bean>
+	<!-- ***************************微信模板信息**************************************** -->
+	<bean id="journalTemplateMessageService" class="com.zz.service.journal.JournalTemplateMessageServiceImpl">
+	</bean>
+	<bean id="journalTemplateMessageActions" class="com.zz.actions.journal.JournalTemplateMessageActions" scope="prototype">
+	</bean>
+	<!-- ***************************客户下定**************************************** -->
+	<bean id="jourEarnestMoneyService" class="com.zz.service.journal.JourEarnestMoneyServiceImpl">
+	</bean>
+	<bean id="jourEarnestMoneyActions" class="com.zz.actions.journal.JourEarnestMoneyActions" scope="prototype">
+	</bean>
+
+	<!-- ***************************已租房源信息**************************************** -->
+	<bean id="houseForRentService" class="com.zz.service.info.HouseForRentServiceImpl">
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper"></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+		<property name="journalWegReadingMapper" ref="journalWegReadingMapper" ></property>
+		<property name="infoPopulationMapper" ref="infoPopulationMapper"></property>
+		<property name="infoRenterMapper" ref="infoRenterMapper"></property>
+		<property name="infoRenewalRenterMapper" ref="infoRenewalRenterMapper"></property>
+		<property name="journalContractDatabaseMapper" ref="journalContractDatabaseMapper"></property>
+		<property name="infoIntendedPersonMapper" ref="infoIntendedPersonMapper" ></property>
+		<property name="itamMapper"  ref="infoTransactionAssistanceMapper"></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper" ></property>
+		<property name="sysAssetsService" ref="sysAssetsService" ></property>
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper" ></property>
+		<property name="sysVariablesMapper" ref="sysVariablesMapper" ></property>
+		<property name="journalHousingFollowMapper" ref="journalHousingFollowMapper" ></property>
+		
+	</bean>
+	<bean id="houseForRentAction" class="com.zz.actions.info.HouseForRentAction" scope="prototype">
+		<property name="houseForRentService" ref="houseForRentService"></property>
+	</bean>
+	<!-- ***************************房东信息**************************************** -->
+	<bean id="landlordService" class="com.zz.service.info.LandlordServiceImpl">
+		<property name="infoLandlordMapper" ref="infoLandlordMapper"></property>
+		<property name="infoPopulationMapper" ref="infoPopulationMapper"></property>
+	</bean>
+	<bean id="landlordAction" class="com.zz.actions.info.LandlordAction" scope="prototype">
+		<property name="landlordService" ref="landlordService"></property>
+	</bean>
+	<!-- ***************************租客信息**************************************** -->
+	<bean id="renterService" class="com.zz.service.info.RenterServiceImpl">
+		<property name="infoRenterMapper" ref="infoRenterMapper"></property>
+		<property name="infoPopulationMapper" ref="infoPopulationMapper"></property>
+	</bean>
+	<bean id="renterAction" class="com.zz.actions.info.RenterAction" scope="prototype">
+		<property name="renterService" ref="renterService"></property>
+	</bean>
+	<!-- ***************************记 录 信 息 模 块********************************* -->
+	<!-- ******************************凭证生成表*********************************** -->
+	<bean id="voucherNoService" class="com.zz.service.sys.VoucherNoServiceImpl">
+		<property name="sysVoucherNoMapper" ref="sysVoucherNoMapper" ></property>
+	</bean>
+	<!-- ***************************财务记录**************************************** -->
+	<bean id="financialService" class="com.zz.service.journal.FinancialServiceImpl">
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper"></property>
+		<property name="journalFinancialMapper" ref="journalFinancialMapper"></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper" ></property>
+		<property name="infoFinancialAccountMapper" ref="infoFinancialAccountMapper" ></property>
+		<property name="infoHouseMapper" ref="infoHouseMapper"></property>
+		<property name="sysVoucherNoMapper" ref="sysVoucherNoMapper" ></property>
+		<property name="sysVariablesService" ref="sysVariablesService" ></property>
+		<property name="contractDatabaseService" ref="contractDatabaseService" ></property>
+		<property name="journalContractDatabaseMapper" ref="journalContractDatabaseMapper" ></property>
+		<property name="historyPrintService" ref="historyPrintService" ></property>
+	</bean>
+	<bean id="financialAction" class="com.zz.actions.journal.FinancialAction" scope="prototype">
+		<property name="financialService" ref="financialService"></property>
+		<property name="sysVariablesService" ref="sysVariablesService"></property>
+		<property name="contractDatabaseService" ref="contractDatabaseService"></property>
+		<property name="financialAccountService" ref="financialAccountService"></property>
+		<property name="houseForRentService" ref="houseForRentService"></property>
+		<property name="houseForStoreService" ref="houseForStoreService"></property>
+	</bean>
+	<!-- ***************************跟进记录**************************************** -->
+	<bean id="housingFollowService" class="com.zz.service.journal.HousingFollowServiceImpl">
+		<property name="journalHousingFollowMapper" ref="journalHousingFollowMapper"></property>
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper"></property>
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper"></property>
+	</bean>
+	<bean id="housingFollowAction" class="com.zz.actions.journal.HousingFollowAction" scope="prototype">
+		<property name="housingFollowService" ref="housingFollowService"></property>
+	</bean>
+	<!-- ******************************应收/付账单表*********************************** -->
+	<bean id="contractInstallmentService" class="com.zz.service.info.ContractInstallmentServiceImpl">
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper" ></property>
+	</bean>
+	<bean id="contractInstallmentAction" class="com.zz.actions.info.ContractInstallmentAction" scope="prototype">
+		<property name="contractInstallmentService" ref="contractInstallmentService"></property>
+	</bean>
+	<!-- ***************************房东合约记录**************************************** -->
+	<bean id="renewalLandlordService" class="com.zz.service.info.RenewalLandlordServiceImpl">
+		<property name="infoRenewalLandlordMapper" ref="infoRenewalLandlordMapper"></property>
+		<property name="contractInstallmentService" ref="contractInstallmentService"></property>
+		<property name="journalContractDatabaseMapper" ref="journalContractDatabaseMapper"></property>
+        <property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+        <property name="sysVariablesMapper" ref="sysVariablesMapper"></property>
+	</bean>
+	<bean id="renewalLandlordAction" class="com.zz.actions.info.RenewalLandlordAction" scope="prototype">
+		<property name="renewalLandlordService" ref="renewalLandlordService"></property>
+	</bean>
+	<!-- ***************************租客合约记录**************************************** -->
+	<bean id="renewalRenterService" class="com.zz.service.info.RenewalRenterServiceImpl">
+		<property name="infoRenewalRenterMapper" ref="infoRenewalRenterMapper"></property>
+		<property name="contractInstallmentService" ref="contractInstallmentService"></property>
+		<property name="journalContractDatabaseMapper" ref="journalContractDatabaseMapper"></property>
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper"></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+		<property name="sysVariablesMapper" ref="sysVariablesMapper"></property>
+		<property name="journalHousingFollowMapper" ref="journalHousingFollowMapper"></property>
+	</bean>
+	<bean id="renewalRenterAction" class="com.zz.actions.info.RenewalRenterAction" scope="prototype">
+		<property name="renewalRenterService" ref="renewalRenterService"></property>
+	</bean>
+	<!-- ***************************维修记录**************************************** -->
+	<bean id="repairService" class="com.zz.service.journal.RepairServiceImpl">
+		<property name="journalRepairMapper" ref="journalRepairMapper"></property>
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper"></property>
+	</bean>
+	<bean id="repairAction" class="com.zz.actions.journal.RepairAction" scope="prototype">
+		<property name="repairService" ref="repairService"></property>
+	</bean>
+	<!-- ***************************维修进展记录**************************************** -->
+	<bean id="repairProgressService" class="com.zz.service.journal.RepairProgressServiceImpl">
+		<property name="journalRepairProgressMapper" ref="journalRepairProgressMapper"></property>
+		<property name="sysVariablesMapper" ref="sysVariablesMapper"></property>
+		<property name="journalContractDatabaseMapper" ref="journalContractDatabaseMapper"></property>
+	</bean>
+	<bean id="repairProgressAction" class="com.zz.actions.journal.RepairProgressAction" scope="prototype">
+		<property name="repairProgressService" ref="repairProgressService"></property>
+	</bean>
+	<!-- ***************************维修回访记录**************************************** -->
+	<bean id="repairReturningService" class="com.zz.service.journal.RepairReturningServiceImpl">
+		<property name="journalRepairReturningMapper" ref="journalRepairReturningMapper"></property>
+	</bean>
+	<bean id="repairReturningAction" class="com.zz.actions.journal.RepairReturningAction" scope="prototype">
+		<property name="repairReturningService" ref="repairReturningService"></property>
+	</bean>
+	<!-- ***************************权限信息**************************************** -->
+	<bean id="purviewService" class="com.zz.service.sys.PurviewServiceImpl">
+		<property name="purviewMapper" ref="sysPurviewMapper"></property>
+	</bean>
+	<bean id="purviewAction" class="com.zz.actions.sys.PurviewAction" scope="prototype">
+		<property name="purviewService" ref="purviewService"></property>
+	</bean>
+	<!-- ***************************用户信息**************************************** -->
+	<bean id="userService" class="com.zz.service.sys.UserServiceImpl">
+		<property name="sysUserMapper" ref="sysUserMapper"></property>
+		<property name="infoRenewalRenterMapper" ref="infoRenewalRenterMapper"></property>
+		<property name="journalFinancialMapper" ref="journalFinancialMapper"></property>
+		<property name="journalRepairMapper" ref="journalRepairMapper"></property>
+		<property name="infoRenewalLandlordMapper" ref="infoRenewalLandlordMapper"></property>
+		<property name="journalGoToRegisterMapper" ref="journalGoToRegisterMapper"></property>
+		<property name="itaa" ref="infoTransactionAssistanceService"></property>
+		<property name="houseService" ref="houseService"></property>
+		<property name="houseForStoreService" ref="houseForStoreService"></property>
+		<property name="houseForRentService" ref="houseForRentService"></property>
+		<property name="intendedPersonService" ref="intendedPersonService"></property>
+		<property name="landlordIntentionPersonService" ref="landlordIntentionPersonService"></property>
+		<property name="populationService" ref="populationService"></property>
+	</bean>
+	<bean id="userAction" class="com.zz.actions.sys.UserAction" scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="houseDictService" ref="houseDictService"></property>
+	</bean>
+	<!-- ***************************楼盘字典**************************************** -->
+	<bean id="houseDictService" class="com.zz.service.sys.HouseDictServiceImpl">
+		<property name="sysHouseDictMapper" ref="sysHouseDictMapper"></property>
+	</bean>
+	<bean id="houseDictAction" class="com.zz.actions.sys.HouseDictAction" scope="prototype">
+		<property name="houseDictService" ref="houseDictService"></property>
+	</bean>
+	<!-- ****************************资产管理************************************* -->
+	<bean id ="sysAssetsService" class="com.zz.service.sys.SysAssetsServiceImpl">
+		<property name="sysAssetsMapper" ref="sysAssetsMapper"></property>
+		<property name="journalHousingFollowMapper" ref="journalHousingFollowMapper"></property>
+		<property name="journalRepairProgressMapper" ref="journalRepairProgressMapper"></property>
+	</bean>
+	<bean id="assetsAction" class="com.zz.actions.sys.AssetsAction" scope="prototype">
+		<property name="sysAssetsService" ref="sysAssetsService" ></property>
+	</bean>
+	<!-- ****************************耗材管理************************************* -->
+	<bean id ="sysSuppliesService" class="com.zz.service.sys.SysSuppliesServiceImpl">
+		<property name="sysSuppliesMapper" ref="sysSuppliesMapper"></property>
+		<property name="journalHousingFollowMapper" ref="journalHousingFollowMapper"></property>
+		<property name="journalRepairProgressMapper" ref="journalRepairProgressMapper"></property>
+	</bean>
+	<bean id="sysSuppliesAction" class="com.zz.actions.sys.SysSuppliesAction" scope="prototype">
+		<property name="sysSuppliesService" ref="sysSuppliesService" ></property>
+	</bean>
+	<!-- ****************************区域管理************************************* -->
+	<bean id ="storefrontService" class="com.zz.service.sys.StorefrontServiceImpl">
+		<property name="sysStorefrontMapper" ref="sysStorefrontMapper"></property>
+	</bean>
+	<bean id="storefrontAction" class="com.zz.actions.sys.StorefrontAction" scope="prototype">
+		<property name="storefrontService" ref="storefrontService" ></property>
+	</bean>
+	<!-- ****************************部门管理************************************* -->
+	<bean id ="departmentService" class="com.zz.service.sys.DepartmentServiceImpl">
+		<property name="sysDepartmentMapper" ref="sysDepartmentMapper"></property>
+	</bean>
+	<bean id="departmentAction" class="com.zz.actions.sys.DepartmentAction" scope="prototype">
+		<property name="departmentService" ref="departmentService" ></property>
+	</bean>
+	<!-- *******************************交易协助表****************************************** -->
+	<bean id ="infoTransactionAssistanceService" class="com.zz.service.info.InfoTransactionAssistanceImpl">
+		<property name="itamMapper"  ref="infoTransactionAssistanceMapper"></property>
+		<property name="infoHouse4storeMapper"  ref="infoHouse4storeMapper"></property>
+		<property name="infoHouse4rentMapper"  ref="infoHouse4rentMapper"></property>
+	</bean>
+	<bean id ="infoTransactionAssistanceAction" class ="com.zz.actions.info.InfoTransactionAssistanceAction"  scope="prototype">
+		<property name="itaa" ref="infoTransactionAssistanceService"></property>
+	</bean>
+	<!-- ******************************水电气计算表*********************************** -->
+	<bean id="wegReadingService" class="com.zz.service.journal.WegReadingServiceImpl">
+		<property name="journalWegReadingMapper" ref="journalWegReadingMapper" ></property>
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper"></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper"></property>
+	</bean>
+	<bean id="wegReadingAction" class="com.zz.actions.journal.WegReadingAction" scope="prototype">
+		<property name="wegReadingService" ref="wegReadingService"></property>
+	</bean>
+	<!-- ******************************财务账户表*********************************** -->
+	<bean id="financialAccountService" class="com.zz.service.info.FinancialAccountServiceImpl">
+		<property name="infoFinancialAccountMapper" ref="infoFinancialAccountMapper" ></property>
+		<property name="journalFinancialMapper" ref="journalFinancialMapper" ></property>
+	</bean>
+	<bean id="financialAccountAction" class="com.zz.actions.info.FinancialAccountAction" scope="prototype">
+		<property name="financialAccountService" ref="financialAccountService"></property>
+	</bean>
+	<!-- ***************************已租退房表**************************************** -->
+	<bean id="haveRentCheckOutService" class="com.zz.service.info.HaveRentCheckOutServiceImpl">
+		<property name="infoHaveRentCheckOutMapper" ref="infoHaveRentCheckOutMapper"></property>
+		<property name="infoRenewalRenterMapper" ref="infoRenewalRenterMapper"></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper" ></property>
+		<property name="infoResidentTableMapper" ref="infoResidentTableMapper" ></property>
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper"></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+		<property name="itamMapper"  ref="infoTransactionAssistanceMapper"></property>
+		<property name="journalRepairMapper"  ref="journalRepairMapper"></property>
+		<property name="financialService"  ref="financialService"></property>
+	</bean>
+	<bean id="haveRentCheckOutAction" class="com.zz.actions.info.HaveRentCheckOutAction" scope="prototype">
+		<property name="haveRentCheckOutService" ref="haveRentCheckOutService"></property>
+		<property name="contractInstallmentService" ref="contractInstallmentService"></property>
+	</bean>
+	
+	<!-- ******************************未租房东退房*********************************** -->
+	<bean id="notRentCheckOutService" class="com.zz.service.info.NotRentCheckOutServiceImpl">
+		<property name="infoNotRentCheckOutMapper" ref="infoNotRentCheckOutMapper" ></property>
+		<property name="infoRenewalLandlordMapper" ref="infoRenewalLandlordMapper"></property>
+		<property name="infoHouseMapper" ref="infoHouseMapper" ></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper" ></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper" ></property>
+		<property name="itamMapper" ref="infoTransactionAssistanceMapper"></property>
+		<property name="journalRepairMapper" ref="journalRepairMapper"></property>
+		<property name="financialService" ref="financialService"></property>
+	</bean>
+	<bean id="notRentCheckOutAction" class="com.zz.actions.info.NotRentCheckOutAction" scope="prototype">
+		<property name="notRentCheckOutService" ref="notRentCheckOutService"></property>
+	</bean>
+	
+	<!-- ******************************水电气方案表*********************************** -->
+	<bean id="planTableService" class="com.zz.service.info.PlanTableServiceImpl">
+		<property name="infoPlanTableMapper" ref="infoPlanTableMapper" ></property>
+	</bean>
+	<bean id="planTableAction" class="com.zz.actions.info.PlanTableAction" scope="prototype">
+		<property name="planTableService" ref="planTableService"></property>
+	</bean>
+	
+	<!-- ******************************租客意向人表*********************************** -->
+	<bean id="intendedPersonService" class="com.zz.service.info.IntendedPersonServiceImpl">
+		<property name="infoIntendedPersonMapper" ref="infoIntendedPersonMapper" ></property>
+	</bean>
+	<bean id="intendedPersonAction" class="com.zz.actions.info.IntendedPersonAction" scope="prototype">
+		<property name="intendedPersonService" ref="intendedPersonService"></property>
+	</bean>
+	
+	<!-- ******************************人头表*********************************** -->
+	<bean id="populationService" class="com.zz.service.info.PopulationServiceImpl">
+		<property name="infoPopulationMapper" ref="infoPopulationMapper" ></property>
+	</bean>
+	<bean id="populationAction" class="com.zz.actions.info.PopulationAction" scope="prototype">
+		<property name="populationService" ref="populationService"></property>
+	</bean>
+	
+	<!-- ******************************住户表*********************************** -->
+	<bean id="residentTableService" class="com.zz.service.info.ResidentTableServiceImpl">
+		<property name="infoResidentTableMapper" ref="infoResidentTableMapper" ></property>
+		<property name="infoPopulationMapper" ref="infoPopulationMapper" ></property>
+		<property name="populationService" ref="populationService" ></property>
+	</bean>
+	<bean id="residentTableAction" class="com.zz.actions.info.ResidentTableAction" scope="prototype">
+		<property name="residentTableService" ref="residentTableService"></property>
+	</bean>
+	
+	<!-- ******************************房东意向人表*********************************** -->
+	<bean id="landlordIntentionPersonService" class="com.zz.service.info.LandlordIntentionPersonServiceImpl">
+		<property name="infoLandlordIntentionPersonMapper" ref="infoLandlordIntentionPersonMapper" ></property>
+	</bean>
+	<bean id="landlordIntentionPersonAction" class="com.zz.actions.info.LandlordIntentionPersonAction" scope="prototype">
+		<property name="landlordIntentionPersonService" ref="landlordIntentionPersonService"></property>	
+		<property name="userService" ref="userService"></property>
+	</bean>
+	
+	<!-- ******************************外出登记表*********************************** -->
+	<bean id="goToRegisterService" class="com.zz.service.journal.GoToRegisterServiceImpl">
+		<property name="journalGoToRegisterMapper" ref="journalGoToRegisterMapper" ></property>
+		<property name="userService" ref="userService" ></property>
+	</bean>
+	<bean id="goToRegisterAction" class="com.zz.actions.journal.GoToRegisterAction" scope="prototype">
+		<property name="goToRegisterService" ref="goToRegisterService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="intendedPersonService" ref="intendedPersonService"></property>
+		<property name="houseForStoreService" ref="houseForStoreService"></property>
+		<property name="deviceService" ref="deviceService"></property>
+		<property name="shortMessageAdministrativeService" ref="shortMessageAdministrativeService"></property>
+		<property name="jourDoorCardService" ref="jourDoorCardService"></property>
+		<property name="shortMessageService" ref="shortMessageService"></property>
+	</bean>
+	
+	<!-- ******************************用户工资表*********************************** -->
+	<bean id="staffSalariesService" class="com.zz.service.journal.StaffSalariesServiceImpl">
+		<property name="journalStaffSalariesMapper" ref="journalStaffSalariesMapper" ></property>
+	</bean>
+	<bean id="staffSalariesAction" class="com.zz.actions.journal.StaffSalariesAction" scope="prototype">
+		<property name="staffSalariesService" ref="staffSalariesService"></property>
+	</bean>
+	
+	<!-- ******************************公告表*********************************** -->
+	<bean id="noticeService" class="com.zz.service.journal.NoticeServiceImpl">
+		<property name="dashNoticeMapper" ref="dashNoticeMapper"></property>
+	</bean>
+	<bean id="noticeAction" class="com.zz.actions.journal.NoticeAction" scope="prototype">
+		<property name="noticeService" ref="noticeService"></property>
+	</bean>
+	
+	<!-- ******************************财务统计表*********************************** -->
+	<bean id="dashFinancialStatisticsService" class="com.zz.service.journal.DashFinancialStatisticsServiceImpl">
+		<property name="dashFinancialStatisticsMapper" ref="dashFinancialStatisticsMapper" ></property>
+	</bean>
+	<bean id="dashFinancialStatisticsAction" class="com.zz.actions.journal.DashFinancialStatisticsAction" scope="prototype">
+		<property name="dashFinancialStatisticsService" ref="dashFinancialStatisticsService"></property>
+	</bean>
+	
+	<!-- ******************************每日业绩统计表*********************************** -->
+	<bean id="monthlyPerformanceStatisticsService" class="com.zz.service.journal.MonthlyPerformanceStatisticsServiceImpl">
+		<property name="dashMonthlyPerformanceStatisticsMapper" ref="dashMonthlyPerformanceStatisticsMapper" ></property>
+	</bean>
+	<bean id="monthlyPerformanceStatisticsAction" class="com.zz.actions.journal.DashMonthlyPerformanceStatisticsAction" scope="prototype">
+		<property name="monthlyPerformanceStatisticsService" ref="monthlyPerformanceStatisticsService"></property>
+	</bean>
+	
+	<!-- ******************************事件审批表*********************************** -->
+	<bean id="eventApprovalService" class="com.zz.service.journal.EventApprovalServiceImpl">
+		<property name="journalEventApprovalMapper" ref="journalEventApprovalMapper" ></property>
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper" ></property>
+	</bean>
+	<bean id="eventApprovalAction" class="com.zz.actions.journal.EventApprovalAction" scope="prototype">
+		<property name="eventApprovalService" ref="eventApprovalService"></property>
+	</bean>
+	
+	<!-- ******************************综合查询与修改*********************************** -->
+	<bean id="notRentingService" class="com.zz.service.info.NotRentingServiceImpl">
+		<property name="infoNotRentingMapper" ref="infoNotRentingMapper" ></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper"></property>
+	</bean>
+	<bean id="notRentingAction" class="com.zz.actions.info.NotRentingAction" scope="prototype">
+		<property name="notRentingService" ref="notRentingService"></property>
+		<property name="renewalRenterService" ref="renewalRenterService"></property>
+		<property name="renewalLandlordService" ref="renewalLandlordService"></property>
+		<property name="itaa" ref="infoTransactionAssistanceService"></property>
+		<property name="populationService" ref="populationService"></property>
+	</bean>
+	
+	<!-- ******************************短信表*********************************** -->
+	<bean id="shortMessageService" class="com.zz.service.journal.ShortMessageServiceImpl">
+		<property name="journalShortMessageMapper" ref="journalShortMessageMapper" ></property>
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper" ></property>
+		<property name="sysSystemSettingMapper" ref="sysSystemSettingMapper" ></property>
+	</bean>
+	<bean id="shortMessageAction" class="com.zz.actions.journal.ShortMessageAction" scope="prototype">
+		<property name="shortMessageService" ref="shortMessageService"></property>
+		<property name="houseForRentService" ref="houseForRentService"></property>
+		<property name="renterService" ref="renterService"></property>
+	</bean>
+	
+	<!-- ******************************维修、审批短信表*********************************** -->
+	<bean id="shortMessageAdministrativeService" class="com.zz.service.journal.ShortMessageAdministrativeServiceImpl">
+		<property name="journalShortMessageAdministrativeMapper" ref="journalShortMessageAdministrativeMapper" ></property>
+		<property name="sysSystemSettingService" ref="sysSystemSettingService"></property>
+	</bean>
+	<bean id="shortMessageAdministrativeAction" class="com.zz.actions.journal.ShortMessageAdministrativeAction" scope="prototype">
+		<property name="shortMessageAdministrativeService" ref="shortMessageAdministrativeService"></property>
+		<property name="sysSystemSettingService" ref="sysSystemSettingService"></property>
+	</bean>
+	
+	<!--******************************二维码***********************************-->
+	<bean id="qrcodeService" class="com.zz.service.journal.QrcodeServiceImpl">
+		<property name="journalQrcodeMapper" ref="journalQrcodeMapper" ></property>
+	</bean>
+	<bean id="qrcodeAction" class="com.zz.actions.journal.QrcodeAction" scope="prototype">
+		<property name="qrcodeService" ref="qrcodeService"></property>
+	</bean>
+	
+	<!--******************************上传***********************************-->
+	<bean id="uploadAction" class="com.zz.actions.commons.UploadAction" scope="prototype">
+		<property name="qrcodeService" ref="qrcodeService"></property>
+		<property name="renewalLandlordService" ref="renewalLandlordService"></property>
+		<property name="renewalRenterService" ref="renewalRenterService"></property>
+		<property name="attachmentService" ref="attachmentService"></property>
+		<property name="eventApprovalService" ref="eventApprovalService"></property>
+		<property name="sysAssetsService" ref="sysAssetsService"></property>
+		<property name="haveRentCheckOutService" ref="haveRentCheckOutService"></property>
+		<property name="notRentCheckOutService" ref="notRentCheckOutService"></property>
+		<property name="repairService" ref="repairService"></property>
+		<property name="houseForStoreService" ref="houseForStoreService"></property>
+		<property name="sysSuppliesService" ref="sysSuppliesService"></property>
+		<property name="fileService" ref="fileService"></property>
+		<property name="contractInstallmentService" ref="contractInstallmentService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean> 
+	
+	<!--******************************上传***********************************-->
+	<bean id="pubUploadAction" class="com.zz.actions.commons.PubUploadAction" scope="prototype">
+		<property name="sysVariablesService" ref="sysVariablesService"></property>
+		<property name="houseForStoreService" ref="houseForStoreService"></property>
+		<property name="qrcodeService" ref="qrcodeService"></property>
+		<property name="attachmentService" ref="attachmentService"></property>
+		<property name="jourSubjectService" ref="jourSubjectService"></property>
+
+	</bean>
+	
+	<!-- ******************************历史能源账单*********************************** -->
+	<bean id="monthlyAccountReceivableService" class="com.zz.service.journal.MonthlyAccountReceivableServiceImpl">
+		<property name="journalMonthlyAccountReceivableMapper" ref="journalMonthlyAccountReceivableMapper" ></property>
+		<property name="journalFinancialMapper" ref="journalFinancialMapper" ></property>
+		<property name="infoHouse4storeMapper" ref="infoHouse4storeMapper" ></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper" ></property>
+		<property name="infoHouse4rentMapper" ref="infoHouse4rentMapper" ></property>
+		<property name="infoFinancialAccountMapper" ref="infoFinancialAccountMapper" ></property>
+	</bean>
+	<bean id="monthlyAccountReceivableAction" class="com.zz.actions.journal.MonthlyAccountReceivableAction" scope="prototype">
+		<property name="monthlyAccountReceivableService" ref="monthlyAccountReceivableService"></property>
+	</bean>
+	
+	<!-- ******************************事务审批附件预上传*********************************** -->
+	<bean id="attachmentService" class="com.zz.service.journal.AttachmentServiceImpl">
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper" ></property>
+	</bean>
+	<bean id="attachmentAction" class="com.zz.actions.journal.AttachmentAction" scope="prototype">
+		<property name="attachmentService" ref="attachmentService"></property>
+	</bean>
+	<bean  id="csvUploadAction" class="com.zz.actions.commons.CsvUploadAction" scope="prototype">
+	
+	</bean>
+	
+	<!-- ******************************文件管理*********************************** -->
+	<bean id="fileService" class="com.zz.service.info.FileServiceImpl">
+		<property name="infoFileMapper" ref="infoFileMapper"></property>
+	</bean>
+	<bean id="fileAction" class="com.zz.actions.info.FileAction" scope="prototype">
+		<property name="fileService" ref="fileService"></property>
+	</bean>
+	
+	<!-- ********************************合约库********************************* -->
+	<bean id="contractDatabaseService" class="com.zz.service.journal.ContractDatabaseServiceImpl">
+		<property name="journalContractDatabaseMapper" ref="journalContractDatabaseMapper"></property>
+	</bean>
+	<bean id="contractDatabaseAction" class="com.zz.actions.journal.ContractDatabaseAction" scope="prototype">
+		<property name="contractDatabaseService" ref="contractDatabaseService"></property>
+	</bean>
+	
+	<!-- ********************************日常号管理********************************* -->
+	<bean id="dailyCardNumberService" class="com.zz.service.journal.DailyCardNumberServiceImpl">
+		<property name="journalDailyCardNumberMapper" ref="journalDailyCardNumberMapper"></property>
+		<property name="journalHousingFollowMapper" ref="journalHousingFollowMapper"></property>
+	</bean>
+	<bean id="dailyCardNumberAction" class="com.zz.actions.journal.DailyCardNumberAction" scope="prototype">
+		<property name="dailyCardNumberService" ref="dailyCardNumberService"></property>
+	</bean>
+	
+	<!-- *********************************免租期账单表*************************************** -->
+	<bean id="infoLandFreeBillService" class="com.zz.service.info.InfoLandFreeBillServiceImpl">
+		<property name="infoLandFreeBillMapper" ref="infoLandFreeBillMapper"></property>
+	</bean>
+	<bean id="infoLandFreeBillAction" class="com.zz.actions.info.InfoLandFreeBillAction" scope="prototype">
+		<property name="infoLandFreeBillService" ref="infoLandFreeBillService"></property>
+	</bean>
+	<!-- *********************************利润空间表*************************************** -->
+	<bean id="profitSpaceService" class="com.zz.service.info.ProfitSpaceServiceImpl">
+		<property name="infoProfitSpaceMapper" ref="infoProfitSpaceMapper"></property>
+	</bean>
+	<bean id="profitSpaceAction" class="com.zz.actions.info.ProfitSpaceAction" scope="prototype">
+		<property name="profitSpaceService" ref="profitSpaceService"></property>
+	</bean>
+	<!-- ***********************************房源价格分布统计************************************* -->
+	<bean id="dashHousePriceService" class="com.zz.service.journal.DashHousePriceServiceImpl">
+		<property name="dashHousePriceMapper" ref="dashHousePriceMapper"></property>
+	</bean>
+	<bean id="dashHousePriceAction" class="com.zz.actions.journal.DashHousePriceAction" scope="prototype">
+		<property name="dashHousePriceService" ref="dashHousePriceService"></property>
+	</bean>
+	<!-- ***********************************免租期收益预计************************************* -->
+	<bean id="dashLandFreeEarningsService" class="com.zz.service.journal.DashLandFreeEarningsServiceImpl">
+		<property name="dashLandFreeEarningsMapper" ref="dashLandFreeEarningsMapper"></property>
+	</bean>
+	<bean id="dashLandFreeEarningsAction" class="com.zz.actions.journal.DashLandFreeEarningsAction" scope="prototype">
+		<property name="dashLandFreeEarningsService" ref="dashLandFreeEarningsService"></property>
+	</bean>
+	<!-- *********************************超级系统公司内部表*************************************** -->
+	<bean id="sysSystemSettingService" class="com.zz.service.sys.SysSystemSettingServiceImpl">
+		<property name="sysSystemSettingMapper" ref="sysSystemSettingMapper"></property>
+	</bean>
+	<bean id="sysSystemSettingAction" class="com.zz.actions.sys.SysSystemSettingAction" scope="prototype">
+		<property name="sysSystemSettingService" ref="sysSystemSettingService"></property>
+	</bean>
+	<!-- ***********************************客户来源统计表************************************* -->
+	<bean id="infoCustomerSourceStatisticsService" class="com.zz.service.info.InfoCustomerSourceStatisticsServiceImpl">
+		<property name="infoCustomerSourceStatisticsMapper" ref="infoCustomerSourceStatisticsMapper"></property>
+	</bean>
+	<bean id="infoCustomerSourceStatisticsAction" class="com.zz.actions.info.InfoCustomerSourceStatisticsAction" scope="prototype">
+		<property name="infoCustomerSourceStatisticsService" ref="infoCustomerSourceStatisticsService"></property>
+	</bean>
+	<!-- ***********************************用户考核表************************************* -->
+	<bean id="perfDetailService" class="com.zz.service.journal.PerfDetailServiceImpl">
+		<property name="journalPerfDetailMapper" ref="journalPerfDetailMapper"></property>
+	</bean>
+	<bean id="perfDetailAction" class="com.zz.actions.journal.PerfDetailAction" scope="prototype">
+		<property name="perfDetailService" ref="perfDetailService"></property>
+	</bean>
+	<!-- ***********************************静态杠杆预测表************************************* -->
+	<bean id="infoStaticLeverService" class="com.zz.service.info.InfoStaticLeverServiceImpl">
+		<property name="infoStaticLeverMapper" ref="infoStaticLeverMapper"></property>
+	</bean>
+	<bean id="infoStaticLeverAction" class="com.zz.actions.info.InfoStaticLeverAction" scope="prototype">
+		<property name="infoStaticLeverService" ref="infoStaticLeverService"></property>
+	</bean>
+	<!-- ***********************************沙盘演算************************************* -->
+	<bean id="infoSandboxieService" class="com.zz.service.info.InfoSandboxieServiceImpl">
+		<property name="infoSandboxieMapper" ref="infoSandboxieMapper"></property>
+	</bean>
+	<bean id="infoSandboxieAction" class="com.zz.actions.info.InfoSandboxieAction" scope="prototype">
+		<property name="infoSandboxieService" ref="infoSandboxieService"></property>
+	</bean>
+	<!-- ***********************************常用基础数据获取(空置成本表 日程表用)************************************* -->
+	<bean id="dailyBaseService" class="com.zz.service.journal.DailyBaseServiceImpl">
+		<property name="dailyBaseMapper" ref="dailyBaseMapper"></property>
+	</bean>
+	<bean id="dailyBaseAction" class="com.zz.actions.journal.DailyBaseAction" scope="prototype">
+		<property name="dailyBaseService" ref="dailyBaseService"></property>
+		<property name="dailyFutureService" ref="dailyFutureService"></property>
+		<property name="houseForStoreService" ref="houseForStoreService"></property>
+	</bean>
+	<!-- ***********************************未来基础数据获取(日程表用)************************************* -->
+	<bean id="dailyFutureService" class="com.zz.service.journal.DailyFutureServiceImpl">
+		<property name="dailyFutureMapper" ref="dailyFutureMapper"></property>
+	</bean>
+	<!-- ******************************变量表*********************************** -->
+	<bean id="sysVariablesService" class="com.zz.service.sys.SysVariablesServiceImpl">
+		<property name="sysVariablesMapper" ref="sysVariablesMapper" ></property>
+	</bean>
+	<bean id="variablesAction" class="com.zz.actions.sys.VariablesAction" scope="prototype">
+		<property name="sysVariablesService" ref="sysVariablesService"></property>
+	</bean>
+	
+	<!-- ************************** 招租未租房源表  ******************************-->
+	<bean id="houseReleaseService" class="com.zz.service.info.HouseReleaseServiceImpl">
+		<property name="infoHouseReleaseMapper" ref="infoHouseReleaseMapper" ></property>
+	</bean>
+	<bean id="houseReleaseAction" class="com.zz.actions.info.HouseReleaseAction" scope="prototype">
+		<property name="houseReleaseService" ref="houseReleaseService"></property>
+		<property name="houseForStoreService" ref="houseForStoreService"></property>
+	</bean>
+	<!-- ************************** 仪表盘/工作台/任务版  ******************************-->
+	<bean id="mainConsoleService" class="com.zz.service.collection.MainConsoleServiceImpl">
+		<property name="mainConsoleMapper" ref="mainConsoleMapper" ></property>
+	</bean>
+	<bean id="mainConsoleAction" class="com.zz.actions.collection.MainConsoleAction" scope="prototype">
+		<property name="mainConsoleService" ref="mainConsoleService"></property>
+	</bean>
+	<!-- 退房潮预测 -->
+	<bean id="dashRentCheckoutService" class="com.zz.service.journal.DashRentCheckoutServiceImpl" >
+		<property name="dashRentCheckoutMapper" ref="dashRentCheckoutMapper" ></property>
+	</bean>
+	<bean id="dashRentCheckoutAction" class="com.zz.actions.journal.DashRentCheckoutAction" scope="prototype">
+		<property name="dashRentCheckoutService" ref="dashRentCheckoutService"></property>
+	</bean>
+	<!-- ************************** 历史票据打印  ******************************-->
+	<bean id="historyPrintService" class="com.zz.service.journal.HistoryPrintServiceImpl">
+		<property name="journalHistoryPrintMapper" ref="journalHistoryPrintMapper" ></property>
+		<property name="infoContractInstallmentMapper" ref="infoContractInstallmentMapper"></property>
+	</bean>
+	<bean id="historyPrintAction" class="com.zz.actions.journal.HistoryPrintAction" scope="prototype">
+		<property name="historyPrintService" ref="historyPrintService"></property>
+	</bean>
+	<!-- ************************** 票据流水号  ******************************-->
+	<bean id="billNoService" class="com.zz.service.sys.BillNoServiceImpl">
+		<property name="sysBillNoMapper" ref="sysBillNoMapper" ></property>
+	</bean>
+	<bean id="billNoAction" class="com.zz.actions.sys.BillNoAction" scope="prototype">
+		<property name="billNoService" ref="billNoService"></property>
+	</bean>
+	<!-- ************************** 微信支付订单表  ******************************-->
+	<bean id="wxPaymentService" class="com.zz.service.journal.WxPaymentServiceImpl">
+		<property name="jourWxPaymentMapper" ref="jourWxPaymentMapper" ></property>
+	</bean>
+	<bean id="wxPaymentAction" class="com.zz.actions.journal.WxPaymentAction" scope="prototype">
+		<property name="wxPaymentService" ref="wxPaymentService"></property>
+	</bean>
+	<!-- ************************** 设备表  ******************************-->
+	<bean id="deviceService" class="com.zz.service.journal.DeviceServiceImpl">
+		<property name="jourDeviceMapper" ref="jourDeviceMapper" ></property>
+	</bean>
+	<bean id="deviceAction" class="com.zz.actions.journal.DeviceAction" scope="prototype">
+		<property name="deviceService" ref="deviceService"></property>
+	</bean>
+	<bean id="deviceConsole" class="com.zz.actions.commons.DeviceConsole" scope="prototype">
+		<property name="deviceService" ref="deviceService"></property>
+	</bean>
+	<!-- ************************** 房屋生态表  ******************************-->
+	<bean id="statFinancialEcologyService" class="com.zz.service.stat.StatFinancialEcologyServiceImpl">
+		<property name="statFinancialEcologyMapper" ref="statFinancialEcologyMapper" ></property>
+	</bean>
+	<bean id="statFinancialEcologyAction" class="com.zz.actions.stat.StatFinancialEcologyAction" scope="prototype">
+		<property name="statFinancialEcologyService" ref="statFinancialEcologyService"></property>
+	</bean>
+	<!-- ************************** 房屋财务数据表  ******************************-->
+	<bean id="statFinancialDataService" class="com.zz.service.stat.StatFinancialDataServiceImpl">
+		<property name="statFinancialDataMapper" ref="statFinancialDataMapper" ></property>
+	</bean>
+	<bean id="statFinancialDataAction" class="com.zz.actions.stat.StatFinancialDataAction" scope="prototype">
+		<property name="statFinancialDataService" ref="statFinancialDataService"></property>
+	</bean>
+	<!-- ************************** 用户绩效数据表  ******************************-->
+	<bean id="statAchievementDataService" class="com.zz.service.stat.StatAchievementDataServiceImpl">
+		<property name="statAchievementDataMapper" ref="statAchievementDataMapper" ></property>
+	</bean>
+	<bean id="statAchievementDataAction" class="com.zz.actions.stat.StatAchievementDataAction" scope="prototype">
+		<property name="statAchievementDataService" ref="statAchievementDataService"></property>
+	</bean>
+	<!-- ************************** 财务数据快照表  ******************************-->
+	<bean id="statFinancialDailyDataService" class="com.zz.service.stat.StatFinancialDailyDataServiceImpl">
+		<property name="statFinancialDailyDataMapper" ref="statFinancialDailyDataMapper" ></property>
+	</bean>
+	<bean id="statFinancialDailyDataAction" class="com.zz.actions.stat.StatFinancialDailyDataAction" scope="prototype">
+		<property name="statFinancialDailyDataService" ref="statFinancialDailyDataService"></property>
+	</bean>
+	
+	<!-- ************************** 用户考勤班次表  ******************************-->
+	<bean id="jourShiftScheduleService" class="com.zz.service.journal.JourShiftScheduleServiceImpl">
+		<property name="jourShiftScheduleMapper" ref="jourShiftScheduleMapper" ></property>
+	</bean>
+	<bean id="jourShiftScheduleActions" class="com.zz.actions.journal.JourShiftScheduleActions" scope="prototype">
+		<property name="jourShiftScheduleService" ref="jourShiftScheduleService"></property>
+	</bean>
+	
+	<!-- ************************** 用户考勤记录表  ******************************-->
+	<bean id="jourAttendanceRecordService" class="com.zz.service.journal.JourAttendanceRecordServiceImpl">
+		<property name="jourAttendanceRecordMapper" ref="jourAttendanceRecordMapper" ></property>
+	</bean>
+	<bean id="jourAttendanceRecordActions" class="com.zz.actions.journal.JourAttendanceRecordActions" scope="prototype">
+		<property name="jourAttendanceRecordService" ref="jourAttendanceRecordService"></property>
+	</bean>
+	
+	<bean id="jourAttendanceinformationrecordService" class="com.zz.service.journal.JourAttendanceinformationrecordServiceImpl">
+		<property name="jourAttendanceinformationrecordMapper" ref="jourAttendanceinformationrecordMapper" ></property>
+	</bean>
+	<bean id="jourAttendanceinformationrecordActions" class="com.zz.actions.journal.JourAttendanceinformationrecordActions" scope="prototype">
+		<property name="jourAttendanceinformationrecordService" ref="jourAttendanceinformationrecordService"></property>
+	</bean>
+	
+	<!-- ************************** 58房源发布  ******************************-->
+	<bean id="push58ApartmentService" class="com.zz.service.push.Push58ApartmentServiceImpl">
+		<property name="push58ApartmentMapper" ref="push58ApartmentMapper" ></property>
+	</bean>
+	<bean id="push58ApartmentAction" class="com.zz.actions.push.Push58ApartmentAction" scope="prototype">
+		<property name="push58ApartmentService" ref="push58ApartmentService"></property>
+	</bean>
+	<bean id="push58HouseService" class="com.zz.service.push.Push58HouseServiceImpl">
+		<property name="push58HouseMapper" ref="push58HouseMapper" ></property>
+		<property name="push58UnitMapper" ref="push58UnitMapper" ></property>
+	</bean>
+	<bean id="push58HouseAction" class="com.zz.actions.push.Push58HouseAction" scope="prototype">
+		<property name="push58HouseService" ref="push58HouseService"></property>
+	</bean>
+	<bean id="push58LayoutService" class="com.zz.service.push.Push58LayoutServiceImpl">
+		<property name="push58LayoutMapper" ref="push58LayoutMapper" ></property>
+	</bean>
+	<bean id="push58LayoutAction" class="com.zz.actions.push.Push58LayoutAction" scope="prototype">
+		<property name="push58LayoutService" ref="push58LayoutService"></property>
+	</bean>
+	<bean id="push58RoomService" class="com.zz.service.push.Push58RoomServiceImpl">
+		<property name="push58RoomMapper" ref="push58RoomMapper" ></property>
+		<property name="push58UnitMapper" ref="push58UnitMapper" ></property>
+	</bean>
+	<bean id="push58RoomAction" class="com.zz.actions.push.Push58RoomAction" scope="prototype">
+		<property name="push58RoomService" ref="push58RoomService"></property>
+	</bean>
+	<bean id="push58UnitService" class="com.zz.service.push.Push58UnitServiceImpl">
+		<property name="push58UnitMapper" ref="push58UnitMapper" ></property>
+	</bean>
+	<bean id="push58UnitAction" class="com.zz.actions.push.Push58UnitAction" scope="prototype">
+		<property name="push58UnitService" ref="push58UnitService"></property>
+	</bean>
+	
+	<!-- ************************** 贝壳房源发布  ******************************-->
+	<bean id="pushBkApiService" class="com.zz.service.push.PushBkApiServiceImpl">
+		<property name="sysSystemSettingService" ref="sysSystemSettingService"></property>
+	</bean>
+	<bean id="pushBkHouseService" class="com.zz.service.push.PushBkHouseServiceImpl">
+		<property name="pushBkHouseMapper" ref="pushBkHouseMapper" ></property>
+		<property name="pushBkApiService" ref="pushBkApiService" ></property>
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper" ></property>
+	</bean>
+	<bean id="pushBkHouseAction" class="com.zz.actions.push.PushBkHouseAction" scope="prototype">
+		<property name="pushBkHouseService" ref="pushBkHouseService"></property>
+		<property name="pushBkApiService" ref="pushBkApiService"></property>
+	</bean>
+	<bean id="pushBkRentUnitService" class="com.zz.service.push.PushBkRentUnitServiceImpl">
+		<property name="pushBkRentUnitMapper" ref="pushBkRentUnitMapper" ></property>
+		<property name="pushBkUnitMapper" ref="pushBkUnitMapper" ></property>
+		<property name="pushBkApiService" ref="pushBkApiService" ></property>
+		<property name="journalAttachmentMapper" ref="journalAttachmentMapper" ></property>
+	</bean>
+	<bean id="pushBkRentUnitAction" class="com.zz.actions.push.PushBkRentUnitAction" scope="prototype">
+		<property name="pushBkRentUnitService" ref="pushBkRentUnitService"></property>
+	</bean>
+	
+	<bean id="pushBkHouseStatusService" class="com.zz.service.push.PushBkHouseStatusServiceImpl">
+		<property name="pushBkHouseStatusMapper" ref="pushBkHouseStatusMapper" ></property>
+	</bean>
+	<bean id="pushBkHouseStatusAction" class="com.zz.actions.push.PushBkHouseStatusAction" scope="prototype">
+		<property name="pushBkHouseStatusService" ref="pushBkHouseStatusService"></property>
+	</bean>
+	
+	<bean id="pushBkUnitService" class="com.zz.service.push.PushBkUnitServiceImpl">
+		<property name="pushBkUnitMapper" ref="pushBkUnitMapper" ></property>
+	</bean>
+	<bean id="pushBkUnitAction" class="com.zz.actions.push.PushBkUnitAction" scope="prototype">
+		
+	</bean>
+
+	<!--交接班-->
+	<bean id="jourShiftRecordAction" class="com.zz.actions.journal.JourShiftRecordAction" scope="prototype">
+	</bean>
+	<bean id="jourShiftRecordService" class="com.zz.service.journal.JourShiftRecordServiceImpl">
+	</bean>
+
+	<!--折扣挂单-->
+	<bean id="jourTemporaryOrderAction" class="com.zz.actions.journal.JourTemporaryOrderAction" scope="prototype">
+	</bean>
+	<bean id="jourTemporaryOrderService" class="com.zz.service.journal.JourTemporaryOrderServiceImpl"></bean>
+	
+	<bean id="devTypeAction" class="com.zz.datasource.DevTypeAction" scope="prototype"></bean>
+
+	<bean id="sysLogExceptionService" class="com.zz.service.sys.SysLogExceptionServiceImpl">
+		<property name="sysLogExceptionMapper" ref="sysLogExceptionMapper"></property>
+	</bean>
+	<bean class="com.zz.other.Syslog">
+		<property name="sysLogExceptionService" ref="sysLogExceptionService"></property>
+	</bean>
+	
+	<!--查詢guid  -->
+	
+	<bean id="infoFacePersonAction" class="com.zz.actions.info.InfoFacePersonAction" scope="prototype">
+	</bean>
+
+	<!--专题-->
+	<bean id="jourSubjectService" class="com.zz.service.journal.JourSubjectServiceImpl">
+		<property name="jourSubjectMapper" ref="jourSubjectMapper"></property>
+	</bean>
+	<bean id="jourSubjectAction" class="com.zz.actions.journal.JourSubjectAction" scope="prototype">
+		<property name="jourSubjectService" ref="jourSubjectService"></property>
+	</bean>
+	<!-- 紧急联系方式 -->
+	<bean id="jourEmergencyCallAction" class="com.zz.actions.journal.JourEmergencyCallAction" scope="prototype">
+	</bean>
+	<bean id="jourEmergencyCallService" class="com.zz.service.journal.JourEmergencyCallServiceImpl"></bean>
+
+	<bean id="jourContactTelephoneAction" class="com.zz.actions.journal.JourContactTelephoneAction" scope="prototype">
+	</bean>
+	<bean id="jourContactTelephoneService" class="com.zz.service.journal.JourContactTelephoneServiceImpl"></bean>
+
+	<!--设备预警跟进-->
+	<bean id="jourEwsFollowAction" class="com.zz.actions.journal.JourEwsFollowAction" scope="prototype"></bean>
+	<bean id="jourEwsFollowService" class="com.zz.service.journal.JourEwsFollowServiceImpl"></bean>
+	<!--开锁记录-->
+	<bean id="jourUnlockRecordAction" class="com.zz.actions.journal.JourUnlockRecordAction"></bean>
+	<bean id="jourUnlockRecordService" class="com.zz.service.journal.JourUnlockRecordServiceImpl"></bean>
+</beans>

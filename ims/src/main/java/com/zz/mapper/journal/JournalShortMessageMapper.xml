@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalShortMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalShortMessage" >
+    <id column="sm_id" property="smId" jdbcType="INTEGER" />
+    <result column="sm_user_id" property="smUserId" jdbcType="INTEGER" />
+    <result column="sm_pop_id" property="smPopId" jdbcType="INTEGER" />
+    <result column="sm_land_id" property="smLandId" jdbcType="INTEGER" />
+    <result column="sm_rent_id" property="smRentId" jdbcType="INTEGER" />
+    <result column="sm_not_rent_id" property="smNotRentId" jdbcType="INTEGER" />
+    <result column="sm_content" property="smContent" jdbcType="VARCHAR" />
+    <result column="sm_state" property="smState" jdbcType="VARCHAR" />
+    <result column="sm_type" property="smType" jdbcType="VARCHAR" />
+    <result column="sm_treatment_status" property="smTreatmentStatus" jdbcType="VARCHAR" />
+    <result column="sm_data_time" property="smDataTime" jdbcType="TIMESTAMP" />
+    <result column="sm_money" property="smMoney" jdbcType="DOUBLE" />
+    <result column="sm_note" property="smNote" jdbcType="VARCHAR" />
+    <result column="sm_count" property="smCount" jdbcType="INTEGER" />
+    <result column="sm_ip_id" property="smIpId" jdbcType="INTEGER" />
+    
+    <result column="sm_receive_number" property="smReceiveNumber" jdbcType="VARCHAR" />
+    
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="pop_name" property="popName" jdbcType="VARCHAR" />
+    <result column="pop_telephone" property="popTelephone" jdbcType="VARCHAR" />
+    <result column="pop_idcard" property="popIdcard" jdbcType="VARCHAR" />
+    <result column="pop_id" property="popId" jdbcType="INTEGER" />
+    
+    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />  
+    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />   
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />  
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="pop_landlord" property="popLandlord" jdbcType="INTEGER" />
+    <result column="pop_renter" property="popRenter" jdbcType="INTEGER" />
+    <result column="smlandId" property="smlandId" jdbcType="INTEGER" />
+    <result column="smrentId" property="smrentId" jdbcType="INTEGER" />
+    <result column="sm_field" property="smField" jdbcType="VARCHAR" />
+    
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+    <result column="jciNature" property="jciNature" jdbcType="VARCHAR" />
+    <result column="jci_begin_periods" property="jciBeginPeriods" jdbcType="VARCHAR" />
+    <result column="jci_end_periods" property="jciEndPeriods" jdbcType="VARCHAR" />
+    <result column="jrl_end_time" property="jrlEndTime" jdbcType="VARCHAR" />
+    <result column="jrr_end_time" property="jrrEndTime" jdbcType="VARCHAR" />
+    <result column="hs_end_date" property="hsEndDate" jdbcType="VARCHAR" />
+    <result column="renter_population_id" property="rentPopId" jdbcType="VARCHAR" />
+    
+    <result column="smrentId" property="smrentId" jdbcType="INTEGER" />
+    <result column="hr_id" property="hrid" jdbcType="INTEGER" />
+    <result column="hs_id" property="hsid" jdbcType="INTEGER" />
+    <result column="smUserName" property="smUserName" jdbcType="VARCHAR" />
+    
+    <!-- <result column="la_bank_type" property="laBankType" jdbcType="VARCHAR" />
+    <result column="la_bank_num" property="laBankNum" jdbcType="VARCHAR" />
+    <result column="la_bank_name" property="laBankName" jdbcType="VARCHAR" /> -->
+  </resultMap>
+  <!-- (数据与统计分开)查询所有-->
+  <select id="selectAllShortMessage" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  	select 
+  	<if test="splitFlag ==0">
+		<!-- 统计查询 -->
+		count(sm.sm_id) totalNum
+	</if>
+	<if test="splitFlag ==1">
+		<!-- 数据查询 -->
+		sm.*, pop.pop_name, pop.pop_idcard, pop.pop_telephone, hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone,
+		hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno, hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone,
+		hs.hs_add_street, hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno, u.su_staff_name smUserName
+	</if>
+	from jour_sms_outside sm
+	left outer join info_pop_tmp pop on pop.pop_id = sm.sm_pop_id
+	left outer join info_house_4rent hr on hr.hr_id = sm.sm_rent_id
+	left outer join info_house_4store hs on hs.hs_id = sm.sm_not_rent_id
+	left outer join sys_users u on u.user_coding = sm.sm_user_id
+	<where>
+		<if test="smType != null and smType != '' ">
+	    	and sm_type = #{smType}
+	    </if>  
+	    <if test="smRentId != null and smRentId != '' ">
+	    	and sm_rent_id = #{smRentId}
+	    </if>    
+	    <if test="smNotRentId != null and smNotRentId != '' ">
+	    	and sm_not_rent_id = #{smNotRentId}
+	    </if>  
+	    <if test="smNotRentId != null and smNotRentId != '' ">
+	    	and sm_not_rent_id = #{smNotRentId}
+    	</if>
+    	<if test="smLandId != null and smLandId != '' ">
+    		and sm_land_id = #{smLandId}
+    	</if>
+    	<if test="popName != null and popName != '' ">
+    		and pop_name like '%${popName}%'
+    	</if>
+    	<if test="popTelephone != null and popTelephone != '' ">
+    		and pop_telephone like '%${popTelephone}%'
+    	</if>
+    	<if test="addCommunity != null and addCommunity != ''" >
+			and (hr_add_community like '%${addCommunity}%' 
+				or hs_add_community like '%${addCommunity}%'
+				)
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+				and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+				and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					)
+		</if>
+		<if test="smNote != null and smNote != ''">
+				and sm_note like '%${smNote}%'
+		</if>
+	</where>
+	<if test="splitFlag ==1">
+		 ORDER BY sm_id DESC
+ 		<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	 </if>
+	</if>
+  </select>
+  <sql id="Base_Column_List" >
+    sm_id, sm_user_id, sm_pop_id, sm_land_id, sm_rent_id, sm_not_rent_id, sm_content, sm_state, sm_type, sm_treatment_status, 
+    sm_data_time,sm_money,sm_note, sm_count,sm_field,sm_receive_number
+  </sql>
+  
+  <!-- 根据电话号获取人口id -->
+  <select id="getPopulationId" resultMap="BaseResultMap"  parameterType="java.lang.String" >
+  	select pop.pop_id, pop.pop_telephone, pop.pop_name from info_pop_tmp pop 
+  	where pop_telephone = #{popTelephone} limit 1
+  </select>
+  
+  <!-- 批量发送查询 -->
+  <select id="selectBatchSend" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  	select pop.pop_id, pop.pop_name, pop.pop_telephone, re.renter_population_id, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno,
+		hr.hr_id, hs.hs_id
+		from info_pop_tmp pop
+		inner join info_renter re on re.renter_population_id = pop.pop_id and pop.pop_telephone is not null
+		inner join info_house_4rent hr on hr.hr_renter_id = re.renter_id
+		inner join info_house_4store hs on hr.hr_landlord_id = hs.hs_landlord_id
+		group by pop_name
+  </select>
+    
+  <!-- 获取定金截止时间 -->
+  <select id="getDepositTime" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  	select hs_deposit_amount, hs_end_date from info_house_4store 
+	where hs_id = #{smNotRentId} 
+				and hs_intentional_id = #{smrentId}
+  </select>
+  
+  <!-- 获取未租房合约时间 -->
+  <select id="renewalLandlord" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  		select jrl_end_time from info_landlord_contract
+		where jrl_landlord_id = #{smlandId} 
+				and jrl_house_4store_id = #{smNotRentId} 
+				ORDER BY jrl_id DESC
+  </select>
+  
+  <!-- 获取已租房合约时间 -->
+  <select id="rentRenewal" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  		select jrr_end_time from info_renter_contract
+		where jrr_house_4rent_id = #{smRentId}
+					and jrr_renter_id = #{smrentId}
+					ORDER BY jrr_id DESC
+  </select>
+  
+  <!-- 获取交租时间 -->
+  <select id="getDatePeriods" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  		select jci.jci_begin_periods, jci.jci_end_periods from info_contract_divider jci
+		<where>
+				 (jci_begin_periods between #{startTime} and #{endTime})
+				and jci_nature = #{jciNature}
+				<if test="smlandId != null and smlandId != ''">
+					and jci_landlord_id = #{smlandId} 
+				</if>
+				<if test="smrentId != null and smrentId != ''">
+					and jci_renter_id = #{smrentId}
+				</if>
+				<if test="smRentId != null and smRentId != ''">
+					and jci_house4rent_id = #{smRentId}
+				</if>
+				<if test="smNotRentId != null and smNotRentId != ''">
+					and jci_house4store_id = #{smNotRentId}
+				</if>
+		</where>
+  </select>
+  
+  <!-- 查询人口表的 姓名 号码 -->
+  <select id="populationNumber" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage">
+  	select ip.pop_name popName, ip.pop_telephone popTelephone from info_pop_tmp ip 
+  	<where>
+		<if test="smPopId != null and smPopId != ''">
+			ip.pop_id = #{smPopId}
+		</if>
+		<if test="popIdcard != null and popIdcard != ''">
+			and ip.pop_idcard = #{popIdcard}
+		</if>
+	</where>
+  </select>
+  
+  <!-- 获取姓名，手机号码 -->
+  <select id="getPopName" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage"  >
+  	select ip.pop_name popName, ip.pop_telephone popTelephone, ip.pop_landlord popLandlord, ip.pop_renter popRenter, re.renter_id smrentId, la.la_id smlandId
+		from info_pop_tmp ip
+		left outer join info_renter re on re.renter_population_id = ip.pop_id
+		left outer join info_landlord la on la.la_population_id = ip.pop_id
+		where
+		ip.pop_id = #{smPopId}
+  </select>
+  
+  <!--  获取租客意向人 姓名，手机号码-->
+  <select id="getIntendedRenter" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  	select iir.ip_name popName, iir.ip_tel popTelephone from info_intended_renter iir
+	where ip_id = #{smIpId}
+  </select>
+  
+  <!-- 房东 -->
+  <select id="getNotrentAddress" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  	select hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone,
+		 hs.hs_add_street, hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno
+		from info_house_4store hs
+		left outer join info_landlord la on la.la_id = hs.hs_landlord_id
+		where hs_landlord_id = #{smlandId}
+					and hs_id = #{smNotRentId}
+  </select>
+  
+  <!-- 租客 -->
+  <select id="getrentAddress" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  	select hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone,
+		hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno
+		from info_house_4rent hr
+		left outer join info_renter re on re.renter_id = hr.hr_renter_id
+		where hr_renter_id = #{smrentId}
+				   and hr_id = #{smRentId}
+  </select>
+  
+  <!-- 根据房东id查姓名、电话 -->
+  <select id="getLandInfo" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+  	select pop_name, pop_telephone from jour_sms_outside jsm  
+		left outer join info_landlord il on il.la_id = jsm.sm_land_id
+		left outer join info_pop_tmp ip on ip.pop_id = il.la_population_id
+		where sm_id = #{smId}
+  </select>
+    
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessage" >
+    select a.*, b.totalNum from
+		(select sm.*, pop.pop_name, pop.pop_idcard, pop.pop_telephone, hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone,
+		 hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno, hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone,
+		 hs.hs_add_street, hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno, u.su_staff_name smUserName
+		from jour_sms_outside sm
+		left outer join info_pop_tmp pop on pop.pop_id = sm.sm_pop_id
+		left outer join info_house_4rent hr on hr.hr_id = sm.sm_rent_id
+		left outer join info_house_4store hs on hs.hs_id = sm.sm_not_rent_id
+		left outer join sys_users u on u.user_coding = sm.sm_user_id
+		<where>
+	    <if test="smType != null and smType != '' ">
+	    	and sm_type = #{smType}
+	    </if>  
+	    <if test="smRentId != null and smRentId != '' ">
+	    	and sm_rent_id = #{smRentId}
+	    </if>    
+	    <if test="smNotRentId != null and smNotRentId != '' ">
+	    	and sm_not_rent_id = #{smNotRentId}
+	    </if>  
+	    <if test="smNotRentId != null and smNotRentId != '' ">
+	    	and sm_not_rent_id = #{smNotRentId}
+    	</if>
+    	<if test="smLandId != null and smLandId != '' ">
+    		and sm_land_id = #{smLandId}
+    	</if>
+    	<if test="popName != null and popName != '' ">
+    		and pop_name like '%${popName}%'
+    	</if>
+    	<if test="popTelephone != null and popTelephone != '' ">
+    		and pop_telephone like '%${popTelephone}%'
+    	</if>
+    	<if test="addCommunity != null and addCommunity != ''" >
+			and (hr_add_community like '%${addCommunity}%' 
+				or hs_add_community like '%${addCommunity}%'
+				)
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+				and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+				and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					)
+		</if>
+		<if test="smNote != null and smNote != ''">
+				and sm_note like '%${smNote}%'
+		</if>
+    </where>
+		) a,
+		(select count(sm.sm_id) totalNum
+		from jour_sms_outside sm
+		left outer join info_pop_tmp pop on pop.pop_id = sm.sm_pop_id
+		left outer join info_house_4rent hr on hr.hr_id = sm.sm_rent_id
+		left outer join info_house_4store hs on hs.hs_id = sm.sm_not_rent_id
+		left outer join sys_users u on u.user_coding = sm.sm_user_id
+		<where>
+	    	<if test="smType != null and smType != '' ">
+	    		and sm_type = #{smType}
+	    	</if>
+	    	<if test="smRentId != null and smRentId != '' ">
+		    	and sm_rent_id = #{smRentId}
+		    </if>    
+		    <if test="smNotRentId != null and smNotRentId != '' ">
+		    	and sm_not_rent_id = #{smNotRentId}
+		    </if>  
+	    	<if test="smNotRentId != null and smNotRentId != '' ">
+	    		and sm_not_rent_id = #{smNotRentId}
+	    	</if>
+	    	<if test="smLandId != null and smLandId != '' ">
+	    		and sm_land_id = #{smLandId}
+	    	</if>
+	    	<if test="popName != null and popName != '' ">
+	    		and pop_name like '%${popName}%'
+	    	</if>
+	    	<if test="popTelephone != null and popTelephone != '' ">
+	    		and pop_telephone like '%${popTelephone}%'
+	    	</if>
+	    	<if test="addCommunity != null and addCommunity != ''" >
+				and (hr_add_community like '%${addCommunity}%' 
+					or hs_add_community like '%${addCommunity}%'
+					)
+			</if>
+			<if test="addBuilding != null and addBuilding != '' ">
+				and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					)
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != ''">
+				and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					)
+			</if>
+			<if test="smNote != null and smNote != ''">
+				and sm_note like '%${smNote}%'
+		</if>
+    	</where>
+		) b
+    ORDER BY sm_id DESC
+ 	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	 </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_sms_outside
+    where sm_id = #{smId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertList" parameterType="java.util.List" >
+   insert into jour_sms_outside (
+   		sm_pop_id, sm_rent_id, sm_not_rent_id, sm_type, sm_note
+   )values 
+    <foreach collection="list" item="item" index="index" separator=",">
+   (
+   		#{item.smPopId}, #{item.smRentId}, #{item.smNotRentId}, #{item.smType},#{item.smNote}
+    )
+    </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalShortMessage" useGeneratedKeys="true" keyProperty="smId">
+    insert into jour_sms_outside
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="smUserId != null" >
+        sm_user_id,
+      </if>
+      <if test="smPopId != null" >
+        sm_pop_id,
+      </if>
+      <if test="smLandId != null" >
+        sm_land_id,
+      </if>
+      <if test="smRentId != null" >
+        sm_rent_id,
+      </if>
+      <if test="smNotRentId != null" >
+        sm_not_rent_id,
+      </if>
+      <if test="smContent != null" >
+        sm_content,
+      </if>
+      <if test="smState != null" >
+        sm_state,
+      </if>
+      <if test="smType != null" >
+        sm_type,
+      </if>
+      <if test="smTreatmentStatus != null" >
+        sm_treatment_status,
+      </if>
+      <if test="smDataTime != null" >
+        sm_data_time,
+      </if>
+      <if test="smMoney != null">
+      	sm_money,
+      </if>
+      <if test="smNote != null">
+      	sm_note,
+      </if>
+      <if test="smCount != null">
+      	sm_count,
+      </if>
+      <if test="smField != null">
+      	sm_field,
+      </if> 
+      <if test="smReceiveNumber != null">
+      	sm_receive_number,
+      </if>
+      
+      <if test="smIpId != null">
+      	sm_ip_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="smId != null" >
+        #{smId,jdbcType=INTEGER},
+      </if>
+      <if test="smUserId != null" >
+        #{smUserId,jdbcType=INTEGER},
+      </if>
+      <if test="smPopId != null" >
+        #{smPopId,jdbcType=INTEGER},
+      </if>
+      <if test="smLandId != null" >
+        #{smLandId,jdbcType=INTEGER},
+      </if>
+      <if test="smRentId != null" >
+        #{smRentId,jdbcType=INTEGER},
+      </if>
+      <if test="smNotRentId != null" >
+        #{smNotRentId,jdbcType=INTEGER},
+      </if>
+      <if test="smContent != null" >
+        #{smContent,jdbcType=VARCHAR},
+      </if>
+      <if test="smState != null" >
+        #{smState,jdbcType=VARCHAR},
+      </if>
+      <if test="smType != null" >
+        #{smType,jdbcType=VARCHAR},
+      </if>
+      <if test="smTreatmentStatus != null" >
+        #{smTreatmentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="smDataTime != null" >
+        #{smDataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smMoney != null">
+      	#{smMoney},
+      </if>
+      <if test="smNote != null">
+      	#{smNote},
+      </if>
+      <if test="smCount != null">
+      	#{smCount},
+      </if>
+      <if test="smField != null">
+      	#{smField},
+      </if>
+      <if test="smReceiveNumber != null">
+      	#{smReceiveNumber},
+      </if>
+      
+      <if test="smIpId != null">
+      	#{smIpId},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalShortMessage" >
+    update jour_sms_outside
+    <set >
+      <if test="smUserId != null" >
+        sm_user_id = #{smUserId,jdbcType=INTEGER},
+      </if>
+      <if test="smPopId != null" >
+        sm_pop_id = #{smPopId,jdbcType=INTEGER},
+      </if>
+      <if test="smLandId != null" >
+        sm_land_id = #{smLandId,jdbcType=INTEGER},
+      </if>
+      <if test="smRentId != null" >
+        sm_rent_id = #{smRentId,jdbcType=INTEGER},
+      </if>
+      <if test="smNotRentId != null" >
+        sm_not_rent_id = #{smNotRentId,jdbcType=INTEGER},
+      </if>
+      <if test="smContent != null" >
+        sm_content = #{smContent,jdbcType=VARCHAR},
+      </if>
+      <if test="smState != null" >
+        sm_state = #{smState,jdbcType=VARCHAR},
+      </if>
+      <if test="smType != null" >
+        sm_type = #{smType,jdbcType=VARCHAR},
+      </if>
+      <if test="smTreatmentStatus != null" >
+        sm_treatment_status = #{smTreatmentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="smDataTime != null" >
+        sm_data_time = #{smDataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smMoney != null">
+      	sm_money = #{smMoney},
+      </if>
+      <if test="smNote != null">
+      	sm_note = #{smNote},
+      </if>
+      <if test="smCount != null">
+      	sm_count = #{smCount},
+      </if>
+      <if test="smField != null">
+      	sm_field = #{smField},
+      </if>
+      <if test="smReceiveNumber != null">
+      	sm_receive_number = #{smReceiveNumber},
+      </if>
+      <if test="smIpId != null">
+      	sm_ip_id = #{smIpId},
+      </if>
+    </set>
+    where sm_id = #{smId,jdbcType=INTEGER}
+  </update>
+</mapper>

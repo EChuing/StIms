@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.push.Push58LayoutMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.push.Push58Layout" >
+    <id column="p5l_id" property="p5lId" jdbcType="INTEGER" />
+    <result column="p5l_apartment_id" property="p5lApartmentId" jdbcType="VARCHAR" />
+    <result column="p5l_layout_id" property="p5lLayoutId" jdbcType="VARCHAR" />
+    <result column="p5l_layout_name" property="p5lLayoutName" jdbcType="VARCHAR" />
+    <result column="p5l_gmt_create" property="p5lGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="p5l_gmt_modified" property="p5lGmtModified" jdbcType="TIMESTAMP" />
+    <result column="p5l_detail" property="p5lDetail" jdbcType="LONGVARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="query58Layout" resultMap="MyBaseResultMap" parameterType="com.zz.po.push.Push58Layout" >
+    select aa.*, bb.totalNum 
+    from (select * from push_58_layout
+    <where>
+    	<if test="p5lApartmentId != null and p5lApartmentId != ''" >
+			and p5l_apartment_id = #{p5lApartmentId}
+		</if>
+    </where>
+    ) aa, 
+    (select count(p5l_id) totalNum from push_58_layout
+    <where>
+    	<if test="p5lApartmentId != null and p5lApartmentId != ''" >
+			and p5l_apartment_id = #{p5lApartmentId}
+		</if>
+    </where>
+    ) bb
+    ORDER BY p5l_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from push_58_layout
+    where p5l_id = #{p5lId,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.push.Push58Layout" >
+    insert into push_58_layout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="p5lId != null" >
+        p5l_id,
+      </if>
+      <if test="p5lApartmentId != null" >
+        p5l_apartment_id,
+      </if>
+      <if test="p5lLayoutId != null" >
+        p5l_layout_id,
+      </if>
+      <if test="p5lLayoutName != null" >
+        p5l_layout_name,
+      </if>
+      <if test="p5lGmtCreate != null" >
+        p5l_gmt_create,
+      </if>
+      <if test="p5lGmtModified != null" >
+        p5l_gmt_modified,
+      </if>
+      <if test="p5lDetail != null" >
+        p5l_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="p5lId != null" >
+        #{p5lId,jdbcType=INTEGER},
+      </if>
+      <if test="p5lApartmentId != null" >
+        #{p5lApartmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="p5lLayoutId != null" >
+        #{p5lLayoutId,jdbcType=VARCHAR},
+      </if>
+      <if test="p5lLayoutName != null" >
+        #{p5lLayoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="p5lGmtCreate != null" >
+        #{p5lGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5lGmtModified != null" >
+        #{p5lGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5lDetail != null" >
+        #{p5lDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.push.Push58Layout" >
+    update push_58_layout
+    <set >
+      <if test="p5lApartmentId != null" >
+        p5l_apartment_id = #{p5lApartmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="p5lLayoutId != null" >
+        p5l_layout_id = #{p5lLayoutId,jdbcType=VARCHAR},
+      </if>
+      <if test="p5lLayoutName != null" >
+        p5l_layout_name = #{p5lLayoutName,jdbcType=VARCHAR},
+      </if>
+      <if test="p5lGmtCreate != null" >
+        p5l_gmt_create = #{p5lGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5lGmtModified != null" >
+        p5l_gmt_modified = #{p5lGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5lDetail != null" >
+        p5l_detail = #{p5lDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where p5l_id = #{p5lId,jdbcType=INTEGER}
+  </update>
+</mapper>

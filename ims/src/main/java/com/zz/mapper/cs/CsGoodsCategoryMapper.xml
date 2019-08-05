@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoodsCategory" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cgc_category_name" property="cgcCategoryName" jdbcType="VARCHAR" />
+    <result column="cgc_num" property="cgcNum" jdbcType="INTEGER" />
+    <result column="cgc_registration_time" property="cgcRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="cgs_delete_state" property="cgsDeleteState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cgc_category_name, cgc_num, cgc_registration_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from cs_goods_category
+    where id = #{id,jdbcType=INTEGER}
+    and cgs_delete_state = 0
+  </select>
+  
+  <select id="listCsGoodsCategory" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsCategory" >
+    select 
+    *
+    from cs_goods_category
+    <where>
+		<if test="cgcCategoryName != null and cgcCategoryName != ''">
+			and cgc_category_name = #{cgcCategoryName}
+		</if>	
+		and cgs_delete_state = 0
+	</where>
+  </select>
+  
+  
+  
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoodsCategory" >
+    insert into cs_goods_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cgcCategoryName != null" >
+        cgc_category_name,
+      </if>
+      <if test="cgcNum != null" >
+        cgc_num,
+      </if>
+      <if test="cgcRegistrationTime != null" >
+        cgc_registration_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cgcCategoryName != null" >
+        #{cgcCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgcNum != null" >
+        #{cgcNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgcRegistrationTime != null" >
+        #{cgcRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoodsCategory" >
+    update cs_goods_category
+    <set >
+      <if test="cgcCategoryName != null" >
+        cgc_category_name = #{cgcCategoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgcNum != null" >
+        cgc_num = #{cgcNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgcRegistrationTime != null" >
+        cgc_registration_time = #{cgcRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgsDeleteState != null" >
+        cgs_delete_state = #{cgsDeleteState},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateCgcList" parameterType="java.util.List">
+    update cs_goods_category
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="cgc_num =case" suffix="end,">
+        <foreach collection="list" item="i" index="index">
+          <if test="i.cgcNum!=null">
+            when id=#{i.id} then (cgc_num + #{i.cgcNum})
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where id in
+    <foreach collection="list" index="index" item="i" separator="," open="(" close=")">
+      #{i.id,jdbcType=BIGINT}
+    </foreach>
+  </update>
+  
+</mapper>

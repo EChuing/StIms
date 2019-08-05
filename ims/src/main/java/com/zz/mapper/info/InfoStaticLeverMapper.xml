@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoStaticLeverMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoStaticLever" >
+    <id column="isl_id" property="islId" jdbcType="INTEGER" />
+    <result column="isl_month" property="islMonth" jdbcType="VARCHAR" />
+    <result column="isl_income" property="islIncome" jdbcType="DOUBLE" />
+    <result column="isl_expend" property="islExpend" jdbcType="DOUBLE" />
+    <result column="isl_scale" property="islScale" jdbcType="DOUBLE" />
+    <result column="isl_time" property="islTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    isl_id, isl_month, isl_income, isl_expend, isl_scale, isl_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stat_lever_ratio_forecast
+    where isl_id = #{islId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stat_lever_ratio_forecast
+    where isl_id = #{islId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zz.po.info.InfoStaticLever" >
+    insert into stat_lever_ratio_forecast (isl_id, isl_month, isl_income, 
+      isl_expend, isl_scale, isl_time
+      )
+    values (#{islId,jdbcType=INTEGER}, #{islMonth,jdbcType=VARCHAR}, #{islIncome,jdbcType=DOUBLE}, 
+      #{islExpend,jdbcType=DOUBLE}, #{islScale,jdbcType=DOUBLE}, #{islTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoStaticLever" >
+    insert into stat_lever_ratio_forecast
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="islId != null" >
+        isl_id,
+      </if>
+      <if test="islMonth != null" >
+        isl_month,
+      </if>
+      <if test="islIncome != null" >
+        isl_income,
+      </if>
+      <if test="islExpend != null" >
+        isl_expend,
+      </if>
+      <if test="islScale != null" >
+        isl_scale,
+      </if>
+      <if test="islTime != null" >
+        isl_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="islId != null" >
+        #{islId,jdbcType=INTEGER},
+      </if>
+      <if test="islMonth != null" >
+        #{islMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="islIncome != null" >
+        #{islIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="islExpend != null" >
+        #{islExpend,jdbcType=DOUBLE},
+      </if>
+      <if test="islScale != null" >
+        #{islScale,jdbcType=DOUBLE},
+      </if>
+      <if test="islTime != null" >
+        #{islTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoStaticLever" >
+    update stat_lever_ratio_forecast
+    <set >
+      <if test="islMonth != null" >
+        isl_month = #{islMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="islIncome != null" >
+        isl_income = #{islIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="islExpend != null" >
+        isl_expend = #{islExpend,jdbcType=DOUBLE},
+      </if>
+      <if test="islScale != null" >
+        isl_scale = #{islScale,jdbcType=DOUBLE},
+      </if>
+      <if test="islTime != null" >
+        isl_time = #{islTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where isl_id = #{islId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.info.InfoStaticLever" >
+    update stat_lever_ratio_forecast
+    set isl_month = #{islMonth,jdbcType=VARCHAR},
+      isl_income = #{islIncome,jdbcType=DOUBLE},
+      isl_expend = #{islExpend,jdbcType=DOUBLE},
+      isl_scale = #{islScale,jdbcType=DOUBLE},
+      isl_time = #{islTime,jdbcType=TIMESTAMP}
+    where isl_id = #{islId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoStaticLever" >
+    select *
+    from stat_lever_ratio_forecast
+    order by isl_month DESC
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+</mapper>

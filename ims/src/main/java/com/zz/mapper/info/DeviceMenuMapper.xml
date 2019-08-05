@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.mapper.info.DeviceMenuMapper">
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.DeviceMenu">
+      <!--一二级设备-->
+      <id column="idft_id" jdbcType="INTEGER" property="idftId" />
+      <result column="idft_name" jdbcType="VARCHAR" property="idftName" />
+
+      <result column="idst_Id" jdbcType="INTEGER" property="idstId" />
+      <result column="idst_name" jdbcType="VARCHAR" property="idstName" />
+      <result column="idst_idft_id" jdbcType="INTEGER" property="idstIdftId" />
+      <!--设备-->
+      <result column="dev_idft_id" jdbcType="INTEGER" property="devIdftId" />
+      <result column="dev_idst_id" jdbcType="INTEGER" property="devIdstId" />
+      <!--设备一二级类型-->
+      <result column="dft_id" jdbcType="INTEGER" property="dftId" />
+      <result column="dst_id" jdbcType="INTEGER" property="dstId" />
+      <result column="dst_dft_id" jdbcType="INTEGER" property="dstDftId" />
+      <result column="dft_name" jdbcType="VARCHAR" property="dftName" />
+      <result column="dst_name" jdbcType="VARCHAR" property="dstName" />
+
+      
+      <result column="dev_first_type" jdbcType="INTEGER" property="devFirstType" />
+      <result column="dev_second_type" jdbcType="INTEGER" property="devSecondType" />
+
+      <result column="jhd_hs_id" jdbcType="INTEGER" property="jhdHsId" />
+      <result column="jhd_device_id" jdbcType="INTEGER" property="jhdDeviceId" />
+
+      <result column="id" jdbcType="INTEGER" property="id" />
+      <result column="dev_id" jdbcType="INTEGER" property="devId" />
+      <result column="dev_brand_id" jdbcType="INTEGER" property="devBrandId" />
+      <result column="dev_nickname" jdbcType="VARCHAR" property="devNickname" />
+      <result column="dev_auth_secret" jdbcType="VARCHAR" property="devAuthSecret" />
+      <result column="dev_auth_id" jdbcType="VARCHAR" property="devAuthId" />
+
+      <result column=" detailed_address" property=" detailedAddress" jdbcType="VARCHAR" />
+      <!--未租房间-->
+      <result column="hs_id" jdbcType="INTEGER" property="hsId" />
+      <result column="hs_renter_id" property="hsRenterId" jdbcType="INTEGER" />
+
+      <result column="hs_add_city" property="hsAddCity" jdbcType="VARCHAR" />
+      <result column="hs_end_time" property="hsEndTime" jdbcType="VARCHAR" />
+      <result column="hs_lease_state" property="hsLeaseState" jdbcType="VARCHAR" />
+      <result column="hs_lease_type" property="hsLeaseType" jdbcType="VARCHAR" />
+
+      <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+      <result column="hs_state" property="hsState" jdbcType="VARCHAR" />
+      <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+      <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+      <!--情景描述-->
+      <result column="spd_id" property="spdId" jdbcType="INTEGER" />
+      <result column="spd_number" property="spdNumber" jdbcType="INTEGER" />
+      <result column="spd_describe" property="spdDescribe" jdbcType="VARCHAR" />
+      <result column="spd_patterns_are_visible" property="spdPatternsAreVisible" jdbcType="INTEGER" />
+
+      <!--情景设置-->
+      <result column="jsro_id" property="jsroId" jdbcType="INTEGER" />
+      <result column="jsro_hs_id" property="jsroHsId" jdbcType="INTEGER" />
+      <result column="jsro_instruction" property="jsroInstruction" jdbcType="VARCHAR" />
+      <result column="jsro_wxgzh_state" property="jsroWxgzhState" jdbcType="VARCHAR" />
+      <result column="jsro_ims_state" property="jsroImsState" jdbcType="VARCHAR" />
+      <result column="jsro_pattern_id" property="jsroPatternId" jdbcType="INTEGER" />
+
+      <!--情景面板-->
+      <result column="cp_id" property="cpId" jdbcType="INTEGER" />
+      <result column="cp_scenario_id" property="cpScenarioId" jdbcType="INTEGER" />
+      <result column="cp_key_value" property="cpKeyValue" jdbcType="INTEGER" />
+      <result column="cp_device_id" property="cpDeviceId" jdbcType="INTEGER" />
+
+      <!--安装位置-->
+      <result column="idp_id" property="idpId" jdbcType="INTEGER"></result>
+      <result column="idp_place"  property="idpPlace" jdbcType="VARCHAR"></result>
+
+      <result column="address" property="address" jdbcType="VARCHAR" />
+
+      <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+
+    <!--查询情景模式以及设备安装地址-->
+    <select id="querySituationalPatterns"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+        select
+        <if test="splitFlag == 0"><!-- 统计查询 -->
+            count(*) total_num
+        </if>
+        <if test="splitFlag == 1"><!-- 数据查询 -->
+            jspd.*,jspt.*,ihs.hs_state,ihs.hs_add_community,ihs.hs_add_building,ihs.hs_add_doorplateno
+        </if>
+        from info_house_4store ihs
+        left outer
+        join jour_scenario_pattern_table jspt ON ihs.hs_id = jspt.jsro_hs_id
+        inner
+        join jour_scenario_pattern_description jspd ON jspd.spd_id = jspt.jsro_pattern_id
+        <where>
+          <if test="address != null and address != '' ">
+              and (hs_add_community like '%${address}%' or hs_add_building like '%${address}%' or hs_add_doorplateno like '%${address}%')
+          </if>
+          <if test="spdDescribe != null and spdDescribe != '' ">
+              and spd_describe = #{spdDescribe}
+          </if>
+            <if test="hsState = null and hsState = '' ">
+                and (hs_state ="正常" or  hs_state ="正办理退房" or hs_state ="退房完成")
+            </if>
+          <if test="hsState != null and hsState != '' ">
+              and hs_state =#{hsState}
+          </if>
+        </where>
+        <if test="startNum != '' and startNum != null">
+            limit ${startNum}
+            <if test="endNum != '' and endNum != null">
+                ,${endNum}
+            </if>
+        </if>
+    </select>
+
+    <select id="selectDeviceType"  resultMap="MyBaseResultMap">
+		select idft.*,idst.*
+		from info_device_first_type idft
+		left outer join info_device_second_type idst on idst.idst_idft_id = idft.idft_id
+		where idft_id=6 or idft_id=7 or idft_id=8 or idft_id=10 or idft_id=12 or idft_id=22 or idft_id=23 or idft_id=24 or idft_id=28 or idft_id=29 or idft_id=30
+    </select>
+
+    <!--根据未租id查询设备类型-->
+    <select id="queryDeviceType"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+		select *
+		from jour_device jd
+		left outer join jour_hs_device jhd on jd.id = jhd.jhd_device_id
+        left outer join info_device_first_type idft on jd.dev_idft_id = idft.idft_id
+        left outer join info_device_second_type idst on jd.dev_idst_id = idst.idst_id
+		<where>
+            <if test="type != null and type != '' ">
+                <if test="type == 1 " >
+                    and (dev_first_type=1 or dev_first_type=2 or dev_first_type=4 or dev_first_type=6 or dev_first_type=19 or dev_first_type=23)
+                </if>
+                <if test="type == 2 " >
+                    and (dev_first_type=17 or dev_first_type=18 or dev_first_type=22)
+                </if>
+            </if>
+            and jhd_hs_id in
+            <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </where>
+        group by idst_id
+    </select>
+
+
+  <!-- 查询有设备的房间信息-->
+    <select id="selectDeviceRooms"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+        select ih.*,jd.*,idft.idft_name,idst.idst_name from jour_hs_device jhd
+        left outer join info_house_4store  ih on ih.hs_id= jhd.jhd_hs_id
+        left outer join jour_device jd on jd.id=jhd.jhd_device_id
+        left outer join info_device_first_type idft on idft.idft_id=jd.dev_idft_id
+        left outer join info_device_second_type idst on idst.idst_id=jd.dev_idst_id
+        <where>
+            <if test="devIdftId != null and devIdftId != ''" >
+                and dev_idft_id = #{devIdftId,jdbcType=INTEGER}</if>
+            <if test="devIdstId != null and devIdstId != ''" >
+                and dev_idst_id = #{devIdstId,jdbcType=INTEGER}</if>
+                and (dev_id=3
+                or  dev_id=10
+                or  dev_id=16
+                or  dev_id=35)
+        </where>
+    </select>
+
+    <!--查询情景名称-->
+    <select id="selectSceneMode"  resultMap="MyBaseResultMap">
+		select * from jour_scenario_pattern_description
+    </select>
+    <!--查询未租房信息-->
+    <select id="selectRooms"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+		select
+        <if test="splitFlag == 0"><!-- 统计查询 -->
+            count(*) total_num
+        </if>
+        <if test="splitFlag == 1"><!-- 数据查询 -->
+            *
+        </if>
+		from jour_hs_device jhd
+		left outer join info_house_4store ihs on ihs.hs_id = jhd.jhd_hs_id
+        <where>
+            jhd_id is not null
+            <if test="address != null and address != '' " >
+                and (hs_add_community like '%${address}%' or hs_add_building like '%${address}%' or hs_add_doorplateno like '%${address}%')
+            </if>
+            <if test="hsAddDistrict != null and hsAddDistrict != ''" >
+                and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}
+            </if>
+            <if test="hsAddCity != null and hsAddCity != ''" >
+                and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}
+            </if>
+            <if test="hsLeaseState != null and hsLeaseState != ''" >
+                and hs_lease_state != #{hsLeaseState,jdbcType=VARCHAR}
+            </if>
+            <if test="hsState != null and hsState != '' ">
+                and hs_state = #{hsState}
+            </if>
+            <if test="hsAddCommunity != null and hsAddCommunity != ''">
+                and hs_add_community like '%${hsAddCommunity}%'
+            </if>
+            <if test="hsAddBuilding != null and hsAddBuilding != ''" >
+                and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')
+            </if>
+            <if test="hsAddDoorplateno != null and hsAddDoorplateno != ''">
+                and hs_add_doorplateno like '%${hsAddDoorplateno}%'
+            </if>
+        </where>
+        group by hs_id
+        <if test="startNum != '' and startNum != null">
+            limit ${startNum}
+            <if test="endNum != '' and endNum != null">
+                ,${endNum}
+            </if>
+        </if>
+    </select>
+
+    <!--查询设备信息数据-->
+    <select id="selectDevSN"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+        select * from jour_hs_device jhd
+        left outer join jour_device  jd on jd.id=jhd.jhd_device_id
+        <where>
+            <if test="jhdHsId != null and jhdHsId != ''" >
+                and jhd_hs_id = #{jhdHsId,jdbcType=INTEGER}</if>
+            <if test="devIdftId != null and devIdftId != ''" >
+                and dev_idft_id = #{devIdftId,jdbcType=INTEGER}</if>
+            <if test="devIdstId != null and devIdstId != ''" >
+                and dev_idst_id = #{devIdstId,jdbcType=INTEGER}</if>
+        </where>
+    </select>
+
+    <!--查询情景数据-->
+    <select id="selectJsro"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+        select * from jour_scenario_pattern_table
+        <where>
+            <if test="jsroHsId != null and jsroHsId != ''" >
+                and jsro_hs_id = #{jsroHsId,jdbcType=INTEGER}</if>
+            <if test="jsroPatternId != null and jsroPatternId != ''" >
+                and jsro_pattern_id = #{jsroPatternId,jdbcType=INTEGER}</if>
+        </where>
+    </select>
+    <!--新增情景-->
+    <insert id="insertScene" parameterType="com.zz.po.info.DeviceMenu" >
+        insert into jour_scenario_pattern_table
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="jsroHsId != null" >
+                jsro_hs_id,
+            </if>
+            <if test="jsroInstruction != null" >
+                jsro_instruction,
+            </if>
+            <if test="jsroWxgzhState != null" >
+                jsro_wxgzh_state,
+            </if>
+            <if test="jsroImsState != null" >
+                jsro_ims_state,
+            </if>
+            <if test="jsroPatternId != null" >
+                jsro_pattern_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="jsroHsId != null" >
+                #{jsroHsId,jdbcType=INTEGER},
+            </if>
+            <if test="jsroInstruction != null" >
+                #{jsroInstruction,jdbcType=VARCHAR},
+            </if>
+            <if test="jsroWxgzhState != null" >
+                #{jsroWxgzhState,jdbcType=VARCHAR},
+            </if>
+            <if test="jsroImsState != null" >
+                #{jsroImsState,jdbcType=VARCHAR},
+            </if>
+            <if test="jsroPatternId != null" >
+                #{jsroPatternId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!--批量插入情景类型-->
+    <insert id="insertList" parameterType="java.util.List" >
+        insert into jour_scenario_pattern_description
+        (
+        spd_describe,
+        spd_patterns_are_visible
+        )
+        values
+        <foreach collection="list" item="item" index= "index" separator =",">
+            (
+            #{item.spdDescribe},
+            #{item.spdPatternsAreVisible}
+            )
+        </foreach>
+    </insert>
+
+    <!--批量修改情景类型-->
+    <update id="updateList" parameterType="java.util.List">
+        update jour_scenario_pattern_description
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="spd_describe =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.spdDescribe!=null">
+                        when spd_id=#{i.spdId} then #{i.spdDescribe}
+                    </if>
+                </foreach>
+            </trim>
+            <trim prefix="spd_patterns_are_visible =case" suffix="end,">
+                <foreach collection="list" item="i" index="index">
+                    <if test="i.spdPatternsAreVisible!=null">
+                        when spd_id=#{i.spdId} then #{i.spdPatternsAreVisible}
+                    </if>
+                </foreach>
+            </trim>
+        </trim>
+        where spd_id in
+        <foreach collection="list" index="index" item="i" separator="," open="(" close=")">
+            #{i.spdId}
+        </foreach>
+    </update>
+
+    <!--修改情景-->
+    <update id="updateScene" parameterType="com.zz.po.info.DeviceMenu" >
+        update jour_scenario_pattern_table
+        <set >
+            <if test="jsroImsState != null" >
+                jsro_ims_state = #{jsroImsState,jdbcType=VARCHAR},
+            </if>
+            <if test="jsroWxgzhState != null" >
+                jsro_wxgzh_state = #{jsroWxgzhState,jdbcType=VARCHAR},
+            </if>
+            <if test="jsroInstruction != null" >
+                jsro_instruction = #{jsroInstruction,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where jsro_id = #{jsroId,jdbcType=INTEGER}
+    </update>
+    <!--查询设备表ID-->
+    <select id="selectDevice"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+        select * from jour_device jd
+        left outer join jour_hs_device  jhd on jhd.jhd_device_id=jd.id
+        <where>
+            <if test="jhdHsId != null and jhdHsId != ''" >
+                and jhd_hs_id = #{jhdHsId,jdbcType=INTEGER}</if>
+            <if test="devIdftId != null and devIdftId != ''" >
+                and dev_idft_id = #{devIdftId,jdbcType=INTEGER}</if>
+            <if test="devIdstId != null and devIdstId != ''" >
+                and dev_idst_id = #{devIdstId,jdbcType=INTEGER}</if>
+        </where>
+    </select>
+    <!--查询情景面板数据-->
+    <select id="selectPanel"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+        select * from jour_control_panel
+        <where>
+            <if test="cpKeyValue != null and cpKeyValue != ''" >
+                and cp_key_value = #{cpKeyValue,jdbcType=INTEGER}</if>
+            <if test="cpDeviceId != null and cpDeviceId != ''" >
+                and cp_device_id = #{cpDeviceId,jdbcType=INTEGER}</if>
+        </where>
+    </select>
+    <!--新增设置情景面板信息-->
+    <insert id="insertPanel" parameterType="com.zz.po.info.DeviceMenu" >
+        insert into jour_control_panel
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cpScenarioId != null" >
+                cp_scenario_id,
+            </if>
+            <if test="cpKeyValue != null" >
+                cp_key_value,
+            </if>
+            <if test="cpDeviceId != null" >
+                cp_device_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="cpScenarioId != null" >
+                #{cpScenarioId,jdbcType=INTEGER},
+            </if>
+            <if test="cpKeyValue != null" >
+                #{cpKeyValue,jdbcType=INTEGER},
+            </if>
+            <if test="cpDeviceId != null" >
+                #{cpDeviceId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <!--修改情景面板信息-->
+    <update id="updatePanel" parameterType="com.zz.po.info.DeviceMenu" >
+        update jour_control_panel
+        <set >
+            <if test="cpScenarioId != null" >
+                cp_scenario_id = #{cpScenarioId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where cp_id = #{cpId,jdbcType=INTEGER}
+    </update>
+
+    <!--查找安装位置-->
+    <select id="queryDevPlace" resultMap="MyBaseResultMap">
+      select * from info_device_place
+    </select>
+    <!--查找一级情境设备类型-->
+    <select id="queryFtSceneType" resultMap="MyBaseResultMap">
+      select * from info_device_first_type
+    </select>
+
+    <select id="queryStSceneType" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+         select * from info_device_second_type
+            where
+             idst_idft_id = #{idftId,jdbcType=INTEGER}
+			and
+              idst_name =#{idstName,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="addStSceneType" parameterType="com.zz.po.info.DeviceMenu">
+        insert into info_device_second_type
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="idftId != null and idftId != '' " >
+                idst_idft_id,
+            </if>
+            <if test="idstName != null and idstName != '' " >
+                idst_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="idftId != null and idstIdftId != ''" >
+                #{idftId,jdbcType=INTEGER},
+            </if>
+            <if test="idstName != null and idstName != '' " >
+                #{idstName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateDevSceneType" parameterType="java.util.HashMap" >
+        update jour_device
+        <set>
+            dev_idft_id=#{idstIdftId,jdbcType=INTEGER},
+            dev_idst_id=#{idstId,jdbcType=INTEGER}
+        </set>
+        where id in
+        <if test="list != null and list != ''">
+            <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+                #{item.id,jdbcType=INTEGER}
+            </foreach>
+        </if>
+    </update>
+
+    <!--查询设备一二级类型-->
+    <select id="queryAllDevType" resultMap="MyBaseResultMap">
+        SELECT *
+        FROM company.device_second_type dst,company.device_first_type dft
+        where  dft.dft_id=dst.dst_dft_id
+    </select>
+
+    <!--查询通过未租ID查询设备信息-->
+    <select id="queryDevice"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+     select * from jour_device jd
+    left outer join jour_hs_device  jhd on jhd.jhd_device_id=jd.id
+    where jhd_hs_id=#{jhdHsId,jdbcType=INTEGER}
+    </select>
+
+    <!--查询情景模式以及詳情-->
+    <select id="querySituationalDetails"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.DeviceMenu">
+    SELECT * from jour_scenario_pattern_table
+    where jsro_hs_id=#{jsroHsId,jdbcType=INTEGER}
+    and jsro_pattern_id=#{jsroPatternId,jdbcType=INTEGER}
+    </select>
+</mapper>

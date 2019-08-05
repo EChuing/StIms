@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.zz.datasource.BrandMapper">
+	<resultMap id="BaseResultMap" type="com.zz.datasource.Brand" >
+	    <id column="brand_id" property="brandId" jdbcType="INTEGER" />
+	    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+	    <result column="brand_type" property="brandType" jdbcType="VARCHAR" />
+	    <result column="brand_model" property="brandModel" jdbcType="VARCHAR" />
+	    <result column="brand_device_json" property="brandDeviceJson" jdbcType="VARCHAR" />
+	    
+	</resultMap>
+	<select id="getAllBrand" parameterType="String" resultMap="BaseResultMap">
+	    SELECT * FROM brand
+	</select>
+	
+	<select id="getAllBrandById" parameterType="java.util.List" resultMap="BaseResultMap">
+	    SELECT * FROM brand WHERE brand_id in 
+	    <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        	#{item}
+    	</foreach>
+	</select>
+	
+</mapper>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.deviceevents.ElectricMeterEventsMapper">
+  <resultMap id="BaseResultMap" type="com.zz.deviceevents.ElectricMeterEvents">
+    <id column="em_id" jdbcType="INTEGER" property="emId" />
+    <result column="em_brand_id" jdbcType="INTEGER" property="emBrandId" />
+    <result column="em_brand" jdbcType="VARCHAR" property="emBrand" />
+    <result column="em_device_SN" jdbcType="VARCHAR" property="emDeviceSn" />
+    <result column="em_sub_device_number" jdbcType="INTEGER" property="emSubDeviceNumber" />
+    <result column="em_num" jdbcType="VARCHAR" property="emNum" />
+    <result column="em_online" jdbcType="VARCHAR" property="emOnline" />
+    <result column="em_event_type" jdbcType="VARCHAR" property="emEventType" />
+    <result column="em_warning_content" jdbcType="VARCHAR" property="emWarningContent" />
+    <result column="em_date" jdbcType="DATE" property="emDate" />
+    <result column="em_time" jdbcType="TIMESTAMP" property="emTime" />
+    <result column="em_warning_status" jdbcType="VARCHAR" property="emWarningStatus" />
+    <result column="em_handle_status" jdbcType="VARCHAR" property="emHandleStatus" />
+    <result column="em_handle_result" jdbcType="VARCHAR" property="emHandleResult" />
+    <result column="em_failure_cause" jdbcType="VARCHAR" property="emFailureCause" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    em_id, em_brand_id, em_brand, em_device_SN, em_sub_device_number, em_num, em_online, 
+    em_event_type, em_warning_content, em_date, em_time, em_warning_status, em_handle_status, 
+    em_handle_result,em_failure_cause
+  </sql>
+  <select id="queryDeviceMessage" resultMap="BaseResultMap" parameterType="com.zz.deviceevents.ElectricMeterEvents" >
+  	select * from electric_meter_events
+	where em_device_SN = #{emDeviceSn}
+  	order by em_id DESC
+  	limit 0,1
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from electric_meter_events
+    where em_id = #{emId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectEmAlarmRecord" parameterType="com.zz.deviceevents.ElectricMeterEvents" resultMap="BaseResultMap">
+    select * from electric_meter_events
+    where em_device_SN = #{emDeviceSn,jdbcType=VARCHAR} and em_warning_status = #{emWarningStatus,jdbcType=VARCHAR}
+    <if test="emHandleStatus != null and emHandleStatus != ''">
+      and em_handle_status = #{emHandleStatus,jdbcType=VARCHAR}
+    </if>
+    order by em_time DESC
+  </select>
+
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from electric_meter_events
+    where em_id = #{emId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zz.deviceevents.ElectricMeterEvents">
+    insert into electric_meter_events (em_id, em_brand_id, em_brand, 
+      em_device_SN, em_sub_device_number, em_num, 
+      em_online, em_event_type, em_warning_content, 
+      em_date, em_time, em_warning_status, 
+      em_handle_status, em_handle_result)
+    values (#{emId,jdbcType=INTEGER}, #{emBrandId,jdbcType=INTEGER}, #{emBrand,jdbcType=VARCHAR}, 
+      #{emDeviceSn,jdbcType=VARCHAR}, #{emSubDeviceNumber,jdbcType=INTEGER}, #{emNum,jdbcType=VARCHAR}, 
+      #{emOnline,jdbcType=VARCHAR}, #{emEventType,jdbcType=VARCHAR}, #{emWarningContent,jdbcType=VARCHAR}, 
+      #{emDate,jdbcType=DATE}, #{emTime,jdbcType=TIMESTAMP}, #{emWarningStatus,jdbcType=VARCHAR}, 
+      #{emHandleStatus,jdbcType=VARCHAR}, #{emHandleResult,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zz.deviceevents.ElectricMeterEvents">
+    insert into electric_meter_events
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="emId != null">
+        em_id,
+      </if>
+      <if test="emBrandId != null">
+        em_brand_id,
+      </if>
+      <if test="emBrand != null">
+        em_brand,
+      </if>
+      <if test="emDeviceSn != null">
+        em_device_SN,
+      </if>
+      <if test="emSubDeviceNumber != null">
+        em_sub_device_number,
+      </if>
+      <if test="emNum != null">
+        em_num,
+      </if>
+      <if test="emOnline != null">
+        em_online,
+      </if>
+      <if test="emEventType != null">
+        em_event_type,
+      </if>
+      <if test="emWarningContent != null">
+        em_warning_content,
+      </if>
+      <if test="emDate != null">
+        em_date,
+      </if>
+      <if test="emTime != null">
+        em_time,
+      </if>
+      <if test="emWarningStatus != null">
+        em_warning_status,
+      </if>
+      <if test="emHandleStatus != null">
+        em_handle_status,
+      </if>
+      <if test="emHandleResult != null">
+        em_handle_result,
+      </if>
+      <if test="emFailureCause != null">
+        em_failure_cause,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="emId != null">
+        #{emId,jdbcType=INTEGER},
+      </if>
+      <if test="emBrandId != null">
+        #{emBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="emBrand != null">
+        #{emBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="emDeviceSn != null">
+        #{emDeviceSn,jdbcType=VARCHAR},
+      </if>
+      <if test="emSubDeviceNumber != null">
+        #{emSubDeviceNumber,jdbcType=INTEGER},
+      </if>
+      <if test="emNum != null">
+        #{emNum,jdbcType=VARCHAR},
+      </if>
+      <if test="emOnline != null">
+        #{emOnline,jdbcType=VARCHAR},
+      </if>
+      <if test="emEventType != null">
+        #{emEventType,jdbcType=VARCHAR},
+      </if>
+      <if test="emWarningContent != null">
+        #{emWarningContent,jdbcType=VARCHAR},
+      </if>
+      <if test="emDate != null">
+        #{emDate,jdbcType=DATE},
+      </if>
+      <if test="emTime != null">
+        #{emTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emWarningStatus != null">
+        #{emWarningStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="emHandleStatus != null">
+        #{emHandleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="emHandleResult != null">
+        #{emHandleResult,jdbcType=VARCHAR},
+      </if>
+      <if test="emFailureCause != null">
+        #{emFailureCause,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.deviceevents.ElectricMeterEvents">
+    update electric_meter_events
+    <set>
+      <if test="emBrandId != null">
+        em_brand_id = #{emBrandId,jdbcType=INTEGER},
+      </if>
+      <if test="emBrand != null">
+        em_brand = #{emBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="emDeviceSn != null">
+        em_device_SN = #{emDeviceSn,jdbcType=VARCHAR},
+      </if>
+      <if test="emSubDeviceNumber != null">
+        em_sub_device_number = #{emSubDeviceNumber,jdbcType=INTEGER},
+      </if>
+      <if test="emNum != null">
+        em_num = #{emNum,jdbcType=VARCHAR},
+      </if>
+      <if test="emOnline != null">
+        em_online = #{emOnline,jdbcType=VARCHAR},
+      </if>
+      <if test="emEventType != null">
+        em_event_type = #{emEventType,jdbcType=VARCHAR},
+      </if>
+      <if test="emWarningContent != null">
+        em_warning_content = #{emWarningContent,jdbcType=VARCHAR},
+      </if>
+      <if test="emDate != null">
+        em_date = #{emDate,jdbcType=DATE},
+      </if>
+      <if test="emTime != null">
+        em_time = #{emTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="emWarningStatus != null">
+        em_warning_status = #{emWarningStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="emHandleStatus != null">
+        em_handle_status = #{emHandleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="emHandleResult != null">
+        em_handle_result = #{emHandleResult,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where em_id = #{emId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zz.deviceevents.ElectricMeterEvents">
+    update electric_meter_events
+    set em_brand_id = #{emBrandId,jdbcType=INTEGER},
+      em_brand = #{emBrand,jdbcType=VARCHAR},
+      em_device_SN = #{emDeviceSn,jdbcType=VARCHAR},
+      em_sub_device_number = #{emSubDeviceNumber,jdbcType=INTEGER},
+      em_num = #{emNum,jdbcType=VARCHAR},
+      em_online = #{emOnline,jdbcType=VARCHAR},
+      em_event_type = #{emEventType,jdbcType=VARCHAR},
+      em_warning_content = #{emWarningContent,jdbcType=VARCHAR},
+      em_date = #{emDate,jdbcType=DATE},
+      em_time = #{emTime,jdbcType=TIMESTAMP},
+      em_warning_status = #{emWarningStatus,jdbcType=VARCHAR},
+      em_handle_status = #{emHandleStatus,jdbcType=VARCHAR},
+      em_handle_result = #{emHandleResult,jdbcType=VARCHAR}
+    where em_id = #{emId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateEmAlarmRecord" parameterType="com.zz.deviceevents.ElectricMeterEvents">
+    update electric_meter_events
+    <set>
+      <if test="emHandleStatus != null and emHandleStatus != ''" >
+        em_handle_status = #{emHandleStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where em_device_SN = #{emDeviceSn,jdbcType=VARCHAR} and em_warning_status = #{emWarningStatus,jdbcType=VARCHAR}
+    and em_handle_status = '未处理'
+  </update>
+
+</mapper>

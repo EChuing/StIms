@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalTemplateSetupMapper" >
+    <resultMap id="baseResultMap" type="com.zz.po.journal.JournalTemplateSetup">
+        <result column="id" property="id" jdbcType="INTEGER"></result>
+        <result column="scene" property="scene" jdbcType="INTEGER"></result>
+        <result column="first_name" property="firstName" jdbcType="VARCHAR"/>
+        <result column="first_color" property="firstColor" jdbcType="VARCHAR"/>
+        <result column="remark_name" property="remarkName" jdbcType="VARCHAR"/>
+        <result column="remark_color" property="remarkColor" jdbcType="VARCHAR"/>
+        <result column="keyword1_name" property="keyword1Name" jdbcType="VARCHAR"/>
+        <result column="keyword1_color" property="keyword1Color" jdbcType="VARCHAR"/>
+        <result column="keyword2_name" property="keyword2Name" jdbcType="VARCHAR"/>
+        <result column="keyword2_color" property="keyword2Color" jdbcType="VARCHAR"/>
+        <result column="keyword3_name" property="keyword3Name" jdbcType="VARCHAR"/>
+        <result column="keyword3_color" property="keyword3Color" jdbcType="VARCHAR"/>
+        <result column="keyword4_name" property="keyword4Name" jdbcType="VARCHAR"/>
+        <result column="keyword4_color" property="keyword4Color" jdbcType="VARCHAR"/>
+        <result column="keyword5_name" property="keyword5Name" jdbcType="VARCHAR"/>
+        <result column="keyword5_color" property="keyword5Color" jdbcType="VARCHAR"/>
+        <result column="keyword6_name" property="keyword6Name" jdbcType="VARCHAR"/>
+        <result column="keyword6_color" property="keyword6Color" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="selectTemplateSetupByScene" resultMap="baseResultMap">
+        select * from company.template_setup
+        where
+          scene=#{scene,jdbcType=INTEGER}
+    </select>
+</mapper>

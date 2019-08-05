@@ -1,0 +1,2048 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalFinancialMapper" >
+	<resultMap id="MyBaseResultMap" type="com.zz.po.journal.JournalFinancialExpand" >
+		<id column="jf_id" property="jfId" jdbcType="INTEGER" />
+		<result column="jf_financial_coding" property="jfFinancialCoding" jdbcType="VARCHAR" />
+		<result column="jf_house_4rent_id" property="jfHouse4rentId" jdbcType="INTEGER" />
+		<result column="jf_house_id" property="jfHouseId" jdbcType="INTEGER" />
+		<result column="jf_house_4store_id" property="jfHouse4storeId" jdbcType="INTEGER" />
+		<result column="jf_landlord_id" property="jfLandlordId" jdbcType="INTEGER" />
+		<result column="jf_renter_id" property="jfRenterId" jdbcType="INTEGER" />
+		<result column="jf_jsrc_id" property="jfJsrcId" jdbcType="INTEGER" />
+		<result column="jf_intended_id" property="jfIntendedId" jdbcType="INTEGER" />
+		<result column="jf_manager_user_id" property="jfManagerUserId" jdbcType="INTEGER" />
+		<result column="jf_finan_review" property="jfFinanReview" jdbcType="INTEGER" />
+		<result column="jf_handlers" property="jfHandlers" jdbcType="INTEGER" />
+		<result column="jf_the_cashier_people" property="jfTheCashierPeople" jdbcType="INTEGER" />
+		<result column="jf_charge_people" property="jfChargePeople" jdbcType="INTEGER" />
+		<result column="jf_the_reviewer" property="jfTheReviewer" jdbcType="INTEGER" />
+		<result column="department" property="department" jdbcType="INTEGER" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="storefront" property="storefront" jdbcType="INTEGER" />
+		<result column="jf_have_or_not_arrears" property="jfHaveOrNotArrears" jdbcType="VARCHAR" />
+		<result column="jf_nature_of_the" property="jfNatureOfThe" jdbcType="VARCHAR" />
+		<result column="jf_big_type" property="jfBigType" jdbcType="VARCHAR" />
+		<result column="jf_accounting_species" property="jfAccountingSpecies" jdbcType="VARCHAR" />
+		<result column="jf_strike_balance_encoding" property="jfStrikeBalanceEncoding" jdbcType="INTEGER" />
+		<result column="jf_accounting_why" property="jfAccountingWhy" jdbcType="VARCHAR" />
+		<result column="jf_sum_money" property="jfSumMoney" jdbcType="DOUBLE" />
+		<result column="jf_owe_money" property="jfOweMoney" jdbcType="DOUBLE" />
+		<result column="jf_closed_way" property="jfClosedWay" jdbcType="VARCHAR" />
+		<result column="jf_check_in_time" property="jfCheckInTime" jdbcType="TIMESTAMP" />
+		<result column="jf_audit_state" property="jfAuditState" jdbcType="VARCHAR" />
+		<result column="jf_the_cashier" property="jfTheCashier" jdbcType="VARCHAR" />
+		<result column="jf_Strike_a_balance_status" property="jfStrikeABalanceStatus" jdbcType="VARCHAR" />
+		<result column="jf_certificate_number" property="jfCertificateNumber" jdbcType="VARCHAR" />
+		<result column="jf_ticket_number" property="jfTicketNumber" jdbcType="VARCHAR" />
+		<result column="jf_certificate_status" property="jfCertificateStatus" jdbcType="VARCHAR" />
+		<result column="jf_start_cycle" property="jfStartCycle" jdbcType="DATE" />
+		<result column="jf_end_cycle" property="jfEndCycle" jdbcType="DATE" />
+		<result column="jf_the_original_bill" property="jfTheOriginalBill" jdbcType="VARCHAR" />
+		<result column="jf_the_ownership_type" property="jfTheOwnershipType" jdbcType="VARCHAR" />
+		<result column="jf_belonging_to_the_name" property="jfBelongingToTheName" jdbcType="VARCHAR" />
+		<result column="jf_billing_date" property="jfBillingDate" jdbcType="DATE" />
+		<result column="jf_account_id" property="jfAccountId" jdbcType="INTEGER" />
+		<result column="jf_finan_note" property="jfFinanNote" jdbcType="LONGVARCHAR" />
+		<result column="jf_Strike_a_balance_reason" property="jfStrikeABalanceReason" jdbcType="LONGVARCHAR" />
+		<result column="jf_operation_records" property="jfOperationRecords" jdbcType="LONGVARCHAR" />
+		<result column="jf_pay_type" property="jfPayType" jdbcType="VARCHAR" />
+		<result column="jf_now_balance" property="jfNowBalance" jdbcType="DOUBLE" />
+		<result column="water_electrical_identification" property="waterElectricalIdentification" jdbcType="VARCHAR" />
+		<result column="historical_readings" property="historicalReadings" jdbcType="VARCHAR" />
+		<result column="jf_belong_to_channel" property="jfBelongToChannel" jdbcType="INTEGER" />
+		<result column="jf_price_plan" property="jfPricePlan" jdbcType="INTEGER" />
+		<result column="jf_settlement_method" property="jfSettlementMethod" jdbcType="VARCHAR" />
+		<result column="jf_credit_situation" property="jfCreditSituation" jdbcType="INTEGER" />
+		<!-- 时间 -->
+		<result column= "startTime"  property= "startTime"  jdbcType="VARCHAR" />
+		<result column= "endTime"  property= "endTime"  jdbcType="VARCHAR" />
+		<!-- 其他 -->
+		<result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+		<result column="total_money" property="totalMoney" jdbcType="DOUBLE" />
+		<!-- 查询职能用户 -->
+		<result column="reviewOneName"  property="reviewOneName"  jdbcType="VARCHAR" />
+		<result column="handlersName"  property="handlersName"  jdbcType="VARCHAR" />
+		<result column="cashierPeopleName"  property="cashierPeopleName"  jdbcType="VARCHAR" />
+		<result column="personChargeAccountName"  property="personChargeAccountName"  jdbcType="VARCHAR" />
+		<result column="reviewerName"  property="reviewerName"  jdbcType="VARCHAR" />
+		<result column="reviewPerson"  property="reviewPerson"  jdbcType="VARCHAR" />
+		<result column="managerUserName"  property="managerUserName"  jdbcType="VARCHAR" />
+
+		<result column="amountOf" property="amountOf" jdbcType="DOUBLE" />
+		<result column="billingDateFrom" property="billingDateFrom" jdbcType="DATE" />
+		<result column="billingDateTo" property="billingDateTo" jdbcType="DATE" />
+
+		<result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+		<result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+		<result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+		<result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+		<result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+		<result column="add_district" property="addDistrict" jdbcType="VARCHAR" />
+		<result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+		<result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+		<result column="add_zone" property="addZone" jdbcType="VARCHAR" />
+		<result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+		<result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+		<result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+		<result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+		<result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+		<result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+		<result column="add_province" property="addProvince" jdbcType="VARCHAR" />
+		<result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+		<result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+		<result column="add_city" property="addCity" jdbcType="VARCHAR" />
+		<result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+		<result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+		<result column="add_street" property="addStreet" jdbcType="VARCHAR" />
+		<result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+		<result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+
+		<result column="add_street" property="addStreet" jdbcType="INTEGER" />
+		<result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+		<result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+
+		<result column="total" property="total" jdbcType="DOUBLE" />
+		<result column="moneynumber" property="moneynumber" jdbcType="INTEGER" />
+		<result column="account" property="account" jdbcType="VARCHAR" />
+		<result column="faUserName" property="faUserName" jdbcType="VARCHAR" />
+		<result column="faBelonging" property="faBelonging" jdbcType="VARCHAR" />
+		<result column="key_administrator" property="keyAdministrator" jdbcType="VARCHAR" />
+		
+		<result column="jcu_id" property="jcuId" jdbcType="INTEGER" />
+		<result column="jcu_type" property="jcuType" jdbcType="VARCHAR" />
+		<result column="jcu_group_type" property="jcuGroupType" jdbcType="VARCHAR" />
+		<result column="jpp_id" property="jppId" jdbcType="INTEGER" />
+		<result column="jpp_plan_name" property="jppPlanName" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!-- 公司成本统计 -->
+	<select id="getCompanyCost"  resultMap="MyBaseResultMap" parameterType="java.util.Map">
+		select jf.*, hp.add_city, hp.key_administrator from jour_financial_records jf
+		left outer join info_house_paper hp on hp.house_coding = jf.jf_house_id
+		<where>
+			(jf_nature_of_the = '收入' or jf_nature_of_the = '支出') and jf_the_ownership_type = '其他类'
+			<if test="startTime != null">
+				and jf_check_in_time &gt;= #{startTime}
+			</if>
+			<if test="endTime != null">
+				and jf_check_in_time &lt;= #{endTime}
+			</if>
+			<if test="hpIds != null">
+				and jf_house_id in
+				<foreach collection="hpIds" item="item" separator="," open="(" close=")">
+					#{item.houseCoding}
+				</foreach>
+			</if>
+		</where>
+	</select>
+
+	<!-- 凭证生成查询  数据和统计分开-->
+	<select id="documentQuery"  resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select
+		<if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			COUNT(jf_id) totalNum
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			jf_id, jf_certificate_number, jf_the_ownership_type, jf_belonging_to_the_name, jf_account_id, jf_closed_way, fa.fa_account account, jf_audit_state,jf_nature_of_the,jf_accounting_species,
+			fa.fa_user_name faUserName,jf_sum_money, h.add_province addProvince, h.add_city addCity, h.add_district addDistrict, h.add_zone addZone,
+			h.add_street addStreet, h.add_community addCommunity, h.add_building addBuilding, h.add_doorplateno addDoorplateno, jf_Strike_a_balance_status, jf_check_in_time,
+			hs.hs_split_identifier
+		</if>
+		FROM jour_financial_records
+		LEFT OUTER JOIN info_bank_account fa ON fa.fa_id = jf_account_id
+		LEFT OUTER JOIN info_house_paper h ON h.house_coding = jf_house_id
+		LEFT OUTER JOIN info_house_4store hs ON hs.hs_id = jf_house_4store_id
+		<where>
+			jf_Strike_a_balance_status = '正常'
+			and (jf_check_in_time between #{startTime} and #{endTime})
+			and jf_certificate_number is null
+			<if test="addProvince != null and addProvince != '' ">
+				and add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity != '' ">
+				and add_city  like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict != '' ">
+				and add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone != '' ">
+				and add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet != '' ">
+				and add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity != '' ">
+				and add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and 	addBuilding != '' ">
+				and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != '' ">
+				and (add_doorplateno like '0${addDoorplateno}%' or add_doorplateno like '${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+			<if test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+				and jf_the_ownership_type = #{jfTheOwnershipType}
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != '' ">
+				and jf_belonging_to_the_name like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="jfClosedWay != null and jfClosedWay != '' ">
+				and jf_closed_way = #{jfClosedWay}
+			</if>
+			<if test="jfAccountId != null and jfAccountId != '' ">
+				and jf_account_id = #{jfAccountId}
+			</if>
+			<if test="faUserName != null and faUserName != '' ">
+				and fa_user_name = #{faUserName}
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				<if test="jfNatureOfThe == '收入' ">
+					and  jf_nature_of_the in ('收入','欠结')
+				</if>
+				<if test="jfNatureOfThe == '支出'">
+					and  jf_nature_of_the = '支出'
+				</if>
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != '' ">
+				and  jf_accounting_species = #{jfAccountingSpecies}
+			</if>
+		</where>
+		<if test="splitFlag ==1">
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+	</select>
+	<!-- 根据凭证号查询用于打印的收支 -->
+	<select id="selectToDoPringt" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+  		select jf.*,
+  		h.add_province addProvince, h.add_city addCity, h.add_district addDistrict, h.add_zone addZone,
+  		h.add_street addStreet, h.add_community addCommunity, h.add_building addBuilding, h.add_doorplateno addDoorplateno,
+  		ifa.fa_user_name faUserName
+  		from jour_financial_records jf
+  		left outer join info_house_paper h on h.house_coding = jf.jf_house_id
+  		left outer join info_bank_account ifa on ifa.fa_id = jf.jf_account_id
+  		where  jf_certificate_number = #{jfCertificateNumber} ORDER BY jf_id DESC
+  </select>
+	<!-- 查询已生成凭证号的收支   数据和统计分开-->
+	<select id="certificateDetails" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select
+		<if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			COUNT(jf_id) totalNum
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			jf.*,
+			h.add_province addProvince, h.add_city addCity, h.add_district addDistrict, h.add_zone addZone,
+			h.add_street addStreet, h.add_community addCommunity, h.add_building addBuilding, h.add_doorplateno addDoorplateno,
+			u.su_staff_name handlersName, u1.su_staff_name reviewerName, u2.su_staff_name reviewPerson,ifa.fa_user_name faUserName,
+			hs.hs_split_identifier
+		</if>
+		from jour_financial_records jf
+		left outer join info_house_paper h on h.house_coding = jf.jf_house_id
+		left outer join sys_users u on u.user_coding = jf.jf_handlers
+		left outer join sys_users u1 on u1.user_coding = jf.jf_the_reviewer
+		left outer join sys_users u2 on u2.user_coding = jf.jf_finan_review
+		left outer join info_bank_account ifa on ifa.fa_id = jf.jf_account_id
+		LEFT OUTER JOIN info_house_4store hs ON hs.hs_id = jf_house_4store_id
+		<where>
+			jf_Strike_a_balance_status = '正常'
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId}
+			</if>
+			<choose>
+				<when test="jfCertificateNumber == null or jfCertificateNumber == '' ">
+					and jf_certificate_number is not null
+				</when>
+				<when test="jfCertificateNumber != null and jfCertificateNumber != '' ">
+					and jf_certificate_number like  '%${jfCertificateNumber}%'
+				</when>
+			</choose>
+			<if test="addProvince != null and addProvince != '' ">
+				and add_province like  '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity != '' ">
+				and add_city like  '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict != '' ">
+				and add_district like  '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone != '' ">
+				and add_zone like  '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet != '' ">
+				and add_street like  '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity != '' ">
+				and add_community like  '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding != '' ">
+				and (add_building like  '${addBuilding}%' or add_building like  '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != '' ">
+				and (add_doorplateno like  '${addDoorplateno}%' or add_doorplateno like  '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+			<if test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+				and jf_the_ownership_type = #{jfTheOwnershipType}
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != '' ">
+				and jf_belonging_to_the_name  like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="jfClosedWay != null and jfClosedWay != '' ">
+				and jf_closed_way = #{jfClosedWay}
+			</if>
+			<if test="jfAccountId != null and jfAccountId != '' ">
+				and jf_account_id = #{jfAccountId}
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				<if test="jfNatureOfThe == '收入' ">
+					and  jf_nature_of_the in ('收入','欠结')
+				</if>
+				<if test="jfNatureOfThe == '支出'">
+					and  jf_nature_of_the = '支出'
+				</if>
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_check_in_time
+				between
+				#{startTime}
+				and
+				#{endTime})
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+		</where>
+		<if test="splitFlag ==1">
+			<if test="startNum != '' and startNum != null">
+				ORDER BY jf_id DESC
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+	</select>
+
+	<!-- 账户余额处理支出 -->
+	<select id="theBalanceOf" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+ 	select jf_sum_money, jf_nature_of_the, jf_accounting_species from jour_financial_records where
+	jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+	and jf_nature_of_the in ('支出','收入')
+	and jf_Strike_a_balance_status in ('正常')
+  </select>
+
+	<!-- 根据盘源id查收支记录  -->
+	<select id="theBalanceOfByHouseId" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+ 	select jf_sum_money,jf_nature_of_the, jf_accounting_species from jour_financial_records where
+	jf_house_id = #{jfHouseId,jdbcType=INTEGER}
+	and jf_nature_of_the in ('支出','收入')
+	and jf_Strike_a_balance_status in ('正常')
+  </select>
+
+	<!-- 账户收支明细（账户收支总额查询） -->
+	<select id="balanceByBillingDate" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select jf_sum_money, jf_nature_of_the, jf_accounting_species from jour_financial_records where
+		jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+		and jf_nature_of_the in ('支出','收入')
+		and jf_Strike_a_balance_status in ('正常')
+		<choose>
+			<when test="billingDateFrom != null and billingDateFrom != '' and billingDateTo != null and billingDateTo != ''">
+				and jf_billing_date between #{billingDateFrom} and #{billingDateTo}
+			</when>
+			<when test="billingDateFrom != null and billingDateFrom != '' and (billingDateTo == null or billingDateTo == '')">
+				and jf_billing_date between #{billingDateFrom} and now()
+			</when>
+			<when test="(billingDateFrom == null or billingDateFrom == '') and billingDateTo != null and billingDateTo != ''">
+				and jf_billing_date &lt;= #{billingDateTo}
+			</when>
+		</choose>
+	</select>
+
+	<!-- 账户收支明细（账户收支总额查询,统计总收入、总支出、总冲账） -->
+	<select id="balanceByAccountId" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select jf_sum_money,jf_nature_of_the,jf_Strike_a_balance_status, jf_accounting_species from jour_financial_records
+		<where>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="jfHouseId != null and jfHouseId != ''">
+				and jf_house_id = #{jfHouseId,jdbcType=INTEGER}
+			</if>
+			<choose>
+				<when test="billingDateFrom != null and billingDateFrom != '' and billingDateTo != null and billingDateTo != ''">
+					and jf_billing_date between #{billingDateFrom} and #{billingDateTo}
+				</when>
+				<when test="billingDateFrom != null and billingDateFrom != '' and (billingDateTo == null or billingDateTo == '')">
+					and jf_billing_date &gt;= #{billingDateFrom}
+				</when>
+				<when test="(billingDateFrom == null or billingDateFrom == '') and billingDateTo != null and billingDateTo != ''">
+					and jf_billing_date &lt;= #{billingDateTo}
+				</when>
+			</choose>
+		</where>
+	</select>
+
+	<!-- 冲帐接口查询 -->
+	<select id="strikeBalanceInterface" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+ 	select * from jour_financial_records where jf_id = #{jfId}
+  </select>
+
+	<!-- 根据冲帐编码查询冲帐ID -->
+	<select id="balanceId"  resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select jf_id from
+		jour_financial_records
+		<where>
+			<if test="jfStrikeBalanceEncoding !=null and jfStrikeBalanceEncoding !='' ">
+				jf_strike_balance_encoding = '${jfStrikeBalanceEncoding}'
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByHouse4rentId" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand" >
+    select
+    *
+    from jour_financial_records
+    where jf_house_4rent_id = #{jfHouse4rentId,jdbcType=INTEGER}
+    ORDER BY jf_id DESC
+  </select>
+
+	<!-- 项目的财务收支查询 -->
+	<select id="allvirtualPayments" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select a.*, b.total_num from
+		(select jf.*,su.su_staff_name reviewOneName, su1.su_staff_name handlersName, su2.su_staff_name cashierPeopleName,
+		su3.su_staff_name personChargeAccountName, su4.su_staff_name reviewerName, su5.su_staff_name managerUserName,
+		h.add_province, h.add_city, h.add_district, h.add_zone, h.add_street,
+		h.add_community, h.add_building, h.add_doorplateno,hs.hs_split_identifier
+		from jour_financial_records jf
+		left outer join sys_users su on jf.jf_finan_review = su.user_coding
+		left outer join sys_users su1 on jf.jf_handlers = su1.user_coding
+		left outer join sys_users su2 on jf.jf_the_cashier_people = su2.user_coding
+		left outer join sys_users su3 on jf.jf_charge_people = su3.user_coding
+		left outer join sys_users su4 on jf.jf_the_reviewer = su4.user_coding
+		left outer join sys_users su5 on jf.jf_manager_user_id = su5.user_coding
+		left outer join info_house_4rent hr on hr.hr_id = jf.jf_house_4rent_id
+		left outer join info_house_4store hs on hs.hs_id = jf.jf_house_4store_id
+		left outer join info_house_paper h on h.house_coding = jf.jf_house_id
+		<where>
+			(jf_the_ownership_type = '其他类')
+			<if test="(jfTheReviewer != null and jfTheReviewer != '') or (jfChargePeople != null and jfChargePeople != '')
+  	 	or (jfTheCashierPeople != null and jfTheCashierPeople != '') or (jfHandlers != null and jfHandlers != '') or
+  	 	(jfFinanReview != null and jfFinanReview != '') ">
+				and (jf_the_reviewer = #{jfTheReviewer,jdbcType=INTEGER} or jf_charge_people = #{jfChargePeople,jdbcType=INTEGER}
+				or jf_the_cashier_people =#{jfTheCashierPeople,jdbcType=INTEGER}
+				or jf_handlers =#{jfHandlers,jdbcType=INTEGER} or jf_finan_review =#{jfFinanReview,jdbcType=INTEGER}
+				)
+			</if>
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId,jdbcType=INTEGER}
+			</if>
+			<if test="jfHouseId != null and jfHouseId != '' ">
+				and jf_house_id = #{jfHouseId,jdbcType=INTEGER}
+			</if>
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				and jf_financial_coding  like  '%${jfFinancialCoding}%'
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				and jf_house_4rent_id =  #{jfHouse4rentId}
+			</if>
+			<if test="jfHouse4storeId != null and jfHouse4storeId != ''" >
+				and jf_house_4store_id =  #{jfHouse4storeId}
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				and jf_big_type = #{jfBigType}</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''">
+				and jf_accounting_species = #{jfAccountingSpecies}#</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus != '' ">
+				and jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR}</if>
+			<if test="jfAuditState != null and jfAuditState != '' ">
+				and jf_audit_state = #{jfAuditState}</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' ">
+				and jf_certificate_number like '%${jfCertificateNumber}%'
+			</if>
+			<if test="jfTicketNumber != null and jfTicketNumber != '' ">
+				and jf_ticket_number like '%${jfTicketNumber}%'
+			</if>
+			<choose>
+				<when test="jfTheOwnershipType == null or jfTheOwnershipType == '' ">
+					and jf_the_ownership_type = '其他类'
+				</when>
+				<when test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+					and jf_the_ownership_type = #{jfTheOwnershipType,jdbcType=VARCHAR}
+				</when>
+			</choose>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				and jf_nature_of_the = #{jfNatureOfThe}
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != '' ">
+				and jf_check_in_time = #{jfCheckInTime}
+			</if>
+			<if test="jfBillingDate != null and jfBillingDate != '' ">
+				and jf_billing_date = #{jfBillingDate}
+			</if>
+			<if test="department != null and department != '' ">
+				and department = '${department}'
+			</if>
+			<if test="storefront != null and storefront != '' ">
+				and storefront = '${storefront}'
+			</if>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_billing_date between #{startTime} and #{endTime})
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != ''">
+				and jf_belonging_to_the_name  like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="addProvince != null and addProvince != ''">
+				and add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and add_city like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+		</where>
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+		) a,
+		(select count(jf.jf_id) total_num from jour_financial_records jf
+		left outer join sys_users su on jf.jf_finan_review = su.user_coding
+		left outer join sys_users su1 on jf.jf_handlers = su1.user_coding
+		left outer join sys_users su2 on jf.jf_the_cashier_people = su2.user_coding
+		left outer join sys_users su3 on jf.jf_charge_people = su3.user_coding
+		left outer join sys_users su4 on jf.jf_the_reviewer = su4.user_coding
+		left outer join sys_users su5 on jf.jf_manager_user_id = su5.user_coding
+		left outer join info_house_4rent hr on hr.hr_id = jf.jf_house_4rent_id
+		left outer join info_house_4store hs on hs.hs_id = jf.jf_house_4store_id
+		left outer join info_house_paper h on h.house_coding = jf.jf_house_id
+		<where>
+			(jf_the_ownership_type = '其他类')
+			<if test="(jfTheReviewer != null and jfTheReviewer != '') or (jfChargePeople != null and jfChargePeople != '')
+  	 	or (jfTheCashierPeople != null and jfTheCashierPeople != '') or (jfHandlers != null and jfHandlers != '') or
+  	 	(jfFinanReview != null and jfFinanReview != '') ">
+				and (jf_the_reviewer = #{jfTheReviewer,jdbcType=INTEGER} or jf_charge_people = #{jfChargePeople,jdbcType=INTEGER}
+				or jf_the_cashier_people =#{jfTheCashierPeople,jdbcType=INTEGER}
+				or jf_handlers =#{jfHandlers,jdbcType=INTEGER} or jf_finan_review =#{jfFinanReview,jdbcType=INTEGER}
+				)
+			</if>
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId,jdbcType=INTEGER}
+			</if>
+			<if test="jfHouseId != null and jfHouseId != '' ">
+				and jf_house_id = #{jfHouseId,jdbcType=INTEGER}
+			</if>
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				and jf_financial_coding  like  '%${jfFinancialCoding}%'
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				and jf_house_4rent_id =  #{jfHouse4rentId}
+			</if>
+			<if test="jfHouse4storeId != null and jfHouse4storeId != ''" >
+				and jf_house_4store_id =  #{jfHouse4storeId}
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				and jf_big_type = #{jfBigType}</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''">
+				and jf_accounting_species = #{jfAccountingSpecies}#</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus != '' ">
+				and jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR}</if>
+			<if test="jfAuditState != null and jfAuditState != '' ">
+				and jf_audit_state = #{jfAuditState}</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' ">
+				and jf_certificate_number like '%${jfCertificateNumber}%'
+			</if>
+			<if test="jfTicketNumber != null and jfTicketNumber != '' ">
+				and jf_ticket_number like '%${jfTicketNumber}%'
+			</if>
+			<choose>
+				<when test="jfTheOwnershipType == null or jfTheOwnershipType == '' ">
+					and jf_the_ownership_type = '其他类'
+				</when>
+				<when test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+					and jf_the_ownership_type = #{jfTheOwnershipType,jdbcType=VARCHAR}
+				</when>
+			</choose>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				and jf_nature_of_the = #{jfNatureOfThe}
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != '' ">
+				and jf_check_in_time = #{jfCheckInTime}
+			</if>
+			<if test="jfBillingDate != null and jfBillingDate != '' ">
+				and jf_billing_date = #{jfBillingDate}
+			</if>
+			<if test="department != null and department != '' ">
+				and department = '${department}'
+			</if>
+			<if test="storefront != null and storefront != '' ">
+				and storefront = '${storefront}'
+			</if>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_billing_date between #{startTime} and #{endTime})
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != ''">
+				and jf_belonging_to_the_name  like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="addProvince != null and addProvince != ''">
+				and add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and add_city like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+		</where> ) b
+		ORDER BY jf_id DESC
+	</select>
+	<!-- (数据与统计分开)/查询所有的财务信息、冲账和被冲账与分页,给条件则为条件查询 ,包含项目收支-->
+	<select id="queryFinancial" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select
+		<if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			count(jf.jf_id) total_num
+			,sum(case when jf.jf_nature_of_the = "收入" and jf_Strike_a_balance_status = "正常" then jf.jf_sum_money  when jf.jf_nature_of_the = "支出" and jf_Strike_a_balance_status = "正常" then 0-jf.jf_sum_money ELSE 0 END) total_money
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			jf.*,su.su_staff_name reviewOneName, su1.su_staff_name handlersName, su2.su_staff_name cashierPeopleName,
+			su3.su_staff_name personChargeAccountName, su4.su_staff_name reviewerName, su5.su_staff_name managerUserName,
+			hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, hs.hs_add_community,
+			hs.hs_add_building, hs.hs_add_doorplateno, hs.hs_split_identifier,
+			ba.fa_user_name faUserName, ba.fa_account account, ba.fa_belonging faBelonging,jcu.jcu_id,jcu.jcu_type,jcu.jcu_group_type,
+			jpp.jpp_id,jpp.jpp_plan_name
+		</if>
+		from jour_financial_records jf
+		left outer join sys_users su on jf.jf_finan_review = su.user_coding
+		left outer join sys_users su1 on jf.jf_handlers = su1.user_coding
+		left outer join sys_users su2 on jf.jf_the_cashier_people = su2.user_coding
+		left outer join sys_users su3 on jf.jf_charge_people = su3.user_coding
+		left outer join sys_users su4 on jf.jf_the_reviewer = su4.user_coding
+		left outer join sys_users su5 on jf.jf_manager_user_id = su5.user_coding
+		left outer join info_house_4rent hr on hr.hr_id = jf.jf_house_4rent_id
+		left outer join info_house_4store hs on hs.hs_id = jf.jf_house_4store_id
+		left outer join info_bank_account ba on ba.fa_id = jf.jf_account_id
+		left outer join jour_channel_unit jcu on jf.jf_belong_to_channel = jcu.jcu_id
+		left outer join jour_price_plan jpp on jf.jf_price_plan = jpp.jpp_id
+		<where>
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId,jdbcType=INTEGER}
+			</if>
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				and jf_financial_coding  like  '%${jfFinancialCoding}%'
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				and jf_house_4rent_id =  #{jfHouse4rentId}
+			</if>
+			<if test="jfHouse4storeId != null and jfHouse4storeId != ''" >
+				and jf_house_4store_id =  #{jfHouse4storeId}
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				and jf_big_type = #{jfBigType}</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''">
+				and jf_accounting_species = #{jfAccountingSpecies}</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus != '' ">
+				and jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR}</if>
+			<if test="jfAuditState != null and jfAuditState != '' ">
+				and jf_audit_state = #{jfAuditState}</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' ">
+				and jf_certificate_number like '%${jfCertificateNumber}%'
+			</if>
+			<if test="jfTicketNumber != null and jfTicketNumber != '' ">
+				and jf_ticket_number like '%${jfTicketNumber}%'
+			</if>
+			<if test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+				and jf_the_ownership_type = #{jfTheOwnershipType}
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				and jf_nature_of_the = #{jfNatureOfThe}
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != '' ">
+				and jf_check_in_time = #{jfCheckInTime}
+			</if>
+			<if test="jfBillingDate != null and jfBillingDate != '' ">
+				and jf_billing_date = #{jfBillingDate}
+			</if>
+			<if test="department != null and department != '' ">
+				and department = '${department}'
+			</if>
+			<if test="storefront != null and storefront != '' ">
+				and storefront = '${storefront}'
+			</if>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_check_in_time
+				between
+				#{startTime}
+				and
+				#{endTime})
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != ''">
+				and jf_belonging_to_the_name  like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="addProvince != null and addProvince != ''">
+				and hs_add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and hs_add_city like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and hs_add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and hs_add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and hs_add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and hs_add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+			<if test="jfSettlementMethod != null and jfSettlementMethod != '' ">
+				and jf_settlement_method = #{jfSettlementMethod}
+			</if>
+			<if test="jfBelongToChannel != null and jfBelongToChannel != '' ">
+				and jf_belong_to_channel = #{jfBelongToChannel}
+			</if>
+			<if test="jfCreditSituation != null and jfCreditSituation != '' ">
+				and jf_credit_situation = #{jfCreditSituation}
+			</if>
+		</where>
+		<if test="splitFlag ==1">
+			<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+				<if test="theSortTerm ==1 ">
+					ORDER BY jf_id
+				</if>
+				<if test="theSortTerm ==2 ">
+					ORDER BY jf_billing_date
+				</if>
+				<if test="theSortContrary ==1 ">
+					ASC
+				</if>
+				<if test="theSortContrary ==2 ">
+					DESC
+				</if>
+			</if>
+			<if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+				ORDER BY jf_id DESC
+			</if>
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+	</select>
+	<!-- (数据与统计分开)/查询所有的财务信息、冲账和被冲账与分页,给条件则为条件查询 ,包含项目收支-->
+	<select id="queryFinancialCommon" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select jf.*,su.su_staff_name reviewOneName, su1.su_staff_name handlersName, su2.su_staff_name cashierPeopleName,
+		su3.su_staff_name personChargeAccountName, su4.su_staff_name reviewerName, su5.su_staff_name managerUserName,
+		hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, hs.hs_add_community,
+		hs.hs_add_building, hs.hs_add_doorplateno, hs.hs_split_identifier,
+		ba.fa_user_name faUserName, ba.fa_account account, ba.fa_belonging faBelonging
+		from jour_financial_records jf
+		left outer join sys_users su on jf.jf_finan_review = su.user_coding
+		left outer join sys_users su1 on jf.jf_handlers = su1.user_coding
+		left outer join sys_users su2 on jf.jf_the_cashier_people = su2.user_coding
+		left outer join sys_users su3 on jf.jf_charge_people = su3.user_coding
+		left outer join sys_users su4 on jf.jf_the_reviewer = su4.user_coding
+		left outer join sys_users su5 on jf.jf_manager_user_id = su5.user_coding
+		left outer join info_house_4rent hr on hr.hr_id = jf.jf_house_4rent_id
+		left outer join info_house_4store hs on hs.hs_id = jf.jf_house_4store_id
+		left outer join info_bank_account ba on ba.fa_id = jf.jf_account_id
+		<where>
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId,jdbcType=INTEGER}
+			</if>
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				and jf_financial_coding  like  '%${jfFinancialCoding}%'
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				and jf_house_4rent_id =  #{jfHouse4rentId}
+			</if>
+			<if test="jfHouse4storeId != null and jfHouse4storeId != ''" >
+				and jf_house_4store_id =  #{jfHouse4storeId}
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				and jf_big_type = #{jfBigType}
+			</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''">
+				and jf_accounting_species = #{jfAccountingSpecies}
+			</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus != '' ">
+				and jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR}
+			</if>
+			<if test="jfAuditState != null and jfAuditState != '' ">
+				and jf_audit_state = #{jfAuditState}
+			</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' ">
+				and jf_certificate_number like '%${jfCertificateNumber}%'
+			</if>
+			<if test="jfTicketNumber != null and jfTicketNumber != '' ">
+				and jf_ticket_number like '%${jfTicketNumber}%'
+			</if>
+			<if test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+				and jf_the_ownership_type = #{jfTheOwnershipType}
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				and jf_nature_of_the = #{jfNatureOfThe}
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != '' ">
+				and jf_check_in_time = #{jfCheckInTime}
+			</if>
+			<if test="jfBillingDate != null and jfBillingDate != '' ">
+				and jf_billing_date = #{jfBillingDate}
+			</if>
+			<if test="department != null and department != '' ">
+				and department = '${department}'
+			</if>
+			<if test="storefront != null and storefront != '' ">
+				and storefront = '${storefront}'
+			</if>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_check_in_time between #{startTime} and #{endTime})
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != ''">
+				and jf_belonging_to_the_name like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="addProvince != null and addProvince != ''">
+				and hs_add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and hs_add_city like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and hs_add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and hs_add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and hs_add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and hs_add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+		</where>
+	</select>
+	<!-- (数据与统计一起)/查询所有的财务信息、冲账和被冲账与分页,给条件则为条件查询 ,包含项目收支-->
+	<select id="selectInformationAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select a.*, b.total_num from
+		(select jf.*,su.su_staff_name reviewOneName, su1.su_staff_name handlersName, su2.su_staff_name cashierPeopleName,
+		su3.su_staff_name personChargeAccountName, su4.su_staff_name reviewerName, su5.su_staff_name managerUserName,
+		hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, hs.hs_add_community,
+		hs.hs_add_building, hs.hs_add_doorplateno,hs.hs_split_identifier
+		from jour_financial_records jf
+		left outer join sys_users su on jf.jf_finan_review = su.user_coding
+		left outer join sys_users su1 on jf.jf_handlers = su1.user_coding
+		left outer join sys_users su2 on jf.jf_the_cashier_people = su2.user_coding
+		left outer join sys_users su3 on jf.jf_charge_people = su3.user_coding
+		left outer join sys_users su4 on jf.jf_the_reviewer = su4.user_coding
+		left outer join sys_users su5 on jf.jf_manager_user_id = su5.user_coding
+		left outer join info_house_4rent hr on hr.hr_id = jf.jf_house_4rent_id
+		left outer join info_house_4store hs on hs.hs_id = jf.jf_house_4store_id
+		<where>
+			<!-- (jf_the_ownership_type = '租客' or jf_the_ownership_type = '业主') -->
+			<if test="(jfTheReviewer != null and jfTheReviewer != '') or (jfChargePeople != null and jfChargePeople != '')
+  	 	or (jfTheCashierPeople != null and jfTheCashierPeople != '') or (jfHandlers != null and jfHandlers != '') or
+  	 	(jfFinanReview != null and jfFinanReview != '') ">
+				and (jf_the_reviewer = #{jfTheReviewer,jdbcType=INTEGER} or jf_charge_people = #{jfChargePeople,jdbcType=INTEGER}
+				or jf_the_cashier_people =#{jfTheCashierPeople,jdbcType=INTEGER}
+				or jf_handlers =#{jfHandlers,jdbcType=INTEGER} or jf_finan_review =#{jfFinanReview,jdbcType=INTEGER}
+				)
+			</if>
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId,jdbcType=INTEGER}
+			</if>
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				and jf_financial_coding  like  '%${jfFinancialCoding}%'
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				and jf_house_4rent_id =  #{jfHouse4rentId}
+			</if>
+			<if test="jfHouse4storeId != null and jfHouse4storeId != ''" >
+				and jf_house_4store_id =  #{jfHouse4storeId}
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				and jf_big_type = #{jfBigType}</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''">
+				and jf_accounting_species = #{jfAccountingSpecies}</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus != '' ">
+				and jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR}</if>
+			<if test="jfAuditState != null and jfAuditState != '' ">
+				and jf_audit_state = #{jfAuditState}</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' ">
+				and jf_certificate_number like '%${jfCertificateNumber}%'
+			</if>
+			<if test="jfTicketNumber != null and jfTicketNumber != '' ">
+				and jf_ticket_number like '%${jfTicketNumber}%'
+			</if>
+			<if test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+				and jf_the_ownership_type = #{jfTheOwnershipType}
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				and jf_nature_of_the = #{jfNatureOfThe}
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != '' ">
+				and jf_check_in_time = #{jfCheckInTime}
+			</if>
+			<if test="jfBillingDate != null and jfBillingDate != '' ">
+				and jf_billing_date = #{jfBillingDate}
+			</if>
+			<if test="department != null and department != '' ">
+				and department = '${department}'
+			</if>
+			<if test="storefront != null and storefront != '' ">
+				and storefront = '${storefront}'
+			</if>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_check_in_time
+				between
+				#{startTime}
+				and
+				#{endTime})
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != ''">
+				and jf_belonging_to_the_name  like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="addProvince != null and addProvince != ''">
+				and hs_add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and hs_add_city like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and hs_add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and hs_add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and hs_add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and hs_add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+		</where>
+		) a,
+		(select count(jf.jf_id) total_num from jour_financial_records jf
+		left outer join sys_users su on jf.jf_finan_review = su.user_coding
+		left outer join sys_users su1 on jf.jf_handlers = su1.user_coding
+		left outer join sys_users su2 on jf.jf_the_cashier_people = su2.user_coding
+		left outer join sys_users su3 on jf.jf_charge_people = su3.user_coding
+		left outer join sys_users su4 on jf.jf_the_reviewer = su4.user_coding
+		left outer join sys_users su5 on jf.jf_manager_user_id = su5.user_coding
+		left outer join info_house_4rent hr on hr.hr_id = jf.jf_house_4rent_id
+		left outer join info_house_4store hs on hs.hs_id = jf.jf_house_4store_id
+		<where>
+			<!-- (jf_the_ownership_type = '租客' or jf_the_ownership_type = '业主') -->
+			<if test="(jfTheReviewer != null and jfTheReviewer != '') or (jfChargePeople != null and jfChargePeople != '')
+  	 	or (jfTheCashierPeople != null and jfTheCashierPeople != '') or (jfHandlers != null and jfHandlers != '') or
+  	 	(jfFinanReview != null and jfFinanReview != '') ">
+				and (jf_the_reviewer = #{jfTheReviewer,jdbcType=INTEGER} or jf_charge_people = #{jfChargePeople,jdbcType=INTEGER}
+				or jf_the_cashier_people =#{jfTheCashierPeople,jdbcType=INTEGER}
+				or jf_handlers =#{jfHandlers,jdbcType=INTEGER} or jf_finan_review =#{jfFinanReview,jdbcType=INTEGER}
+				)
+			</if>
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId,jdbcType=INTEGER}
+			</if>
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				and jf_financial_coding  like  '%${jfFinancialCoding}%'
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				and jf_house_4rent_id =  #{jfHouse4rentId}
+			</if>
+			<if test="jfHouse4storeId != null and jfHouse4storeId != ''" >
+				and jf_house_4store_id =  #{jfHouse4storeId}
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				and jf_big_type = #{jfBigType}</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''">
+				and jf_accounting_species = #{jfAccountingSpecies}</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus != '' ">
+				and jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR}</if>
+			<if test="jfAuditState != null and jfAuditState != '' ">
+				and jf_audit_state = #{jfAuditState}</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' ">
+				and jf_certificate_number like '%${jfCertificateNumber}%'
+			</if>
+			<if test="jfTicketNumber != null and jfTicketNumber != '' ">
+				and jf_ticket_number like '%${jfTicketNumber}%'
+			</if>
+			<if test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+				and jf_the_ownership_type = #{jfTheOwnershipType}
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				and jf_nature_of_the = #{jfNatureOfThe}
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != '' ">
+				and jf_check_in_time = #{jfCheckInTime}
+			</if>
+			<if test="jfBillingDate != null and jfBillingDate != '' ">
+				and jf_billing_date = #{jfBillingDate}
+			</if>
+			<if test="department != null and department != '' ">
+				and department = '${department}'
+			</if>
+			<if test="storefront != null and storefront != '' ">
+				and storefront = '${storefront}'
+			</if>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_check_in_time
+				between
+				#{startTime}
+				and
+				#{endTime})
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != ''">
+				and jf_belonging_to_the_name  like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="addProvince != null and addProvince != ''">
+				and hs_add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and hs_add_city like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and hs_add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and hs_add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and hs_add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and hs_add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+		</where> ) b
+		<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+			<if test="theSortTerm ==1 ">
+				ORDER BY jf_id
+			</if>
+			<if test="theSortTerm ==2 ">
+				ORDER BY jf_billing_date
+			</if>
+			<if test="theSortContrary ==1 ">
+				ASC
+			</if>
+			<if test="theSortContrary ==2 ">
+				DESC
+			</if>
+		</if>
+		<if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+			ORDER BY jf_id DESC
+		</if>
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+
+	<!-- 查询所有的财务信息、冲账和被冲账与分页,给条件则为条件查询 ,包含项目收支-->
+	<select id="allNormalAndVirtualPayments" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand">
+		select a.*, b.total_num from
+		(select jf.*,su.su_staff_name reviewOneName, su1.su_staff_name handlersName, su2.su_staff_name cashierPeopleName,
+		su3.su_staff_name personChargeAccountName, su4.su_staff_name reviewerName, su5.su_staff_name managerUserName,
+		hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, hs.hs_add_community,
+		hs.hs_add_building, hs.hs_add_doorplateno,hs.hs_split_identifier
+		from jour_financial_records jf
+		left outer join sys_users su on jf.jf_finan_review = su.user_coding
+		left outer join sys_users su1 on jf.jf_handlers = su1.user_coding
+		left outer join sys_users su2 on jf.jf_the_cashier_people = su2.user_coding
+		left outer join sys_users su3 on jf.jf_charge_people = su3.user_coding
+		left outer join sys_users su4 on jf.jf_the_reviewer = su4.user_coding
+		left outer join sys_users su5 on jf.jf_manager_user_id = su5.user_coding
+		left outer join info_house_4rent hr on hr.hr_id = jf.jf_house_4rent_id
+		left outer join info_house_4store hs on hs.hs_id = jf.jf_house_4store_id
+		<where>
+			<if test="(jfTheReviewer != null and jfTheReviewer != '') or (jfChargePeople != null and jfChargePeople != '')
+  	 	or (jfTheCashierPeople != null and jfTheCashierPeople != '') or (jfHandlers != null and jfHandlers != '') or
+  	 	(jfFinanReview != null and jfFinanReview != '') ">
+				and (jf_the_reviewer = #{jfTheReviewer,jdbcType=INTEGER} or jf_charge_people = #{jfChargePeople,jdbcType=INTEGER}
+				or jf_the_cashier_people =#{jfTheCashierPeople,jdbcType=INTEGER}
+				or jf_handlers =#{jfHandlers,jdbcType=INTEGER} or jf_finan_review =#{jfFinanReview,jdbcType=INTEGER}
+				)
+			</if>
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId,jdbcType=INTEGER}
+			</if>
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				and jf_financial_coding  like  '%${jfFinancialCoding}%'
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				and jf_house_4rent_id =  #{jfHouse4rentId}
+			</if>
+			<if test="jfHouse4storeId != null and jfHouse4storeId != ''" >
+				and jf_house_4store_id =  #{jfHouse4storeId}
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				and jf_big_type = #{jfBigType}</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''">
+				and jf_accounting_species = #{jfAccountingSpecies}</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus != '' ">
+				and jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR}</if>
+			<if test="jfAuditState != null and jfAuditState != '' ">
+				and jf_audit_state = #{jfAuditState}</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' ">
+				and jf_certificate_number like '%${jfCertificateNumber}%'
+			</if>
+			<if test="jfTicketNumber != null and jfTicketNumber != '' ">
+				and jf_ticket_number like '%${jfTicketNumber}%'
+			</if>
+			<if test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+				and jf_the_ownership_type = #{jfTheOwnershipType}
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				and jf_nature_of_the = #{jfNatureOfThe}
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != '' ">
+				and jf_check_in_time = #{jfCheckInTime}
+			</if>
+			<if test="jfBillingDate != null and jfBillingDate != '' ">
+				and jf_billing_date = #{jfBillingDate}
+			</if>
+			<if test="department != null and department != '' ">
+				and department = '${department}'
+			</if>
+			<if test="storefront != null and storefront != '' ">
+				and storefront = '${storefront}'
+			</if>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_billing_date between #{startTime}  and  #{endTime})
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != ''">
+				and jf_belonging_to_the_name  like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="addProvince != null and addProvince != ''">
+				and hs_add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and hs_add_city like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and hs_add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and hs_add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and hs_add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and hs_add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+		</where>
+		) a,
+		(select count(jf.jf_id) total_num from jour_financial_records jf
+		left outer join sys_users su on jf.jf_finan_review = su.user_coding
+		left outer join sys_users su1 on jf.jf_handlers = su1.user_coding
+		left outer join sys_users su2 on jf.jf_the_cashier_people = su2.user_coding
+		left outer join sys_users su3 on jf.jf_charge_people = su3.user_coding
+		left outer join sys_users su4 on jf.jf_the_reviewer = su4.user_coding
+		left outer join sys_users su5 on jf.jf_manager_user_id = su5.user_coding
+		left outer join info_house_4rent hr on hr.hr_id = jf.jf_house_4rent_id
+		left outer join info_house_4store hs on hs.hs_id = jf.jf_house_4store_id
+		<where>
+			<if test="(jfTheReviewer != null and jfTheReviewer != '') or (jfChargePeople != null and jfChargePeople != '')
+  	 	or (jfTheCashierPeople != null and jfTheCashierPeople != '') or (jfHandlers != null and jfHandlers != '') or
+  	 	(jfFinanReview != null and jfFinanReview != '') ">
+				and (jf_the_reviewer = #{jfTheReviewer,jdbcType=INTEGER} or jf_charge_people = #{jfChargePeople,jdbcType=INTEGER}
+				or jf_the_cashier_people =#{jfTheCashierPeople,jdbcType=INTEGER}
+				or jf_handlers =#{jfHandlers,jdbcType=INTEGER} or jf_finan_review =#{jfFinanReview,jdbcType=INTEGER}
+				)
+			</if>
+			<if test="jfId != null and jfId != '' ">
+				and jf_id = #{jfId,jdbcType=INTEGER}
+			</if>
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				and jf_financial_coding  like  '%${jfFinancialCoding}%'
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				and jf_house_4rent_id =  #{jfHouse4rentId}
+			</if>
+			<if test="jfHouse4storeId != null and jfHouse4storeId != ''" >
+				and jf_house_4store_id =  #{jfHouse4storeId}
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				and jf_big_type = #{jfBigType}</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''">
+				and jf_accounting_species = #{jfAccountingSpecies}</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus != '' ">
+				and jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR}</if>
+			<if test="jfAuditState != null and jfAuditState != '' ">
+				and jf_audit_state = #{jfAuditState}</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' ">
+				and jf_certificate_number like '%${jfCertificateNumber}%'
+			</if>
+			<if test="jfTicketNumber != null and jfTicketNumber != '' ">
+				and jf_ticket_number like '%${jfTicketNumber}%'
+			</if>
+			<if test="jfTheOwnershipType != null and jfTheOwnershipType != '' ">
+				and jf_the_ownership_type = #{jfTheOwnershipType}
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != '' ">
+				and jf_nature_of_the = #{jfNatureOfThe}
+			</if>
+			<if test="jfPayType != null and jfPayType != '' ">
+				and jf_pay_type = #{jfPayType}
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != '' ">
+				and jf_check_in_time = #{jfCheckInTime}
+			</if>
+			<if test="jfBillingDate != null and jfBillingDate != '' ">
+				and jf_billing_date = #{jfBillingDate}
+			</if>
+			<if test="department != null and department != '' ">
+				and department = '${department}'
+			</if>
+			<if test="storefront != null and storefront != '' ">
+				and storefront = '${storefront}'
+			</if>
+			<if test="jfAccountId != null and jfAccountId != ''">
+				and jf_account_id = #{jfAccountId,jdbcType=INTEGER}
+			</if>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (jf_billing_date between #{startTime} and #{endTime})
+			</if>
+			<if test="jfBelongingToTheName != null and jfBelongingToTheName != ''">
+				and jf_belonging_to_the_name  like '%${jfBelongingToTheName}%'
+			</if>
+			<if test="addProvince != null and addProvince != ''">
+				and hs_add_province like '%${addProvince}%'
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and hs_add_city like '%${addCity}%'
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and hs_add_district like '%${addDistrict}%'
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and hs_add_zone like '%${addZone}%'
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and hs_add_street like '%${addStreet}%'
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and hs_add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				or hs.hs_split_identifier like '${addDoorplateno}%' or hs.hs_split_identifier like '0${addDoorplateno}%')
+			</if>
+		</where> ) b
+		ORDER BY jf_id DESC
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+
+	<!-- ********************* -->
+	<select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalFinancialExpand" >
+    select * from jour_financial_records where jf_id = #{jfId}
+  </select>
+
+	<!-- 根据财务编码ID删除 -->
+	<delete id="deleteByPrimaryKey" parameterType="com.zz.po.journal.JournalFinancialExpand" >
+    delete from jour_financial_records
+    where jf_id = #{jfId,jdbcType=INTEGER}
+  </delete>
+	<!-- 批量 -->
+	<insert id="insertList" parameterType="java.util.List" >
+		insert into jour_financial_records
+		(jf_financial_coding, jf_house_4rent_id, jf_jsrc_id,
+		jf_house_id, jf_house_4store_id, jf_landlord_id,
+		jf_renter_id, jf_finan_review, jf_handlers,
+		jf_the_cashier_people, jf_charge_people, jf_the_reviewer,
+		department, storefront, jf_have_or_not_arrears,
+		jf_nature_of_the, jf_big_type, jf_accounting_species, jf_strike_balance_encoding,
+		jf_accounting_why, jf_sum_money, jf_owe_money,
+		jf_closed_way,
+		jf_now_balance,
+		jf_audit_state,
+		jf_the_cashier, jf_certificate_number,
+		jf_ticket_number, jf_certificate_status, jf_start_cycle,
+		jf_end_cycle, jf_the_original_bill, jf_the_ownership_type,
+		jf_belonging_to_the_name, jf_billing_date, jf_account_id,
+		jf_finan_note, jf_Strike_a_balance_reason,
+		jf_operation_records,water_electrical_identification,
+		historical_readings,jf_pay_type,jf_manager_user_id,jf_belong_to_channel,
+		jf_price_plan,jf_settlement_method,jf_credit_situation
+		)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+			#{item.jfFinancialCoding,jdbcType=VARCHAR}, #{item.jfHouse4rentId,jdbcType=INTEGER}, #{item.jfJsrcId,jdbcType=INTEGER},
+			#{item.jfHouseId,jdbcType=INTEGER}, #{item.jfHouse4storeId,jdbcType=INTEGER}, #{item.jfLandlordId,jdbcType=INTEGER},
+			#{item.jfRenterId,jdbcType=INTEGER}, #{item.jfFinanReview,jdbcType=INTEGER}, #{item.jfHandlers,jdbcType=INTEGER},
+			#{item.jfTheCashierPeople,jdbcType=INTEGER}, #{item.jfChargePeople,jdbcType=INTEGER}, #{item.jfTheReviewer,jdbcType=INTEGER},
+			#{item.department,jdbcType=INTEGER}, #{item.storefront,jdbcType=INTEGER}, #{item.jfHaveOrNotArrears,jdbcType=VARCHAR},
+			#{item.jfNatureOfThe,jdbcType=VARCHAR}, #{item.jfBigType,jdbcType=VARCHAR}, #{item.jfAccountingSpecies,jdbcType=VARCHAR}, #{item.jfStrikeBalanceEncoding,jdbcType=INTEGER},
+			#{item.jfAccountingWhy,jdbcType=VARCHAR}, #{item.jfSumMoney,jdbcType=DOUBLE}, #{item.jfOweMoney,jdbcType=DOUBLE},
+			#{item.jfClosedWay,jdbcType=VARCHAR},
+			#{item.jfNowBalance,jdbcType=DOUBLE},
+			<choose>
+				<when test="item.jfAuditState != null and item.jfAuditState != ''">
+					#{item.jfAuditState},
+				</when>
+				<otherwise>
+					'未审核',
+				</otherwise>
+			</choose>
+			#{item.jfTheCashier,jdbcType=VARCHAR}, #{item.jfCertificateNumber,jdbcType=VARCHAR},
+			#{item.jfTicketNumber,jdbcType=VARCHAR}, #{item.jfCertificateStatus,jdbcType=VARCHAR}, #{item.jfStartCycle,jdbcType=DATE},
+			#{item.jfEndCycle,jdbcType=DATE}, #{item.jfTheOriginalBill,jdbcType=VARCHAR}, #{item.jfTheOwnershipType,jdbcType=VARCHAR},
+			#{item.jfBelongingToTheName,jdbcType=VARCHAR}, #{item.jfBillingDate,jdbcType=DATE}, #{item.jfAccountId,jdbcType=INTEGER},
+			#{item.jfFinanNote,jdbcType=LONGVARCHAR}, #{item.jfStrikeABalanceReason,jdbcType=LONGVARCHAR},
+			#{item.jfOperationRecords,jdbcType=LONGVARCHAR},#{item.waterElectricalIdentification,jdbcType=VARCHAR},#{item.historicalReadings,jdbcType=VARCHAR},
+			#{item.jfPayType,jdbcType=VARCHAR},
+			#{item.jfManagerUserId},#{item.jfBelongToChannel},#{item.jfPricePlan},#{item.jfSettlementMethod},#{item.jfCreditSituation}
+			)
+		</foreach>
+	</insert>
+
+	<!-- 1.录入外部买卖房财务信息 ；2.录入内部管理项目财务信息 ，房源编码绑定经理项目屋ID-->
+	<insert id="insertSelective" parameterType="com.zz.po.journal.JournalFinancialExpand"
+			useGeneratedKeys="true" keyProperty="jfId">
+		insert into jour_financial_records
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				jf_financial_coding,
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				jf_house_4rent_id,
+			</if>
+			<if test="jfHaveOrNotArrears != null and jfHaveOrNotArrears != ''" >
+				jf_have_or_not_arrears,
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != ''" >
+				jf_nature_of_the,
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				jf_big_type,
+			</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''" >
+				jf_accounting_species,
+			</if>
+			<if test="jfAccountingWhy != null and jfAccountingWhy != ''" >
+				jf_accounting_why,
+			</if>
+			<if test="jfSumMoney != null and (jfSumMoney != ''or jfSumMoney==0)" >
+				jf_sum_money,
+			</if>
+			<if test="jfOweMoney != null and jfOweMoney != ''" >
+				jf_owe_money,
+			</if>
+			<if test="jfClosedWay != null and jfClosedWay != ''" >
+				jf_closed_way,
+			</if>
+			<if test="jfFinanNote != null and jfFinanNote != ''" >
+				jf_finan_note,
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != ''" >
+				jf_check_in_time,
+			</if>
+			<if test="jfAuditState != null and jfAuditState != ''" >
+				jf_audit_state,
+			</if>
+			<if test="jfTheCashier != null and jfTheCashier != ''" >
+				jf_the_cashier,
+			</if>
+			<if test="jfFinanReview != null and jfFinanReview != ''" >
+				jf_finan_review,
+			</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus !='' ">
+				jf_Strike_a_balance_status,
+			</if>
+			<if test="jfStrikeABalanceReason != null and jfStrikeABalanceReason !='' ">
+				jf_Strike_a_balance_reason,
+			</if>
+			<if test="jfChargePeople !=null and jfChargePeople !='' " >
+				jf_charge_people,
+			</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' " >
+				jf_certificate_number,
+			</if>
+			<if test="jfTheCashierPeople !=null and jfTheCashierPeople !='' " >
+				jf_the_cashier_people,
+			</if>
+			<if test="jfHandlers !=null and jfHandlers !='' " >
+				jf_handlers,
+			</if>
+			<if test="jfTicketNumber !=null and jfTicketNumber !='' " >
+				jf_ticket_number,
+			</if>
+			<if test="jfCertificateStatus !=null and jfCertificateStatus !='' " >
+				jf_certificate_status,
+			</if>
+			<if test="jfTheOriginalBill !=null and jfTheOriginalBill !='' " >
+				jf_the_original_bill,
+			</if>
+			<if test="jfTheOwnershipType !=null and jfTheOwnershipType !='' " >
+				jf_the_ownership_type,
+			</if>
+			<if test="jfBelongingToTheName !=null and jfBelongingToTheName !='' " >
+				jf_belonging_to_the_name,
+			</if>
+			<if test="jfBillingDate !=null and jfBillingDate !='' " >
+				jf_billing_date,
+			</if>
+			<if test="jfAccountId != null and jfAccountId != '' ">
+				jf_account_id,
+			</if>
+			<if test="jfHouseId != null and jfHouseId !='' " >
+				jf_house_id,
+			</if>
+			<if test="jfHouse4storeId !=null and jfHouse4storeId !='' ">
+				jf_house_4store_id,
+			</if>
+			<if test="jfLandlordId !=null and jfLandlordId !='' ">
+				jf_landlord_id,
+			</if>
+			<if test="jfRenterId !=null and jfRenterId !='' ">
+				jf_renter_id,
+			</if>
+			<if test="jfIntendedId !=null and jfIntendedId !='' ">
+				jf_intended_id,
+			</if>
+			<if test="jfTheReviewer != null and jfTheReviewer !='' ">
+				jf_the_reviewer,
+			</if>
+			<if test="jfStartCycle != null and jfStartCycle !='' ">
+				jf_start_cycle,
+			</if>
+			<if test="jfEndCycle != null and jfEndCycle !='' ">
+				jf_end_cycle,
+			</if>
+			<if test="jfOperationRecords != null and jfOperationRecords !='' ">
+				jf_operation_records,
+			</if>
+			<if test="jfStrikeBalanceEncoding != null and jfStrikeBalanceEncoding !='' ">
+				jf_strike_balance_encoding,
+			</if>
+			<if test="department != null and department !=''" >
+				department,
+			</if>
+			<if test="storefront != null and storefront !=''" >
+				storefront,
+			</if>
+
+			<if test="waterElectricalIdentification != null and waterElectricalIdentification !=''" >
+				water_electrical_identification,
+			</if>
+			<if test="historicalReadings != null and historicalReadings !=''" >
+				historical_readings,
+			</if>
+			<if test="jfPayType != null and jfPayType !=''" >
+				jf_pay_type,
+			</if>
+			<if test="jfNowBalance != null and (jfNowBalance != ''or jfNowBalance==0)" >
+				jf_now_balance,
+			</if>
+			<if test="jfManagerUserId !=null and jfManagerUserId !='' ">
+				jf_manager_user_id,
+			</if>
+			<if test="jfBelongToChannel != null and jfBelongToChannel !=''" >
+				jf_belong_to_channel,
+			</if>
+			<if test="jfPricePlan != null and jfPricePlan !='' " >
+				jf_price_plan,
+			</if>
+			<if test="jfSettlementMethod != null and jfSettlementMethod != '' " >
+				jf_settlement_method,
+			</if>
+			<if test="jfCreditSituation !=null and jfCreditSituation !='' ">
+				jf_credit_situation
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="jfFinancialCoding != null and jfFinancialCoding != ''" >
+				#{jfFinancialCoding,jdbcType=VARCHAR},
+			</if>
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				#{jfHouse4rentId,jdbcType=INTEGER},
+			</if>
+			<if test="jfHaveOrNotArrears != null and jfHaveOrNotArrears != ''" >
+				#{jfHaveOrNotArrears,jdbcType=VARCHAR},
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != ''" >
+				#{jfNatureOfThe,jdbcType=VARCHAR},
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				#{jfBigType,jdbcType=VARCHAR},
+			</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''" >
+				#{jfAccountingSpecies,jdbcType=VARCHAR},
+			</if>
+			<if test="jfAccountingWhy != null and jfAccountingWhy != ''" >
+				#{jfAccountingWhy,jdbcType=VARCHAR},
+			</if>
+			<if test="jfSumMoney != null and (jfSumMoney != ''or jfSumMoney==0)" >
+				#{jfSumMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="jfOweMoney != null and jfOweMoney != ''" >
+				#{jfOweMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="jfClosedWay != null and jfClosedWay != ''" >
+				#{jfClosedWay,jdbcType=VARCHAR},
+			</if>
+			<if test="jfFinanNote != null and jfFinanNote != ''" >
+				#{jfFinanNote,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != ''" >
+				#{jfCheckInTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="jfAuditState != null and jfAuditState != ''" >
+				#{jfAuditState,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheCashier != null and jfTheCashier != ''" >
+				#{jfTheCashier,jdbcType=VARCHAR},
+			</if>
+			<if test="jfFinanReview != null and jfFinanReview != ''" >
+				#{jfFinanReview,jdbcType=INTEGER},
+			</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus !='' ">
+				#{jfStrikeABalanceStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="jfStrikeABalanceReason != null and jfStrikeABalanceReason !='' ">
+				#{jfStrikeABalanceReason,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfChargePeople !=null and jfChargePeople !='' " >
+				#{jfChargePeople,jdbcType=INTEGER},
+			</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' " >
+				#{jfCertificateNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheCashierPeople !=null and jfTheCashierPeople !='' " >
+				#{jfTheCashierPeople,jdbcType=INTEGER},
+			</if>
+			<if test="jfHandlers !=null and jfHandlers !='' " >
+				#{jfHandlers,jdbcType=INTEGER},
+			</if>
+			<if test="jfTicketNumber !=null and jfTicketNumber !='' " >
+				#{jfTicketNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="jfCertificateStatus !=null and jfCertificateStatus !='' " >
+				#{jfCertificateStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheOriginalBill !=null and jfTheOriginalBill !='' " >
+				#{jfTheOriginalBill,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheOwnershipType !=null and jfTheOwnershipType !='' " >
+				#{jfTheOwnershipType,jdbcType=VARCHAR},
+			</if>
+			<if test="jfBelongingToTheName !=null and jfBelongingToTheName !='' " >
+				#{jfBelongingToTheName,jdbcType=VARCHAR},
+			</if>
+			<if test="jfBillingDate !=null and jfBillingDate !='' " >
+				#{jfBillingDate,jdbcType=DATE},
+			</if>
+			<if test="jfAccountId != null and jfAccountId != '' ">
+				#{jfAccountId,jdbcType=INTEGER},
+			</if>
+			<if test="jfHouseId != null and jfHouseId !='' " >
+				#{jfHouseId,jdbcType=INTEGER},
+			</if>
+			<if test="jfHouse4storeId !=null and jfHouse4storeId !='' ">
+				#{jfHouse4storeId,jdbcType=INTEGER},
+			</if>
+			<if test="jfLandlordId !=null and jfLandlordId !='' ">
+				#{jfLandlordId,jdbcType=INTEGER},
+			</if>
+			<if test="jfRenterId !=null and jfRenterId !='' ">
+				#{jfRenterId,jdbcType=INTEGER},
+			</if>
+			<if test="jfIntendedId !=null and jfIntendedId !='' ">
+				#{jfIntendedId,jdbcType=INTEGER},
+			</if>
+			<if test="jfTheReviewer != null and jfTheReviewer !='' ">
+				#{jfTheReviewer,jdbcType=INTEGER},
+			</if>
+			<if test="jfStartCycle != null and jfStartCycle !='' ">
+				#{jfStartCycle,jdbcType=DATE},
+			</if>
+			<if test="jfEndCycle != null and jfEndCycle !='' ">
+				#{jfStartCycle,jdbcType=DATE},
+			</if>
+			<if test="jfOperationRecords != null and jfOperationRecords !='' ">
+				#{jfOperationRecords,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfStrikeBalanceEncoding != null and jfStrikeBalanceEncoding !='' ">
+				#{jfStrikeBalanceEncoding,jdbcType=INTEGER},
+			</if>
+			<if test="department != null and department !=''" >
+				#{department,jdbcType=INTEGER},
+			</if>
+			<if test="storefront != null and storefront !=''" >
+				#{storefront,jdbcType=INTEGER},
+			</if>
+			<if test="waterElectricalIdentification != null and waterElectricalIdentification !=''" >
+				#{waterElectricalIdentification},
+			</if>
+			<if test="historicalReadings != null and historicalReadings !=''" >
+				#{historicalReadings},
+			</if>
+			<if test="jfPayType != null and jfPayType !=''" >
+				#{jfPayType},
+			</if>
+			<if test="jfNowBalance != null and (jfNowBalance != ''or jfNowBalance==0)" >
+				#{jfNowBalance},
+			</if>
+			<if test="jfManagerUserId !=null and jfManagerUserId !='' ">
+				#{jfManagerUserId},
+			</if>
+			<if test="jfBelongToChannel != null and jfBelongToChannel !=''" >
+				#{jfBelongToChannel},
+			</if>
+			<if test="jfPricePlan != null and jfPricePlan !='' " >
+				#{jfPricePlan},
+			</if>
+			<if test="jfSettlementMethod != null and jfSettlementMethod != '' " >
+				#{jfSettlementMethod},
+			</if>
+			<if test="jfCreditSituation !=null and jfCreditSituation !='' ">
+				#{jfCreditSituation},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByHouse4rentId" parameterType="com.zz.po.journal.JournalFinancialExpand" >
+		update jour_financial_records
+		<set >
+			<if test="jfHaveOrNotArrears != null and jfHaveOrNotArrears != ''" >
+				jf_have_or_not_arrears = #{jfHaveOrNotArrears,jdbcType=VARCHAR},
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != ''" >
+				jf_nature_of_the = #{jfNatureOfThe,jdbcType=VARCHAR},
+			</if>
+			<if test="jfBigType != null and jfBigType != ''">
+				jf_big_type = #{jfBigType,jdbcType=VARCHAR},
+			</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''" >
+				jf_accounting_species = #{jfAccountingSpecies,jdbcType=VARCHAR},
+			</if>
+			<if test="jfAccountingWhy != null and jfAccountingWhy != ''" >
+				jf_accounting_why = #{jfAccountingWhy,jdbcType=VARCHAR},
+			</if>
+			<if test="jfSumMoney != null and (jfSumMoney != ''or jfSumMoney==0)" >
+				jf_sum_money = #{jfSumMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="jfOweMoney != null and jfOweMoney != ''" >
+				jf_owe_money = #{jfOweMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="jfClosedWay != null and jfClosedWay != ''" >
+				jf_closed_way = #{jfClosedWay,jdbcType=VARCHAR},
+			</if>
+			<if test="jfFinanNote != null and jfFinanNote != ''" >
+				jf_finan_note = #{jfFinanNote,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != ''" >
+				jf_check_in_time = #{jfCheckInTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="jfAuditState != null and jfAuditState != ''" >
+				jf_audit_state = #{jfAuditState,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheCashier != null and jfTheCashier != ''" >
+				jf_the_cashier = #{jfTheCashier,jdbcType=VARCHAR},
+			</if>
+			<if test="jfFinanReview != null and jfFinanReview != ''" >
+				jf_finan_review = #{jfFinanReview,jdbcType=INTEGER},
+			</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus !='' ">
+				jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="jfStrikeABalanceReason != null and jfStrikeABalanceReason !='' ">
+				jf_Strike_a_balance_reason = #{jfStrikeABalanceReason,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfChargePeople !=null and jfChargePeople !='' " >
+				jf_charge_people=#{jfChargePeople,jdbcType=INTEGER},
+			</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' " >
+				jf_certificate_number=#{jfCertificateNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheCashierPeople !=null and jfTheCashierPeople !='' " >
+				jf_the_cashier_people=#{jfTheCashierPeople,jdbcType=INTEGER},
+			</if>
+			<if test="jfHandlers !=null and jfHandlers !='' " >
+				jf_handlers=#{jfHandlers,jdbcType=INTEGER},
+			</if>
+			<if test="jfTicketNumber !=null and jfTicketNumber !='' " >
+				jf_ticket_number=#{jfTicketNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="jfCertificateStatus !=null and jfCertificateStatus !='' " >
+				jf_certificate_status=#{jfCertificateStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheOriginalBill !=null and jfTheOriginalBill !='' " >
+				jf_the_original_bill=#{jfTheOriginalBill,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheOwnershipType !=null and jfTheOwnershipType !='' " >
+				jf_the_ownership_type=#{jfTheOwnershipType,jdbcType=VARCHAR},
+			</if>
+			<if test="jfBelongingToTheName !=null and jfBelongingToTheName !='' " >
+				jf_belonging_to_the_name=#{jfBelongingToTheName,jdbcType=VARCHAR},
+			</if>
+			<if test="jfBillingDate !=null and jfBillingDate !='' " >
+				jf_billing_date=#{jfBillingDate,jdbcType=DATE},
+			</if>
+			<if test="jfAccountId != null and jfAccountId != '' ">
+				jf_account_id = #{jfAccountId,jdbcType=INTEGER},
+			</if>
+			<if test="jfHouseId != null and jfHouseId !='' " >
+				jf_house_id = #{jfHouseId,jdbcType=INTEGER},
+			</if>
+			<if test="jfHouse4storeId !=null and jfHouse4storeId !='' ">
+				jf_house_4store_id=#{jfHouse4storeId,jdbcType=INTEGER},
+			</if>
+			<if test="jfLandlordId !=null and jfLandlordId !='' ">
+				jf_landlord_id=#{jfLandlordId,jdbcType=INTEGER},
+			</if>
+			<if test="jfRenterId !=null and jfRenterId !='' ">
+				jf_renter_id=#{jfRenterId,jdbcType=INTEGER},
+			</if>
+			<if test="jfIntendedId !=null and jfIntendedId !='' ">
+				jf_intended_id=#{jfIntendedId,jdbcType=INTEGER},
+			</if>
+			<if test="jfTheReviewer != null and jfTheReviewer !='' ">
+				jf_the_reviewer=#{jfTheReviewer,jdbcType=INTEGER},
+			</if>
+			<if test="jfStartCycle != null and jfStartCycle !='' ">
+				jf_start_cycle=#{jfStartCycle,jdbcType=DATE},
+			</if>
+			<if test="jfEndCycle != null and jfEndCycle !='' ">
+				jf_end_cycle=#{jfEndCycle,jdbcType=DATE},
+			</if>
+			<if test="jfOperationRecords != null and jfOperationRecords !='' ">
+				jf_operation_records=#{jfOperationRecords,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfStrikeBalanceEncoding != null and jfStrikeBalanceEncoding !='' ">
+				jf_strike_balance_encoding=#{jfStrikeBalanceEncoding,jdbcType=INTEGER},
+			</if>
+			<if test="department != null and department !=''" >
+				department = #{department,jdbcType=INTEGER},
+			</if>
+			<if test="storefront != null and storefront !=''" >
+				storefront = #{storefront,jdbcType=INTEGER},
+			</if>
+
+			<if test="waterElectricalIdentification != null and waterElectricalIdentification !=''" >
+				water_electrical_identification = #{waterElectricalIdentification},
+			</if>
+			<if test="historicalReadings != null and historicalReadings !=''" >
+				historical_readings = #{historicalReadings},
+			</if>
+			<if test="jfPayType != null and jfPayType !=''" >
+				jf_pay_type = #{jfPayType},
+			</if>
+			<if test="jfNowBalance != null  and (jfNowBalance != ''or jfNowBalance==0)" >
+				jf_now_balance = #{jfNowBalance},
+			</if>
+			<if test="jfManagerUserId !=null and jfManagerUserId !='' ">
+				jf_manager_user_id = #{jfManagerUserId},
+			</if>
+		</set>
+		where jf_house_4rent_id = #{jfHouse4rentId,jdbcType=INTEGER}
+	</update>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalFinancialExpand" >
+		update jour_financial_records
+		<set >
+			<if test="jfHouse4rentId != null and jfHouse4rentId != ''" >
+				jf_house_4rent_id = #{jfHouse4rentId,jdbcType=INTEGER},
+			</if>
+			<if test="jfHaveOrNotArrears != null and jfHaveOrNotArrears != ''" >
+				jf_have_or_not_arrears = #{jfHaveOrNotArrears,jdbcType=VARCHAR},
+			</if>
+			<if test="jfNatureOfThe != null and jfNatureOfThe != ''" >
+				jf_nature_of_the = #{jfNatureOfThe,jdbcType=VARCHAR},
+			</if>
+			<if test="jfAccountingSpecies != null and jfAccountingSpecies != ''" >
+				jf_accounting_species = #{jfAccountingSpecies,jdbcType=VARCHAR},
+			</if>
+			<if test="jfAccountingWhy != null and jfAccountingWhy != ''" >
+				jf_accounting_why = #{jfAccountingWhy,jdbcType=VARCHAR},
+			</if>
+			<if test="jfSumMoney != null and (jfSumMoney != ''or jfSumMoney==0)" >
+				jf_sum_money = #{jfSumMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="jfOweMoney != null and jfOweMoney != ''" >
+				jf_owe_money = #{jfOweMoney,jdbcType=DOUBLE},
+			</if>
+			<if test="jfClosedWay != null and jfClosedWay != ''" >
+				jf_closed_way = #{jfClosedWay,jdbcType=VARCHAR},
+			</if>
+			<if test="jfFinanNote != null and jfFinanNote != ''" >
+				jf_finan_note = #{jfFinanNote,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfCheckInTime != null and jfCheckInTime != ''" >
+				jf_check_in_time = #{jfCheckInTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="jfAuditState != null and jfAuditState != ''" >
+				jf_audit_state = #{jfAuditState,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheCashier != null and jfTheCashier != ''" >
+				jf_the_cashier = #{jfTheCashier,jdbcType=VARCHAR},
+			</if>
+			<if test="jfFinanReview != null and jfFinanReview != ''" >
+				jf_finan_review = #{jfFinanReview,jdbcType=INTEGER},
+			</if>
+			<if test="jfStrikeABalanceStatus != null and jfStrikeABalanceStatus !='' ">
+				jf_Strike_a_balance_status = #{jfStrikeABalanceStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="jfStrikeABalanceReason != null and jfStrikeABalanceReason !='' ">
+				jf_Strike_a_balance_reason = #{jfStrikeABalanceReason,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfChargePeople !=null and jfChargePeople !='' " >
+				jf_charge_people=#{jfChargePeople,jdbcType=INTEGER},
+			</if>
+			<if test="jfCertificateNumber !=null and jfCertificateNumber !='' " >
+				jf_certificate_number=#{jfCertificateNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheCashierPeople !=null and jfTheCashierPeople !='' " >
+				jf_the_cashier_people=#{jfTheCashierPeople,jdbcType=INTEGER},
+			</if>
+			<if test="jfHandlers !=null and jfHandlers !='' " >
+				jf_handlers=#{jfHandlers,jdbcType=INTEGER},
+			</if>
+			<if test="jfTicketNumber !=null and jfTicketNumber !='' " >
+				jf_ticket_number=#{jfTicketNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="jfCertificateStatus !=null and jfCertificateStatus !='' " >
+				jf_certificate_status=#{jfCertificateStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheOriginalBill !=null and jfTheOriginalBill !='' " >
+				jf_the_original_bill=#{jfTheOriginalBill,jdbcType=VARCHAR},
+			</if>
+			<if test="jfTheOwnershipType !=null and jfTheOwnershipType !='' " >
+				jf_the_ownership_type=#{jfTheOwnershipType,jdbcType=VARCHAR},
+			</if>
+			<if test="jfBelongingToTheName !=null and jfBelongingToTheName !='' " >
+				jf_belonging_to_the_name=#{jfBelongingToTheName,jdbcType=VARCHAR},
+			</if>
+			<if test="jfBillingDate !=null and jfBillingDate !='' " >
+				jf_billing_date=#{jfBillingDate,jdbcType=DATE},
+			</if>
+			<if test="jfAccountId != null and jfAccountId != '' ">
+				jf_account_id = #{jfAccountId,jdbcType=INTEGER},
+			</if>
+			<if test="jfHouseId != null and jfHouseId !='' " >
+				jf_house_id = #{jfHouseId,jdbcType=INTEGER},
+			</if>
+			<if test="jfHouse4storeId !=null and jfHouse4storeId !='' ">
+				jf_house_4store_id=#{jfHouse4storeId,jdbcType=INTEGER},
+			</if>
+			<if test="jfLandlordId !=null and jfLandlordId !='' ">
+				jf_landlord_id=#{jfLandlordId,jdbcType=INTEGER},
+			</if>
+			<if test="jfRenterId !=null and jfRenterId !='' ">
+				jf_renter_id=#{jfRenterId,jdbcType=INTEGER},
+			</if>
+			<if test="jfIntendedId !=null and jfIntendedId !='' ">
+				jf_intended_id=#{jfIntendedId,jdbcType=INTEGER},
+			</if>
+			<if test="jfTheReviewer != null and jfTheReviewer !='' ">
+				jf_the_reviewer=#{jfTheReviewer,jdbcType=INTEGER},
+			</if>
+			<if test="jfStartCycle != null and jfStartCycle !='' ">
+				jf_start_cycle=#{jfStartCycle,jdbcType=DATE},
+			</if>
+			<if test="jfEndCycle != null and jfEndCycle !='' ">
+				jf_end_cycle=#{jfEndCycle,jdbcType=DATE},
+			</if>
+			<if test="jfSettlementMethod != null and jfSettlementMethod != '' " >
+				jf_settlement_method = #{jfSettlementMethod},
+			</if>
+			<if test="jfCreditSituation != null" >
+				jf_credit_situation = #{jfCreditSituation},
+			</if>
+			<if test="jfOperationRecords != null and jfOperationRecords !='' ">
+				jf_operation_records=#{jfOperationRecords,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="jfStrikeBalanceEncoding != null and jfStrikeBalanceEncoding !='' ">
+				jf_strike_balance_encoding=#{jfStrikeBalanceEncoding,jdbcType=INTEGER},
+			</if>
+			<if test="department != null and department !=''" >
+				department = #{department,jdbcType=INTEGER},
+			</if>
+			<if test="storefront != null and storefront !=''" >
+				storefront = #{storefront,jdbcType=INTEGER},
+			</if>
+			<if test="waterElectricalIdentification != null and waterElectricalIdentification !=''" >
+				water_electrical_identification = #{waterElectricalIdentification},
+			</if>
+			<if test="historicalReadings != null and historicalReadings !=''" >
+				historical_readings = #{historicalReadings},
+			</if>
+			<if test="jfPayType != null and jfPayType !=''" >
+				jf_pay_type = #{jfPayType},
+			</if>
+			<if test="jfNowBalance != null  and (jfNowBalance != ''or jfNowBalance==0)" >
+				jf_now_balance = #{jfNowBalance},
+			</if>
+			<if test="jfManagerUserId !=null and jfManagerUserId !='' ">
+				jf_manager_user_id = #{jfManagerUserId},
+			</if>
+			
+		</set>
+		where jf_id = #{jfId,jdbcType=VARCHAR}
+	</update>
+	
+	<!-- 批量换房 -->
+  	<update id="batchUpdateFinancial" parameterType="java.util.List">
+  		update jour_financial_records
+		<trim prefix="set" suffixOverrides=",">
+	      <trim prefix="jf_credit_situation =case" suffix="end,">
+	          <foreach collection="list" item="i" index="index">
+                 <if test="i.jfCreditSituation!=null">
+                  when jf_id=#{i.jfId} then #{i.jfCreditSituation}
+                 </if>
+	          </foreach>
+	      </trim>
+	      <trim prefix="jf_operation_records =case" suffix="end,">
+	          <foreach collection="list" item="i" index="index">
+                 <if test="i.jfOperationRecords!=null">
+                  when jf_id=#{i.jfId} then #{i.jfOperationRecords}
+                 </if>
+	          </foreach>
+	      </trim>
+	    </trim>
+	    where jf_id in
+	   <foreach collection="list" index="index" item="i" separator="," open="(" close=")">
+	       #{i.jfId}
+	   </foreach>
+  	</update>
+  	
+</mapper>

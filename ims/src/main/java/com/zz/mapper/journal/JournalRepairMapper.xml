@@ -1,0 +1,678 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalRepairMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.journal.JournalRepairExpand" >
+    <id column="rep_id" property="repId" jdbcType="INTEGER" />
+    <result column="rep_house_4rent_id" property="repHouse4rentId" jdbcType="INTEGER" />
+    <result column="rep_house_4store_id" property="repHouse4storeId" jdbcType="INTEGER" />
+    <result column="rep_user_id" property="repUserId" jdbcType="INTEGER" />
+    <result column="rep_repair_people_id" property="repRepairPeopleId" jdbcType="INTEGER" />
+    <result column="rep_coc_id" property="repCocId" jdbcType="INTEGER" />
+    <result column="rep_contacts" property="repContacts" jdbcType="VARCHAR" />
+    <result column="rep_contacts_phone" property="repContactsPhone" jdbcType="VARCHAR" />
+    <result column="rep_responsibility" property="repResponsibility" jdbcType="VARCHAR" />
+    <result column="rep_reporting_time" property="repReportingTime" jdbcType="TIMESTAMP" />
+    <result column="rep_event_rp" property="repEventRp" jdbcType="VARCHAR" />
+    <result column="rep_hope_time" property="repHopeTime" jdbcType="VARCHAR" />
+    <result column="rep_type_rp" property="repTypeRp" jdbcType="VARCHAR" />
+    <result column="rep_toll_rp" property="repTollRp" jdbcType="DOUBLE" />
+    <result column="rep_progress_rp" property="repProgressRp" jdbcType="VARCHAR" />
+    <result column="rep_returning_rp" property="repReturningRp" jdbcType="VARCHAR" />
+    <result column="rep_to_receive" property="repToReceive" jdbcType="VARCHAR" />
+    <result column="rep_state" property="repState" jdbcType="VARCHAR" />
+    <result column="rep_financial_if" property="repFinancialIf" jdbcType="VARCHAR" />
+    <result column="rep_img_path" property="repImgPath" jdbcType="VARCHAR" />
+    <result column="rep_img_num" property="repImgNum" jdbcType="VARCHAR" />
+    <result column="rep_number" property="repNumber" jdbcType="VARCHAR" />
+    <result column="rep_grade" property="repGrade" jdbcType="VARCHAR" />
+    <!-- house -->
+    <result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="key_administrator" property="keyAdministrator" jdbcType="VARCHAR" />
+    <!-- user -->
+    <result column="username" property="repUserName" jdbcType="VARCHAR" />
+    <result column="repairman" property="repRepairman" jdbcType="VARCHAR" />
+      <result column="repairdept" property="repRepairDetId" jdbcType="INTEGER" />
+    <!-- renter -->
+    <result column="renter_name" property="renterName" jdbcType="VARCHAR" />
+    <result column="renter_phone" property="renterPhone" jdbcType="VARCHAR" />
+    <result column="second_contacts" property="secondContacts" jdbcType="VARCHAR" />
+    <result column="second_phone" property="secondPhone" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="rep_department" property="repDepartment" jdbcType="INTEGER" />
+    <result column="rep_storefront" property="repStorefront" jdbcType="INTEGER" />
+    
+    <result column="rep_task_time" property="repTaskTime" jdbcType="TIMESTAMP" />
+    <result column="aNumberOf" property="aNumberOf" jdbcType="INTEGER" />
+    <result column="rep_house_id" property="repHouseId" jdbcType="INTEGER" />
+    
+    <result column="rep_use_time" property="repUseTime" jdbcType="TIMESTAMP" />
+    <result column="rep_finish_time" property="repFinishTime" jdbcType="TIMESTAMP" />
+    
+    <result column="number" property="number" jdbcType="INTEGER" />
+    <result column="addCity1" property="addCity1" jdbcType="VARCHAR" />
+    <!-- 排序 -->
+    <result column= "theSortTerm"  property= "theSortTerm"  jdbcType="VARCHAR" />
+    <result column= "theSortContrary"  property= "theSortContrary"  jdbcType="VARCHAR" />
+  </resultMap>
+  	<select id="selectRepairByHsIdList" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalRepairExpand" >
+		select * 
+		from jour_oddjobs
+		where rep_house_4store_id in
+		<foreach collection="list" item="item" index= "index" separator =",">
+			#{item}
+		</foreach>
+	</select>
+  <!-- (数据与统计分开)查询所有维保-->
+  <select id="selectAllRepair" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalRepairExpand" >
+  	select 
+  	<if test="splitFlag == 0"><!-- 统计查询 -->
+		count(rep_id) total_num
+	</if>
+	<if test="splitFlag == 1"><!-- 数据查询 -->
+		rep.*,  ren.renter_name,
+		ren.renter_phone,ren.renter_second_contacts,ren.renter_second_phone, hr.hr_renter_id renterid, ih.add_city,
+		ih.add_district,ih.add_zone,ih.add_community,ih.add_building,ih.add_doorplateno,ih.key_administrator,
+		hs.hs_add_community,hs.hs_add_district,hs.hs_add_zone,hs.hs_add_building,hs.hs_add_doorplateno,
+		hr.hr_add_community,hr.hr_add_district,hr.hr_add_zone,hr.hr_add_building,hr.hr_add_doorplateno,
+		u1.su_staff_name username,u.su_staff_name repairman
+	</if>
+	from jour_oddjobs rep 
+		left outer join sys_users u on rep.rep_repair_people_id=u.user_coding
+		left outer join sys_users u1 on rep.rep_user_id = u1.user_coding 
+		left outer join info_house_4rent hr	on rep.rep_house_4rent_id = hr.hr_id
+		left outer join (select ip.pop_name renter_name, ip.pop_telephone renter_phone, r.renter_id, r.renter_second_contacts, r.renter_second_phone
+			from info_renter r left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id ) ren on hr.hr_renter_id = ren.renter_id
+		left outer join info_house_4store hs on rep.rep_house_4store_id = hs.hs_id
+		left outer join info_house_paper ih on rep.rep_house_id = ih.house_coding
+	<where>
+		<!-- (add_city != '项目' or add_city is null) 若要排除项目，是否还要排除库房、商家、公区-->
+		and rep_type_rp in ('租务维修','空置维修','退房维修','微信报修','保洁服务','空置保洁','设备维保','公区维保','装修维保')
+		<if test="personal == 1 ">
+				and (rep_user_id = #{repUserId} or rep_repair_people_id = #{repUserId})
+		</if>
+		<if test="personal == 2 ">
+			<if test="repUserId != null and repUserId != '' ">
+				and rep_user_id = #{repUserId}
+			</if>
+			<if test="repRepairPeopleId != null and repRepairPeopleId != '' ">
+				and rep_repair_people_id = #{repRepairPeopleId}
+			</if>
+		</if>
+		<if test="repDepartment != null and repDepartment != ''" >
+			and (rep_department = #{repDepartment}
+				or rep_repair_people_id in (select user_coding from sys_users where su_department_id = #{repDepartment})
+				)
+		</if>
+		<if test="repStorefront != null and repStorefront != ''" >
+			and rep_storefront = #{repStorefront}
+		</if>
+		<if test="repId != null">
+			and rep_id = #{repId}
+		</if>
+		<if test="repTypeRp != null and repTypeRp != ''" >
+			and rep_type_rp = #{repTypeRp}
+		</if>
+		<if test="repHouse4rentId != null and repHouse4rentId != ''" >
+			and rep_house_4rent_id = #{repHouse4rentId,jdbcType=INTEGER}
+		</if>
+		<if test="repHouse4storeId != null and repHouse4storeId != ''" >
+			and rep_house_4store_id = #{repHouse4storeId,jdbcType=INTEGER}
+		</if>
+		<if test="repHouseId != null and repHouseId != ''" >
+			and rep_house_id = #{repHouseId,jdbcType=INTEGER}
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and (hr_add_community like '%${addCommunity}%' 
+			or hs_add_community like '%${addCommunity}%')
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+				or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+				)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+				or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				)
+		</if>
+		<if test="repState != null and repState != ''" >
+			<if test="repState == '未完成' ">
+				and (rep_state = '未领取' or rep_state = '跟进中' )
+			</if>
+			<if test="repState != '未完成'">
+				and rep_state = #{repState,jdbcType=VARCHAR} 
+			</if>
+		</if>
+		<if test="fromTime != null and fromTime != ''" >
+			and date_format(rep_reporting_time,"%Y%m%d") &gt;= date_format(#{fromTime},"%Y%m%d")
+		</if>
+		<if test="toTime != null and toTime != ''" >
+			and date_format(rep_reporting_time,"%Y%m%d") &lt;= date_format(#{toTime},"%Y%m%d")
+		</if>
+	</where>
+
+
+
+	  <if test="splitFlag ==1">
+		ORDER BY rep_id DESC 
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+  </select>
+
+
+
+
+
+  <!-- (数据与统计分开)任务查询 -->
+  <select id="selectAllTask" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalRepairExpand" >
+    select
+    <if test="splitFlag == 0"><!-- 统计查询 -->
+		count(rep_id) total_num
+	</if>
+	<if test="splitFlag == 1"><!-- 数据查询 -->
+	    rep.*, ih.add_city, ih.add_district,ih.add_zone,ih.add_community,ih.add_building,ih.add_doorplateno,ih.key_administrator, hs.hs_add_community,
+		hs.hs_add_district,hs.hs_add_zone,hs.hs_add_building,hs.hs_add_doorplateno, ren.renter_name,
+		ren.renter_phone,ren.renter_second_contacts,ren.renter_second_phone, hr.hr_renter_id renterid,
+		hr.hr_add_community,hr.hr_add_district,hr.hr_add_zone,hr.hr_add_building,hr.hr_add_doorplateno, u1.su_staff_name username, 
+		u.su_staff_name repairman,u.su_department_id repairdept
+	</if>
+	from jour_oddjobs rep 
+		left outer join sys_users u on rep.rep_repair_people_id=u.user_coding
+		left outer join sys_users u1 on rep.rep_user_id = u1.user_coding 
+		left outer join info_house_4rent hr	on rep.rep_house_4rent_id = hr.hr_id
+		left outer join (select ip.pop_name renter_name, ip.pop_telephone renter_phone, r.renter_id, r.renter_second_contacts, r.renter_second_phone
+			from info_renter r left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id) ren on hr.hr_renter_id = ren.renter_id
+		left outer join info_house_4store hs on rep.rep_house_4store_id = hs.hs_id
+		left outer join info_house_paper ih on rep.rep_house_id = ih.house_coding
+
+	<where>
+		rep_type_rp != '租务维修' and rep_type_rp != '空置维修' and rep_type_rp != '退房维修' and rep_type_rp !=  '微信报修'
+		<if test="personal == 1 ">
+				and (rep_user_id = #{repUserId} or rep_repair_people_id = #{repUserId})
+		</if>
+		<if test="personal == 2 ">
+			<if test="repUserId != null and repUserId != '' ">
+				and rep_user_id = #{repUserId}
+			</if>
+			<if test="repRepairPeopleId != null and repRepairPeopleId != '' ">
+				and rep_repair_people_id = #{repRepairPeopleId}
+			</if>
+		</if>
+		<if test="repDepartment != null and repDepartment != ''" >
+			and rep_department = #{repDepartment,jdbcType=INTEGER}
+			<!-- 	or rep_repair_people_id in (select user_coding from sys_users where su_department_id = #{repDepartment,jdbcType=INTEGER}) -->
+		</if>
+		<if test="repRepairDetId != null and repRepairDetId != ''" >
+				and rep_repair_people_id in (select user_coding from sys_users where su_department_id = #{repRepairDetId,jdbcType=INTEGER})
+		</if>
+		<if test="repRepairStoreId != null and repRepairStoreId != ''" >
+				and rep_repair_people_id in (select user_coding from sys_users where su_store_id = #{repRepairStoreId,jdbcType=INTEGER})
+		</if>
+		<if test="repStorefront != null and repStorefront != ''" >
+			and rep_storefront = #{repStorefront,jdbcType=INTEGER}
+		</if>	
+		<if test="repHouseId != null and repHouseId != ''" >
+			and rep_house_id = #{repHouseId,jdbcType=INTEGER}
+		</if>
+		<if test="repHouse4rentId != null and repHouse4rentId != ''" >
+			and rep_house_4rent_id = #{repHouse4rentId,jdbcType=INTEGER}
+		</if>
+		<if test="repHouse4storeId != null and repHouse4storeId != ''" >
+			and rep_house_4store_id = #{repHouse4storeId,jdbcType=INTEGER}
+		</if>
+		<if test="repState != null and repState != ''" >
+			<if test="repState == '未完成' ">
+				and (rep_state = '未领取' or rep_state = '跟进中' or rep_state = '复核不通过' )
+			</if>
+			<if test="repState != '未完成'">
+				and rep_state = #{repState,jdbcType=VARCHAR}
+			</if>
+			<if test="repState == '跟进中'">
+				and (rep_state = #{repState,jdbcType=VARCHAR} or rep_state = '复核不通过')
+			</if>
+		</if>
+		<if test="searchType != null and searchType != ''" >
+			and rep_type_rp = #{searchType,jdbcType=VARCHAR}
+		</if>
+		<if test="repGrade != null and repGrade != ''">
+			and  = #{repGrade,jdbcType=VARCHAR}
+		</if>
+		<if test="fromTime != null and fromTime != '' and toTime != null and toTime != ''" >
+			and rep_reporting_time between '${fromTime}' and '${toTime}' </if>
+		<if test="keyAdministrator != null and keyAdministrator != ''">
+			and key_administrator like '%${keyAdministrator}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and add_doorplateno like '%${addDoorplateno}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != ''">
+			and add_community like '%${addCommunity}%'
+		</if>
+		<if test="addBuilding != null and addBuilding != ''">
+			and add_building like '%${addBuilding}%'
+		</if>
+		<if test="addCity1 != null and addCity1 != ''">
+			and add_city = #{addCity1}
+		</if>
+			<if test="addCity != null and addCity != ''">
+			and add_city = #{addCity}
+		</if>
+		<if test="repEventRp != null and repEventRp != ''">
+			and rep_event_rp like '%${repEventRp}%'
+		</if>
+	</where>
+
+
+		/*数据条件排序*/
+		<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+			<if test="theSortTerm ==1 ">
+				ORDER BY rep_reporting_time
+			</if>
+			<if test="theSortTerm ==2 ">
+				ORDER BY  rep_grade
+			</if>
+			<if test="theSortTerm ==3 ">
+				ORDER BY  rep_finish_time
+			</if>
+			<if test="theSortContrary ==1 ">
+				ASC
+			</if>
+			<if test="theSortContrary ==2 ">
+				DESC
+			</if>
+		</if>
+
+
+	<if test="splitFlag ==1">
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+  </select>
+
+
+
+
+	<!-- 精确匹配，用于退房维修 -->
+  <select id="selectRepairByAnyCondition" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalRepairExpand" >
+    select * from jour_oddjobs 
+    <where>
+    	<if test="repId != null">
+    		and rep_id = #{repId}
+    	</if>
+    	<if test="repHouse4rentId != null">
+    		and rep_house_4rent_id = #{repHouse4rentId}
+    	</if>
+    	<if test="repHouse4storeId != null">
+    		and rep_house_4store_id = #{repHouse4storeId}
+    	</if>
+    	<if test="repHouseId != null">
+    		and rep_house_id = #{repHouseId}
+    	</if>
+    	<if test="repResponsibility != null">
+    		and rep_responsibility = #{repResponsibility}
+    	</if>
+    	<if test="repEventRp != null">
+    		and rep_event_rp = #{repEventRp}
+    	</if>
+    	<if test="repHopeTime != null">
+    		and rep_hope_time = #{repHopeTime}
+    	</if>
+    	<if test="repRepairPeopleId != null">
+    		and rep_repair_people_id = #{repRepairPeopleId}
+    	</if>
+    	<if test="repUserId != null">
+    		and rep_user_id = #{repUserId}
+    	</if>
+    	<if test="repTypeRp != null">
+    		and rep_type_rp = #{repTypeRp}
+    	</if>
+    	<if test="repDepartment != null">
+    		and rep_department = #{repDepartment}
+    	</if>
+    	<if test="repStorefront != null">
+    		and rep_storefront = #{repStorefront}
+    	</if>
+    	<if test="repTaskTime != null">
+    		and rep_task_time = #{repTaskTime}
+    	</if>
+    	<if test="repTollRp != null">
+    		and rep_toll_rp = #{repTollRp}
+    	</if>
+    </where>
+  </select>
+  
+  <!-- ********************* -->
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select * from jour_oddjobs where rep_id = #{repId,jdbcType=INTEGER}
+  </select>
+
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalRepairExpand" 
+  		useGeneratedKeys="true" keyProperty="repId">
+    insert into jour_oddjobs
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="repHouseId != null and repHouseId != ''" >
+        rep_house_id,
+      </if>    
+      <if test="repCocId != null and repHouseId != ''" >
+        rep_coc_id,
+      </if>    
+      <if test="repHouse4rentId != null and repHouse4rentId != ''" >
+        rep_house_4rent_id,
+      </if>
+      <if test="repHouse4storeId != null and repHouse4storeId != ''" >
+      	rep_house_4store_id,
+      </if>
+      <if test="repUserId != null and repUserId != ''" >
+        rep_user_id,
+      </if>
+      <if test="repRepairPeopleId != null and repRepairPeopleId != ''" >
+        rep_repair_people_id,
+      </if>
+      <if test="repContacts != null and repContacts != ''" >
+        rep_contacts,
+      </if>
+      <if test="repContactsPhone != null and repContactsPhone != ''" >
+        rep_contacts_phone,
+      </if>
+      <if test="repResponsibility != null and repResponsibility != ''" >
+        rep_responsibility,
+      </if>
+      <if test="repReportingTime != null and repReportingTime != ''" >
+        rep_reporting_time,
+      </if>
+      <if test="repEventRp != null and repEventRp != ''" >
+        rep_event_rp,
+      </if>
+      <if test="repHopeTime != null and repHopeTime != ''" >
+        rep_hope_time,
+      </if>
+      <if test="repTypeRp != null and repTypeRp != ''" >
+        rep_type_rp,
+      </if>
+      <if test="repTollRp != null and repTollRp != ''" >
+        rep_toll_rp,
+      </if>
+      <if test="repProgressRp != null and repProgressRp != ''" >
+        rep_progress_rp,
+      </if>
+      <if test="repReturningRp != null and repReturningRp != ''" >
+        rep_returning_rp,
+      </if>
+      <if test="repToReceive != null and repToReceive != ''" >
+        rep_to_receive,
+      </if>
+      <if test="repState != null and repState != ''" >
+		rep_state,
+	 </if> 
+	 <if test="repDepartment != null and repDepartment !=''" >
+    	rep_department,
+     </if>
+     <if test="repStorefront != null and repStorefront !=''" >
+    	rep_storefront,
+     </if>
+     <if test="repTaskTime != null and repTaskTime !=''">
+     	rep_task_time,
+     </if>
+     <if test="repFinancialIf != null and repFinancialIf !=''">
+     	rep_financial_if,
+     </if>
+     <if test="repImgPath != null">
+     	rep_img_path,
+     </if>
+     <if test="repImgNum != null">
+     	rep_img_num,
+     </if>
+     <if test="repUseTime != null and repUseTime !=''">
+     	rep_use_time,
+     </if>
+     <if test="repNumber != null and repNumber !=''">
+     	rep_number,
+     </if>
+     <if test="repGrade != null and repGrade !=''">
+     	rep_grade,
+     </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="repHouseId != null and repHouseId != ''" >
+        #{repHouseId},
+      </if>    
+      <if test="repCocId != null and repCocId != ''" >
+        #{repCocId},
+      </if>    
+      <if test="repHouse4rentId != null and repHouse4rentId != ''" >
+        #{repHouse4rentId},
+      </if>
+      <if test="repHouse4storeId != null and repHouse4storeId != ''" >
+      	#{repHouse4storeId},
+      </if>
+      <if test="repUserId != null and repUserId != ''" >
+        #{repUserId},
+	  </if>
+      <if test="repRepairPeopleId != null and repRepairPeopleId != ''" >
+        #{repRepairPeopleId},
+      </if>
+      <if test="repContacts != null and repContacts != ''" >
+        #{repContacts},
+      </if>
+      <if test="repContactsPhone != null and repContactsPhone != ''" >
+        #{repContactsPhone},
+      </if>
+      <if test="repResponsibility != null and repResponsibility != ''" >
+        #{repResponsibility},
+      </if>
+      <if test="repReportingTime != null and repReportingTime != ''" >
+        #{repReportingTime},
+      </if>
+      <if test="repEventRp != null and repEventRp != ''" >
+        #{repEventRp},
+      </if>
+      <if test="repHopeTime != null and repHopeTime != ''" >
+        #{repHopeTime},
+      </if>
+      <if test="repTypeRp != null and repTypeRp != ''" >
+        #{repTypeRp},
+      </if>
+      <if test="repTollRp != null and repTollRp != ''" >
+        #{repTollRp},
+      </if>
+      <if test="repProgressRp != null and repProgressRp != ''" >
+        #{repProgressRp},
+      </if>
+      <if test="repReturningRp != null and repReturningRp != ''" >
+        #{repReturningRp,jdbcType=VARCHAR},
+      </if>
+      <if test="repToReceive != null and repToReceive != ''" >
+        #{repToReceive,jdbcType=VARCHAR},
+      </if>
+      <if test="repState != null and repState != ''" >
+		#{repState,jdbcType=VARCHAR},
+	 </if> 
+	 <if test="repDepartment != null and repDepartment !=''" >
+    	#{repDepartment,jdbcType=VARCHAR},
+     </if>
+     <if test="repStorefront != null and repStorefront !=''" >
+    	#{repStorefront,jdbcType=VARCHAR},
+     </if>
+     <if test="repTaskTime != null and repTaskTime !=''">
+     	#{repTaskTime,jdbcType=VARCHAR},
+     </if>
+       <if test="keyAdministrator != null and keyAdministrator !=''">
+     	#{keyAdministrator,jdbcType=VARCHAR},
+     </if>  
+     <if test="repFinancialIf != null and repFinancialIf !=''">
+     	#{repFinancialIf},
+     </if>
+     <if test="repImgPath != null">
+     	#{repImgPath},
+     </if>
+     <if test="repImgNum != null">
+     	#{repImgNum},
+     </if>
+     <if test="repUseTime != null and repUseTime !=''">
+     	#{repUseTime},
+     </if>
+     <if test="repNumber != null and repNumber !=''">
+     	#{repNumber},
+     </if>
+     <if test="repGrade != null and repGrade !=''">
+     	#{repGrade}
+     </if>
+    </trim>
+  </insert>
+  
+  <!-- 批量插入维保 -->
+  <insert id="insertListRepair" parameterType="java.util.List">
+  	insert into jour_oddjobs
+  	(   
+  		rep_house_4store_id,
+  		rep_user_id,
+  		rep_repair_people_id,
+  		rep_department,
+  		rep_storefront,
+  		rep_event_rp,
+  		rep_responsibility,
+  		rep_reporting_time,
+  		rep_hope_time,
+  		rep_type_rp,
+  		rep_task_time,
+  		rep_number
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+    	#{item.repHouse4storeId},
+		#{item.repUserId},
+		#{item.repRepairPeopleId},
+		#{item.repDepartment},
+		#{item.repStorefront},
+		#{item.repEventRp},
+		#{item.repResponsibility},
+		#{item.repReportingTime},
+		#{item.repHopeTime},
+		#{item.repTypeRp},
+		#{item.repTaskTime},
+		#{item.repNumber}
+    )
+    </foreach>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalRepairExpand" >
+    update jour_oddjobs
+    <set >
+      <if test="repHouseId != null and repHouseId != ''" >
+        rep_house_id = #{repHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="repHouse4rentId != null and repHouse4rentId != ''" >
+        rep_house_4rent_id = #{repHouse4rentId,jdbcType=INTEGER},
+      </if>
+      <if test="repHouse4storeId != null and repHouse4storeId != ''" >
+      	rep_house_4store_id = #{repHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="repUserId != null and repUserId != ''" >
+        rep_user_id = #{repUserId,jdbcType=INTEGER},
+      </if>
+      <if test="repRepairPeopleId != null and repRepairPeopleId != ''" >
+        rep_repair_people_id = #{repRepairPeopleId,jdbcType=INTEGER},
+      </if>
+      <if test="repContacts != null and repContacts != ''" >
+        rep_contacts = #{repContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="repContactsPhone != null and repContactsPhone != ''" >
+        rep_contacts_phone = #{repContactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="repResponsibility != null and repResponsibility != ''" >
+        rep_responsibility = #{repResponsibility,jdbcType=VARCHAR},
+      </if>
+      <if test="repReportingTime != null and repReportingTime != ''" >
+        rep_reporting_time = #{repReportingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repEventRp != null and repEventRp != ''" >
+        rep_event_rp = #{repEventRp,jdbcType=VARCHAR},
+      </if>
+      <if test="repHopeTime != null and repHopeTime != ''" >
+        rep_hope_time = #{repHopeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="repTypeRp != null and repTypeRp != ''" >
+        rep_type_rp = #{repTypeRp,jdbcType=VARCHAR},
+      </if>
+      <if test="repTollRp != null and repTollRp != ''" >
+        rep_toll_rp = #{repTollRp,jdbcType=DOUBLE},
+      </if>
+      <if test="repProgressRp != null and repProgressRp != ''" >
+        rep_progress_rp = #{repProgressRp,jdbcType=VARCHAR},
+      </if>
+      <if test="repReturningRp != null and repReturningRp != ''" >
+        rep_returning_rp = #{repReturningRp,jdbcType=VARCHAR},
+      </if>
+      <if test="repToReceive != null and repToReceive != ''" >
+        rep_to_receive = #{repToReceive,jdbcType=VARCHAR},
+      </if>
+      <if test="repState != null and repState != ''" >
+		rep_state = #{repState,jdbcType=VARCHAR},
+	  </if>
+	  <if test="repTaskTime != null and repTaskTime !=''">
+     	rep_task_time = #{repTaskTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repFinancialIf != null and repFinancialIf !=''">
+     	rep_financial_if = #{repFinancialIf},
+      </if>
+      <if test="repImgPath != null">
+     	rep_img_path = #{repImgPath},
+      </if>
+      <if test="repImgNum != null">
+     	rep_img_num = #{repImgNum},
+      </if>
+      <if test="repDepartment != null and repDepartment !=''">
+     	rep_department = #{repDepartment},
+      </if>
+      <if test="repStorefront != null and repStorefront !=''">
+     	rep_storefront = #{repStorefront},
+      </if>
+      <if test="repUseTime != null and repUseTime !=''">
+     	rep_use_time = #{repUseTime},
+      </if>
+      <if test="repFinishTime != null and repFinishTime !=''">
+     	rep_finish_time = #{repFinishTime},
+      </if>
+     <if test="repNumber != null and repNumber !=''">
+     	rep_number = #{repNumber},
+     </if>
+    </set>
+    where rep_id = #{repId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

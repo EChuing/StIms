@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourFaceRecognitionInformationMapper">
+    <resultMap id="JourFaceRecognitionInformation" type="com.zz.po.journal.JourFaceRecognitionInformation">
+        <id column="jfri_id" property="jfriId" jdbcType="INTEGER"></id>
+        <result column="jfri_show_time" property="jfriShowTime" jdbcType="VARCHAR"></result>
+        <result column="jfri_device_key" property="jfriDeviceKey" jdbcType="VARCHAR"></result>
+        <result column="jfri_alive_type" property="jfriAliveType" jdbcType="VARCHAR"></result>
+        <result column="jfti_type" property="jftiType" jdbcType="INTEGER"></result>
+        <result column="jfti_card_no" property="jftiCardNo" jdbcType="VARCHAR"></result>
+        <result column="jfti_rec_type" property="jftiRecType" jdbcType="VARCHAR"></result>
+        <result column="jfti_person_name" property="jftiPersonName" jdbcType="VARCHAR"></result>
+        <result column="jfti_rec_mode" property="jftiRecMode" jdbcType="VARCHAR"></result>
+        <result column="jfti_photo_url" property="jftiPhotoUrl" jdbcType="VARCHAR"></result>
+        <result column="jfti_person_guid" property="jftiPersonGuid" jdbcType="VARCHAR"></result>
+        <result column="jfti_guid" property="jftiGuid" jdbcType="VARCHAR"></result>
+        <result column="jfti_permission_time_type" property="jftiPermissionTimeType" jdbcType="VARCHAR"></result>
+        <result column="jfti_pass_time_type" property="jftiPassTimeType" jdbcType="VARCHAR"></result>
+        <result column="jfti_pasern_type" property="jftiPasernType" jdbcType="VARCHAR"></result>
+        <result column="id" property="id" jdbcType="INTEGER"></result>
+        <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR"></result>
+        <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR"></result>
+        <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR"></result>
+        <result column="jfti_user_id" property="jftiUserId" jdbcType="VARCHAR"></result>
+        <!--<result column= "startNum"  property= "startNum"  jdbcType="INTEGER" />-->
+        <!--<result column= "endNum"  property= "endNum"  jdbcType="INTEGER" />-->
+    </resultMap>
+    <insert id="insertJourFaceRecognitionInformation" parameterType="com.zz.po.journal.JourFaceRecognitionInformation">
+        insert into jour_face_recognition_information
+        <trim  prefix="(" suffix=")" suffixOverrides=",">
+          <if test="jfriShowTime != null">
+              jfri_show_time,
+          </if>
+          <if test="jfriDeviceKey != null">
+              jfri_device_key,
+          </if>
+          <if test="jfriAliveType != null">
+              jfri_alive_type,
+          </if>
+          <if test="jftiType != null">
+              jfti_type,
+          </if>
+          <if test="jftiCardNo != null">
+              jfti_card_no,
+          </if>
+          <if test="jftiRecType != null">
+              jfti_rec_type,
+          </if>
+          <if test="jftiPersonName != null">
+              jfti_person_name,
+          </if>
+          <if test="jftiRecMode != null">
+              jfti_rec_mode,
+          </if>
+          <if test="jftiPhotoUrl != null">
+              jfti_photo_url,
+          </if>
+          <if test="jftiPersonGuid != null">
+              jfti_person_guid,
+          </if>
+          <if test="jftiPermissionTimeType != null">
+              jfti_permission_time_type,
+          </if>
+          <if test="jftiPassTimeType != null">
+              jfti_pass_time_type,
+          </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="jfriShowTime != null">
+                #{jfriShowTime,jdbcType=VARCHAR},
+            </if>
+            <if test="jfriDeviceKey != null">
+                #{jfriDeviceKey,jdbcType=VARCHAR},
+            </if>
+            <if test="jfriAliveType != null">
+                #{jfriAliveType,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiType != null">
+                #{jftiType,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiCardNo != null">
+                #{jftiCardNo,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiRecType != null">
+                #{jftiRecType,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiPersonName != null">
+                #{jftiPersonName,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiRecMode != null">
+                #{jftiRecMode,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiPhotoUrl != null">
+                #{jftiPhotoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiPersonGuid != null">
+                #{jftiPersonGuid,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiPermissionTimeType != null">
+                #{jftiPermissionTimeType,jdbcType=VARCHAR},
+            </if>
+            <if test="jftiPassTimeType != null">
+                #{jftiPassTimeType,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectJourFaceRecognitionInformation" resultMap="JourFaceRecognitionInformation" parameterType="com.zz.po.journal.JourFaceRecognitionInformation">
+        select c.*,b.totalNum from
+        (SELECT * FROM jour_face_recognition_information jfri
+        JOIN(SELECT * from jour_hs_device jhd
+        LEFT OUTER JOIN jour_device jd ON jd.id = jhd.jhd_device_id
+        LEFT OUTER JOIN info_house_4store ihs ON jhd.jhd_hs_id = ihs.hs_id)a on a.dev_sn = jfri.jfri_device_key
+        <where>
+            <if test="id !=null and id !=''">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="jftiPersonName !=null and jftiPersonName !=''">
+                and jfti_person_name like '%${jftiPersonName}%'
+            </if>
+            <if test="jftiUserId !=null and jftiUserId !=''">
+                and jfti_user_id = #{jftiUserId,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime !=null and endTime !=null ">
+                and jfri_show_time between #{startTime}
+                and #{endTime}
+            </if>
+        </where>)c,
+        (SELECT count(jfri_id) totalNum FROM jour_face_recognition_information jfri
+        JOIN(SELECT * from jour_hs_device jhd
+        LEFT OUTER JOIN jour_device jd ON jd.id = jhd.jhd_device_id
+        LEFT OUTER JOIN info_house_4store ihs ON jhd.jhd_hs_id = ihs.hs_id)a on a.dev_sn = jfri.jfri_device_key
+        <where>
+            <if test="id !=null and id !=''">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+
+            <if test="jftiPersonName !=null and jftiPersonName !=''">
+                and jfti_person_name like '%${jftiPersonName}%'
+            </if>
+            <if test="jftiUserId !=null and jftiUserId !=''">
+                and jfti_user_id = #{jftiUserId,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime !=null and endTime !=null ">
+                and jfri_show_time between #{startTime} and #{endTime}
+            </if>
+        </where>)b
+        ORDER BY jfri_id DESC
+        <if test="startNum != '' and startNum != null">
+            limit ${startNum}
+            <if test="endNum != '' and endNum != null">
+                ,${endNum}
+            </if>
+        </if>
+    </select>
+    <select id="selectUsersIdInformation" resultMap="JourFaceRecognitionInformation" parameterType="com.zz.po.journal.JourFaceRecognitionInformation">
+        select c.*,b.totalNum from
+        (SELECT * FROM jour_face_recognition_information jfri
+        JOIN(SELECT * from jour_hs_device jhd
+        LEFT OUTER JOIN jour_device jd ON jd.id = jhd.jhd_device_id
+        LEFT OUTER JOIN info_house_4store ihs ON jhd.jhd_hs_id = ihs.hs_id)a on a.dev_sn = jfri.jfri_device_key
+        <where>
+            <if test="id !=null and id !=''">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+            <if test="jftiPersonName !=null and jftiPersonName !=''">
+                and jfti_person_name like '%${jftiPersonName}%'
+            </if>
+            <if test="jftiUserId !=null and jftiUserId !=''">
+                and jfti_user_id = #{jftiUserId,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime !=null and endTime !=null ">
+                and jfri_show_time between #{startTime}
+                and #{endTime}
+            </if>
+        </where>)c,
+        (SELECT count(jfri_id) totalNum FROM jour_face_recognition_information jfri
+        JOIN(SELECT * from jour_hs_device jhd
+        LEFT OUTER JOIN jour_device jd ON jd.id = jhd.jhd_device_id
+        LEFT OUTER JOIN info_house_4store ihs ON jhd.jhd_hs_id = ihs.hs_id)a on a.dev_sn = jfri.jfri_device_key
+        <where>
+            <if test="id !=null and id !=''">
+                and id = #{id,jdbcType=INTEGER}
+            </if>
+
+            <if test="jftiPersonName !=null and jftiPersonName !=''">
+                and jfti_person_name like '%${jftiPersonName}%'
+            </if>
+            <if test="jftiUserId !=null and jftiUserId !=''">
+                and jfti_user_id = #{jftiUserId,jdbcType=VARCHAR}
+            </if>
+            <if test="startTime !=null and endTime !=null ">
+                and jfri_show_time between #{startTime} and #{endTime}
+            </if>
+        </where>)b
+        ORDER BY jfri_id DESC
+        <if test="startNum != '' and startNum != null">
+            limit ${startNum}
+            <if test="endNum != '' and endNum != null">
+                ,${endNum}
+            </if>
+        </if>
+    </select>
+</mapper>

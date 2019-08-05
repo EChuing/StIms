@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourSmsTemplateMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourSmsTemplate" >
+    <id column="jst_id" property="jstId" jdbcType="INTEGER" />
+    <result column="jst_title" property="jstTitle" jdbcType="VARCHAR" />
+    <result column="jst_content" property="jstContent" jdbcType="VARCHAR" />
+    <result column="jst_sort" property="jstSort" jdbcType="INTEGER" />
+    <result column="jst_time" property="jstTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from jour_sms_template
+    where jst_id = #{jstId,jdbcType=INTEGER}
+  </select>
+  <select id="queryShortMessageTemplate" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourSmsTemplate" >
+    select *
+    from jour_sms_template
+    <where>
+		<if test="jstTitle != null and jstTitle != ''" >
+        and jst_title = #{jstTitle,jdbcType=VARCHAR}
+      </if>
+      <if test="jstContent != null and jstContent != ''" >
+        and jst_content = #{jstContent,jdbcType=VARCHAR}
+      </if>
+      <if test="jstSort != null and jstSort != ''" >
+        and jst_sort = #{jstSort,jdbcType=INTEGER}
+      </if>
+      <if test="jstTime != null and jstTime != ''" >
+        and jst_time = #{jstTime,jdbcType=TIMESTAMP}
+      </if>    
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_sms_template
+    where jst_id = #{jstId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourSmsTemplate" >
+    insert into jour_sms_template
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jstId != null" >
+        jst_id,
+      </if>
+      <if test="jstTitle != null" >
+        jst_title,
+      </if>
+      <if test="jstContent != null" >
+        jst_content,
+      </if>
+      <if test="jstSort != null" >
+        jst_sort,
+      </if>
+      <if test="jstTime != null" >
+        jst_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jstId != null" >
+        #{jstId,jdbcType=INTEGER},
+      </if>
+      <if test="jstTitle != null" >
+        #{jstTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jstContent != null" >
+        #{jstContent,jdbcType=VARCHAR},
+      </if>
+      <if test="jstSort != null" >
+        #{jstSort,jdbcType=INTEGER},
+      </if>
+      <if test="jstTime != null" >
+        #{jstTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourSmsTemplate" >
+    update jour_sms_template
+    <set >
+      <if test="jstTitle != null" >
+        jst_title = #{jstTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jstContent != null" >
+        jst_content = #{jstContent,jdbcType=VARCHAR},
+      </if>
+      <if test="jstSort != null" >
+        jst_sort = #{jstSort,jdbcType=INTEGER},
+      </if>
+      <if test="jstTime != null" >
+        jst_time = #{jstTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where jst_id = #{jstId,jdbcType=INTEGER}
+  </update>
+</mapper>

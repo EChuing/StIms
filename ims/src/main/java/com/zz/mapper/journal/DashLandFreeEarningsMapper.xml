@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.DashLandFreeEarningsMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.DashLandFreeEarnings" >
+    <id column="dlfe_id" property="dlfeId" jdbcType="INTEGER" />
+    <result column="dlfe_this_year_free_days" property="dlfeThisYearFreeDays" jdbcType="VARCHAR" />
+    <result column="dlfe_this_year_earnings" property="dlfeThisYearEarnings" jdbcType="VARCHAR" />
+    <result column="dlfe_next_year_free_days" property="dlfeNextYearFreeDays" jdbcType="VARCHAR" />
+    <result column="dlfe_next_year_earnings" property="dlfeNextYearEarnings" jdbcType="VARCHAR" />
+    <result column="dlfe_time" property="dlfeTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from stat_free_term_profit where dlfe_id = #{dlfeId}
+  </select>
+</mapper>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourElectronicContractMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalElectronicContractExpansion" >
+    <id column="ect_id" property="ectId" jdbcType="INTEGER" />
+    <result column="ect_operating_id" property="ectOperatingId" jdbcType="INTEGER" />
+   	<result column="ect_hs_id" property="ectHsId" jdbcType="INTEGER" />
+   	<result column="ect_user_code" property="ectUserCode" jdbcType="VARCHAR" />
+   	<result column="ect_id_card" property="ectIdCard" jdbcType="VARCHAR" />
+   	<result column="ect_name" property="ectName" jdbcType="VARCHAR" />
+   	<result column="ect_telphone" property="ectTelphone" jdbcType="VARCHAR" />
+   	<result column="ect_contract_no" property="ectContractNo" jdbcType="VARCHAR" />
+   	<result column="ect_contract_template_number" property="ectContractTemplateNumber" jdbcType="VARCHAR" />
+   	<result column="ect_template_fill_value" property="ectTemplateFillValue" jdbcType="VARCHAR" />
+   	<result column="ect_status" property="ectStatus" jdbcType="VARCHAR" />
+   	<result column="ect_sign_url" property="ectSignUrl" jdbcType="VARCHAR" />
+	<result column="ect_creation_time" property="ectCreationTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalElectronicContractExpansion" >
+    update jour_electronic_contract_tem
+    <set>
+      <if test="ectStatus != null and ectStatus != ''" >
+        ect_status = #{ectStatus},
+      </if>
+      <if test="ectSignUrl != null and ectSignUrl != ''" >
+        ect_sign_url = #{ectSignUrl},
+      </if>
+    </set>
+    where ect_id = #{ectId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 修改电子合同临时表 -->
+  <update id="updateElectronicContract" parameterType="com.zz.po.journal.JournalElectronicContractExpansion" >
+    update jour_electronic_contract_tem
+    <set>
+      <if test="ectStatus != null and ectStatus != '' ">
+      	ect_status = #{ectStatus},
+      </if>
+      <if test="ectTemplateFillValue != null and ectTemplateFillValue != '' ">
+      	ect_template_fill_value = #{ectTemplateFillValue},
+      </if>
+    </set>
+    where ect_contract_no = #{no}
+  </update>
+  
+  <!-- 查询单个 -->
+  <select id="selectElectronicContract" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalElectronicContractExpansion">
+  	select ject.* from jour_electronic_contract_tem ject
+  	where 
+	<if test="ectId != null and ectId != 0">
+		ect_id = #{ectId}
+	</if>
+	<if test="no != null">
+		ect_contract_no = #{no}
+	</if>
+  </select>
+  
+  <!-- 查询多个 -->
+  <select id="listContract" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalElectronicContractExpansion">
+  	select 
+  	<if test="splitFlag ==0">
+		<!-- 统计查询 -->
+		count(ject.ect_id) totalNum
+	</if>
+	<if test="splitFlag ==1 or splitFlag == null">
+		<!-- 数据查询 -->
+		ject.*,ihs.hs_add_community addCommunity,ihs.hs_add_building addBuilding ,ihs.hs_add_doorplateno addDoorplateno,su.su_staff_name operatingName
+	</if>
+  	from jour_electronic_contract_tem ject
+  	left outer join info_house_4store ihs  on ihs.hs_id = ject.ect_hs_id
+  	left outer join sys_users su  on su.user_coding = ject.ect_operating_id
+  	<where>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and ihs.hs_add_community like '%${addCommunity}%'
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and ihs.hs_add_building like '%${addBuilding}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and ihs.hs_add_doorplateno like '%${addDoorplateno}%'
+		</if>
+		<if test="ectStatus != null and ectStatus != '' ">
+			and ect_status = #{ectStatus}
+		</if>
+		<if test="ectHsId != null and ectHsId != '' ">
+			and ect_hs_id = #{ectHsId}
+		</if>
+	</where>
+	ORDER BY ect_id DESC 
+	<if test="splitFlag ==1">
+		<if test="startNum != null">
+			limit ${startNum}
+			<if test="endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+  </select>
+  
+  
+  <insert id="insertElectronicContract" parameterType="com.zz.po.journal.JournalElectronicContractExpansion" 
+  useGeneratedKeys="true" keyProperty="ectId">
+    insert into jour_electronic_contract_tem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+	  <if test="ectOperatingId != null and ectOperatingId != ''">
+		ect_operating_id,
+	  </if>
+	  <if test="ectHsId != null and ectHsId != ''">
+		ect_hs_id,
+	  </if>
+	  <if test="ectUserCode != null and ectUserCode != ''">
+		ect_user_code,
+	  </if>
+	  <if test="ectIdCard != null and ectIdCard != ''">
+		ect_id_card,
+	  </if>
+	   <if test="ectName != null and ectName != ''">
+		ect_name,
+	  </if>
+	  <if test="ectTelphone != null and ectTelphone != ''">
+		ect_telphone,
+	  </if>
+	  <if test="ectContractNo != null and ectContractNo != ''">
+		ect_contract_no,
+	  </if>
+	  <if test="ectContractTemplateNumber != null and ectContractTemplateNumber != ''">
+		ect_contract_template_number,
+	  </if>
+	   <if test="ectTemplateFillValue != null and ectTemplateFillValue != ''">
+		ect_template_fill_value,
+	  </if>
+	   <if test="ectStatus != null and ectStatus != ''">
+		ect_status,
+	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+	  <if test="ectOperatingId != null and ectOperatingId != ''">
+		#{ectOperatingId},
+	  </if>
+	  <if test="ectHsId != null and ectHsId != ''">
+		#{ectHsId},
+	  </if>
+	  <if test="ectUserCode != null and ectUserCode != ''">
+		#{ectUserCode},
+	  </if>
+	  <if test="ectIdCard != null and ectIdCard != ''">
+		#{ectIdCard},
+	  </if>
+	   <if test="ectName != null and ectName != ''">
+		#{ectName},
+	  </if>
+	  <if test="ectTelphone != null and ectTelphone != ''">
+		#{ectTelphone},
+	  </if>
+	  <if test="ectContractNo != null and ectContractNo != ''">
+		#{ectContractNo},
+	  </if>
+	  <if test="ectContractTemplateNumber != null and ectContractTemplateNumber != ''">
+		#{ectContractTemplateNumber},
+	  </if>
+	   <if test="ectTemplateFillValue != null and ectTemplateFillValue != ''">
+		#{ectTemplateFillValue},
+	  </if>
+	   <if test="ectStatus != null and ectStatus != ''">
+		#{ectStatus},
+	  </if>
+    </trim>
+  </insert>
+  
+	
+</mapper>

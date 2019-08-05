@@ -1,0 +1,978 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.integratedmapper.InfoNotRentingMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.integrated.InfoNotRenting" >
+    <id column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="hs_storefront" property="hsStorefront" jdbcType="INTEGER" />
+    <result column="hs_department" property="hsDepartment" jdbcType="INTEGER" />
+    <result column="hs_renter_id" property="hsRenterId" jdbcType="INTEGER" />
+    <result column="hs_landlord_id" property="hsLandlordId" jdbcType="INTEGER" />
+    <result column="hs_house_id" property="hsHouseId" jdbcType="INTEGER" />
+    <result column="hs_user_id" property="hsUserId" jdbcType="INTEGER" />
+    <result column="hs_auto_send_msg" property="hsAutoSendMsg" jdbcType="VARCHAR" />
+    <result column="hs_admin_user_id" property="hsAdminUserId" jdbcType="INTEGER" />
+    <result column="hs_house_dict_id" property="hsHouseDictId" jdbcType="INTEGER" />
+    <result column="hs_section_type" property="hsSectionType" jdbcType="VARCHAR" />
+    <result column="hs_house_type" property="hsHouseType" jdbcType="VARCHAR" />
+    <result column="hs_house_direction" property="hsHouseDirection" jdbcType="VARCHAR" />
+    <result column="hs_house_owner" property="hsHouseOwner" jdbcType="VARCHAR" />
+    <result column="hs_house_square" property="hsHouseSquare" jdbcType="DOUBLE" />
+    <result column="hs_furniture_config" property="hsFurnitureConfig" jdbcType="VARCHAR" />
+    <result column="hs_house_price" property="hsHousePrice" jdbcType="DOUBLE" />
+    <result column="hs_water_vol_first" property="hsWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_electrit_vol_first" property="hsElectritVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_gas_vol_first" property="hsGasVolFirst" jdbcType="DOUBLE" />
+    
+    <result column="hs_hotwater_vol_first" property="hsHotWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_hotair_vol_first" property="hsHotAirVolFirst" jdbcType="DOUBLE" />
+    
+    <result column="hs_payment_type" property="hsPaymentType" jdbcType="VARCHAR" />
+    <result column="hs_register_time" property="hsRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_house_deposit" property="hsHouseDeposit" jdbcType="DOUBLE" />
+    <result column="hs_the_term" property="hsTheTerm" jdbcType="VARCHAR" />
+    <result column="hs_begin_time" property="hsBeginTime" jdbcType="DATE" />
+    <result column="hs_end_time" property="hsEndTime" jdbcType="DATE" />
+    <result column="hs_lease_state" property="hsLeaseState" jdbcType="VARCHAR" />
+    <result column="hs_house_key" property="hsHouseKey" jdbcType="VARCHAR" />
+    <result column="hs_rent_holiday" property="hsRentHoliday" jdbcType="INTEGER" />
+    <result column="hs_decoration_holiday" property="hsDecorationHoliday" jdbcType="INTEGER" />
+    <result column="hs_house_note" property="hsHouseNote" jdbcType="VARCHAR" />
+    <result column="hs_vacancy_day" property="hsVacancyDay" jdbcType="INTEGER" />
+    <result column="hs_state" property="hsState" jdbcType="VARCHAR" />
+    <result column="hs_base" property="hsBase" jdbcType="DOUBLE" />
+    <result column="hs_guide_price" property="hsGuidePrice" jdbcType="DOUBLE" />
+    <result column="hs_relations_cost" property="hsRelationsCost" jdbcType="DOUBLE" />
+    <result column="hs_managed_cost" property="hsManagedCost" jdbcType="DOUBLE" />
+    <result column="hs_bank_type" property="hsBankType" jdbcType="VARCHAR" />
+    <result column="hs_bank_num" property="hsBankNum" jdbcType="VARCHAR" />
+    <result column="hs_bank_name" property="hsBankName" jdbcType="VARCHAR" />
+    <result column="hs_down_deposit" property="hsDownDeposit" jdbcType="VARCHAR" />
+    <result column="hs_deposit_amount" property="hsDepositAmount" jdbcType="DOUBLE" />
+    <result column="hs_intentional_id" property="hsIntentionalId" jdbcType="INTEGER" />
+    <result column="hs_salesman_id" property="hsSalesmanId" jdbcType="INTEGER" />
+    <result column="hs_start_date" property="hsStartDate" jdbcType="DATE" />
+    <result column="hs_end_date" property="hsEndDate" jdbcType="DATE" />
+    <result column="hs_desposit_account" property="hsDespositAccount" jdbcType="INTEGER" />
+    <result column="hs_assist" property="hsAssist" jdbcType="LONGVARCHAR" />
+    <result column="hs_meter_reading_record" property="hsMeterReadingRecord" jdbcType="VARCHAR" />
+    <result column="hs_manager_user_id" property="hsManagerUserId" jdbcType="INTEGER" />
+    <result column="hsManagerUserName" property="hsManagerUserName" jdbcType="VARCHAR" />
+	<result column="hs_primitive_mother" property="hsPrimitiveMother" jdbcType="INTEGER" />
+	<result column="hs_not_rent_split" property="hsNotRentSplit" jdbcType="INTEGER" />
+	<result column="hs_split_identifier" property="hsSplitIdentifier" jdbcType="VARCHAR" />
+
+    <result column="hrManagerUserName" property="hrManagerUserName" jdbcType="VARCHAR" />
+    <result column="hr_id" jdbcType="INTEGER" property="hrId" />
+    <result column="hr_house_id" jdbcType="INTEGER" property="hrHouseId" />
+    <result column="hr_storefront" jdbcType="INTEGER" property="hrStorefront" />
+    <result column="hr_department" jdbcType="INTEGER" property="hrDepartment" />
+    <result column="hr_renter_id" jdbcType="INTEGER" property="hrRenterId" />
+    <result column="hr_landlord_id" jdbcType="INTEGER" property="hrLandlordId" />
+    <result column="hr_house_4store_id" jdbcType="INTEGER" property="hrHouse4storeId" />
+    <result column="hr_user_id" jdbcType="INTEGER" property="hrUserId" />
+    <result column="hr_admin_user_id" jdbcType="INTEGER" property="hrAdminUserId" />
+    <result column="hr_house_dict_id" jdbcType="INTEGER" property="hrHouseDictId" />
+    <result column="hr_water_plan" jdbcType="INTEGER" property="hrWaterPlan" />
+    <result column="hr_electrit_plan" jdbcType="INTEGER" property="hrElectritPlan" />
+    <result column="hr_gas_plan" jdbcType="INTEGER" property="hrGasPlan" />
+    
+    <result column="hr_hotwater_plan" jdbcType="INTEGER" property="hrHotWaterPlan" />
+    <result column="hr_hotair_plan" jdbcType="INTEGER" property="hrHotAirPlan" />
+    
+    
+    <result column="hr_section_type" jdbcType="VARCHAR" property="hrSectionType" />
+    <result column="hr_house_type" jdbcType="VARCHAR" property="hrHouseType" />
+    <result column="hr_house_direction" jdbcType="VARCHAR" property="hrHouseDirection" />
+    <result column="hr_house_owner" jdbcType="VARCHAR" property="hrHouseOwner" />
+    <result column="hr_furniture_config" jdbcType="VARCHAR" property="hrFurnitureConfig" />
+    <result column="hr_house_square" jdbcType="DOUBLE" property="hrHouseSquare" />
+    <result column="hr_house_price" jdbcType="DOUBLE" property="hrHousePrice" />
+    <result column="hr_water_vol_first" jdbcType="DOUBLE" property="hrWaterVolFirst" />
+    <result column="hr_electrit_vol_first" jdbcType="DOUBLE" property="hrElectritVolFirst" />
+    <result column="hr_gas_vol_first" jdbcType="DOUBLE" property="hrGasVolFirst" />
+   	
+   	<result column="hr_hotwater_vol_first" jdbcType="DOUBLE" property="hrHotWaterVolFirst" />
+   	<result column="hr_hotair_vol_first" jdbcType="DOUBLE" property="hrHotAirVolFirst" />
+   
+   
+    <result column="hr_payment_type" jdbcType="VARCHAR" property="hrPaymentType" />
+    <result column="hr_register_time" jdbcType="TIMESTAMP" property="hrRegisterTime" />
+    <result column="hr_add_province" jdbcType="VARCHAR" property="addProvince" />
+    <result column="hr_add_city" jdbcType="VARCHAR" property="addCity" />
+    <result column="hr_add_district" jdbcType="VARCHAR" property="addDistrict" />
+    <result column="hr_add_zone" jdbcType="VARCHAR" property="addZone" />
+    <result column="hr_add_street" jdbcType="VARCHAR" property="addStreet" />
+    <result column="hr_add_community" jdbcType="VARCHAR" property="addCommunity" />
+    <result column="hr_add_building" jdbcType="VARCHAR" property="addBuilding" />
+    <result column="hr_add_doorplateno" jdbcType="VARCHAR" property="addDoorplateno" />
+    <result column="hr_house_deposit" jdbcType="DOUBLE" property="hrHouseDeposit" />
+    <result column="hr_power_deposit" jdbcType="DOUBLE" property="hrPowerDeposit" />
+    <result column="hr_other_deposit" jdbcType="DOUBLE" property="hrOtherDeposit" />
+    <result column="hr_door_deposit" jdbcType="DOUBLE" property="hrDoorDeposit" />
+    <result column="hr_the_term" jdbcType="VARCHAR" property="hrTheTerm" />
+    <result column="hr_begin_time" jdbcType="DATE" property="hrBeginTime" />
+    <result column="hr_end_time" jdbcType="DATE" property="hrEndTime" />
+    <result column="hr_lease_state" jdbcType="VARCHAR" property="hrLeaseState" />
+    <result column="hr_manage_cost" jdbcType="DOUBLE" property="hrManageCost" />
+    <result column="hr_house_key" jdbcType="VARCHAR" property="hrHouseKey" />
+    <result column="hr_house_note" jdbcType="VARCHAR" property="hrHouseNote" />
+    <result column="hr_state" jdbcType="VARCHAR" property="hrState" />
+    <result column="hr_assist" jdbcType="VARCHAR" property="hrAssist" />
+    <result column="hr_base" jdbcType="DOUBLE" property="hrBase" />
+    <result column="hr_tv_charge" property="hrTvCharge" jdbcType="DOUBLE" />
+    <result column="hr_wifi_charge" property="hrWifiCharge" jdbcType="DOUBLE" />
+    <result column="hr_server_cost" property="hrServerCost" jdbcType="DOUBLE" />
+    <result column="hr_manager_user_id" property="hrManagerUserId" jdbcType="INTEGER" />
+    <result column="hr_flat_share_logo" property="hrFlatShareLogo" jdbcType="INTEGER" />
+    <result column="hr_other_pay" property="hrOtherPay" jdbcType="DOUBLE" />
+    <result column="hr_meter_reading_record" property="hrMeterReadingRecord" jdbcType="VARCHAR" />
+    <result column="la_id" jdbcType="INTEGER" property="laId" />
+    <result column="la_user_id" jdbcType="INTEGER" property="laUserId" />
+    <result column="la_department" jdbcType="INTEGER" property="laDepartment" />
+    <result column="la_storefront" jdbcType="INTEGER" property="laStorefront" />
+    <result column="la_population_id" jdbcType="INTEGER" property="laPopulationId" />
+    <result column="landlord_other_contact" jdbcType="VARCHAR" property="landlordOtherContact" />
+    <result column="la_second_contacts" jdbcType="VARCHAR" property="laSecondContacts" />
+    <result column="la_second_phone" jdbcType="VARCHAR" property="laSecondPhone" />
+    <result column="la_other_contact" jdbcType="VARCHAR" property="laOtherContact" />
+    <result column="la_register_time" jdbcType="TIMESTAMP" property="laRegisterTime" />
+      
+    <result column="jrl_id" jdbcType="INTEGER" property="jrlId" />
+    <result column="jrl_renewal_coding" jdbcType="VARCHAR" property="jrlRenewalCoding" />
+    <result column="jrl_house_4store_id" jdbcType="INTEGER" property="jrlHouse4storeId" />
+    <result column="jrl_landlord_id" jdbcType="INTEGER" property="jrlLandlordId" />
+    <result column="jrl_user_id" jdbcType="INTEGER" property="jrlUserId" />
+    <result column="jrl_department" jdbcType="INTEGER" property="jrlDepartment" />
+    <result column="jrl_storefront" jdbcType="INTEGER" property="jrlStorefront" />
+    <result column="jrl_registration_time" jdbcType="TIMESTAMP" property="jrlRegistrationTime" />
+    <result column="jrl_contract_type" jdbcType="VARCHAR" property="jrlContractType" />
+    <result column="jrl_rental_type" jdbcType="VARCHAR" property="jrlRentalType" />
+    <result column="jrl_begin_time" jdbcType="DATE" property="jrlBeginTime" />
+    <result column="jrl_end_time" jdbcType="DATE" property="jrlEndTime" />
+    <result column="jrl_signed_time" jdbcType="DATE" property="jrlSignedTime" />
+    <result column="jrl_the_term" jdbcType="VARCHAR" property="jrlTheTerm" />
+    <result column="jrl_in_advance_pay" jdbcType="INTEGER" property="jrlInAdvancePay" />
+    <result column="jrl_price_ladder" jdbcType="VARCHAR" property="jrlPriceLadder" />
+    <result column="jrl_rent_free_days" jdbcType="INTEGER" property="jrlRentFreeDays" />
+    <result column="jrl_rent_free_segment" jdbcType="VARCHAR" property="jrlRentFreeSegment" />
+    <result column="jrl_payment_method" jdbcType="VARCHAR" property="jrlPaymentMethod" />
+    <result column="jrl_remark" jdbcType="VARCHAR" property="jrlRemark" />
+    <result column="jrl_img_path" jdbcType="LONGVARCHAR" property="jrlImgPath" />
+    
+    <result column="jrr_id" jdbcType="INTEGER" property="jrrId" />
+    <result column="jrr_renewal_coding" jdbcType="VARCHAR" property="jrrRenewalCoding" />
+    <result column="jrr_house_4rent_id" jdbcType="INTEGER" property="jrrHouse4rentId" />
+    <result column="jrr_house_4store_id" jdbcType="INTEGER" property="jrrHouse4storeId" />
+    <result column="jrr_renter_id" jdbcType="INTEGER" property="jrrRenterId" />
+    <result column="jrr_landlord_id" jdbcType="INTEGER" property="jrrLandlordId" />
+    <result column="jrr_user_id" jdbcType="INTEGER" property="jrrUserId" />
+    <result column="jrr_department" jdbcType="INTEGER" property="jrrDepartment" />
+    <result column="jrr_storefront" jdbcType="INTEGER" property="jrrStorefront" />
+    <result column="jrr_registration_time" jdbcType="TIMESTAMP" property="jrrRegistrationTime" />
+    <result column="jrr_contract_type" jdbcType="VARCHAR" property="jrrContractType" />
+    <result column="jrr_rental_type" jdbcType="VARCHAR" property="jrrRentalType" />
+    <result column="jrr_begin_time" jdbcType="DATE" property="jrrBeginTime" />
+    <result column="jrr_end_time" jdbcType="DATE" property="jrrEndTime" />
+    <result column="jrr_signed_time" jdbcType="DATE" property="jrrSignedTime" />
+    <result column="jrr_money" jdbcType="DOUBLE" property="jrrMoney" />
+    <result column="jrr_the_term" jdbcType="VARCHAR" property="jrrTheTerm" />
+    <result column="jrr_the_contract" jdbcType="VARCHAR" property="jrrTheContract" />
+    <result column="jrr_in_advance_pay" jdbcType="INTEGER" property="jrrInAdvancePay" />
+    <result column="jrr_payment_method" jdbcType="VARCHAR" property="jrrPaymentMethod" />
+    <result column="jrr_remark" jdbcType="VARCHAR" property="jrrRemark" />
+    <result column="jrr_img_path" jdbcType="LONGVARCHAR" property="jrrImgPath" />
+    <result column="jrr_manage_cost" property="jrrManageCost" jdbcType="DOUBLE" />
+    <result column="jrr_manage_payment" property="jrrManagePayment" jdbcType="VARCHAR" />
+    <result column="jrr_server_cost" property="jrrServerCost" jdbcType="DOUBLE" />
+    <result column="jrr_server_payment" property="jrrServerPayment" jdbcType="VARCHAR" />
+    <result column="advanceMode" jdbcType="INTEGER" property="advanceMode" />
+    
+    <result column="pop_id" jdbcType="INTEGER" property="popId" />
+    <result column="pop_user" jdbcType="INTEGER" property="popUser" />
+    <result column="pop_inner_credit_level" jdbcType="INTEGER" property="popInnerCreditLevel" />
+    <result column="pop_outer_credit_level" jdbcType="INTEGER" property="popOuterCreditLevel" />
+    <result column="pop_landlord" jdbcType="INTEGER" property="popLandlord" />
+    <result column="pop_renter" jdbcType="INTEGER" property="popRenter" />
+    <result column="pop_resident" jdbcType="INTEGER" property="popResident" />
+    <result column="pop_name" jdbcType="VARCHAR" property="popName" />
+    <result column="pop_telephone" jdbcType="VARCHAR" property="popTelephone" />
+    <result column="pop_idcard" jdbcType="VARCHAR" property="popIdcard" />
+    <result column="pop_registration_time" jdbcType="TIMESTAMP" property="popRegistrationTime" />
+    
+    <result column="renter_id" jdbcType="INTEGER" property="renterId" />
+    <result column="renter_user_id" jdbcType="INTEGER" property="renterUserId" />
+    <result column="renter_department" jdbcType="INTEGER" property="renterDepartment" />
+    <result column="renter_storefront" jdbcType="INTEGER" property="renterStorefront" />
+    <result column="renter_population_id" jdbcType="INTEGER" property="renterPopulationId" />
+    <result column="renter_second_contacts" jdbcType="VARCHAR" property="renterSecondContacts" />
+    <result column="renter_second_phone" jdbcType="VARCHAR" property="renterSecondPhone" />
+    <result column="renter_register_time" jdbcType="TIMESTAMP" property="renterRegisterTime" />
+    
+    <result column="laPopId" jdbcType="INTEGER" property="laPopId" />
+    <result column="laName" jdbcType="VARCHAR" property="laName" />
+    <result column="laTelephone" jdbcType="VARCHAR" property="laTelephone" />
+    <result column="laIdcard" jdbcType="VARCHAR" property="laIdcard" />
+    <result column="laNameRemark" jdbcType="VARCHAR" property="laNameRemark" />
+    
+    <result column="renPopId" jdbcType="INTEGER" property="renPopId" />
+    <result column="renName" jdbcType="VARCHAR" property="renName" />
+    <result column="renTelephone" jdbcType="VARCHAR" property="renTelephone" />
+    <result column="renIdcard" jdbcType="VARCHAR" property="renIdcard" />
+    <result column="renNameRemark" jdbcType="VARCHAR" property="renNameRemark" />
+    <result column="totalNum" jdbcType="VARCHAR" property="totalNum" />
+    
+    <result column="popNameRemark" jdbcType="VARCHAR" property="popNameRemark" />
+    <result column="overplusTime" jdbcType="VARCHAR" property="overplusTime" />
+    <result column="wx_openid" property="wxOpenid" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+  <select id="integratedQuery" resultMap="BaseResultMap" parameterType="com.zz.po.integrated.InfoNotRenting" >
+  	select a.*, b.totalNum from
+	(select hs.*, hr.*, la.*, re.*, 
+		po.pop_id laPopId, po.pop_name laName, po.pop_idcard laIdcard, po.pop_telephone laTelephone, po.pop_name_remark laNameRemark, 
+		po1.pop_id renPopId, po1.pop_name renName, po1.pop_idcard renIdcard, po1.pop_telephone renTelephone, po1.pop_name_remark renNameRemark, 
+		po1.pop_name_remark popNameRemark, po1.wx_openid, 
+		u.su_staff_name hsManagerUserName, 
+		u1.su_staff_name hrManagerUserName, (DATEDIFF(hr.hr_end_time,CURDATE())) overplusTime
+	from info_house_4store hs
+	left outer join info_house_4rent hr on hr.hr_house_4store_id = hs.hs_id and hr_state != '退房完成'
+	left outer join info_landlord la on la.la_id = hs.hs_landlord_id
+	left outer join info_pop_tmp po on po.pop_id = la.la_population_id
+	left outer join info_renter re on re.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp po1 on po1.pop_id = re.renter_population_id
+	left outer join sys_users u on u.user_coding = hs.hs_manager_user_id
+	left outer join sys_users u1 on u1.user_coding = hr.hr_manager_user_id
+	) a,
+	(select count(hs.hs_id) totalNum from info_house_4store hs
+	left outer join info_house_4rent hr on hr.hr_house_4store_id = hs.hs_id and hr_state != '退房完成'
+	left outer join info_landlord la on la.la_id = hs.hs_landlord_id
+	left outer join info_pop_tmp po on po.pop_id = la.la_population_id
+	left outer join info_renter re on re.renter_id = hr.hr_landlord_id
+	left outer join info_pop_tmp po1 on po1.pop_id = re.renter_population_id
+	left outer join sys_users u on u.user_coding = hs.hs_manager_user_id
+	left outer join sys_users u1 on u1.user_coding = hr.hr_manager_user_id
+	<where>
+		
+		<if test="hsId != null and hsId != '' ">
+			and hs_id = #{hsId}
+		</if>
+		<if test="addProvince != null and addProvince != '' ">
+			and (hs_add_province = #{addProvince} or hr_add_province = #{addProvince})
+		</if>
+		<if test="addCity != null and addCity != '' ">
+			and (hs_add_city = #{addCity} or hr_add_city = #{addCity})
+		</if>
+		<if test="addCity == null or addCity == '' " >
+			and hs_add_city != '公区'
+		</if>
+		<if test="addDistrict != null and addDistrict != '' ">
+			and (hs_add_district = #{addDistrict} or hr_add_district = #{addDistrict})
+		</if>
+		<if test="addZone != null and addZone != '' ">
+			and (hs_add_zone = #{addZone} or hr_add_zone = #{addZone})
+		</if>
+		<if test="addStreet != null and addStreet != '' ">
+			and (hs_add_street = #{addStreet} or hr_add_street = #{addStreet})
+		</if>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and (hs_add_community like '%${addCommunity}%' or hr_add_community like '%${addCommunity}%')
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					or hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and (hs_add_doorplateno like '${addDoorplateno}%'  or hs_add_doorplateno like '0${addDoorplateno}%'
+					or hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					)
+		</if>
+		<if test="(renName != null and renName != '') or (laName != null and laName != '')">
+			and (po.pop_name = #{renName} or po1.pop_name = #{laName})
+		</if>
+		<if test="(renName != null and renName != '') or (laName != null and laName != '')">
+			and (po.pop_name = #{renName} or po1.pop_name = #{laName})
+		</if>
+		<if test="hsState != null and hsState != ''">
+			and hs_state = #{hsState}
+		</if>
+		<if test="hsLeaseState != null and hsLeaseState != ''" >
+			<if test="hsLeaseState =='所有未租'" >
+				and  (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租')
+			</if>
+			<if test="hsLeaseState !='所有未租'" >
+				and  hs_lease_state = #{hsLeaseState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="hsDownDeposit != null and hsDownDeposit != ''">
+			and hs_down_deposit = #{hsDownDeposit}
+		</if>
+	</where>
+	) b
+	<where>
+		<if test="hsId != null and hsId != '' ">
+			and hs_id = #{hsId}
+		</if>
+		<if test="addProvince != null and addProvince != '' ">
+			and (hs_add_province = #{addProvince} or hr_add_province = #{addProvince})
+		</if>
+		<if test="addCity != null and addCity != '' ">
+			and (hs_add_city = #{addCity} or hr_add_city = #{addCity})
+		</if>
+		<if test="addCity == null or addCity == '' " >
+			and hs_add_city != '公区'
+		</if>
+		<if test="addDistrict != null and addDistrict != '' ">
+			and (hs_add_district = #{addDistrict} or hr_add_district = #{addDistrict})
+		</if>
+		<if test="addZone != null and addZone != '' ">
+			and (hs_add_zone = #{addZone} or hr_add_zone = #{addZone})
+		</if>
+		<if test="addStreet != null and addStreet != '' ">
+			and (hs_add_street = #{addStreet} or hr_add_street = #{addStreet})
+		</if>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and (hs_add_community like '%${addCommunity}%' or hr_add_community like '%${addCommunity}%')
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					or hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					or hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					)
+		</if>
+		<if test="(renName != null and renName != '') or (laName != null and laName != '')">
+			and (a.laName = #{renName} or a.renName = #{renName})
+		</if>
+		<if test="hsState != null and hsState != ''">
+			and hs_state = #{hsState}
+		</if>
+		<if test="hsLeaseState != null and hsLeaseState != ''" >
+			<if test="hsLeaseState =='所有未租'" >
+				and  (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租')
+			</if>
+			<if test="hsLeaseState !='所有未租'" >
+				and  hs_lease_state = #{hsLeaseState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="hsDownDeposit != null and hsDownDeposit != ''">
+			and hs_down_deposit = #{hsDownDeposit}
+		</if>
+	</where>
+	ORDER BY hs_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 未租 -->
+  <update id="infoNotRenting" parameterType="com.zz.po.integrated.InfoNotRenting" >
+    update info_house_4store
+    <set >
+    	<if test="hsManagerUserId != null and hsManagerUserId != '' ">
+      	hs_manager_user_id = #{hsManagerUserId},
+      </if>
+      <if test="hsStorefront != null" >
+        hs_storefront = #{hsStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="hsDepartment != null" >
+        hs_department = #{hsDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="hsRenterId != null" >
+        hs_renter_id = #{hsRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="hsLandlordId != null" >
+        hs_landlord_id = #{hsLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseId != null" >
+        hs_house_id = #{hsHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="hsUserId != null" >
+        hs_user_id = #{hsUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hsAdminUserId != null" >
+        hs_admin_user_id = #{hsAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseDictId != null" >
+        hs_house_dict_id = #{hsHouseDictId,jdbcType=INTEGER},
+      </if>
+      <if test="hsSectionType != null" >
+        hs_section_type = #{hsSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseType != null" >
+        hs_house_type = #{hsHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseDirection != null" >
+        hs_house_direction = #{hsHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseOwner != null" >
+        hs_house_owner = #{hsHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseSquare != null" >
+        hs_house_square = #{hsHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="hsFurnitureConfig != null" >
+        hs_furniture_config = #{hsFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHousePrice != null" >
+        hs_house_price = #{hsHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hsWaterVolFirst != null" >
+        hs_water_vol_first = #{hsWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsElectritVolFirst != null" >
+        hs_electrit_vol_first = #{hsElectritVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsGasVolFirst != null" >
+        hs_gas_vol_first = #{hsGasVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hsPaymentType != null" >
+        hs_payment_type = #{hsPaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsRegisterTime != null" >
+        hs_register_time = #{hsRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addProvince != null" >
+        hs_add_province = #{hsAddProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="addCity != null" >
+        hs_add_city = #{hsAddCity,jdbcType=VARCHAR},
+      </if>
+      <if test="addDistrict != null" >
+        hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="addZone != null" >
+        hs_add_zone = #{hsAddZone,jdbcType=VARCHAR},
+      </if>
+      <if test="addStreet != null" >
+        hs_add_street = #{hsAddStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="addCommunity != null" >
+        hs_add_community = #{hsAddCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="addBuilding != null" >
+        hs_add_building = #{hsAddBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="addDoorplateno != null" >
+        hs_add_doorplateno = #{hsAddDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseDeposit != null" >
+        hs_house_deposit = #{hsHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hsTheTerm != null" >
+        hs_the_term = #{hsTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBeginTime != null" >
+        hs_begin_time = #{hsBeginTime,jdbcType=DATE},
+      </if>
+      <if test="hsEndTime != null" >
+        hs_end_time = #{hsEndTime,jdbcType=DATE},
+      </if>
+      <if test="hsLeaseState != null" >
+        hs_lease_state = #{hsLeaseState,jdbcType=VARCHAR},
+      </if>
+      <if test="hsHouseKey != null" >
+        hs_house_key = #{hsHouseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="hsRentHoliday != null" >
+        hs_rent_holiday = #{hsRentHoliday,jdbcType=INTEGER},
+      </if>
+      <if test="hsDecorationHoliday != null" >
+        hs_decoration_holiday = #{hsDecorationHoliday,jdbcType=INTEGER},
+      </if>
+      <if test="hsHouseNote != null" >
+        hs_house_note = #{hsHouseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="hsVacancyDay != null" >
+        hs_vacancy_day = #{hsVacancyDay,jdbcType=INTEGER},
+      </if>
+      <if test="hsState != null" >
+        hs_state = #{hsState,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBase != null" >
+        hs_base = #{hsBase,jdbcType=DOUBLE},
+      </if>
+      <if test="hsGuidePrice != null" >
+        hs_guide_price = #{hsGuidePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hsRelationsCost != null" >
+        hs_relations_cost = #{hsRelationsCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hsManagedCost != null" >
+        hs_managed_cost = #{hsManagedCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hsBankType != null" >
+        hs_bank_type = #{hsBankType,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBankNum != null" >
+        hs_bank_num = #{hsBankNum,jdbcType=VARCHAR},
+      </if>
+      <if test="hsBankName != null" >
+        hs_bank_name = #{hsBankName,jdbcType=VARCHAR},
+      </if>
+      <if test="hsDownDeposit != null" >
+        hs_down_deposit = #{hsDownDeposit,jdbcType=VARCHAR},
+      </if>
+      <if test="hsDepositAmount != null" >
+        hs_deposit_amount = #{hsDepositAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="hsIntentionalId != null" >
+        hs_intentional_id = #{hsIntentionalId,jdbcType=INTEGER},
+      </if>
+      <if test="hsSalesmanId != null" >
+        hs_salesman_id = #{hsSalesmanId,jdbcType=INTEGER},
+      </if>
+      <if test="hsStartDate != null" >
+        hs_start_date = #{hsStartDate,jdbcType=DATE},
+      </if>
+      <if test="hsEndDate != null" >
+        hs_end_date = #{hsEndDate,jdbcType=DATE},
+      </if>
+      <if test="hsDespositAccount != null" >
+        hs_desposit_account = #{hsDespositAccount,jdbcType=INTEGER},
+      </if>
+      <if test="hsAssist != null" >
+        hs_assist = #{hsAssist,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hsMeterReadingRecord != null" >
+        hs_meter_reading_record = #{hsMeterReadingRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="hsPrimitiveMother != null">
+      	hs_primitive_mother = #{hsPrimitiveMother},
+      </if>
+      <if test="hsNotRentSplit != null">
+      	hs_not_rent_split = #{hsNotRentSplit},
+      </if>
+      <if test="hsSplitIdentifier != null">
+      	hs_split_identifier = #{hsSplitIdentifier},
+      </if>
+    </set>
+    where hs_id = #{hsId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 已租 -->
+  <update id="updateRentHoues" parameterType="com.zz.po.integrated.InfoNotRenting" >
+  		update info_house_4rent
+    <set>
+    	<if test="hrManagerUserId != null and hrManagerUserId != ''" >
+        hr_manager_user_id = #{hrManagerUserId},
+      </if>
+      <if test="hrHouseId != null">
+        hr_house_id = #{hrHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="hrStorefront != null">
+        hr_storefront = #{hrStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="hrDepartment != null">
+        hr_department = #{hrDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="hrRenterId != null">
+        hr_renter_id = #{hrRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="hrLandlordId != null">
+        hr_landlord_id = #{hrLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="hrHouse4storeId != null">
+        hr_house_4store_id = #{hrHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="hrUserId != null">
+        hr_user_id = #{hrUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hrAdminUserId != null">
+        hr_admin_user_id = #{hrAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hrHouseDictId != null">
+        hr_house_dict_id = #{hrHouseDictId,jdbcType=INTEGER},
+      </if>
+      <if test="hrWaterPlan != null">
+        hr_water_plan = #{hrWaterPlan,jdbcType=INTEGER},
+      </if>
+      <if test="hrElectritPlan != null">
+        hr_electrit_plan = #{hrElectritPlan,jdbcType=INTEGER},
+      </if>
+      <if test="hrGasPlan != null">
+        hr_gas_plan = #{hrGasPlan,jdbcType=INTEGER},
+      </if>
+      <if test="hrSectionType != null">
+        hr_section_type = #{hrSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseType != null">
+        hr_house_type = #{hrHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseDirection != null">
+        hr_house_direction = #{hrHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseOwner != null">
+        hr_house_owner = #{hrHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="hrFurnitureConfig != null">
+        hr_furniture_config = #{hrFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseSquare != null">
+        hr_house_square = #{hrHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="hrHousePrice != null">
+        hr_house_price = #{hrHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hrWaterVolFirst != null">
+        hr_water_vol_first = #{hrWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrElectritVolFirst != null">
+        hr_electrit_vol_first = #{hrElectritVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrGasVolFirst != null">
+        hr_gas_vol_first = #{hrGasVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrPaymentType != null">
+        hr_payment_type = #{hrPaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrRegisterTime != null">
+        hr_register_time = #{hrRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addProvince != null">
+        hr_add_province = #{addProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="addCity != null">
+        hr_add_city = #{addCity,jdbcType=VARCHAR},
+      </if>
+      <if test="addDistrict != null">
+        hr_add_district = #{addDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="addZone != null">
+        hr_add_zone = #{addZone,jdbcType=VARCHAR},
+      </if>
+      <if test="addStreet != null">
+        hr_add_street = #{addStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="addCommunity != null">
+        hr_add_community = #{addCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="addBuilding != null">
+        hr_add_building = #{addBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="addDoorplateno != null">
+        hr_add_doorplateno = #{addDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseDeposit != null">
+        hr_house_deposit = #{hrHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrPowerDeposit != null">
+        hr_power_deposit = #{hrPowerDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrOtherDeposit != null">
+        hr_other_deposit = #{hrOtherDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrDoorDeposit != null">
+        hr_door_deposit = #{hrDoorDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrTheTerm != null">
+        hr_the_term = #{hrTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="hrBeginTime != null">
+        hr_begin_time = #{hrBeginTime,jdbcType=DATE},
+      </if>
+      <if test="hrEndTime != null">
+        hr_end_time = #{hrEndTime,jdbcType=DATE},
+      </if>
+      <if test="hrLeaseState != null">
+        hr_lease_state = #{hrLeaseState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrManageCost != null">
+        hr_manage_cost = #{hrManageCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hrHouseKey != null">
+        hr_house_key = #{hrHouseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseNote != null">
+        hr_house_note = #{hrHouseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="hrState != null">
+        hr_state = #{hrState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAssist != null">
+        hr_assist = #{hrAssist,jdbcType=VARCHAR},
+      </if>
+      <if test="hrBase != null">
+        hr_base = #{hrBase,jdbcType=DOUBLE},
+      </if>
+      <if test="hrTvCharge != null">
+        hr_tv_charge = #{hrTvCharge,jdbcType=DOUBLE},
+      </if>
+      <if test="hrWifiCharge != null">
+        hr_wifi_charge = #{hrWifiCharge,jdbcType=DOUBLE},
+      </if>
+      <if test="hrServerCost != null">
+        hr_server_cost = #{hrServerCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hrFlatShareLogo != null">
+        hr_flat_share_logo = #{hrFlatShareLogo},
+      </if>
+      <if test="hrOtherPay != null" >
+        hr_other_pay = #{hrOtherPay},
+      </if>
+    </set>
+    where hr_id = #{hrId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 房东 -->  
+  <update id="updateLand" parameterType="com.zz.po.integrated.InfoNotRenting" >
+  		update info_landlord
+    <set>
+      <if test="laUserId != null">
+        la_user_id = #{laUserId,jdbcType=INTEGER},
+      </if>
+      <if test="laDepartment != null">
+        la_department = #{laDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="laStorefront != null">
+        la_storefront = #{laStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="laPopulationId != null">
+        la_population_id = #{laPopulationId,jdbcType=INTEGER},
+      </if>
+      <if test="landlordOtherContact != null">
+        landlord_other_contact = #{landlordOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="laSecondContacts != null">
+        la_second_contacts = #{laSecondContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="laSecondPhone != null">
+        la_second_phone = #{laSecondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="laOtherContact != null">
+        la_other_contact = #{laOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="laRegisterTime != null">
+        la_register_time = #{laRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where la_id = #{laId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 人口 -->
+  <update id="updatePop" parameterType="com.zz.po.integrated.InfoNotRenting" >
+  		update info_pop_tmp
+    <set>
+      <if test="popUser != null">
+        pop_user = #{popUser,jdbcType=INTEGER},
+      </if>
+      <if test="popInnerCreditLevel != null">
+        pop_inner_credit_level = #{popInnerCreditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="popOuterCreditLevel != null">
+        pop_outer_credit_level = #{popOuterCreditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="popLandlord != null">
+        pop_landlord = #{popLandlord,jdbcType=INTEGER},
+      </if>
+      <if test="popRenter != null">
+        pop_renter = #{popRenter,jdbcType=INTEGER},
+      </if>
+      <if test="popResident != null">
+        pop_resident = #{popResident,jdbcType=INTEGER},
+      </if>
+      <if test="popName != null">
+        pop_name = #{popName,jdbcType=VARCHAR},
+      </if>
+      <if test="popTelephone != null">
+        pop_telephone = #{popTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="popIdcard != null">
+        pop_idcard = #{popIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="popRegistrationTime != null">
+        pop_registration_time = #{popRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="popNameRemark != null">
+        pop_name_remark = #{popNameRemark,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where pop_id = #{popId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 未租合约 -->
+  <update id="updateLandjrl" parameterType="com.zz.po.integrated.InfoNotRenting" >
+  		update info_landlord_contract
+    <set>
+      <if test="jrlRenewalCoding != null">
+        jrl_renewal_coding = #{jrlRenewalCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlHouse4storeId != null">
+        jrl_house_4store_id = #{jrlHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlLandlordId != null">
+        jrl_landlord_id = #{jrlLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlUserId != null">
+        jrl_user_id = #{jrlUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlDepartment != null">
+        jrl_department = #{jrlDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="jrlStorefront != null">
+        jrl_storefront = #{jrlStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="jrlRegistrationTime != null">
+        jrl_registration_time = #{jrlRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jrlContractType != null">
+        jrl_contract_type = #{jrlContractType,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRentalType != null">
+        jrl_rental_type = #{jrlRentalType,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlBeginTime != null">
+        jrl_begin_time = #{jrlBeginTime,jdbcType=DATE},
+      </if>
+      <if test="jrlEndTime != null">
+        jrl_end_time = #{jrlEndTime,jdbcType=DATE},
+      </if>
+      <if test="jrlSignedTime != null">
+        jrl_signed_time = #{jrlSignedTime,jdbcType=DATE},
+      </if>
+      <if test="jrlTheTerm != null">
+        jrl_the_term = #{jrlTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlInAdvancePay != null">
+        jrl_in_advance_pay = #{jrlInAdvancePay},
+      </if>
+      <if test="jrlPriceLadder != null">
+        jrl_price_ladder = #{jrlPriceLadder,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRentFreeDays != null">
+        jrl_rent_free_days = #{jrlRentFreeDays,jdbcType=INTEGER},
+      </if>
+      <if test="jrlRentFreeSegment != null">
+        jrl_rent_free_segment = #{jrlRentFreeSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlPaymentMethod != null">
+        jrl_payment_method = #{jrlPaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRemark != null">
+        jrl_remark = #{jrlRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlImgPath != null">
+        jrl_img_path = #{jrlImgPath,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where jrl_id = #{jrlId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 已租合约 -->
+  <update id="updataRentJrr" parameterType="com.zz.po.integrated.InfoNotRenting" >
+  		update info_renter_contract
+    <set>
+      <if test="jrrRenewalCoding != null">
+        jrr_renewal_coding = #{jrrRenewalCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="jrrHouse4rentId != null">
+        jrr_house_4rent_id = #{jrrHouse4rentId,jdbcType=INTEGER},
+      </if>
+      <if test="jrrHouse4storeId != null">
+        jrr_house_4store_id = #{jrrHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="jrrRenterId != null">
+        jrr_renter_id = #{jrrRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="jrrLandlordId != null">
+        jrr_landlord_id = #{jrrLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="jrrUserId != null">
+        jrr_user_id = #{jrrUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jrrDepartment != null">
+        jrr_department = #{jrrDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="jrrStorefront != null">
+        jrr_storefront = #{jrrStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="jrrRegistrationTime != null">
+        jrr_registration_time = #{jrrRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jrrContractType != null">
+        jrr_contract_type = #{jrrContractType,jdbcType=VARCHAR},
+      </if>
+      <if test="jrrRentalType != null">
+        jrr_rental_type = #{jrrRentalType,jdbcType=VARCHAR},
+      </if>
+      <if test="jrrBeginTime != null">
+        jrr_begin_time = #{jrrBeginTime,jdbcType=DATE},
+      </if>
+      <if test="jrrEndTime != null">
+        jrr_end_time = #{jrrEndTime,jdbcType=DATE},
+      </if>
+      <if test="jrrSignedTime != null">
+        jrr_signed_time = #{jrrSignedTime,jdbcType=DATE},
+      </if>
+      <if test="jrrMoney != null">
+        jrr_money = #{jrrMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jrrTheTerm != null">
+        jrr_the_term = #{jrrTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="jrrTheContract != null">
+        jrr_the_contract = #{jrrTheContract,jdbcType=VARCHAR},
+      </if>
+      <if test="jrrInAdvancePay != null">
+        jrr_in_advance_pay = #{jrrInAdvancePay},
+      </if>
+      <if test="jrrPaymentMethod != null">
+        jrr_payment_method = #{jrrPaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="jrrRemark != null">
+        jrr_remark = #{jrrRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jrrImgPath != null">
+        jrr_img_path = #{jrrImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="advanceMode != null">
+        advanceMode = #{advanceMode},
+      </if>
+    </set>
+    where jrr_id = #{jrrId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 租客 -->
+  <update id="updataRenter" parameterType="com.zz.po.integrated.InfoNotRenting" >
+  	update info_renter
+    <set>
+      <if test="renterUserId != null">
+        renter_user_id = #{renterUserId,jdbcType=INTEGER},
+      </if>
+      <if test="renterDepartment != null">
+        renter_department = #{renterDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="renterStorefront != null">
+        renter_storefront = #{renterStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="renterPopulationId != null">
+        renter_population_id = #{renterPopulationId,jdbcType=INTEGER},
+      </if>
+      <if test="renterSecondContacts != null">
+        renter_second_contacts = #{renterSecondContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="renterSecondPhone != null">
+        renter_second_phone = #{renterSecondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="renterRegisterTime != null">
+        renter_register_time = #{renterRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where renter_id = #{renterId,jdbcType=INTEGER}
+  </update>
+</mapper>

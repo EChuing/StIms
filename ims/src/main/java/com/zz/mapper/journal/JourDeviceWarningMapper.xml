@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.zz.mapper.journal.JourDeviceWarningMapper">
+	<resultMap id="BaseResultMap" type="com.zz.po.journal.JourDeviceWarning" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="jdw_brand" property="jdwBrand" jdbcType="VARCHAR" />
+		<result column="jdw_dev_id" property="jdwDevId" javaType="INTEGER"/>
+	    <result column="jdw_sn" property="jdwSn" jdbcType="VARCHAR" />
+	    <result column="jdw_type" property="jdwType" jdbcType="INTEGER" />
+	    <result column="jdw_handle_status" property="jdwHandleStatus" jdbcType="VARCHAR" />
+	    <result column="jdw_handle_result" property="jdwHandleResult" jdbcType="VARCHAR" />
+	    
+	    <result column="jdw_modification_time" property="jdwModificationTime" jdbcType="DATE" />
+	    <result column="jdw_time" property="jdwTime" jdbcType="DATE" />
+	    <result column="jdw_warning_time" property="jdwWarningTime" jdbcType="DATE" />
+	    <result column="jdw_failure_cause" property="jdwFailureCause" jdbcType="VARCHAR" />
+
+	</resultMap>
+	<resultMap id="JourDeviceResultMap" type="com.zz.po.journal.JourDevice" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="dev_id" property="devId" jdbcType="VARCHAR" />
+	    <result column="dev_brand_id" property="devBrandId" jdbcType="INTEGER" />
+	    <result column="dev_nickname" property="devNickname" jdbcType="VARCHAR" />
+	    <result column="dev_username" property="devUsername" jdbcType="VARCHAR" />
+	    
+	    <result column="dev_type" property="devType" jdbcType="VARCHAR" />
+	    <result column="dev_difference" property="devDifference" jdbcType="VARCHAR" />
+	    
+	    <result column="dev_password" property="devPassword" jdbcType="VARCHAR" />
+	    <result column="dev_auth_id" property="devAuthId" jdbcType="VARCHAR" />
+	    <result column="dev_auth_secret" property="devAuthSecret" jdbcType="VARCHAR" />
+	    <result column="dev_state" property="devState" jdbcType="VARCHAR" />
+	    <result column="dev_auth_num" property="devAuthNum" jdbcType="VARCHAR" />
+	    <result column="dev_spare1" property="devSpare1" jdbcType="VARCHAR" />
+	    <result column="dev_spare2" property="devSpare2" jdbcType="VARCHAR" />
+		<result column="dev_sn" property="devSn" jdbcType="VARCHAR" />
+	    
+	    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+	    <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+	    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+	    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+	    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+	    <result column="hs_add_district" property="hsAddDistrict" jdbcType="VARCHAR" />
+	    <result column="hs_lease_state" property="hsLeaseState" jdbcType="VARCHAR" />
+	    
+	    <result column="jhd_hs_id" property="jhdHsId" jdbcType="INTEGER" />
+	    <result column="jdw_brand" property="jdwBrand" jdbcType="VARCHAR" />
+	    <result column="jdw_sn" property="jdwSn" jdbcType="VARCHAR" />
+	    <result column="jdw_handle_status" property="jdwHandleStatus" jdbcType="VARCHAR" />
+	    <result column="jdw_handle_result" property="jdwHandleResult" jdbcType="VARCHAR" />
+	    <result column="jdw_type" property="jdwType" jdbcType="INTEGER" />
+	    
+	    <result column="jdw_modification_time" property="jdwModificationTime" jdbcType="DATE" />
+	    <result column="jdw_time" property="jdwTime" jdbcType="DATE" />
+	    <result column="jdw_warning_time" property="jdwWarningTime" jdbcType="DATE" />
+	    
+	    <result column="dev_first_type" property="devFirstType" jdbcType="INTEGER" />
+    	<result column="dev_second_type" property="devSecondType" jdbcType="INTEGER" />
+		<result column="jdw_failure_cause" property="jdwFailureCause" jdbcType="VARCHAR" />
+		<result column="jdw_dev_id" property="jdwDevId" jdbcType="VARCHAR" />
+
+		<result column="countSum" property="countSum" jdbcType="VARCHAR" />
+
+	</resultMap>
+	
+	<!-- 获取预警表的数据 -->
+	<select id="selectToDayDetails" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDeviceWarning">
+		select * from jour_device_warning 
+		<where>
+			<if test="id != null and id != ''">
+				and id = #{id,jdbcType = INTEGER}
+			</if>
+			<if test="jdwBrand != null and jdwBrand != ''">
+				and jdw_brand = #{jdwBrand,jdbcType = VARCHAR}
+			</if>
+			<if test="jdwSn != null and jdwSn != ''">
+				and jdw_sn = #{jdwSn,jdbcType = VARCHAR}
+			</if>
+			<if test="jdwType != null and jdwType != ''">
+				and jdw_type = #{jdwType,jdbcType = INTEGER}
+			</if>
+			<if test="jdwHandleStatus != null and jdwHandleStatus != ''">
+				and jdw_handle_status = #{jdwHandleStatus,jdbcType = VARCHAR}
+			</if>
+			<if test="jdwHandleResult != null and jdwHandleResult != ''">
+				and jdw_handle_result = #{jdwHandleResult,jdbcType = VARCHAR}
+			</if>
+			<if test="jdwModificationTime != null and jdwModificationTime != ''">
+				and jdw_modification_time &gt; #{jdwModificationTime}
+			</if>
+			<if test="jdwTime != null and jdwTime != ''">
+				and jdw_time &gt; #{jdwTime}
+			</if>
+		</where>
+	</select>
+	
+	<insert id="insertDeviceWarning" parameterType="com.zz.po.journal.JourDeviceWarning">
+		insert into jour_device_warning
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="jdwBrand != null and jdwBrand != ''">
+				jdw_brand,
+			</if>
+			<if test="jdwSn != null and jdwSn != ''">
+				jdw_sn,
+			</if>
+			<if test="jdwHandleStatus != null and jdwHandleStatus != ''">
+				jdw_handle_status,
+			</if>
+			<if test="jdwHandleResult != null and jdwHandleResult != ''">
+				jdw_handle_result,
+			</if>
+			<if test="jdwType != null">
+				jdw_type,
+			</if>
+			<if test="jdwWarningTime != null and jdwWarningTime != ''">
+				jdw_warning_time,
+			</if>
+			<if test="jdwDevId != null and jdwDevId != ''">
+				jdw_dev_id,
+			</if>
+			<if test="jdwFailureCause != null and jdwFailureCause != ''">
+				jdw_failure_cause,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+  		<if test="jdwBrand != null and jdwBrand != ''">
+  			#{jdwBrand,jdbcType=VARCHAR},
+  		</if>
+  		<if test="jdwSn != null and jdwSn != ''">
+  			#{jdwSn,jdbcType=VARCHAR},
+  		</if>
+  		<if test="jdwHandleStatus != null and jdwHandleStatus != ''">
+  			#{jdwHandleStatus,jdbcType=VARCHAR},
+  		</if>
+  		<if test="jdwHandleResult != null and jdwHandleResult != ''">
+  			#{jdwHandleResult,jdbcType=VARCHAR},
+  		</if>
+  		<if test="jdwType != null">
+  			#{jdwType,jdbcType=INTEGER},
+  		</if>
+  		<if test="jdwWarningTime != null and jdwWarningTime != ''">
+  			#{jdwWarningTime,jdbcType=VARCHAR},
+  		</if>
+  		<if test="jdwDevId != null and jdwDevId != ''">
+  			#{jdwDevId,jdbcType=VARCHAR},
+  		</if>
+		<if test="jdwFailureCause != null and jdwFailureCause != ''">
+			#{jdwFailureCause,jdbcType=VARCHAR}
+		</if>
+  	</trim>
+	</insert>
+	
+	<select id="selectAlarmRecord" resultMap="JourDeviceResultMap" parameterType="com.zz.po.journal.JourDevice">
+		select a.* , bb.total_num from
+		(select hs.*,jd.dev_nickname,jdw.* 
+		from jour_device_warning jdw
+		left outer join jour_device jd on jdw.jdw_dev_id = jd.id
+		left outer join jour_hs_device jhd on jhd.jhd_device_id = jd.id
+		left outer join info_house_4store hs on hs.hs_id = jhd.jhd_hs_id
+		<where>
+		<!--
+			<if test="devId == null or devId == ''">
+				and (dev_id in (22,47) and dev_brand_id = 20 or dev_brand_id = 13)
+			</if>
+			 <if test="devId != null and devId != ''" >
+				<if test="devId == '22'">
+					and dev_id = #{devId,jdbcType=VARCHAR} and dev_brand_id = 20
+				</if>
+				<if test="devId == '47'">
+					and (dev_id = #{devId,jdbcType=VARCHAR} and dev_brand_id = 20 or dev_brand_id = 13)
+				</if>
+			</if> -->
+		<if test="devFirstType == null and devFirstType ==''">
+			and (dev_first_type in (9,14,21,16) and dev_brand_id = 20 or dev_brand_id = 13)
+		</if>
+		<if test="devSecondType == null and devSecondType ==''">
+			and (dev_second_type in (9,14,21,16) and dev_brand_id = 20 or dev_brand_id = 13)
+		</if>
+		<if test="devFirstType != null and devFirstType ==''">
+			and dev_first_type = #{devFirstType,jdbcType=INTEGER} and dev_brand_id = 20
+		</if>
+		<if test="devSecondType != null and devSecondType !=''">
+			and dev_second_type = #{devSecondType,jdbcType=INTEGER} and dev_brand_id = 20 or dev_brand_id = 13
+		</if>
+			<if test="hsAddCity != null and hsAddCity != ''" >
+				and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}
+			</if>
+			<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+				and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}
+			</if>
+			<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+				and hs_add_community like '%${hsAddCommunity}%'
+			</if>
+			<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+				and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')
+			</if>
+			<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+				and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+						or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')
+			</if>
+		</where>
+		)a,
+		(select count(jd.id) total_num 
+		from jour_device_warning jdw
+		left outer join jour_device jd on jdw.jdw_dev_id = jd.id
+		left outer join jour_hs_device jhd on jhd.jhd_device_id = jd.id
+		left outer join info_house_4store hs on hs.hs_id = jhd.jhd_hs_id
+		<where>
+			<!-- <if test="devId == null or devId == ''">
+				and (dev_id in (22,47) and dev_brand_id = 20 or dev_brand_id = 13)
+			</if>
+			<if test="devId != null and devId != ''" >
+				<if test="devId == '22'">
+					and dev_id = #{devId,jdbcType=VARCHAR} and dev_brand_id = 20
+				</if>
+				<if test="devId == '47'">
+					and (dev_id = #{devId,jdbcType=VARCHAR} and dev_brand_id = 20 or dev_brand_id = 13)
+				</if>
+			</if> -->
+		<if test="devFirstType == null and devFirstType ==''">
+			and (dev_first_type in (9,14,21,16) and dev_brand_id = 20 or dev_brand_id = 13)
+		</if>
+		<if test="devSecondType == null and devSecondType ==''">
+			and (dev_second_type in (9,14,21,16) and dev_brand_id = 20 or dev_brand_id = 13)
+		</if>
+		<if test="devFirstType != null and devFirstType ==''">
+			and dev_first_type = #{devFirstType,jdbcType=INTEGER} and dev_brand_id = 20
+		</if>
+		<if test="devSecondType != null and devSecondType !=''">
+			and dev_second_type = #{devSecondType,jdbcType=INTEGER} and dev_brand_id = 20 or dev_brand_id = 13
+		</if>
+			<if test="hsAddCity != null and hsAddCity != ''" >
+				and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}
+			</if>
+			<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+				and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}
+			</if>
+			<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+				and hs_add_community like '%${hsAddCommunity}%'
+			</if>
+			<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+				and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')
+			</if>
+			<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+				and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+						or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')
+			</if>
+		</where>
+		)bb
+		ORDER BY id DESC
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+
+	<select id="queryAlarmRecordCount" resultMap="JourDeviceResultMap" parameterType="com.zz.po.journal.JourDevice">
+		select a.* , bb.total_num ,COUNT(jdw_dev_id) as countSum from
+		(select jdw.*,jd.dev_nickname,hs.*
+		from jour_device_warning jdw
+		left outer join jour_device jd on jdw.jdw_dev_id = jd.id
+		left outer join jour_hs_device jhd on jhd.jhd_device_id = jdw.jdw_dev_id
+		left outer join info_house_4store hs on hs.hs_id = jhd.jhd_hs_id
+		where
+				date(jdw_warning_time)>=DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+				and (dev_first_type in (9,10,11,12,13,14,15,16,21,24))
+				and (dev_second_type in (9,10,11,12,13,14,15,16,21,3))
+
+		GROUP BY id)a,
+		(SELECT count(jd.id) total_num
+		from jour_device_warning jdw
+		left outer join jour_device jd on jdw.jdw_dev_id = jd.id
+		left outer join jour_hs_device jhd on jdw.jdw_dev_id=jhd.jhd_device_id
+		left outer join info_house_4store hs on  jhd.jhd_hs_id =hs.hs_id
+		where
+				date(jdw_warning_time)>=DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+				and (dev_first_type in (9,10,11,12,13,14,15,16,21,24))
+				and (dev_second_type in (9,10,11,12,13,14,15,16,21,3))
+		)bb
+		group by jdw_dev_id
+	</select>
+	
+	<!-- 获取云海烟感、水表和电易水表 -->
+	<select id="selectDevice" resultMap="JourDeviceResultMap" parameterType="com.zz.po.journal.JourDevice">
+		select a.* 
+		from (select hs.*,jd.dev_nickname,jdw.*
+		from jour_device_warning jdw 
+		left outer join jour_device jd on jdw.jdw_dev_id = jd.id 
+		left outer join jour_hs_device jhd on jhd.jhd_device_id = jd.id 
+		left outer join info_house_4store hs on hs.hs_id = jhd.jhd_hs_id 
+		WHERE (dev_first_type IN (9,10,11,12,13,14,15,16,21,24) AND dev_second_type IN (9,10,11,12,13,14,15,16,21,3) and dev_brand_id = 20 or dev_brand_id = 13) and jdw_handle_status = '未处理')a
+	</select>
+	
+	<select id="selectCountAlarmRecord" resultType="Integer" parameterType="com.zz.po.journal.JourDeviceWarning">
+		select count(*) from jour_device_warning
+		where jdw_time >= curdate() and jdw_sn = #{jdwSn,jdbcType = VARCHAR}
+	</select>
+	
+	<update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourDeviceWarning" >
+    update jour_device_warning
+    <set >
+      <if test="jdwDevId != null" >
+        jdw_dev_id = #{jdwDevId,jdbcType=INTEGER},
+      </if>
+      <if test="jdwBrand != null" >
+        jdw_brand = #{jdwBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="jdwSn != null" >
+        jdw_sn = #{jdwSn,jdbcType=VARCHAR},
+      </if>
+      <if test="jdwType != null" >
+        jdw_type = #{jdwType,jdbcType=INTEGER},
+      </if>
+      <if test="jdwHandleStatus != null" >
+        jdw_handle_status = #{jdwHandleStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jdwHandleResult != null" >
+        jdw_handle_result = #{jdwHandleResult,jdbcType=VARCHAR},
+      </if>
+      <if test="jdwWarningTime != null" >
+        jdw_warning_time = #{jdwWarningTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jdwModificationTime != null" >
+        jdw_modification_time = #{jdwModificationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jdwTime != null" >
+        jdw_time = #{jdwTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+	<select id="selectSingle" resultMap="BaseResultMap">
+		select * from jour_device_warning where id =#{id,jdbcType=INTEGER}
+	</select>
+    <select id="queryAlarmFrequency" resultMap="JourDeviceResultMap" parameterType="com.zz.po.journal.JourDevice">
+        SELECT *,COUNT(jhd.jhd_hs_id) total_num
+		from jour_device_warning jdw
+		left outer join jour_device jd on jdw.jdw_dev_id = jd.id
+		left outer join jour_hs_device jhd on jhd.jhd_device_id = jd.id
+		left outer join info_house_4store hs on hs.hs_id = jhd.jhd_hs_id
+		WHERE jdw_handle_status="未处理"
+		GROUP BY jd.id,hs.hs_id
+    </select>
+    <select id="equipmentCondition" resultMap="JourDeviceResultMap" parameterType="com.zz.po.journal.JourDevice">
+        select a.*
+    from (select jd.*
+    from jour_device jd
+    left outer join jour_hs_device jhd on jhd.jhd_device_id = jd.id
+    left outer join info_house_4store hs on hs.hs_id = jhd.jhd_hs_id
+    WHERE (dev_first_type IN (9,14,21,16) AND dev_second_type IN (9,14,21,16) and dev_brand_id = 20 or dev_brand_id = 13)
+    GROUP BY dev_sn )a
+
+    </select>
+	<select id="selectPolice" resultMap="JourDeviceResultMap" parameterType="com.zz.po.journal.JourDevice" >
+	SELECT a.*,b.* FROM (SELECT * ,COUNT(*) from jour_device
+	where dev_first_type = #{devFirstType,jdbcType=INTEGER}
+	GROUP BY id)a,(SELECT COUNT(*) AS count FROM jour_device
+	where dev_first_type = #{devFirstType,jdbcType=INTEGER})b
+  </select>
+</mapper>

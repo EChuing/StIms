@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourAttendanceinformationrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourAttendanceinformationrecord" >
+    <id column="jair_id" property="jairId" jdbcType="INTEGER" />
+    <result column="jair_user_id" property="jairUserId" jdbcType="INTEGER" />
+    <result column="jair_time" property="jairTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from jour_attendanceinformationrecord
+    where jair_id = #{jairId,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertJourAttendanceInformationRecord" parameterType="com.zz.po.journal.JourAttendanceinformationrecord" >
+    insert into jour_attendanceinformationrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jairId != null" >
+        jair_id,
+      </if>
+      <if test="jairUserId != null" >
+        jair_user_id,
+      </if>
+      <if test="jairTime != null" >
+        jair_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jairId != null" >
+        #{jairId,jdbcType=INTEGER},
+      </if>
+      <if test="jairUserId != null" >
+        #{jairUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jairTime != null" >
+        #{jairTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+</mapper>

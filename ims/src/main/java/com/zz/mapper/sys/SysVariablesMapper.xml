@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysVariablesMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.sys.SysVariables" >
+    <id column="variables_id" property="variablesId" jdbcType="INTEGER" />
+    <result column="contract_nums" property="contractNums" jdbcType="INTEGER" />
+    <result column="bill_num" property="billNum" jdbcType="INTEGER" />
+
+    <!--电话强写、跟进、最大次数-->
+    <result column="forced_followup_switch" property="forcedFollowupSwitch" jdbcType="INTEGER" />
+    <result column="forced_followup_values" property="forcedFollowupValues" jdbcType="INTEGER" />
+    <result column="su_followup_value" property="suFollowupValue" jdbcType="INTEGER" />
+    <result column="money_switch" property="moneySwitch" jdbcType="INTEGER" />
+    <result column="money_values" property="moneyValues" jdbcType="INTEGER" />
+
+    <result column="campus_message_switch" property="campusMessageSwitch" jdbcType="INTEGER" />
+
+    <result column="comfirm_num" property="comfirmNum" jdbcType="INTEGER" />
+    <result column="doorplateno" property="doorplateno" jdbcType="INTEGER" />
+
+    <result column="contract_risk_control" property="contractRiskControl" jdbcType="INTEGER" />
+    <result column="auto_send_message" property="autoSendMessage" jdbcType="INTEGER" />
+    <result column="auto_send_message_days" property="autoSendMessageDays" jdbcType="INTEGER" />
+
+    <result column="water_daily_variable" property="waterDailyVariable" jdbcType="INTEGER" />
+    <result column="water_continuity_variable" property="waterContinuityVariable" jdbcType="INTEGER" />
+    <result column="max_overdue" property="maxOverdue" jdbcType="INTEGER" />
+    <result column="max_overdue_days" property="maxOverdueDays" jdbcType="INTEGER" />
+    <result column="door_lock_authorization" property="doorLockAuthorization" jdbcType="INTEGER" />
+    <result column="authorized_fee" property="authorizedFee" jdbcType="INTEGER" />
+
+    <result column="intended_source" property="intendedSource" jdbcType="LONGVARCHAR" />
+    <result column="bank_type" property="bankType" jdbcType="LONGVARCHAR" />
+    <result column="task_type" property="taskType" jdbcType="LONGVARCHAR" />
+     <result column="user_type" property="userType" jdbcType="LONGVARCHAR" />
+    <result column="new_financial" property="newFinancial" jdbcType="LONGVARCHAR" />
+    <result column="event_approval_type" property="eventApprovalType" jdbcType="LONGVARCHAR" />
+    <result column="acount_type" property="acountType" jdbcType="LONGVARCHAR" />
+    <result column="gzh_ad" property="gzhAd" jdbcType="LONGVARCHAR" />
+    <result column="on_duty_repairer" property="onDutyRepairer" jdbcType="INTEGER" />
+    <result column="wxpay_account" property="wxpayAccount" jdbcType="INTEGER" />
+    <result column="short_rent_account" property="shortRentAccount" jdbcType="INTEGER" />
+    <result column="shop_account" property="shopAccount" jdbcType="INTEGER" />
+    <result column="shop_cash_account" property="shopCashAccount" jdbcType="INTEGER" />
+    <result column="img_path" property="imgPath" jdbcType="LONGVARCHAR" />
+    <result column="assets_type" property="assetsType" jdbcType="LONGVARCHAR" />
+    <result column="supplies_type" property="suppliesType" jdbcType="LONGVARCHAR" />
+    <result column="charge_percentage" property="chargePercentage" jdbcType="DOUBLE" />
+    <result column="charge_reminder" property="chargeReminder" jdbcType="LONGVARCHAR" />
+    <result column="default_contact" property="defaultContact" jdbcType="INTEGER" />
+    <result column="company_abbreviation" property="companyAbbreviation" jdbcType="VARCHAR" />
+    <result column="customer_service_tel" property="customerServiceTel" jdbcType="VARCHAR" />
+    <result column="contract_template_number" property="contractTemplateNumber" jdbcType="VARCHAR" />
+    <result column="wxgzh_img_path" property="wxgzhImgPath" jdbcType="VARCHAR" />
+    <result column="late_fee_rate" property="lateFeeRate" jdbcType="DOUBLE" />
+ 	<result column="charging_plan" property="chargingPlan" jdbcType="VARCHAR" />
+
+  	<result column="outside_customer_source" property="outsideCustomerSource" jdbcType="LONGVARCHAR" />
+  	<result column="outside_customer_type" property="outsideCustomerType" jdbcType="LONGVARCHAR" />
+  	<result column="outside_customer_scale" property="outsideCustomerScale" jdbcType="LONGVARCHAR" />
+  	<result column="outside_customer_contacts_post" property="outsideCustomerContactsPost" jdbcType="LONGVARCHAR" />
+  	<result column="meter_reading_switch" property="meterReadingSwitch" jdbcType="INTEGER" />
+  	<result column="meter_reading_times" property="meterReadingTimes" jdbcType="INTEGER" />
+
+
+  	<result column="time_on_and_off" property="timeOnAndOff" jdbcType="INTEGER" />
+  	<result column="time_scope" property="timeScope" jdbcType="VARCHAR" />
+  	<result column="door_card_system" property="doorCardSystem" jdbcType="INTEGER" />
+
+  </resultMap>
+
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.sys.SysVariables" >
+    select  *
+    from sys_company_var
+    where variables_id = #{variablesId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectDoorCardSystem" resultMap="BaseResultMap" parameterType="com.zz.po.sys.SysVariables">
+    select door_card_system doorCardSystem from sys_company_var
+    where variables_id =1
+  </select>
+
+
+
+
+
+
+
+
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.sys.SysVariables" >
+    update sys_company_var
+    <set >
+      <if test="chargingPlan != null and chargingPlan != ''" >
+        charging_plan = #{chargingPlan,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNums != null and contractNums != ''" >
+        contract_nums = #{contractNums,jdbcType=INTEGER},
+      </if>
+      <if test="billNum != null and billNum != ''" >
+        bill_num = #{billNum,jdbcType=INTEGER},
+      </if>
+      <if test="comfirmNum != null and comfirmNum != ''" >
+        comfirm_num = #{comfirmNum,jdbcType=INTEGER},
+      </if>
+      <if test="doorplateno != null and doorplateno != ''" >
+        doorplateno = #{doorplateno,jdbcType=INTEGER},
+      </if>
+      <if test="contractRiskControl != null and contractRiskControl != ''" >
+        contract_risk_control = #{contractRiskControl,jdbcType=INTEGER},
+      </if>
+      <if test="autoSendMessage != null and autoSendMessage !=''">
+      	auto_send_message = #{autoSendMessage,jdbcType =INTEGER},
+      </if>
+      <if test="autoSendMessageDays != null and autoSendMessageDays !=''">
+      	auto_send_message_days = #{autoSendMessageDays,jdbcType =INTEGER},
+      </if>
+      <if test="forcedFollowupSwitch != null and forcedFollowupSwitch != ''" >
+        forced_followup_switch = #{forcedFollowupSwitch,jdbcType=INTEGER},
+      </if>
+      <if test="forcedFollowupValues != null and forcedFollowupValues != ''" >
+            forced_followup_values = #{forcedFollowupValues,jdbcType=INTEGER},
+      </if>
+      <if test="campusMessageSwitch != null and campusMessageSwitch != ''" >
+        campus_message_switch = #{campusMessageSwitch,jdbcType=INTEGER},
+      </if>
+      <if test="maxOverdue != null and maxOverdue !=''">
+      	max_overdue = #{maxOverdue,jdbcType =INTEGER},
+      </if>
+      <if test="maxOverdueDays != null and maxOverdueDays !=''">
+      	max_overdue_days = #{maxOverdueDays,jdbcType =INTEGER},
+      </if>
+      <if test="doorLockAuthorization != null and doorLockAuthorization !=''">
+        door_lock_authorization = #{doorLockAuthorization,jdbcType =INTEGER},
+      </if>
+      <if test="authorizedFee != null and authorizedFee !=''">
+        authorized_fee = #{authorizedFee,jdbcType =INTEGER},
+      </if>
+      <if test="waterDailyVariable != null and waterDailyVariable !=''">
+      	water_daily_variable = #{waterDailyVariable,jdbcType =INTEGER},
+      </if>
+      <if test="waterContinuityVariable != null and waterContinuityVariable !=''">
+      	water_continuity_variable = #{waterContinuityVariable,jdbcType =INTEGER},
+      </if>
+      <if test="meterReadingTimes != null and meterReadingTimes !=''">
+      	meter_reading_times = #{meterReadingTimes,jdbcType =INTEGER},
+      </if>
+      <if test="meterReadingSwitch != null and meterReadingSwitch !=''">
+      	meter_reading_switch = #{meterReadingSwitch,jdbcType =INTEGER},
+      </if>
+      <if test="intendedSource != null and intendedSource != ''" >
+        intended_source = #{intendedSource,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bankType != null and bankType != ''" >
+        bank_type = #{bankType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="taskType != null and taskType != ''" >
+        task_type = #{taskType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="userType != null and userType != ''" >
+        user_type = #{userType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="outsideCustomerSource != null and outsideCustomerSource != ''" >
+        outside_customer_source = #{outsideCustomerSource,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="outsideCustomerType != null and outsideCustomerType != ''" >
+        outside_customer_type = #{outsideCustomerType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="outsideCustomerScale != null and outsideCustomerScale != ''" >
+        outside_customer_scale = #{outsideCustomerScale,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="outsideCustomerContactsPost != null and outsideCustomerContactsPost != ''" >
+        outside_customer_contacts_post = #{outsideCustomerContactsPost,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="newFinancial != null and newFinancial != ''" >
+        new_financial = #{newFinancial,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="eventApprovalType != null and eventApprovalType != ''" >
+        event_approval_type = #{eventApprovalType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="acountType != null and acountType != ''" >
+        acount_type = #{acountType,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="gzhAd != null and gzhAd != ''" >
+        gzh_ad = #{gzhAd},
+      </if>
+      <if test="onDutyRepairer != null" >
+        on_duty_repairer = #{onDutyRepairer},
+      </if>
+      <if test="wxpayAccount != null" >
+        wxpay_account = #{wxpayAccount},
+      </if>
+      <if test="shortRentAccount != null" >
+        short_rent_account = #{shortRentAccount},
+      </if>
+      <if test="shopAccount != null" >
+        shop_account = #{shopAccount},
+      </if>
+      <if test="shopCashAccount != null" >
+        shop_cash_account = #{shopCashAccount},
+      </if>
+      <if test="imgPath != null" >
+        img_path = #{imgPath},
+      </if>
+      <if test="assetsType != null" >
+        assets_type = #{assetsType},
+      </if>
+       <if test="chargePercentage != null" >
+        charge_percentage = #{chargePercentage},
+      </if>
+      <if test="chargeReminder != null" >
+        charge_reminder = #{chargeReminder},
+      </if>
+      <if test="defaultContact != null" >
+        default_contact = #{defaultContact},
+      </if>
+      <if test="suppliesType != null" >
+        supplies_type = #{suppliesType},
+      </if>
+       <if test="customerServiceTel != null" >
+         customer_service_tel = #{customerServiceTel},
+      </if>
+      <if test="companyAbbreviation != null" >
+         company_abbreviation = #{companyAbbreviation},
+      </if>
+      <if test="lateFeeRate != null" >
+        late_fee_rate = #{lateFeeRate},
+      </if>
+      
+      <if test="timeOnAndOff != null" >
+        time_on_and_off = #{timeOnAndOff},
+      </if>
+      <if test="timeScope != null" >
+        time_scope = #{timeScope},
+      </if>
+      <if test="doorCardSystem != null ">
+        door_card_system = #{doorCardSystem},
+      </if>
+
+
+      <if test="moneySwitch != null and moneySwitch != ''" >
+        money_switch = #{moneySwitch,jdbcType=INTEGER},
+      </if>
+      <if test="moneyValues != null and moneyValues != ''" >
+        money_values = #{moneyValues,jdbcType=INTEGER},
+      </if>
+
+
+    </set>
+    where variables_id = 1
+  </update>
+  
+  <update id="recoveryFirst" parameterType="com.zz.po.sys.SysVariables" >
+    update sys_company_var
+    <set >
+      <if test="contractNums != null" >
+        contract_nums = ( select a.contractNums from (select contract_nums contractNums from sys_company_var where variables_id = 2) a),
+      </if>
+
+      <if test="billNum != null" >
+        bill_num = ( select a.billNum from (select bill_num billNum from sys_company_var where variables_id = 2) a),
+      </if>
+
+      <if test="billNum != null" >
+        bill_num = ( select a.billNum from (select bill_num billNum from sys_company_var where variables_id = 2) a),
+      </if>
+
+      <if test="comfirmNum != null" >
+        comfirm_num = ( select a.comfirmNum from (select comfirm_num comfirmNum from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="doorplateno != null" >
+        doorplateno = ( select a.doorplateno from (select doorplateno doorplateno from sys_company_var where variables_id = 2) a),
+      </if>
+       <if test="contractRiskControl != null" >
+        contract_risk_control = ( select a.contractRiskControl from (select contract_risk_control contractRiskControl from sys_company_var where variables_id = 2) a),
+      </if>
+
+      <if test="autoSendMessage != null" >
+        auto_send_message = ( select a.autoSendMessage from (select auto_send_message autoSendMessage from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="autoSendMessageDays != null" >
+        auto_send_message_days = ( select a.autoSendMessageDays from (select auto_send_message_days autoSendMessageDays from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="forcedFollowupSwitch != null" >
+            forced_followup_switch = ( select a.forcedFollowupSwitch from (select forced_followup_switch forcedFollowupSwitch from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="forcedFollowupValues != null and forcedFollowupValues !=''">
+          forced_followup_values = ( select a.forcedFollowupValues from (select forced_followup_values forcedFollowupValues from sys_company_var where variables_id = 2) a),
+      </if>
+
+      <if test="campusMessageSwitch != null" >
+        campus_message_switch = ( select a.campusMessageSwitch from (select campus_message_switch campusMessageSwitch from sys_company_var where variables_id = 2)a),
+      </if>
+      <if test="waterDailyVariable != null" >
+        water_daily_variable = ( select a.waterDailyVariable from (select water_daily_variable waterDailyVariable from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="waterContinuityVariable != null" >
+        water_continuity_variable = ( select a.waterContinuityVariable from (select water_continuity_variable waterContinuityVariable from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="meterReadingTimes != null" >
+        meter_reading_times = ( select a.meterReadingTimes from (select meter_reading_times meterReadingTimes from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="meterReadingSwitch != null" >
+        meter_reading_switch = ( select a.meterReadingSwitch from (select meter_reading_switch meterReadingSwitch from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="maxOverdue != null" >
+        max_overdue = ( select a.maxOverdue from (select max_overdue maxOverdue from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="maxOverdueDays != null" >
+        max_overdue_days = ( select a.maxOverdueDays from (select max_overdue_days maxOverdueDays from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="intendedSource != null" >
+       	intended_source = ( select a.intendedSource from (select intended_source intendedSource from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="bankType != null" >
+         bank_type = ( select a.bankType from (select bank_type bankType from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="taskType != null">
+      	 task_type = ( select a.taskType from (select task_type taskType from sys_company_var where variables_id = 2) a),
+      </if> 
+       <if test="userType != null">
+      	 user_type = ( select a.userType from (select user_type userType from sys_company_var where variables_id = 2) a),
+      </if> 
+      <if test="newFinancial != null" >
+         new_financial = ( select a.newFinancial from (select new_financial newFinancial from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="eventApprovalType != null" >
+         event_approval_type = ( select a.eventApprovalType from (select event_approval_type eventApprovalType from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="acountType != null" >
+         acount_type = ( select a.acountType from (select acount_type acountType from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="gzhAd != null" >
+         gzh_ad = ( select a.gzhAd from (select gzh_ad gzhAd from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="onDutyRepairer != null" >
+         on_duty_repairer = ( select a.onDutyRepairer from (select on_duty_repairer onDutyRepairer from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="wxpayAccount != null" >
+         wxpay_account = ( select a.wxpayAccount from (select wxpay_account wxpayAccount from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="imgPath != null" >
+         img_path = ( select a.imgPath from (select img_path imgPath from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="assetsType != null" >
+         assets_type = ( select a.assetsType from (select assets_type assetsType from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="chargePercentage != null" >
+         charge_percentage = ( select a.chargePercentage from (select charge_percentage chargePercentage from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="chargeReminder != null" >
+         charge_reminder = ( select a.chargeReminder from (select charge_reminder chargeReminder from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="suppliesType != null" >
+         supplies_type = ( select a.suppliesType from (select supplies_type suppliesType from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="companyAbbreviation != null" >
+         company_abbreviation = ( select a.companyAbbreviation from (select company_abbreviation companyAbbreviation from sys_company_var where variables_id = 2) a),
+      </if>
+	  <if test="customerServiceTel != null" >
+         customer_service_tel = ( select a.customerServiceTel from (select customer_service_tel customerServiceTel from sys_company_var where variables_id = 2) a),
+      </if>
+	  <if test="lateFeeRate != null" >
+         late_fee_rate = ( select a.lateFeeRate from (select late_fee_rate lateFeeRate from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="timeScope != null" >
+         time_scope = ( select a.timeScope from (select time_scope timeScope from sys_company_var where variables_id = 2) a),
+         time_on_and_off = ( select a.timeOnAndOff from (select time_on_and_off timeOnAndOff from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="doorCardSystem != null ">
+        door_card_system = ( select a.doorCardSystem from (select door_card_system doorCardSystem from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="moneySwitch != null" >
+        money_switch = ( select a.moneySwitch from (select money_switch moneySwitch from sys_company_var where variables_id = 2) a),
+      </if>
+      <if test="moneyValues != null and moneyValues !=''">
+        money_values = ( select a.moneyValues from (select money_values moneyValues from sys_company_var where variables_id = 2) a),
+      </if>
+
+
+
+
+
+    </set>
+    where variables_id = 1
+  </update>
+
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourEwsFollowMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourEwsFollow" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="jour_id" property="jourId" jdbcType="INTEGER" />
+    <result column="jour_pro_time" property="jourProTime" jdbcType="DATE" />
+    <result column="jour_pro_user_name" property="jourProUserName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zz.po.journal.JourEwsFollow" extends="BaseResultMap" >
+    <result column="jour_pro_mark" property="jourProMark" jdbcType="LONGVARCHAR" />
+    <result property="totalNum" column="total_num" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, jour_id, jour_pro_time, jour_pro_user_name
+  </sql>
+  <sql id="Blob_Column_List" >
+    jour_pro_mark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.zz.po.journal.JourEwsFollow" >
+    select a.*,b.total_num from
+    (select
+    <include refid="Base_Column_List"/>
+    ,
+    <include refid="Blob_Column_List"/>
+    from jour_ews_follow
+    where jour_id = #{jourId,jdbcType=INTEGER}
+    )a,
+    (select count(*) total_num
+    from jour_ews_follow
+    where jour_id = #{jourId,jdbcType=INTEGER}
+    )b
+    order by id desc
+    <if test="startNum!=''and startNum !=null">
+      limit ${startNum}
+      <if test="endNum!=''and endNum !=null">
+        ,${endNum}
+      </if>
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_ews_follow
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourEwsFollow" >
+    insert into jour_ews_follow
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jourId != null" >
+        jour_id,
+      </if>
+      <if test="jourProTime != null" >
+        jour_pro_time,
+      </if>
+      <if test="jourProUserName != null" >
+        jour_pro_user_name,
+      </if>
+      <if test="jourProMark != null" >
+        jour_pro_mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jourId != null" >
+        #{jourId,jdbcType=INTEGER},
+      </if>
+      <if test="jourProTime != null" >
+        #{jourProTime,jdbcType=DATE},
+      </if>
+      <if test="jourProUserName != null" >
+        #{jourProUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="jourProMark != null" >
+        #{jourProMark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourEwsFollow" >
+    update jour_ews_follow
+    <set >
+      <if test="jourId != null" >
+        jour_id = #{jourId,jdbcType=INTEGER},
+      </if>
+      <if test="jourProTime != null" >
+        jour_pro_time = #{jourProTime,jdbcType=DATE},
+      </if>
+      <if test="jourProUserName != null" >
+        jour_pro_user_name = #{jourProUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="jourProMark != null" >
+        jour_pro_mark = #{jourProMark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

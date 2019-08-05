@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.stat.StatFinancialDailyDataMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.stat.StatFinancialDailyData" >
+    <id column="fdd_id" property="fddId" jdbcType="INTEGER" />
+    <result column="fdd_date" property="fddDate" jdbcType="DATE" />
+    <result column="fdd_income" property="fddIncome" jdbcType="DOUBLE" />
+    <result column="fdd_expenditure" property="fddExpenditure" jdbcType="DOUBLE" />
+    <result column="fdd_difference" property="fddDifference" jdbcType="DOUBLE" />
+    <result column="fdd_detail" property="fddDetail" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.stat.StatFinancialDailyData" >
+    select a.*, b.total_num from 
+  	(select * from stat_financial_daily_data
+  	<where>
+  		<if test="startTime != null and startTime != ''" >
+  			and fdd_date &gt;= #{startTime}
+  		</if>
+  		<if test="endTime != null and endTime != ''" >
+  			and fdd_date &lt;= #{endTime}
+  		</if>
+  	</where>
+  	) a,
+  	(select count(fdd_id) total_num from stat_financial_daily_data
+  	<where>
+  		<if test="startTime != null and startTime != ''" >
+  			and fdd_date &gt;= #{startTime}
+  		</if>
+  		<if test="endTime != null and endTime != ''" >
+  			and fdd_date &lt;= #{endTime}
+  		</if>
+  	</where>
+  	) b
+  	order by fdd_id desc
+  	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+</mapper>

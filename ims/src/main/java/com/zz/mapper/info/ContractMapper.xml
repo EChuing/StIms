@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.ContractMapper" >
+	<!-- 租客合约表 -->
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoRenewalRenterExpand">
+  	<id column="jrr_id" property="jrrId" jdbcType="INTEGER" />
+    <result column="jrr_renewal_coding" property="jrrRenewalCoding" jdbcType="VARCHAR" />
+    <result column="jrr_house_4rent_id" property="jrrHouse4rentId" jdbcType="INTEGER" />
+    <result column="jrr_renter_id" property="jrrRenterId" jdbcType="INTEGER" />
+    <result column="jrr_house_4store_id" property="jrrHouse4storeId" jdbcType="INTEGER" />
+    <result column="jrr_landlord_id" property="jrrLandlordId" jdbcType="INTEGER" />
+    <result column="jrr_user_id" property="jrrUserId" jdbcType="INTEGER" />
+    <result column="jrr_department" property="jrrDepartment" jdbcType="INTEGER" />
+    <result column="jrr_storefront" property="jrrStorefront" jdbcType="INTEGER" />
+    <result column="jrr_contract_type" property="jrrContractType" jdbcType="VARCHAR" />
+    <result column="jrr_rental_type" property="jrrRentalType" jdbcType="VARCHAR" />
+    <result column="jrr_begin_time" property="jrrBeginTime" jdbcType="DATE" />
+    <result column="jrr_end_time" property="jrrEndTime" jdbcType="DATE" />
+    <result column="jrr_signed_time" property="jrrSignedTime" jdbcType="DATE" />
+    <result column="jrr_registration_time" property="jrrRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="jrr_money" property="jrrMoney" jdbcType="DOUBLE" />
+    <result column="jrr_the_term" property="jrrTheTerm" jdbcType="VARCHAR" />
+    <result column="jrr_the_contract" property="jrrTheContract" jdbcType="VARCHAR" />
+    <result column="jrr_in_advance_pay" property="jrrInAdvancePay" jdbcType="INTEGER" />
+    <result column="jrr_payment_method" property="jrrPaymentMethod" jdbcType="VARCHAR" />
+    <result column="jrr_payment_voucher" property="jrrPaymentVoucher" jdbcType="VARCHAR" />
+    <result column="jrr_remark" property="jrrRemark" jdbcType="VARCHAR" />
+    <result column="jrr_img_path" property="jrrImgPath" jdbcType="LONGVARCHAR" />
+    <result column="jrr_img_num" property="jrrImgNum" jdbcType="VARCHAR" />
+    <result column="jrr_electronic_contract_no" property="jrrElectronicContractNo" jdbcType="VARCHAR" />
+    <result column="jrr_type_of_contract" property="jrrTypeOfContract" jdbcType="INTEGER" />
+    
+    <result column="jrr_manage_cost" property="jrrManageCost" jdbcType="DOUBLE" />
+    <result column="jrr_manage_payment" property="jrrManagePayment" jdbcType="VARCHAR" />
+    <result column="jrr_server_cost" property="jrrServerCost" jdbcType="DOUBLE" />
+    <result column="jrr_server_payment" property="jrrServerPayment" jdbcType="VARCHAR" />
+    <result column="advanceMode" property="advanceMode" jdbcType="INTEGER" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <!-- 租客姓名 -->
+    <result column="renter_population_id" property="renterPopulationId" jdbcType="INTEGER" />
+    <result column="renter_id" property="renterId" jdbcType="INTEGER" />
+    <result column="pop_id" property="popId" jdbcType="INTEGER" />
+    <result column="pop_name" property="popName" jdbcType="VARCHAR" />
+    <!-- 房屋地址 -->
+    <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+ 
+  </resultMap>
+  
+  <!-- 业主合约表 -->
+	<resultMap id="OwnerBaseResultMap" type="com.zz.po.info.InfoRenewalLandlord">
+  	<id column="jrl_id" property="jrlId" jdbcType="INTEGER" />
+    <result column="jrl_renewal_coding" property="jrlRenewalCoding" jdbcType="VARCHAR" />
+    <result column="jrl_house_4store_id" property="jrlHouse4storeId" jdbcType="INTEGER" />
+    <result column="jrl_landlord_id" property="jrlLandlordId" jdbcType="INTEGER" />
+    <result column="jrl_user_id" property="jrlUserId" jdbcType="INTEGER" />
+    <result column="jrl_department" property="jrlDepartment" jdbcType="INTEGER" />
+    <result column="jrl_storefront" property="jrlStorefront" jdbcType="INTEGER" />
+    <result column="jrl_registration_time" property="jrlRegistrationTime" jdbcType="VARCHAR" />
+    <result column="jrl_contract_type" property="jrlContractType" jdbcType="VARCHAR" />
+    <result column="jrl_rental_type" property="jrlRentalType" jdbcType="VARCHAR" />
+    <result column="jrl_begin_time" property="jrlBeginTime" jdbcType="DATE" />
+    <result column="jrl_end_time" property="jrlEndTime" jdbcType="DATE" />
+    <result column="jrl_signed_time" property="jrlSignedTime" jdbcType="DATE" />
+    <result column="jrl_the_term" property="jrlTheTerm" jdbcType="VARCHAR" />
+    <result column="jrl_in_advance_pay" property="jrlInAdvancePay" jdbcType="INTEGER" />
+    <result column="jrl_img_path" property="jrlImgPath" jdbcType="VARCHAR" />
+    <result column="jrl_img_num" property="jrlImgNum" jdbcType="VARCHAR" />
+    <result column="jrl_price_ladder" property="jrlPriceLadder" jdbcType="VARCHAR" />
+    <result column="jrl_rent_free_days" property="jrlRentFreeDays" jdbcType="INTEGER" />
+    <result column="jrl_rent_free_segment" property="jrlRentFreeSegment" jdbcType="VARCHAR" />
+    <result column="jrl_payment_method" property="jrlPaymentMethod" jdbcType="VARCHAR" />
+    <result column="jrl_remark" property="jrlRemark" jdbcType="VARCHAR" />
+    <result column="jrl_update_time" property="jrlUpdateTime" jdbcType="VARCHAR" />
+    <result column="jrl_free_days_decoration" property="jrlFreeDaysDecoration" jdbcType="INTEGER" />
+    <result column="jrl_free_days_header" property="jrlFreeDaysHeader" jdbcType="INTEGER" />
+    <result column="jrl_free_days_footer" property="jrlFreeDaysFooter" jdbcType="INTEGER" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+ 
+    <!-- 租客姓名 -->
+    
+    <result column="la_population_id" property="laPopulationId" jdbcType="INTEGER" />
+    <result column="la_id" property="laId" jdbcType="INTEGER" />
+    <result column="pop_id" property="popId" jdbcType="INTEGER" />
+    <result column="pop_name" property="popName" jdbcType="VARCHAR" />
+    <!-- 房屋地址 -->
+    <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+ 
+  </resultMap>
+  <!-- 查询所有租客合约信息,有条件则条件查询 1为纸质合同 2为电子签约-->
+	<select id="selectTenant" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenewalRenterExpand">
+		select a.*,bb.total_num from 
+		(select ren.* , ihs.hs_add_community ,ihs.hs_add_building ,ihs.hs_add_doorplateno,ipt.pop_name from info_renter_contract ren 
+			left outer join info_house_4store ihs on ihs.hs_id=ren.jrr_house_4store_id
+			left outer join info_renter ir on ir.renter_id = ren.jrr_renter_id
+			left outer join info_pop_tmp ipt on ir.renter_population_id=ipt.pop_id
+		<where>
+			<if test="jrrTypeOfContract !='' and jrrTypeOfContract !=null">
+				and jrr_type_of_contract=#{jrrTypeOfContract,jdbcType=INTEGER}
+			</if>
+			<if test="jrrId !='' and jrrId !=null">
+				and jrr_id=#{jrrId,jdbcType=INTEGER}
+			</if>
+		</where>
+		)a,
+		(select count(ren.jrr_id) total_num from info_renter_contract ren
+			left outer join info_house_4store ihs on ihs.hs_id=ren.jrr_house_4store_id
+			left outer join info_renter ir on ir.renter_id = ren.jrr_renter_id
+			left outer join info_pop_tmp ipt on ir.renter_population_id=ipt.pop_id
+		<where>
+			<if test="jrrTypeOfContract !='' and jrrTypeOfContract !=null">
+				and jrr_type_of_contract=#{jrrTypeOfContract,jdbcType=INTEGER}
+			</if>
+			<if test="jrrId !='' and jrrId !=null">
+				and jrr_id=#{jrrId,jdbcType=INTEGER}
+			</if>
+		</where>
+		)bb
+		<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+			<if test="theSortTerm ==1 ">
+			 	ORDER BY jrr_registration_time
+	 		</if>
+	 		<if test="theSortTerm ==2 ">
+		 		ORDER BY jrr_signed_time 
+	 		</if>
+	 		<if test="theSortContrary ==1 ">
+	 			ASC
+	 		</if>
+	 		<if test="theSortContrary ==2 ">
+	 			DESC
+	 		</if>
+	 	</if>
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+	
+	<!-- 查询所有业主合约信息-->
+	<select id="selectOwner" resultMap="OwnerBaseResultMap" parameterType="com.zz.po.info.InfoRenewalLandlord">
+		select a.*,bb.total_num from 
+		(select lan.* ,ihs.hs_add_community ,ihs.hs_add_building ,ihs.hs_add_doorplateno,ipt.pop_name from info_landlord_contract lan
+			left outer join info_house_4store ihs on ihs.hs_id=lan.jrl_house_4store_id
+			left outer join info_landlord il on il.la_id = lan.jrl_landlord_id
+			left outer join info_pop_tmp ipt on il.la_population_id=ipt.pop_id
+		<where>
+			<if test="jrlId !='' and jrlId !=null">
+				and jrl_id=#{jrlId,jdbcType=INTEGER}
+			</if>
+		</where>
+		)a,
+		(select count(lan.jrl_id) total_num from info_landlord_contract lan
+			left outer join info_house_4store ihs on ihs.hs_id=lan.jrl_house_4store_id
+			left outer join info_landlord il on il.la_id = lan.jrl_landlord_id
+			left outer join info_pop_tmp ipt on il.la_population_id=ipt.pop_id
+		)bb
+		 <if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+			<if test="theSortTerm ==1 ">
+			 	ORDER BY jrl_registration_time
+	 		</if>
+	 		<if test="theSortTerm ==2 ">
+		 		ORDER BY jrl_signed_time 
+	 		</if>
+	 		<if test="theSortContrary ==1 ">
+	 			ASC
+	 		</if>
+	 		<if test="theSortContrary ==2 ">
+	 			DESC
+	 		</if>
+	 	</if>
+	 	<if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+		 	ORDER BY jrl_id DESC
+		</if>
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+</mapper>

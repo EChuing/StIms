@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalDailyCardNumberMapper" >
+    <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalDailyCardNumber" >
+        <id column="jdcn_id" property="jdcnId" jdbcType="INTEGER" />
+        <result column="jdcn_house_4store_id" property="jdcnHouse4storeId" jdbcType="INTEGER" />
+        <result column="jdcn_card_number" property="jdcnCardNumber" jdbcType="VARCHAR" />
+        <result column="jdcn_card_name" property="jdcnCardName" jdbcType="VARCHAR" />
+        <result column="jdcn_belonging_to_people" property="jdcnBelongingToPeople" jdbcType="VARCHAR" />
+        <result column="jdcn_id_card" property="jdcnIdCard" jdbcType="VARCHAR" />
+        <result column="jdcn_telephone" property="jdcnTelephone" jdbcType="VARCHAR" />
+        <result column="jdcn_bank_card" property="jdcnBankCard" jdbcType="VARCHAR" />
+        <result column="jdcn_bank_name" property="jdcnBankName" jdbcType="VARCHAR" />
+        <result column="jdcn_remarks" property="jdcnRemarks" jdbcType="VARCHAR" />
+        <result column="jdcn_record_time" property="jdcnRecordTime" jdbcType="TIMESTAMP" />
+        <result column="jdcn_meter_number" property="jdcnMeterNumber" jdbcType="VARCHAR" />
+
+        <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+        <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+        <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+        <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+        <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+        <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+        <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+        <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+
+        <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+    jdcn_id, jdcn_house_4store_id, jdcn_card_number, jdcn_card_name, jdcn_belonging_to_people,
+    jdcn_id_card, jdcn_telephone, jdcn_bank_card, jdcn_bank_name, jdcn_remarks, jdcn_record_time, jdcn_meter_number
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select a.*, b.totalNum from
+        (select jdcn.*, hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, hs.hs_add_community, hs.hs_add_building,
+        hs.hs_add_doorplateno
+        from info_living_cardnum jdcn
+        left outer join info_house_4store hs on jdcn.jdcn_house_4store_id = hs.hs_id
+        <where>
+            <if test="jdcnHouse4storeId != null and jdcnHouse4storeId != '' ">
+                and jdcn_house_4store_id = #{jdcnHouse4storeId}
+            </if>
+            <if test="jdcnCardNumber != null and jdcnCardNumber != '' ">
+                and jdcn_card_number = #{jdcnCardNumber}
+            </if>
+            <if test="jdcnBelongingToPeople != null and jdcnBelongingToPeople != '' ">
+                and jdcn_belonging_to_people = #{jdcnBelongingToPeople}
+            </if>
+            <if test="jdcnIdCard != null and jdcnIdCard != '' ">
+                and jdcn_id_card = #{jdcnIdCard}
+            </if>
+            <if test="jdcnTelephone != null and jdcnTelephone != '' ">
+                and jdcn_telephone = #{jdcnTelephone}
+            </if>
+            <if test="jdcnCardName != null and jdcnCardName != '' ">
+                and jdcn_card_name = #{jdcnCardName}
+            </if>
+            <if test="addDistrict != null and addDistrict != '' ">
+                and hs_add_district like '%${addDistrict}%'
+            </if>
+            <if test="addCommunity != null and addCommunity != '' ">
+                and hs_add_community like '%${addCommunity}%'
+            </if>
+            <if test="addBuilding != null and addBuilding != '' ">
+                and (hs.hs_add_building like '${addBuilding}%' or hs.hs_add_building like '0${addBuilding}%')
+            </if>
+            <if test="addDoorplateno != null and addDoorplateno != '' ">
+                and (hs.hs_add_doorplateno like '${addDoorplateno}%' or hs.hs_add_doorplateno like '0${addDoorplateno}%')
+            </if>
+        </where>
+        ) a,
+        (select count(jdcn.jdcn_id) totalNum
+        from info_living_cardnum jdcn
+        left outer join info_house_4store hs on jdcn.jdcn_house_4store_id = hs.hs_id
+        <where>
+            <if test="jdcnHouse4storeId != null and jdcnHouse4storeId != '' ">
+                and jdcn_house_4store_id = #{jdcnHouse4storeId}
+            </if>
+            <if test="jdcnCardNumber != null and jdcnCardNumber != '' ">
+                and jdcn.jdcn_card_number = #{jdcnCardNumber}
+            </if>
+            <if test="jdcnBelongingToPeople != null and jdcnBelongingToPeople != '' ">
+                and jdcn.jdcn_belonging_to_people = #{jdcnBelongingToPeople}
+            </if>
+            <if test="jdcnIdCard != null and jdcnIdCard != '' ">
+                and jdcn.jdcn_id_card = #{jdcnIdCard}
+            </if>
+            <if test="jdcnTelephone != null and jdcnTelephone != '' ">
+                and jdcn.jdcn_telephone = #{jdcnTelephone}
+            </if>
+            <if test="jdcnCardName != null and jdcnCardName != '' ">
+                and jdcn.jdcn_card_name = #{jdcnCardName}
+            </if>
+            <if test="addDistrict != null and addDistrict != '' ">
+                and hs.hs_add_district like '%${addDistrict}%'
+            </if>
+            <if test="addCommunity != null and addCommunity != '' ">
+                and hs.hs_add_community like '%${addCommunity}%'
+            </if>
+            <if test="addBuilding != null and addBuilding != '' ">
+                and (hs.hs_add_building like '${addBuilding}%' or hs.hs_add_building like '0${addBuilding}%')
+            </if>
+            <if test="addDoorplateno != null and addDoorplateno != '' ">
+                and (hs.hs_add_doorplateno like '${addDoorplateno}%' or hs.hs_add_doorplateno like '0${addDoorplateno}%')
+            </if>
+        </where>
+        ) b
+        ORDER BY jdcn_id DESC
+        <if test="startNum != '' and startNum != null">
+            limit ${startNum}
+            <if test="endNum != '' and endNum != null">
+                ,${endNum}
+            </if>
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_living_cardnum
+    where jdcn_id = #{jdcnId,jdbcType=INTEGER}
+  </delete>
+
+    <insert id="insertSelective" parameterType="com.zz.po.journal.JournalDailyCardNumber" >
+        insert into info_living_cardnum
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="jdcnId != null" >
+                jdcn_id,
+            </if>
+            <if test="jdcnHouse4storeId != null" >
+                jdcn_house_4store_id,
+            </if>
+            <if test="jdcnCardNumber != null" >
+                jdcn_card_number,
+            </if>
+            <if test="jdcnCardName != null" >
+                jdcn_card_name,
+            </if>
+            <if test="jdcnBelongingToPeople != null" >
+                jdcn_belonging_to_people,
+            </if>
+            <if test="jdcnIdCard != null" >
+                jdcn_id_card,
+            </if>
+            <if test="jdcnTelephone != null" >
+                jdcn_telephone,
+            </if>
+            <if test="jdcnBankCard != null" >
+                jdcn_bank_card,
+            </if>
+            <if test="jdcnBankName != null" >
+                jdcn_bank_name,
+            </if>
+            <if test="jdcnRemarks != null" >
+                jdcn_remarks,
+            </if>
+            <if test="jdcnRecordTime != null" >
+                jdcn_record_time,
+            </if>
+            <if test="jdcnMeterNumber != null" >
+                jdcn_meter_number,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="jdcnId != null" >
+                #{jdcnId,jdbcType=INTEGER},
+            </if>
+            <if test="jdcnHouse4storeId != null" >
+                #{jdcnHouse4storeId,jdbcType=INTEGER},
+            </if>
+            <if test="jdcnCardNumber != null" >
+                #{jdcnCardNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnCardName != null" >
+                #{jdcnCardName,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnBelongingToPeople != null" >
+                #{jdcnBelongingToPeople,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnIdCard != null" >
+                #{jdcnIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnTelephone != null" >
+                #{jdcnTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnBankCard != null" >
+                #{jdcnBankCard,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnBankName != null" >
+                #{jdcnBankName,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnRemarks != null" >
+                #{jdcnRemarks,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnRecordTime != null" >
+                #{jdcnRecordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="jdcnMeterNumber != null" >
+                #{jdcnMeterNumber,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalDailyCardNumber" >
+        update info_living_cardnum
+        <set >
+            <if test="jdcnHouse4storeId != null" >
+                jdcn_house_4store_id = #{jdcnHouse4storeId,jdbcType=INTEGER},
+            </if>
+            <if test="jdcnCardNumber != null" >
+                jdcn_card_number = #{jdcnCardNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnCardName != null" >
+                jdcn_card_name = #{jdcnCardName,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnBelongingToPeople != null" >
+                jdcn_belonging_to_people = #{jdcnBelongingToPeople,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnIdCard != null" >
+                jdcn_id_card = #{jdcnIdCard,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnTelephone != null" >
+                jdcn_telephone = #{jdcnTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnBankCard != null" >
+                jdcn_bank_card = #{jdcnBankCard,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnBankName != null" >
+                jdcn_bank_name = #{jdcnBankName,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnRemarks != null" >
+                jdcn_remarks = #{jdcnRemarks,jdbcType=VARCHAR},
+            </if>
+            <if test="jdcnRecordTime != null" >
+                jdcn_record_time = #{jdcnRecordTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="jdcnMeterNumber != null" >
+                jdcn_meter_number = #{jdcnMeterNumber,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where jdcn_id = #{jdcnId,jdbcType=INTEGER}
+    </update>
+</mapper>

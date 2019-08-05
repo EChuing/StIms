@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 已优化 -->
+<mapper namespace="com.zz.mapper.info.InfoIntendedPersonMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoIntendedPerson" >
+    <id column="ip_id" property="ipId" jdbcType="INTEGER" />
+    <result column="ip_user_id" property="ipUserId" jdbcType="INTEGER" />
+    <result column="ip_department_id" property="ipDepartmentId" jdbcType="INTEGER" />
+    <result column="ip_storefront_id" property="ipStorefrontId" jdbcType="INTEGER" />
+    <result column="ip_from" property="ipFrom" jdbcType="VARCHAR" />
+    <result column="ip_in_nature" property="ipInNature" jdbcType="VARCHAR" />
+    <result column="ip_door_model" property="ipDoorModel" jdbcType="VARCHAR" />
+    <result column="ip_area" property="ipArea" jdbcType="VARCHAR" />
+    <result column="ip_location" property="ipLocation" jdbcType="VARCHAR" />
+    <result column="ip_decorate_configuration" property="ipDecorateConfiguration" jdbcType="VARCHAR" />
+    <result column="ip_other" property="ipOther" jdbcType="VARCHAR" />
+    <result column="ip_date" property="ipDate" jdbcType="DATE" />
+    <result column="ip_note" property="ipNote" jdbcType="LONGVARCHAR" />
+    <result column="ip_note_date" property="ipNoteDate" jdbcType="VARCHAR" />
+    <result column="ip_state" property="ipState" jdbcType="VARCHAR" />
+    
+    <result column="ip_name" property="ipName" jdbcType="VARCHAR" />
+    <result column="ip_tel" property="ipTel" jdbcType="VARCHAR" />
+    
+    <result column="popName" property="popName" jdbcType="VARCHAR" />
+    <result column="popTelephone" property="popTelephone" jdbcType="VARCHAR" />
+    <result column="popIdcard" property="popIdcard" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="ip_population_id" property="ipPopulationId" jdbcType="INTEGER" />
+    <!-- 时间 -->
+    <result column= "startTime"  property= "startTime"  jdbcType="VARCHAR" />
+    <result column= "endTime"  property= "endTime"  jdbcType="VARCHAR" />
+    
+    <result column= "ip_furniture_config"  property= "ipFurnitureConfig"  jdbcType="VARCHAR" />
+    <result column= "ip_floor_demand"  property= "ipFloorDemand"  jdbcType="VARCHAR" />
+    <result column= "ip_price_range"  property= "ipPriceRange"  jdbcType="VARCHAR" />
+    <result column= "ip_goto_josn"  property= "ipGotoJosn"  jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ip_id, ip_user_id, ip_department_id, ip_storefront_id, ip_from, ip_in_nature, 
+    ip_door_model, ip_area, ip_location, ip_decorate_configuration, ip_other, ip_date,ip_goto_josn,
+    ip_note,ip_state, ip_name, ip_tel,ip_population_id,ip_furniture_config,ip_floor_demand,ip_price_range
+  </sql>
+  
+  <!-- 转移查询 -->
+  <select id="getipUserId" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoIntendedPerson" >
+  	select * from info_intended_renter
+  	where ip_user_id = #{ipUserId}
+  </select>
+  
+  <!-- 数据导入查询 -->
+  <select id="dataImportQuery" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	select * from info_intended_renter
+  	where ip_population_id = #{ipPopulationId}
+  </select>
+  
+  <!-- 查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoIntendedPerson" >
+  	select a.*, b.totalNum from
+	(select ip.*, u.su_staff_name username 
+	from info_intended_renter ip 
+	left outer join sys_users u on u.user_coding = ip.ip_user_id
+	<where>
+    	<if test="ipId != null and ipId != '' ">
+    		and ip_id = #{ipId,jdbcType=INTEGER}
+    	</if>
+    	<if test="ipUserId != null and ipUserId != '' ">
+    		and ip_user_id = #{ipUserId,jdbcType=INTEGER}
+    	</if>
+    	<if test="ipDepartmentId != null and ipDepartmentId != '' ">
+    		and ip_department_id = #{ipDepartmentId,jdbcType=INTEGER}
+    	</if>
+    	<if test="ipStorefrontId != null and ipStorefrontId != '' ">
+    		and ip_storefront_id = #{ipStorefrontId,jdbcType=INTEGER}
+    	</if>
+    	<if test="ipName != null and ipName != '' ">
+    		and ip_name like '%${ipName}%'
+    	</if>
+    	<if test="ipFrom != null and ipFrom != '' ">
+    		and ip_from = #{ipFrom,jdbcType=VARCHAR}
+    	</if>
+    	<if test="ipInNature != null and ipInNature != '' ">
+    		and ip_in_nature = #{ipInNature,jdbcType=VARCHAR}
+    	</if>
+    	<if test="ipTel != null and ipTel != '' ">
+    		and ip_tel like '%${ipTel}%'
+    	</if>
+    	<if test="ipState != null and ipState != '' ">
+   			and ip_state = #{ipState}
+   		</if>
+   		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+	 		and (ip_date between #{startTime} and #{endTime})
+	 	</if>
+   	</where>
+	) a,
+	(select count(ip_id) totalNum from info_intended_renter ip 
+	left outer join info_pop_tmp pop on pop.pop_id = ip.ip_population_id
+	left outer join sys_users u on u.user_coding = ip.ip_user_id
+	<where>
+        <if test="ipId != null and ipId != '' ">
+            and ip_id = #{ipId,jdbcType=INTEGER}
+        </if>
+        <if test="ipUserId != null and ipUserId != '' ">
+            and ip_user_id = #{ipUserId,jdbcType=INTEGER}
+        </if>
+        <if test="ipDepartmentId != null and ipDepartmentId != '' ">
+            and ip_department_id = #{ipDepartmentId,jdbcType=INTEGER}
+        </if>
+        <if test="ipStorefrontId != null and ipStorefrontId != '' ">
+            and ip_storefront_id = #{ipStorefrontId,jdbcType=INTEGER}
+        </if>
+        <if test="ipName != null and ipName != '' ">
+            and ip_name like '%${ipName}%'
+        </if>
+        <if test="ipFrom != null and ipFrom != '' ">
+            and ip_from = #{ipFrom,jdbcType=VARCHAR}
+        </if>
+        <if test="ipInNature != null and ipInNature != '' ">
+            and ip_in_nature = #{ipInNature,jdbcType=VARCHAR}
+        </if>
+        <if test="ipTel != null and ipTel != '' ">
+            and ip_tel like '%${ipTel}%'
+        </if>
+        <if test="ipState != null and ipState != '' ">
+            and ip_state = #{ipState}
+        </if>
+        <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+            and (ip_date between #{startTime} and #{endTime})
+        </if>
+    </where>
+	) b
+    ORDER BY ip_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_intended_renter
+    where ip_id = #{ipId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 新增 -->
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoIntendedPerson" 
+  	useGeneratedKeys="true" keyProperty="ipId">
+    insert into info_intended_renter
+    <trim prefix="(" suffix=")" suffixOverrides="," >  
+      <if test="ipUserId != null" >
+        ip_user_id,
+      </if>
+      <if test="ipDepartmentId != null" >
+        ip_department_id,
+      </if>
+      <if test="ipStorefrontId != null" >
+        ip_storefront_id,
+      </if>
+      <if test="ipFrom != null" >
+        ip_from,
+      </if>
+      <if test="ipInNature != null" >
+        ip_in_nature,
+      </if>
+      <if test="ipDoorModel != null" >
+        ip_door_model,
+      </if>
+      <if test="ipArea != null" >
+        ip_area,
+      </if>
+      <if test="ipLocation != null" >
+        ip_location,
+      </if>
+      <if test="ipDecorateConfiguration != null" >
+        ip_decorate_configuration,
+      </if>
+      <if test="ipOther != null" >
+        ip_other,
+      </if>
+      <if test="ipNote != null" >
+        ip_note,
+      </if>
+      <if test="ipDate != null" >
+        ip_date,
+      </if>  
+      <if test="ipState != null" >
+        ip_state,
+      </if>
+      <if test="ipName != null" >
+        ip_name,
+      </if>
+      <if test="ipTel != null" >
+        ip_tel,
+      </if>
+      <if test="ipPopulationId != null" >
+        ip_population_id,
+      </if>
+      
+      <if test="ipFurnitureConfig != null" >
+        ip_furniture_config,
+      </if>
+      <if test="ipFloorDemand != null" >
+        ip_floor_demand,
+      </if>
+      <if test="ipPriceRange != null" >
+        ip_price_range,
+      </if>
+      <if test="ipGotoJosn != null" >
+        ip_goto_josn,
+      </if>
+      <if test="ipNoteDate != null" >
+        ip_note_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ipUserId != null" >
+        #{ipUserId,jdbcType=INTEGER},
+      </if>
+      <if test="ipDepartmentId != null" >
+        #{ipDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="ipStorefrontId != null" >
+        #{ipStorefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="ipFrom != null" >
+        #{ipFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="ipInNature != null" >
+        #{ipInNature,jdbcType=VARCHAR},
+      </if>
+      <if test="ipDoorModel != null" >
+        #{ipDoorModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ipArea != null" >
+        #{ipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="ipLocation != null" >
+        #{ipLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="ipDecorateConfiguration != null" >
+        #{ipDecorateConfiguration,jdbcType=VARCHAR},
+      </if>
+      <if test="ipOther != null" >
+        #{ipOther,jdbcType=VARCHAR},
+      </if>
+      <if test="ipNote != null" >
+        #{ipNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ipDate != null" >
+        #{ipDate,jdbcType=DATE},
+      </if>  
+      <if test="ipState != null" >
+        #{ipState,jdbcType=DATE},
+      </if> 
+      <if test="ipName != null" >
+        #{ipName},
+      </if>
+      <if test="ipTel != null" >
+        #{ipTel},
+      </if>
+      <if test="ipPopulationId != null" >
+        #{ipPopulationId},
+      </if>
+      <if test="ipFurnitureConfig != null" >
+        #{ipFurnitureConfig},
+      </if>
+      <if test="ipFloorDemand != null" >
+        #{ipFloorDemand},
+      </if>
+      <if test="ipPriceRange != null" >
+        #{ipPriceRange},
+      </if>
+      <if test="ipGotoJosn != null" >
+        #{ipGotoJosn},
+      </if>
+      <if test="ipNoteDate != null" >
+        #{ipNoteDate},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoIntendedPerson" >
+    update info_intended_renter
+    <set >
+      <if test="ipUserId != null" >
+        ip_user_id = #{ipUserId,jdbcType=INTEGER},
+      </if>
+      <if test="ipDepartmentId != null" >
+        ip_department_id = #{ipDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="ipStorefrontId != null" >
+        ip_storefront_id = #{ipStorefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="ipFrom != null" >
+        ip_from = #{ipFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="ipInNature != null" >
+        ip_in_nature = #{ipInNature,jdbcType=VARCHAR},
+      </if>
+      <if test="ipDoorModel != null" >
+        ip_door_model = #{ipDoorModel,jdbcType=VARCHAR},
+      </if>
+      <if test="ipArea != null" >
+        ip_area = #{ipArea,jdbcType=VARCHAR},
+      </if>
+      <if test="ipLocation != null" >
+        ip_location = #{ipLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="ipDecorateConfiguration != null" >
+        ip_decorate_configuration = #{ipDecorateConfiguration,jdbcType=VARCHAR},
+      </if>
+      <if test="ipOther != null" >
+        ip_other = #{ipOther,jdbcType=VARCHAR},
+      </if>
+      <if test="ipDate != null" >
+        ip_date = #{ipDate,jdbcType=DATE},
+      </if>
+      <if test="ipNote != null" >
+        ip_note = #{ipNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="ipState != null" >
+        ip_state = #{ipState,jdbcType=VARCHAR},
+      </if>
+      <if test="ipName != null" >
+        ip_name = #{ipName},
+      </if>
+      <if test="ipTel != null" >
+        ip_tel = #{ipTel},
+      </if>
+      <if test="ipPopulationId != null" >
+        ip_population_id = #{ipPopulationId},
+      </if>
+      <if test="ipPopulationId != null" >
+        #{ipPopulationId},
+      </if>
+      
+      <if test="ipFurnitureConfig != null" >
+        ip_furniture_config = #{ipFurnitureConfig},
+      </if>
+      <if test="ipFloorDemand != null" >
+        ip_floor_demand = #{ipFloorDemand},
+      </if>
+      <if test="ipPriceRange != null" >
+        ip_price_range = #{ipPriceRange},
+      </if>
+      <if test="ipGotoJosn != null" >
+        ip_goto_josn = #{ipGotoJosn},
+      </if>
+      <if test="ipNoteDate != null" >
+        ip_note_date = #{ipNoteDate},
+      </if>
+    </set>
+    where ip_id = #{ipId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 批量修改 -->
+	<update id="intendedBatchUpdate" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+        	update info_intended_renter set
+			ip_department_id = #{item.ipDepartmentId,jdbcType=INTEGER},
+			ip_storefront_id = #{item.ipStorefrontId,jdbcType=INTEGER}
+	        where ip_id = #{item.ipId,jdbcType=INTEGER}
+      </foreach>
+ 	</update>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoCustomerSourceStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoCustomerSourceStatistics" >
+    <id column="icss_id" property="icssId" jdbcType="INTEGER" />
+    <result column="icss_all_json" property="icssAllJson" jdbcType="VARCHAR" />
+    <result column="icss_sort_json" property="icssSortJson" jdbcType="VARCHAR" />
+    <result column="icss_type" property="icssType" jdbcType="VARCHAR" />
+    <result column="icss_time" property="icssTime" jdbcType="TIMESTAMP" />
+    <!-- 其他 -->
+	<result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    icss_id, icss_all_json, icss_sort_json, icss_type, icss_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stat_renter_source
+    where icss_id = #{icssId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stat_renter_source
+    where icss_id = #{icssId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zz.po.info.InfoCustomerSourceStatistics" >
+    insert into stat_renter_source (icss_id, icss_all_json, icss_sort_json, 
+      icss_type, icss_time)
+    values (#{icssId,jdbcType=INTEGER}, #{icssAllJson,jdbcType=VARCHAR}, #{icssSortJson,jdbcType=VARCHAR}, 
+      #{icssType,jdbcType=VARCHAR}, #{icssTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoCustomerSourceStatistics" >
+    insert into stat_renter_source
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="icssId != null" >
+        icss_id,
+      </if>
+      <if test="icssAllJson != null" >
+        icss_all_json,
+      </if>
+      <if test="icssSortJson != null" >
+        icss_sort_json,
+      </if>
+      <if test="icssType != null" >
+        icss_type,
+      </if>
+      <if test="icssTime != null" >
+        icss_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="icssId != null" >
+        #{icssId,jdbcType=INTEGER},
+      </if>
+      <if test="icssAllJson != null" >
+        #{icssAllJson,jdbcType=VARCHAR},
+      </if>
+      <if test="icssSortJson != null" >
+        #{icssSortJson,jdbcType=VARCHAR},
+      </if>
+      <if test="icssType != null" >
+        #{icssType,jdbcType=VARCHAR},
+      </if>
+      <if test="icssTime != null" >
+        #{icssTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoCustomerSourceStatistics" >
+    update stat_renter_source
+    <set >
+      <if test="icssAllJson != null" >
+        icss_all_json = #{icssAllJson,jdbcType=VARCHAR},
+      </if>
+      <if test="icssSortJson != null" >
+        icss_sort_json = #{icssSortJson,jdbcType=VARCHAR},
+      </if>
+      <if test="icssType != null" >
+        icss_type = #{icssType,jdbcType=VARCHAR},
+      </if>
+      <if test="icssTime != null" >
+        icss_time = #{icssTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where icss_id = #{icssId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.info.InfoCustomerSourceStatistics" >
+    update stat_renter_source
+    set icss_all_json = #{icssAllJson,jdbcType=VARCHAR},
+      icss_sort_json = #{icssSortJson,jdbcType=VARCHAR},
+      icss_type = #{icssType,jdbcType=VARCHAR},
+      icss_time = #{icssTime,jdbcType=TIMESTAMP}
+    where icss_id = #{icssId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoCustomerSourceStatistics">
+  	select a.*, b.totalNum from
+  	stat_renter_source a,
+    (select count(*) totalNum from stat_renter_source) b
+    order by icss_id DESC
+  	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+</mapper>

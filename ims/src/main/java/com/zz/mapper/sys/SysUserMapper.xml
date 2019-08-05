@@ -1,0 +1,1038 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysUserMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.sys.SysUserExpand" >
+    <id column="user_coding" property="userId" jdbcType="INTEGER" />
+    <result column="su_department_id" property="suDepartmentId" jdbcType="INTEGER" />
+    <result column="su_store_id" property="suStoreId" jdbcType="INTEGER" />
+    <result column="su_permissions_id" property="suPermissionsId" jdbcType="INTEGER" />
+    <result column="su_staff_id" property="suStaffId" jdbcType="VARCHAR" />
+    <result column="su_type" property="suType" jdbcType="VARCHAR" />
+    <result column="su_password" property="suPassword" jdbcType="VARCHAR" />
+    <result column="su_name" property="suName" jdbcType="VARCHAR" />
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+    <result column="su_dept_staff" property="suDeptStaff" jdbcType="VARCHAR" />
+    <result column="su_idcard" property="suIdcard" jdbcType="VARCHAR" />
+    <result column="su_contact" property="suContact" jdbcType="VARCHAR" />
+    <result column="su_bank_type" property="suBankType" jdbcType="VARCHAR" />
+    <result column="su_bank_card_num" property="suBankCardNum" jdbcType="VARCHAR" />
+    <result column="su_the_store" property="suTheStore" jdbcType="VARCHAR" />
+    <result column="su_state" property="suState" jdbcType="VARCHAR" />
+    <result column="su_choose_room_limit" property="suChooseRoomLimit" jdbcType="INTEGER" />
+    <result column="su_choose_room_today" property="suChooseRoomToday" jdbcType="INTEGER" />
+    <result column="su_md5_check" property="suMd5Check" jdbcType="VARCHAR" />
+    <result column="su_md5_check_type" property="suMd5CheckType" jdbcType="INTEGER" />
+    <result column="su_img_path" property="suImgPath" jdbcType="VARCHAR" />
+    <result column="su_img_num" property="suImgNum" jdbcType="VARCHAR" />
+    <result column="su_card_number" property="suCardNumber" jdbcType="VARCHAR" />
+    <result column="su_pop_id" property="suPopId" jdbcType="INTEGER" />
+
+
+	<result column="su_frozen" property="suFrozen" jdbcType="INTEGER" />
+	<result column="su_followup_value" property="suFollowupValue" jdbcType="INTEGER" />
+
+
+    <result column="pageNumber" property="pageNumber" jdbcType="VARCHAR" />
+    <result column="startNum" property="startNum" jdbcType="VARCHAR" />
+    <result column="endNum" property="endNum" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="totalPage" property="totalPage" jdbcType="VARCHAR" />
+    <result column="spHavePurview" property="spHavePurview" jdbcType="VARCHAR" />
+    <result column="spSpeedLeft" property="spSpeedLeft" jdbcType="VARCHAR" />
+    <result column="departmentName" property="departmentName" jdbcType="VARCHAR" />
+    <result column="spName" property="spName" jdbcType="VARCHAR" />
+    <result column="storefrontName" property="storefrontName" jdbcType="VARCHAR" />
+    <result column="su_whether_go_out" property="suWhetherGoOut" jdbcType="VARCHAR" />
+	 <!-- 学生 -->
+	<result column="student_id" property="studentId" jdbcType="INTEGER" />
+	<result column="student_class_id" property="studentClassId" jdbcType="INTEGER" />
+	<result column="school_Id" property="schoolId" jdbcType="INTEGER" />
+	<result column="school_Name" property="schoolName" jdbcType="VARCHAR" />
+	<result column="student_class" property="studentClass" jdbcType="VARCHAR" />
+	<result column="studentn_name" property="studentnName" jdbcType="VARCHAR" />
+	<result column="student_phone" property="studentPhone" jdbcType="VARCHAR" />
+	<result column="student_emergencycontact" property="studentEmergencycontact" jdbcType="VARCHAR" />
+	<result column="student_relationship" property="studentRelationship" jdbcType="VARCHAR" />
+	<result column="student_idcard" property="studentIdcard" jdbcType="VARCHAR" />
+	<result column="student_idcard_address" property="studentIdcardAddress" jdbcType="VARCHAR" />
+	<result column="student_now_address" property="studentNowAddress" jdbcType="VARCHAR" />
+	<result column="student_native_place" property="studentNativePlace" jdbcType="VARCHAR" />
+	<result column="student_user_nation" property="studentUserNation" jdbcType="VARCHAR" />
+	<result column="student_state" property="studentState" jdbcType="VARCHAR" />
+
+
+
+    <result column="suBasePay" property="suBasePay" jdbcType="DOUBLE" />
+	<result column="su_frozen" property="suFrozen" jdbcType="INTEGER"/>
+
+
+	<result column="suFollowupValue" property="suFollowupValue" jdbcType="INTEGER" />
+
+
+	<result column="suBasePay" property="suBasePay" jdbcType="DOUBLE" />
+    <result column="suMeritPay" property="suMeritPay" jdbcType="DOUBLE" />
+    <result column="suPerformanceSalary" property="suPerformanceSalary" jdbcType="DOUBLE" />
+    <result column="suWageLosses" property="suWageLosses" jdbcType="DOUBLE" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="MyBaseResultMap" type="com.zz.po.sys.SysUserExpand" >
+    <id column="user_coding" property="userId" jdbcType="INTEGER" />
+    <result column="su_department_id" property="suDepartmentId" jdbcType="INTEGER" />
+    <result column="su_store_id" property="suStoreId" jdbcType="INTEGER" />
+    <result column="su_permissions_id" property="suPermissionsId" jdbcType="INTEGER" />
+    <result column="su_staff_id" property="suStaffId" jdbcType="VARCHAR" />
+    <result column="su_type" property="suType" jdbcType="VARCHAR" />
+    <result column="su_password" property="suPassword" jdbcType="VARCHAR" />
+    <result column="su_name" property="suName" jdbcType="VARCHAR" />
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+    <result column="su_dept_staff" property="suDeptStaff" jdbcType="VARCHAR" />
+    <result column="su_idcard" property="suIdcard" jdbcType="VARCHAR" />
+    <result column="su_contact" property="suContact" jdbcType="VARCHAR" />
+    <result column="su_bank_type" property="suBankType" jdbcType="VARCHAR" />
+    <result column="su_bank_card_num" property="suBankCardNum" jdbcType="VARCHAR" />
+    <result column="su_the_store" property="suTheStore" jdbcType="VARCHAR" />
+    <result column="su_state" property="suState" jdbcType="VARCHAR" />
+    <result column="su_choose_room_limit" property="suChooseRoomLimit" jdbcType="INTEGER" />
+    <result column="su_choose_room_today" property="suChooseRoomToday" jdbcType="INTEGER" />
+    <result column="su_md5_check" property="suMd5Check" jdbcType="VARCHAR" />
+    <result column="su_md5_check_type" property="suMd5CheckType" jdbcType="INTEGER" />
+    <result column="su_img_path" property="suImgPath" jdbcType="VARCHAR" />
+    <result column="su_img_num" property="suImgNum" jdbcType="VARCHAR" />
+    <result column="su_follow" property="sufollow" jdbcType="VARCHAR"/>
+	<result column="su_discount_auth_password" property="suDiscountAuthPassword" jdbcType="VARCHAR"/>
+	  <result column="su_frozen" property="suFrozen" jdbcType="INTEGER"/>
+
+
+      <result column="suFollowupValue" property="suFollowupValue" jdbcType="INTEGER" />
+
+
+	  <!--身份证信息 -->
+     <result column ="su_staff_gender" 			property="sustaffgender" 		    jdbcType="VARCHAR"/>
+     <result column ="su_staff_birthday" 		property="sustaffbirthday" 	    	jdbcType="VARCHAR"/>
+     <result column ="su_staff_certnumber" 		property="sustaffcertnumber" 	    jdbcType="VARCHAR"/>
+     <result column ="su_staff_nation" 			property="sustaffnation" 	    	jdbcType="VARCHAR"/>
+     <result column ="su_staff_idissued" 		property="sustaffidissued" 	    	jdbcType="VARCHAR"/>
+     <result column ="su_staff_address" 		property="sustaffaddress" 	    	jdbcType="VARCHAR"/>
+     <result column ="su_staff_issuedvaliddate" property="sustaffissuedvaliddate"  	jdbcType="VARCHAR"/>
+     <result column ="su_staff_id_img_pers" 	property="sustaffidimgpers" 	    jdbcType="VARCHAR"/>
+
+     <!-- 追加添加用户信息 -->
+     <result column="su_staff_currentAddress" 		property="currentAddress"			jdbcType="VARCHAR"/>
+     <result column="su_staff_servicememotextnull" 	property="servicememotextnull" 		jdbcType="VARCHAR"/>
+     <result column="su_staff_remark" 				property="remark" 					jdbcType="VARCHAR"/>
+     <result column="su_staff_nativeplace" 			property="nativeplace" 				jdbcType="VARCHAR"/>
+     <result column="su_staff_marriage" 			property="marriage" 				jdbcType="VARCHAR"/>
+     <result column="su_staff_linkman" 				property="linkman" 					jdbcType="VARCHAR"/>
+     <result column="su_staff_linkmanphone" 		property="linkmanphone" 			jdbcType="VARCHAR"/>
+     <result column="su_staff_linkmanrelation" 		property="linkmanrelation" 			jdbcType="VARCHAR"/>
+
+
+    <result column="pageNumber" property="pageNumber" jdbcType="VARCHAR" />
+    <result column="startNum" property="startNum" jdbcType="VARCHAR" />
+    <result column="endNum" property="endNum" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="totalPage" property="totalPage" jdbcType="VARCHAR" />
+    <result column="spSpeedLeft" property="spSpeedLeft" jdbcType="VARCHAR" />
+    <result column="spHavePurview" property="spHavePurview" jdbcType="VARCHAR" />
+    <result column="spNewPurview" property="spNewPurview" jdbcType="VARCHAR" />
+    <result column="departmentName" property="departmentName" jdbcType="VARCHAR" />
+    <result column="spName" property="spName" jdbcType="VARCHAR" />
+    <result column="purviewId" property="purviewId" jdbcType="INTEGER" />
+    <result column="storefrontName" property="storefrontName" jdbcType="VARCHAR" />
+    <result column="su_whether_go_out" property="suWhetherGoOut" jdbcType="VARCHAR" />
+
+    <result column="su_base_pay" property="suBasePay" jdbcType="DOUBLE" />
+    <result column="su_merit_pay" property="suMeritPay" jdbcType="DOUBLE" />
+    <result column="su_performance_salary" property="suPerformanceSalary" jdbcType="DOUBLE" />
+    <result column="su_wage_losses" property="suWageLosses" jdbcType="DOUBLE" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="su_card_number" property="suCardNumber" jdbcType="VARCHAR" />
+  	<result column="su_superior" property="suSuperior" jdbcType="VARCHAR" />
+	  <result column="openid" property="openid" jdbcType="VARCHAR" />
+	<!-- 冻结状态 -->
+	  <result column="su_frozen" property="suFrozen" jdbcType="INTEGER" />
+	  <result column="su_followup_value" property="suFollowupValue" jdbcType="INTEGER" />
+  </resultMap>
+
+  <!-- ************************************************* -->
+  <!-- 登录认证userLogin -->
+  <select id="userLogin" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysUserExpand" >
+    select
+	sp.sp_speed_left spSpeedLeft,sp.sp_have_purview spHavePurview,sp.sp_new_purview spNewPurview,sp.sp_name spName,sp.sp_id purviewId,
+	u.user_coding, u.su_type, u.su_name, u.su_staff_name, u.su_contact, u.su_the_store,u.su_permissions_id,u.su_department_id,
+	u.su_store_id,u.su_md5_check,u.su_md5_check_type,
+	u.su_state,u.su_choose_room_limit,u.su_choose_room_today,u.su_frozen
+	from
+	sys_users u
+	left outer join sys_authority sp
+	on (sp.sp_id = u.su_permissions_id)
+	where u.su_name = #{suName} and u.su_password = #{suPassword}
+  </select>
+
+  <!-- 查询所有的用户姓名编号 -->
+  <select id="nameNumber" resultMap="BaseResultMap" parameterType="com.zz.po.sys.SysUserExpand">
+  	select u.user_coding,u.su_department_id,u.su_store_id,u.su_staff_name,dt.department_name departmentName, u.su_state,
+		sf.storefront_name storefrontName
+		from sys_users u
+		left outer join sys_department dt on u.su_department_id = dt.department_id
+		left outer join sys_storefront sf on u.su_store_id = sf.storefront_id
+  	<where>
+  		su_state = '正常'
+  		<if test="suDepartmentId != null and suDepartmentId != ''">
+  			and su_department_id = #{suDepartmentId,jdbcType=INTEGER}</if>
+  		<if test="userId != null and userId != '' ">
+  			and user_coding = #{userId,jdbcType=INTEGER}
+  		</if>
+  	</where>
+  </select>
+  <!-- 查询用户信息和部门名称 -->
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysUserExpand">
+  	select u.*,dt.department_name departmentName
+  	from sys_users u left outer join sys_department dt on u.su_department_id = dt.department_id
+  	<where>
+  		<if test="departmentName !=null and departmentName !=''">
+  			and department_name like '%${departmentName}%'
+  		</if>
+  		<if test="suStaffName !=null and suStaffName !=''">
+  			and su_staff_name like '%${suStaffName}%'
+  		</if>
+		<if test="suState !=null and suState !=''">
+			and su_state like '%${suState}%'
+		</if>
+  	</where>
+  </select>
+  <!-- 查询所有用户信息，给出条件则为条件查询 -->
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysUserExpand" >
+  	select a.*, b.total_num
+	from(select u.*,sf.storefront_name storefrontName, dt.department_name departmentName
+	from sys_users u
+	left outer join sys_department dt on u.su_department_id = dt.department_id
+	left outer join sys_storefront sf on u.su_store_id = sf.storefront_id
+	<where>
+    	<if test="userId != null and userId !='' ">
+    		 and user_coding = #{userId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suStaffId != null and suStaffId !='' ">
+    		 and su_staff_id = #{suStaffId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suName != null and suName !='' ">
+    		 and su_name like '%${suName}%'
+    	</if>
+    	<if test="suStaffName != null and suStaffName !='' ">
+    		 and su_staff_name like '%${suStaffName}%'
+    	</if>
+    	<if test="suDeptStaff != null and suDeptStaff !='' ">
+    		 and su_dept_staff like '%${suDeptStaff}%'
+    	</if>
+    	<if test="suIdcard != null and suIdcard !='' ">
+    		 and su_idcard like '%${suIdcard}%'
+    	</if>
+    	<if test="suDepartmentId != null and suDepartmentId !='' ">
+    		 and su_department_id = #{suDepartmentId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suStoreId != null and suStoreId !='' ">
+    		 and su_store_id = #{suStoreId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suPermissionsId != null and suPermissionsId !='' ">
+    		 and su_permissions_id = #{suPermissionsId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suState != null and suState !='' ">
+    		 and su_state = #{suState,jdbcType=VARCHAR}
+    	</if>
+    	<if test="suState == null or suState =='' ">
+    		 and su_state = '正常'
+    	</if>
+    </where>
+	) a,
+	(select count(user_coding) total_num
+	from sys_users u
+	left outer join sys_department dt on u.su_department_id = dt.department_id
+	left outer join sys_storefront sf on u.su_store_id = sf.storefront_id
+	<where>
+    	<if test="userId != null and userId !='' ">
+    		 and user_coding = #{userId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suStaffId != null and suStaffId !='' ">
+    		 and su_staff_id = #{suStaffId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suName != null and suName !='' ">
+    		 and su_name like '%${suName}%'
+    	</if>
+    	<if test="suType != null and suType !='' ">
+    		 and su_type = #{suType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="suStaffName != null and suStaffName !='' ">
+    		 and su_staff_name like '%${suStaffName}%'
+    	</if>
+    	<if test="suDeptStaff != null and suDeptStaff !='' ">
+    		 and su_dept_staff like '%${suDeptStaff}%'
+    	</if>
+    	<if test="suIdcard != null and suIdcard !='' ">
+    		 and su_idcard like '%${suIdcard}%'
+    	</if>
+    	<if test="suDepartmentId != null and suDepartmentId !='' ">
+    		 and su_department_id = #{suDepartmentId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suStoreId != null and suStoreId !='' ">
+    		 and su_store_id = #{suStoreId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suPermissionsId != null and suPermissionsId !='' ">
+    		 and su_permissions_id = #{suPermissionsId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suState != null and suState !='' ">
+    		 and su_state = #{suState,jdbcType=VARCHAR}
+    	</if>
+    	<if test="suState == null or suState =='' ">
+    		 and su_state = '正常'
+    	</if>
+    </where>) b
+    ORDER BY user_coding DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+
+    <!-- 查询所有用户信息，给出条件则为条件查询 -->
+  <select id="selectByPrimaryKeyOne" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysUserExpand" >
+  	select a.*, b.total_num
+	from(select u.*,sf.storefront_name storefrontName, dt.department_name departmentName
+	from sys_users u
+	left outer join sys_department dt on u.su_department_id = dt.department_id
+	left outer join sys_storefront sf on u.su_store_id = sf.storefront_id
+	<where>
+    	<if test="userId != null and userId !='' ">
+    		 and user_coding = #{userId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suStaffId != null and suStaffId !='' ">
+    		 and su_staff_id = #{suStaffId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suName != null and suName !='' ">
+    		 and su_name like '%${suName}%'
+    	</if>
+    	<if test="suStaffName != null and suStaffName !='' ">
+    		 and su_staff_name like '%${suStaffName}%'
+    	</if>
+    	<if test="suDeptStaff != null and suDeptStaff !='' ">
+    		 and su_dept_staff like '%${suDeptStaff}%'
+    	</if>
+    	<if test="suIdcard != null and suIdcard !='' ">
+    		 and su_idcard like '%${suIdcard}%'
+    	</if>
+    	<if test="suDepartmentId != null and suDepartmentId !='' ">
+    		 and su_department_id = #{suDepartmentId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suStoreId != null and suStoreId !='' ">
+    		 and su_store_id = #{suStoreId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suPermissionsId != null and suPermissionsId !='' ">
+    		 and su_permissions_id = #{suPermissionsId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suState != null and suState !='' ">
+    		 and su_state = #{suState,jdbcType=VARCHAR}
+    	</if>
+    	<if test="suState == null or suState =='' ">
+    		 and su_state = '正常'
+    	</if>
+
+
+
+
+    </where>
+	) a,
+	(select count(user_coding) total_num
+	from sys_users u
+	left outer join sys_department dt on u.su_department_id = dt.department_id
+	left outer join sys_storefront sf on u.su_store_id = sf.storefront_id
+	<where>
+    	<if test="userId != null and userId !='' ">
+    		 and user_coding = #{userId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suStaffId != null and suStaffId !='' ">
+    		 and su_staff_id = #{suStaffId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suName != null and suName !='' ">
+    		 and su_name like '%${suName}%'
+    	</if>
+    	<if test="suType != null and suType !='' ">
+    		 and su_type = #{suType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="suStaffName != null and suStaffName !='' ">
+    		 and su_staff_name like '%${suStaffName}%'
+    	</if>
+    	<if test="suDeptStaff != null and suDeptStaff !='' ">
+    		 and su_dept_staff like '%${suDeptStaff}%'
+    	</if>
+    	<if test="suIdcard != null and suIdcard !='' ">
+    		 and su_idcard like '%${suIdcard}%'
+    	</if>
+    	<if test="suDepartmentId != null and suDepartmentId !='' ">
+    		 and su_department_id = #{suDepartmentId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suStoreId != null and suStoreId !='' ">
+    		 and su_store_id = #{suStoreId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suPermissionsId != null and suPermissionsId !='' ">
+    		 and su_permissions_id = #{suPermissionsId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suState != null and suState !='' ">
+    		 and su_state = #{suState,jdbcType=VARCHAR}
+    	</if>
+    	<if test="suState == null or suState =='' ">
+    		 and su_state = '正常'
+    	</if>
+    </where>) b
+    ORDER BY user_coding DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+
+	<select id="selectById" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysUserExpand" >
+		select * from sys_users where user_coding = #{userId}
+	</select>
+
+  <!-- 查询用户名是否存在 -->
+	<select id="selectUsername" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysUserExpand" >
+  	select * from sys_users where su_name = #{suName} and su_state = '正常'
+  </select>
+	<!-- 查询学生是否存在 -->
+	<select id="selectStudent" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysUserExpand" >
+  	select * from sys_student where student_name = #{studentName} and student_id = #{studentId}
+  </select>
+	<!--  增加学生 -->
+	<insert id="insertStudent" parameterType="com.zz.po.sys.SysUserExpand" useGeneratedKeys="true">
+ 	insert into sys_student
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="studentId != null and studentId != ''" >
+				student_id,
+			</if>
+
+			<if test="studentClassId != null and studentClassId != ''" >
+				student_class_id,
+			</if>
+			<if test="studentClass != null and studentClass != ''" >
+				student_class,
+			</if>
+			<if test="studentName != null and studentName != ''" >
+				student_name,
+			</if>
+			<if test="studentPhone != null and studentPhone != ''" >
+				student_phone,
+			</if>
+			<if test="studentEmergencycontact != null and studentEmergencycontact != ''" >
+				student_emergencycontact,
+			</if>
+			<if test="studentRelationship != null and studentRelationship != ''" >
+				student_relationship,
+			</if>
+			<if test="studentIdcard != null and studentIdcard != ''" >
+				student_idcard,
+			</if>
+			<if test="studentIdcardAddress != null and studentIdcardAddress != ''" >
+				student_idcard_address,
+			</if>
+			<if test="studentNowAddress != null and studentNowAddress != ''" >
+				student_now_address,
+			</if>
+			<if test="studentNativePlace != null and studentNativePlace != ''" >
+				student_native_place,
+			</if>
+			<if test="studentUserNation != null and studentUserNation != ''" >
+				student_user_nation,
+			</if>
+			<if test="schoolId != null and schoolId != ''" >
+				school_id,
+			</if>
+			<if test="schoolName != null and schoolName != ''" >
+				school_name,
+			</if>
+			<if test="studentState != null and studentState != ''" >
+				student_state,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="studentId != null and studentId != ''" >
+				#{studentId,jdbcType=INTEGER},
+			</if>
+			<if test="studentClassId != null and studentClassId != ''" >
+				#{studentClassId,jdbcType=INTEGER},
+			</if>
+			<if test="studentClass != null and studentClass != ''" >
+				#{studentClass,jdbcType=VARCHAR},
+			</if>
+			<if test="studentName != null and studentName != ''" >
+				#{studentName,jdbcType=VARCHAR},
+			</if>
+			<if test="studentPhone != null and studentPhone != ''" >
+				#{studentPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="studentEmergencycontact != null and studentEmergencycontact != ''" >
+				#{studentEmergencycontact,jdbcType=VARCHAR},
+			</if>
+			<if test="studentRelationship != null and studentRelationship != ''" >
+				#{studentRelationship,jdbcType=VARCHAR},
+			</if>
+			<if test="studentIdcard != null and studentIdcard != ''" >
+				#{studentIdcard,jdbcType=VARCHAR},
+			</if>
+			<if test="studentIdcardAddress != null and studentIdcardAddress != ''" >
+				#{studentIdcardAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="studentNowAddress != null and studentNowAddress != ''" >
+				#{studentNowAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="studentNativePlace != null and studentNativePlace !='' ">
+				#{studentNativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="studentUserNation != null and studentUserNation !='' ">
+				#{studentUserNation,jdbcType=VARCHAR},
+			</if>
+			<if test="schoolId != null and schoolId !='' ">
+				#{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolName != null and schoolName !='' ">
+				#{schoolName,jdbcType=VARCHAR},
+			</if>
+			<if test="studentState != null and studentState !='' ">
+				#{studentState,jdbcType=VARCHAR},
+			</if>
+
+		</trim>
+	</insert>
+   <!-- 用户删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="com.zz.po.sys.SysUser" >
+    delete from sys_users
+    <where>
+    	<if test="userId != null and userId !='' ">
+    		user_coding = #{userId,jdbcType=INTEGER}
+    	</if>
+    	<if test="suName != null and suName !='' ">
+    		 and su_name = #{suName,jdbcType=VARCHAR}
+    	</if>
+     </where>
+  </delete>
+
+  <!--  增加用户 -->
+  <insert id="insertSelective" parameterType="com.zz.po.sys.SysUser"
+  	useGeneratedKeys="true" keyProperty="userId">
+   insert into sys_users
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="suType != null and suType != ''" >
+        su_type,
+      </if>
+      <if test="suName != null and suName != ''" >
+        su_name,
+      </if>
+      <if test="suPassword != null and suPassword != ''" >
+        su_password,
+      </if>
+      <if test="suStaffName != null and suStaffName != ''" >
+        su_staff_name,
+      </if>
+      <if test="suDeptStaff != null and suDeptStaff != ''" >
+        su_dept_staff,
+      </if>
+      <if test="suIdcard != null and suIdcard != ''" >
+        su_idcard,
+      </if>
+      <if test="suContact != null and suContact != ''" >
+        su_contact,
+      </if>
+      <if test="suBankType != null and suBankType != ''" >
+        su_bank_type,
+      </if>
+      <if test="suBankCardNum != null and suBankCardNum != ''" >
+        su_bank_card_num,
+      </if>
+      <if test="suTheStore != null and suTheStore != ''" >
+        su_the_store,
+      </if>
+        <if test="suDepartmentId != null and suDepartmentId !='' ">
+    		su_department_id,
+    	</if>
+    	<if test="suStoreId != null and suStoreId !='' ">
+    		su_store_id ,
+    	</if>
+    	<if test="suPermissionsId != null and suPermissionsId !='' ">
+    		su_permissions_id,
+    	</if>
+    	<if test="suState != null and suState !='' ">
+    		su_state,
+    	</if>
+    	<if test="suWhetherGoOut != null and suWhetherGoOut !='' ">
+    		su_whether_go_out,
+    	</if>
+    	<if test="suBasePay != null and suBasePay !='' ">
+    		su_base_pay,
+    	</if>
+    	<if test="suMeritPay != null and suMeritPay !='' ">
+    		su_merit_pay,
+    	</if>
+    	<if test="suPerformanceSalary != null and suPerformanceSalary !='' ">
+    		su_performance_salary,
+    	</if>
+    	<if test="suWageLosses != null and suWageLosses !='' ">
+    		su_wage_losses,
+    	</if>
+    	<if test="suChooseRoomLimit != null and suChooseRoomLimit !='' ">
+    		su_choose_room_limit,
+    	</if>
+    	<if test="suChooseRoomToday != null and suChooseRoomToday !='' ">
+    		su_choose_room_today,
+    	</if>
+    	<if test="suMd5Check != null and suMd5Check !='' ">
+    		su_md5_check,
+    	</if>
+    	<if test="suMd5CheckType != null and suMd5CheckType !='' ">
+    		su_md5_check_type,
+    	</if>
+    	<if test="suImgPath != null ">
+    		su_img_path,
+    	</if>
+    	<if test="suImgNum != null ">
+    		su_img_num,
+    	</if>
+    	<if test="suSuperior != null and suSuperior !='' ">
+    		su_superior,
+    	</if>
+		<if test="openid != null and openid !='' ">
+			openid,
+		</if>
+		<if test="sustaffgender != null and sustaffgender !=''" >
+			su_staff_gender,
+		</if>
+		<if test="sustaffbirthday != null and sustaffbirthday !=''" >
+			su_staff_birthday,
+		</if>
+		<if test="sustaffcertnumber != null and sustaffcertnumber !=''" >
+			su_staff_certnumber,
+		</if>
+		<if test="sustaffnation != null and sustaffnation !=''" >
+			su_staff_nation,
+		</if>
+		<if test="sustaffidissued != null and sustaffidissued !=''" >
+			su_staff_idissued,
+		</if>
+		<if test="sustaffaddress != null and sustaffaddress !=''" >
+			su_staff_address,
+		</if>
+		<if test="sustaffissuedvaliddate != null and sustaffissuedvaliddate !=''" >
+			su_staff_issuedvaliddate,
+		</if>
+		<if test="sustaffidimgpers != null and sustaffidimgpers !=''" >
+			su_staff_id_img_pers,
+		</if>
+		<if test="currentAddress != null and currentAddress !=''">
+			su_staff_currentAddress,
+		</if>
+		<if test="servicememotextnull != null and servicememotextnull !=''">
+			su_staff_servicememotextnull,
+		</if>
+		<if test="remark != null and remark !=''">
+			su_staff_remark,
+		</if>
+		<if test="nativeplace  != null and nativeplace  !=''">
+			su_staff_nativeplace,
+		</if>
+		<if test="marriage  != null and marriage  !=''">
+			su_staff_marriage,
+		</if>
+		<if test="linkman  != null and linkman  !=''">
+			su_staff_linkman,
+		</if>
+		<if test="linkmanphone   != null and linkmanphone   !=''">
+			su_staff_linkmanphone,
+		</if>
+		<if test="linkmanrelation   != null and linkmanrelation   !=''">
+			su_staff_linkmanrelation,
+		</if>
+		<if test="suDiscountAuthPassword != null and suDiscountAuthPassword != ''" >
+			su_discount_auth_password,
+		</if>
+		<if test="suCardNumber != null and suCardNumber != ''" >
+			su_card_number,
+		</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="suType != null and suType != ''" >
+        #{suType,jdbcType=VARCHAR},
+      </if>
+      <if test="suName != null and suName != ''" >
+        #{suName,jdbcType=VARCHAR},
+      </if>
+      <if test="suPassword != null and suPassword != ''" >
+        #{suPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="suStaffName != null and suStaffName != ''" >
+        #{suStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="suDeptStaff != null and suDeptStaff != ''" >
+       #{suDeptStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="suIdcard != null and suIdcard != ''" >
+        #{suIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="suContact != null and suContact != ''" >
+         #{suContact,jdbcType=VARCHAR},
+      </if>
+      <if test="suBankType != null and suBankType != ''" >
+        #{suBankType,jdbcType=VARCHAR},
+      </if>
+      <if test="suBankCardNum != null and suBankCardNum != ''" >
+        #{suBankCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="suTheStore != null and suTheStore != ''" >
+        #{suTheStore,jdbcType=VARCHAR},
+      </if>
+		<if test="suDepartmentId != null and suDepartmentId !='' ">
+			  #{suDepartmentId,jdbcType=INTEGER},
+		</if>
+		<if test="suStoreId != null and suStoreId !='' ">
+			  #{suStoreId,jdbcType=INTEGER},
+		</if>
+		<if test="suPermissionsId != null and suPermissionsId !='' ">
+			  #{suPermissionsId,jdbcType=INTEGER},
+		</if>
+		<if test="suState != null and suState !='' ">
+			 #{suState,jdbcType=VARCHAR},
+		</if>
+		<if test="suWhetherGoOut != null and suWhetherGoOut !='' ">
+			 #{suWhetherGoOut,jdbcType=VARCHAR},
+		</if>
+		<if test="suBasePay != null and suBasePay !='' ">
+			#{suBasePay},
+		</if>
+		<if test="suMeritPay != null and suMeritPay !='' ">
+			#{suMeritPay},
+		</if>
+		<if test="suPerformanceSalary != null and suPerformanceSalary !='' ">
+			#{suPerformanceSalary},
+		</if>
+		<if test="suWageLosses != null and suWageLosses !='' ">
+			#{suWageLosses},
+		</if>
+		<if test="suChooseRoomLimit != null and suChooseRoomLimit !='' ">
+			#{suChooseRoomLimit},
+		</if>
+		<if test="suChooseRoomToday != null and suChooseRoomToday !='' ">
+			#{suChooseRoomToday},
+		</if>
+		<if test="suMd5Check != null and suMd5Check !='' ">
+			#{suMd5Check},
+		</if>
+		<if test="suMd5CheckType != null and suMd5CheckType !='' ">
+			#{suMd5CheckType},
+		</if>
+		<if test="suImgPath != null ">
+			#{suImgPath},
+		</if>
+		<if test="suImgNum != null ">
+			#{suImgNum},
+		</if>
+		<if test="suSuperior != null  and suSuperior !='' ">
+			#{suSuperior},
+		</if>
+		<if test="openid != null  and openid !='' ">
+			#{openid},
+		</if>
+		<if test="sustaffgender != null  and sustaffgender !='' ">
+			#{sustaffgender,jdbcType=VARCHAR},
+		</if>
+		<if test="sustaffbirthday != null  and sustaffbirthday !='' ">
+			#{sustaffbirthday,jdbcType=VARCHAR},
+		</if>
+		<if test="sustaffcertnumber != null  and sustaffcertnumber !='' ">
+			#{sustaffcertnumber,jdbcType=VARCHAR},
+		</if>
+		<if test="sustaffnation != null  and sustaffnation !='' ">
+			#{sustaffnation,jdbcType=VARCHAR},
+		</if>
+		<if test="sustaffidissued != null  and sustaffidissued !='' ">
+			#{sustaffidissued,jdbcType=VARCHAR},
+		</if>
+		<if test="sustaffaddress != null  and sustaffaddress !='' ">
+			#{sustaffaddress,jdbcType=VARCHAR},
+		</if>
+		<if test="sustaffissuedvaliddate != null  and sustaffissuedvaliddate !='' ">
+			#{sustaffissuedvaliddate,jdbcType=VARCHAR},
+		</if>
+		<if test="sustaffidimgpers != null  and sustaffidimgpers !='' ">
+			#{sustaffidimgpers,jdbcType=VARCHAR},
+		</if>
+
+		<if test="currentAddress != null  and currentAddress !='' ">
+			#{currentAddress,jdbcType=VARCHAR},
+		</if>
+		<if test="servicememotextnull != null  and servicememotextnull !='' ">
+			#{servicememotextnull,jdbcType=VARCHAR},
+		</if>
+		<if test="remark != null  and remark !='' ">
+			#{remark,jdbcType=VARCHAR},
+		</if>
+		<if test="nativeplace  != null  and nativeplace  !='' ">
+			#{nativeplace,jdbcType=VARCHAR},
+		</if>
+		<if test="marriage  != null  and marriage  !='' ">
+			#{marriage,jdbcType=VARCHAR},
+		</if>
+		<if test="linkman  != null  and linkman  !='' ">
+			#{linkman,jdbcType=VARCHAR},
+		</if>
+		<if test="linkmanphone  != null  and linkmanphone  !='' ">
+			#{linkmanphone,jdbcType=VARCHAR},
+		</if>
+		<if test="linkmanrelation  != null  and linkmanrelation  !='' ">
+			#{linkmanrelation ,jdbcType=VARCHAR},
+		</if>
+		<if test="suDiscountAuthPassword != null and suDiscountAuthPassword != ''" >
+			#{suDiscountAuthPassword,jdbcType=VARCHAR},
+		</if>
+		<if test="suCardNumber != null and suCardNumber != ''" >
+			#{suCardNumber,jdbcType=VARCHAR},
+		</if>
+    </trim>
+  </insert>
+  	<!--查询有折扣权限的全部用户-->
+	<select id="selectAllDiscountAuth" resultMap="MyBaseResultMap">
+		SELECT * FROM
+		sys_users
+		WHERE su_discount_auth_password is not null AND su_discount_auth_password != ''
+
+	</select>
+
+	<update id="updateStudentInformation" parameterType="com.zz.po.sys.SysUserExpand" >
+		update sys_student
+		<set>
+			<if test="studentClass != null and studentClass !=''" >
+				student_class=#{studentClass,jdbcType=VARCHAR},
+			</if>
+			<if test="studentClassId != null and studentClassId !=''" >
+				student_class_id=#{studentClassId,jdbcType=INTEGER},
+			</if>
+			<if test="studentNativePlace != null and studentNativePlace !=''" >
+				student_native_place=#{studentNativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="studentId != null and studentId !=''" >
+				student_id=#{studentId,jdbcType=INTEGER},
+			</if>
+			<if test="studentName != null and studentName !=''" >
+				student_name=#{studentName,jdbcType=VARCHAR},
+			</if>
+			<if test="studentPhone != null and studentPhone !=''" >
+				student_phone=#{studentPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="studentEmergencycontact != null and studentEmergencycontact !=''" >
+				student_emergencycontact=#{studentEmergencycontact,jdbcType=VARCHAR},
+			</if>
+			<if test="studentRelationship != null and studentRelationship !=''" >
+				student_relationship=#{studentRelationship,jdbcType=VARCHAR},
+			</if>
+			<if test="studentIdcard != null and studentIdcard !=''" >
+				student_idcard=#{studentIdcard,jdbcType=VARCHAR},
+			</if>
+			<if test="studentIdcardAddress != null and studentIdcardAddress !=''" >
+				student_idcard_address=#{studentIdcardAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="studentNowAddress != null and studentNowAddress !=''" >
+				student_now_address=#{studentNowAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="studentClassId != null and studentClassId !=''" >
+				student_class_id=#{studentClassId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolId != null and schoolId !=''" >
+				school_id=#{schoolId,jdbcType=INTEGER},
+			</if>
+			<if test="schoolName != null and schoolName !=''" >
+				school_name=#{schoolName,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where student_name = #{studentName,jdbcType=VARCHAR} and student_id=#{studentId,jdbcType=INTEGER}
+	</update>
+	<update id="updateStudent" parameterType="com.zz.po.sys.SysUserExpand" >
+		update sys_student
+		<set>
+			<if test="studentClass != null and studentClass !=''" >
+				student_class=#{studentClass,jdbcType=VARCHAR},
+			</if>
+			<if test="studentClassId != null and studentClassId !=''" >
+				student_class_id=#{studentClassId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where student_name = #{studentName,jdbcType=VARCHAR} and student_id=#{studentId,jdbcType=INTEGER}
+	</update>
+  <!--修改用户资料  -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.sys.SysUserExpand" >
+    update sys_users
+    <set >
+      <if test="suDepartmentId != null" >
+        su_department_id = #{suDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="suStoreId != null" >
+        su_store_id = #{suStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="suPermissionsId != null" >
+        su_permissions_id = #{suPermissionsId,jdbcType=INTEGER},
+      </if>
+      <if test="suStaffId != null" >
+        su_staff_id = #{suStaffId,jdbcType=VARCHAR},
+      </if>
+      <if test="suType != null" >
+        su_type = #{suType,jdbcType=VARCHAR},
+      </if>
+      <if test="suPassword != null" >
+        su_password = #{suPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="suName != null" >
+        su_name = #{suName,jdbcType=VARCHAR},
+      </if>
+      <if test="suStaffName != null" >
+        su_staff_name = #{suStaffName,jdbcType=VARCHAR},
+      </if>
+      <if test="suDeptStaff != null" >
+        su_dept_staff = #{suDeptStaff,jdbcType=VARCHAR},
+      </if>
+      <if test="suIdcard != null" >
+        su_idcard = #{suIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="suContact != null" >
+        su_contact = #{suContact,jdbcType=VARCHAR},
+      </if>
+      <if test="suBankType != null" >
+        su_bank_type = #{suBankType,jdbcType=VARCHAR},
+      </if>
+      <if test="suBankCardNum != null" >
+        su_bank_card_num = #{suBankCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="suTheStore != null" >
+        su_the_store = #{suTheStore,jdbcType=VARCHAR},
+      </if>
+      <if test="suState != null">
+    	su_state = #{suState,jdbcType=VARCHAR},
+      </if>
+      <if test="suWhetherGoOut != null and suWhetherGoOut !='' ">
+    	su_whether_go_out = #{suWhetherGoOut,jdbcType=VARCHAR},
+      </if>
+      <if test="suBasePay != null and suBasePay !='' ">
+    	su_base_pay = #{suBasePay},
+      </if>
+      <if test="suMeritPay != null and suMeritPay !='' ">
+    	su_merit_pay = #{suMeritPay},
+      </if>
+      <if test="suPerformanceSalary != null and suPerformanceSalary !='' ">
+    	su_performance_salary = #{suPerformanceSalary},
+      </if>
+      <if test="suWageLosses != null and suWageLosses !='' ">
+    	su_wage_losses = #{suWageLosses},
+      </if>
+      <if test="suChooseRoomLimit != null and suChooseRoomLimit !='' ">
+    	su_choose_room_limit = #{suChooseRoomLimit},
+      </if>
+      <if test="suChooseRoomToday != null and suChooseRoomToday !='' ">
+    	su_choose_room_today = #{suChooseRoomToday},
+      </if>
+      <if test="suMd5Check != null ">
+    	su_md5_check= #{suMd5Check},
+   	  </if>
+   	  <if test="suMd5CheckType != null ">
+   		su_md5_check_type = #{suMd5CheckType},
+   	  </if>
+   	  <if test="suImgPath != null ">
+    	su_img_path = #{suImgPath},
+      </if>
+      <if test="suImgNum != null ">
+    	su_img_num = #{suImgNum},
+      </if>
+      <if test="suIdInformation != null ">
+    	su_id_information = #{suIdInformation},
+      </if>
+		<if test="openid != null ">
+			openid = #{openid},
+		</if>
+      <if test="suSuperior != null  and suSuperior !='' ">
+    	su_superior = #{suSuperior},
+      </if>
+      <if test="sustaffgender != null  and sustaffgender !='' ">
+    	su_staff_gender = #{sustaffgender},
+      </if>
+      <if test="sustaffbirthday != null  and sustaffbirthday !='' ">
+    	su_staff_birthday = #{sustaffbirthday},
+      </if>
+       <if test="sustaffcertnumber != null  and sustaffcertnumber !='' ">
+    	su_staff_certnumber = #{sustaffcertnumber},
+      </if>
+      <if test="sustaffnation != null  and sustaffnation !='' ">
+    	su_staff_nation = #{sustaffnation},
+      </if>
+      <if test="sustaffidissued != null  and sustaffidissued !='' ">
+    	su_staff_idissued = #{sustaffidissued},
+      </if>
+       <if test="sustaffaddress != null  and sustaffaddress !='' ">
+    	su_staff_address = #{sustaffaddress},
+      </if>
+       <if test="sustaffissuedvaliddate != null  and sustaffissuedvaliddate !='' ">
+    	su_staff_issuedvaliddate = #{sustaffissuedvaliddate},
+      	</if>
+      	 <if test="sustaffidimgpers != null  and sustaffidimgpers !='' ">
+    	su_staff_id_img_pers = #{sustaffidimgpers},
+      	</if>
+
+      	<if test="currentAddress != null  and currentAddress !='' ">
+			su_staff_currentAddress  = #{currentAddress},
+		</if>
+		<if test="servicememotextnull != null  and servicememotextnull !='' ">
+			su_staff_servicememotextnull   = #{servicememotextnull},
+		</if>
+		<if test="remark != null  and remark !='' ">
+		su_staff_remark   = #{remark},
+		</if>
+		<if test="nativeplace  != null  and nativeplace  !='' ">
+			su_staff_nativeplace   = #{nativeplace},
+		</if>
+		<if test="marriage  != null  and marriage  !='' ">
+			su_staff_marriage   = #{marriage},
+		</if>
+		<if test="linkman  != null  and linkman  !='' ">
+			su_staff_linkman   = #{linkman},
+		</if>
+		<if test="linkmanphone  != null  and linkmanphone  !='' ">
+			su_staff_linkmanphone   = #{linkmanphone},
+		</if>
+		<if test="linkmanrelation  != null  and linkmanrelation  !='' ">
+			su_staff_linkmanrelation   = #{linkmanrelation},
+		</if>
+		<if test="sufollow  != null  and sufollow  !='' ">
+			su_follow  = #{sufollow},
+		</if>
+		<if test="suDiscountAuthPassword != null and suDiscountAuthPassword != ''" >
+			su_discount_auth_password=#{suDiscountAuthPassword,jdbcType=VARCHAR},
+		</if>
+		<if test="suCardNumber != null and suCardNumber != ''" >
+			su_card_number=#{suCardNumber,jdbcType=VARCHAR},
+		</if>
+		<if test="suAppAuth  != null">
+			su_app_auth  = #{suAppAuth},
+		</if>
+
+
+
+		<if test="suFrozen  != null">
+			su_frozen  = #{suFrozen},
+		</if>
+		<if test="suFollowupValue  != null">
+			su_followup_value  = #{suFollowupValue},
+		</if>
+    </set>
+
+
+    where user_coding = #{userId,jdbcType=INTEGER}
+  </update>
+</mapper>

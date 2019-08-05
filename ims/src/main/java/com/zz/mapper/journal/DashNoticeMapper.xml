@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.DashNoticeMapper">
+	<resultMap id="BaseResultMap" type="com.zz.po.journal.DashNoticeExpand">
+		<id column="dn_id" property="dnId" jdbcType="INTEGER" />
+		<result column="dn_user_id" property="dnUserId" jdbcType="INTEGER" />
+		<result column="dn_type" property="dnType" jdbcType="VARCHAR" />
+		<result column="dn_title" property="dnTitle" jdbcType="VARCHAR" />
+		<result column="dn_content" property="dnContent" jdbcType="VARCHAR" />
+		<result column="dn_time" property="dnTime" jdbcType="TIMESTAMP" />
+		<result column="file_img_path" property="fileImgPath" jdbcType="VARCHAR" />
+		<result column="file_img_num" property="fileImgNum" jdbcType="VARCHAR" />
+
+		<!-- 其他 -->
+    	<result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    	<result column="suStaffName" property="suStaffName" jdbcType="VARCHAR" />
+	</resultMap>
+	<!--查询所有公告信息，给出条件则为条件查询 -->
+	<select id="queryNoticeAll" resultMap="BaseResultMap"
+		parameterType="com.zz.po.journal.DashNoticeExpand">
+		select aa.*,bb.totalNum from
+		(select a.dn_id,a.dn_type,a.dn_title,a.dn_content,a.dn_time, a.dn_user_id,a.file_img_path,a.file_img_num, u.su_staff_name suStaffName
+		from dash_announcement a
+		LEFT OUTER JOIN sys_users u ON a.dn_user_id=u.user_coding
+		<where>
+			<if test="dnId !=null and dnId !='' ">
+				and dn_id = #{dnId}
+			</if>
+			<if test="dnType !=null and dnType !='' ">
+				and dn_type = #{dnType} 
+			</if>
+			<if test="suStaffName !=null and suStaffName !='' ">
+				and suStaffName like '%${suStaffName}%'
+			</if>
+			<if test="dnTime !=null and dnTime !='' ">
+				and dn_time = #{dnTime}
+			</if>
+			and dn_state = "正常"
+			</where>
+		) aa,
+		(select u.*,count(a.dn_id) totalNum from dash_announcement a
+			LEFT OUTER JOIN sys_users u ON a.dn_user_id=u.user_coding 
+			<where>
+			<if test="dnId !=null and dnId !='' ">
+				and dn_id = #{dnId}
+			</if>
+			<if test="dnType !=null and dnType !='' "> 
+				and dn_type = #{dnType} 
+			</if>
+			<if test="suStaffName !=null and suStaffName !='' ">
+				and su_staff_name like '%${suStaffName}%'
+			</if>
+			<if test="dnTime !=null and dnTime !='' ">
+				and dn_time = #{dnTime}
+			</if>
+			and dn_state = "正常"
+			</where> 
+			) bb		
+			ORDER BY dn_id DESC
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+	</select>
+	<!-- 添加公告 -->
+	<insert id="insertNotice" parameterType="com.zz.po.journal.DashNoticeExpand">
+		insert into dash_announcement
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="dnUserId != null" >
+	        	dn_user_id,
+		    </if>
+		    <if test="dnType != null" >
+		        dn_type,
+		    </if>
+		    <if test="dnTitle != null" >
+		        dn_title,
+		    </if>
+		    <if test="dnContent != null" >
+		        dn_content,
+		    </if>
+			<if test="fileImgPath != null" >
+				file_img_path,
+			</if>
+			<if test="fileImgNum != null" >
+				file_img_num,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="dnUserId != null" >
+	         	#{dnUserId,jdbcType=INTEGER},
+	       </if>
+	       <if test="dnType != null" >
+	       	    #{dnType,jdbcType=VARCHAR},
+	       </if>
+	       <if test="dnTitle != null" >
+	       	    #{dnTitle,jdbcType=VARCHAR},
+	       </if>
+	       <if test="dnContent != null" >
+	       	    #{dnContent,jdbcType=VARCHAR},
+	       </if>
+			<if test="fileImgPath != null" >
+				#{fileImgPath,jdbcType=VARCHAR},
+			</if>
+			<if test="fileImgNum != null" >
+				#{fileImgNum,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<!-- 修改公告 -->
+	<update id="updatesNotice" parameterType="com.zz.po.journal.DashNoticeExpand" >
+	    update dash_announcement
+	    <set>
+	    	<if test="dnType != null" >
+	    		dn_type = #{dnType,jdbcType=VARCHAR},
+	    	</if>
+	    	<if test="dnTitle != null" >
+	    		dn_title = #{dnTitle,jdbcType=VARCHAR},
+	    	</if>
+	    	<if test="dnContent != null" >
+	    		dn_content = #{dnContent,jdbcType=VARCHAR},
+	    	</if>
+	    	<if test="dnState != null" >
+	    		dn_state = #{dnState,jdbcType=VARCHAR},
+	    	</if>
+			<if test="fileImgPath != null" >
+				file_img_path = #{fileImgPath,jdbcType=VARCHAR},
+			</if>
+			<if test="fileImgNum != null" >
+				file_img_num = #{fileImgNum,jdbcType=VARCHAR},
+			</if>
+	    </set>
+	    where dn_id = #{dnId,jdbcType=INTEGER}
+   </update>
+   	<!-- 根据公告Id,删除公告 -->
+	<delete id="deleteNotice" parameterType="java.lang.Integer"  >
+	    delete from dash_announcement
+			where dn_id = #{dnId,jdbcType=INTEGER}
+   </delete>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.DailyFutureMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.DailyFuture" >
+    <id column="df_id" property="dfId" jdbcType="INTEGER" />
+    <result column="df_date" property="dfDate" jdbcType="DATE" />
+    <result column="df_will_income" property="dfWillIncome" jdbcType="DOUBLE" />
+    <result column="df_will_pay" property="dfWillPay" jdbcType="DOUBLE" />
+    <result column="df_landlord_checkout" property="dfLandlordCheckout" jdbcType="INTEGER" />
+    <result column="df_renter_checkout" property="dfRenterCheckout" jdbcType="INTEGER" />
+    <result column="df_time" property="dfTime" jdbcType="TIMESTAMP" />
+    
+    <result column="endDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    df_id, df_date, df_will_income, df_will_pay, df_landlord_checkout, df_renter_checkout, 
+    df_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dash_calendar_future
+    where df_id = #{dfId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dash_calendar_future
+    where df_id = #{dfId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zz.po.journal.DailyFuture" >
+    insert into dash_calendar_future (df_id, df_date, df_will_income, 
+      df_will_pay, df_landlord_checkout, df_renter_checkout, 
+      df_time)
+    values (#{dfId,jdbcType=INTEGER}, #{dfDate,jdbcType=DATE}, #{dfWillIncome,jdbcType=DOUBLE}, 
+      #{dfWillPay,jdbcType=DOUBLE}, #{dfLandlordCheckout,jdbcType=INTEGER}, #{dfRenterCheckout,jdbcType=INTEGER}, 
+      #{dfTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.DailyFuture" >
+    insert into dash_calendar_future
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dfId != null" >
+        df_id,
+      </if>
+      <if test="dfDate != null" >
+        df_date,
+      </if>
+      <if test="dfWillIncome != null" >
+        df_will_income,
+      </if>
+      <if test="dfWillPay != null" >
+        df_will_pay,
+      </if>
+      <if test="dfLandlordCheckout != null" >
+        df_landlord_checkout,
+      </if>
+      <if test="dfRenterCheckout != null" >
+        df_renter_checkout,
+      </if>
+      <if test="dfTime != null" >
+        df_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dfId != null" >
+        #{dfId,jdbcType=INTEGER},
+      </if>
+      <if test="dfDate != null" >
+        #{dfDate,jdbcType=DATE},
+      </if>
+      <if test="dfWillIncome != null" >
+        #{dfWillIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="dfWillPay != null" >
+        #{dfWillPay,jdbcType=DOUBLE},
+      </if>
+      <if test="dfLandlordCheckout != null" >
+        #{dfLandlordCheckout,jdbcType=INTEGER},
+      </if>
+      <if test="dfRenterCheckout != null" >
+        #{dfRenterCheckout,jdbcType=INTEGER},
+      </if>
+      <if test="dfTime != null" >
+        #{dfTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.DailyFuture" >
+    update dash_calendar_future
+    <set >
+      <if test="dfDate != null" >
+        df_date = #{dfDate,jdbcType=DATE},
+      </if>
+      <if test="dfWillIncome != null" >
+        df_will_income = #{dfWillIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="dfWillPay != null" >
+        df_will_pay = #{dfWillPay,jdbcType=DOUBLE},
+      </if>
+      <if test="dfLandlordCheckout != null" >
+        df_landlord_checkout = #{dfLandlordCheckout,jdbcType=INTEGER},
+      </if>
+      <if test="dfRenterCheckout != null" >
+        df_renter_checkout = #{dfRenterCheckout,jdbcType=INTEGER},
+      </if>
+      <if test="dfTime != null" >
+        df_time = #{dfTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where df_id = #{dfId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.journal.DailyFuture" >
+    update dash_calendar_future
+    set df_date = #{dfDate,jdbcType=DATE},
+      df_will_income = #{dfWillIncome,jdbcType=DOUBLE},
+      df_will_pay = #{dfWillPay,jdbcType=DOUBLE},
+      df_landlord_checkout = #{dfLandlordCheckout,jdbcType=INTEGER},
+      df_renter_checkout = #{dfRenterCheckout,jdbcType=INTEGER},
+      df_time = #{dfTime,jdbcType=TIMESTAMP}
+    where df_id = #{dfId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByDate" resultMap="BaseResultMap" parameterType="com.zz.po.journal.DailyFuture" >
+    select 
+    <include refid="Base_Column_List" />
+    from dash_calendar_future
+    where df_date between curdate() and #{endDate,jdbcType=VARCHAR}
+  </select>
+</mapper>

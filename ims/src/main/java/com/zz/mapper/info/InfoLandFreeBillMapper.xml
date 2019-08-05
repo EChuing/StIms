@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoLandFreeBillMapper">
+	<resultMap id="BaseResultMap" type="com.zz.po.info.InfoLandFreeBill">
+		<id column="ilfb_id" property="ilfbId" jdbcType="INTEGER" />
+		<result column="ilfb_store_id" property="ilfbStoreId" jdbcType="INTEGER" />
+		<result column="ilfb_land_id" property="ilfbLandId" jdbcType="INTEGER" />
+		<result column="ilfb_name" property="ilfbName" jdbcType="VARCHAR" />
+		<result column="ilfb_tel" property="ilfbTel" jdbcType="VARCHAR" />
+		<result column="ilfb_month" property="ilfbMonth" jdbcType="VARCHAR" />
+		<result column="ilfb_time" property="ilfbTime" jdbcType="TIMESTAMP" />
+		<!-- 其他 -->
+		<result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+		<result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+		<result column="hs_add_district" property="addDistrict"	jdbcType="VARCHAR" />
+		<result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+		<result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+		<result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+		<result column="hs_add_building" property="addBuilding"	jdbcType="VARCHAR" />
+		<result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+		<result column="pop_id" property="popId" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ilfb_id, ilfb_store_id, ilfb_land_id, ilfb_name, ilfb_tel,
+		ilfb_month,
+		ilfb_time
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from info_free_term_divider
+		where ilfb_id = #{ilfbId,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		info_free_term_divider
+		where ilfb_id = #{ilfbId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.zz.po.info.InfoLandFreeBill">
+		insert into
+		info_free_term_divider (ilfb_id, ilfb_store_id, ilfb_land_id,
+		ilfb_name,
+		ilfb_tel, ilfb_month,
+		ilfb_time)
+		values (#{ilfbId,jdbcType=INTEGER},
+		#{ilfbStoreId,jdbcType=INTEGER},
+		#{ilfbLandId,jdbcType=INTEGER},
+		#{ilfbName,jdbcType=VARCHAR}, #{ilfbTel,jdbcType=VARCHAR},
+		#{ilfbMonth,jdbcType=VARCHAR},
+		#{ilfbTime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.zz.po.info.InfoLandFreeBill">
+		insert into info_free_term_divider
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ilfbId != null">
+				ilfb_id,
+			</if>
+			<if test="ilfbStoreId != null">
+				ilfb_store_id,
+			</if>
+			<if test="ilfbLandId != null">
+				ilfb_land_id,
+			</if>
+			<if test="ilfbName != null">
+				ilfb_name,
+			</if>
+			<if test="ilfbTel != null">
+				ilfb_tel,
+			</if>
+			<if test="ilfbMonth != null">
+				ilfb_month,
+			</if>
+			<if test="ilfbTime != null">
+				ilfb_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ilfbId != null">
+				#{ilfbId,jdbcType=INTEGER},
+			</if>
+			<if test="ilfbStoreId != null">
+				#{ilfbStoreId,jdbcType=INTEGER},
+			</if>
+			<if test="ilfbLandId != null">
+				#{ilfbLandId,jdbcType=INTEGER},
+			</if>
+			<if test="ilfbName != null">
+				#{ilfbName,jdbcType=VARCHAR},
+			</if>
+			<if test="ilfbTel != null">
+				#{ilfbTel,jdbcType=VARCHAR},
+			</if>
+			<if test="ilfbMonth != null">
+				#{ilfbMonth,jdbcType=VARCHAR},
+			</if>
+			<if test="ilfbTime != null">
+				#{ilfbTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoLandFreeBill">
+		update info_free_term_divider
+		<set>
+			<if test="ilfbStoreId != null">
+				ilfb_store_id = #{ilfbStoreId,jdbcType=INTEGER},
+			</if>
+			<if test="ilfbLandId != null">
+				ilfb_land_id = #{ilfbLandId,jdbcType=INTEGER},
+			</if>
+			<if test="ilfbName != null">
+				ilfb_name = #{ilfbName,jdbcType=VARCHAR},
+			</if>
+			<if test="ilfbTel != null">
+				ilfb_tel = #{ilfbTel,jdbcType=VARCHAR},
+			</if>
+			<if test="ilfbMonth != null">
+				ilfb_month = #{ilfbMonth,jdbcType=VARCHAR},
+			</if>
+			<if test="ilfbTime != null">
+				ilfb_time = #{ilfbTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ilfb_id = #{ilfbId,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.zz.po.info.InfoLandFreeBill">
+		update
+		info_free_term_divider
+		set ilfb_store_id =
+		#{ilfbStoreId,jdbcType=INTEGER},
+		ilfb_land_id =
+		#{ilfbLandId,jdbcType=INTEGER},
+		ilfb_name =
+		#{ilfbName,jdbcType=VARCHAR},
+		ilfb_tel = #{ilfbTel,jdbcType=VARCHAR},
+		ilfb_month = #{ilfbMonth,jdbcType=VARCHAR},
+		ilfb_time =
+		#{ilfbTime,jdbcType=TIMESTAMP}
+		where ilfb_id =
+		#{ilfbId,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoLandFreeBill">
+		select a.*, b.totalNum from
+		(select ilfb.*, pop.pop_id, ih.hs_add_city, ih.hs_add_district, ih.hs_add_zone,
+		ih.hs_add_street, ih.hs_add_community, ih.hs_add_building,
+		ih.hs_add_doorplateno from info_free_term_divider ilfb
+		left outer join info_house_4store ih on ih.hs_id = ilfb.ilfb_store_id
+		left outer join info_landlord land on land.la_id = ilfb.ilfb_land_id
+		left outer join info_pop_tmp pop on pop.pop_id = land.la_population_id
+		<where>
+	    	<if test ="addCity != null and addCity != '' ">
+	    		and hs_add_city = #{addCity}
+	    	</if>
+	    	<if test ="addDistrict != null and addDistrict != '' ">
+	    		and hs_add_district = #{addDistrict}
+	    	</if>
+	    	<if test ="addZone != null and addZone != '' ">
+	    		and hs_add_zone = #{addZone}
+	    	</if>
+	    	<if test ="addCommunity != null and addCommunity != '' ">
+	    		and hs_add_community like '%${addCommunity}%'
+	    	</if>
+	    	<if test ="addBuilding != null and addBuilding != '' ">
+	    		and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+	    	</if>
+	    	<if test ="addDoorplateno != null and addDoorplateno != '' ">
+	    		and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+	    	</if>
+	    	<if test ="hsId != null and hsId != '' ">
+	    		and hs_id = #{hsId,jdbcType=INTEGER}
+	    	</if>
+	    	<if test ="ilfbId != null and ilfbId != '' ">
+	    		and ilfb_id = #{ilfbId,jdbcType=INTEGER}
+	    	</if>
+	      	<if test="ilfbName != null and ilfbName != '' " >
+	        	and ilfb_name like '%${ilfbName}%'
+	      	</if>
+	      	<if test="year != null " >
+                and date_format(ilfb_month,"%Y") = #{year}
+            </if>
+	      	<if test="month != null " >
+	      	    and date_format(ilfb_month,"%m") = #{month}
+	      	</if>
+	    </where>
+		)a,
+		(select count(ilfb.ilfb_id) totalNum from info_free_term_divider ilfb
+		left outer join info_house_4store ih on ih.hs_id = ilfb.ilfb_store_id
+		left outer join info_landlord land on land.la_id = ilfb.ilfb_land_id
+		left outer join info_pop_tmp pop on pop.pop_id = land.la_population_id
+		<where>
+	    	<if test ="addCity != null and addCity != '' ">
+	    		and hs_add_city = #{addCity}
+	    	</if>
+	    	<if test ="addDistrict != null and addDistrict != '' ">
+	    		and hs_add_district = #{addDistrict}
+	    	</if>
+	    	<if test ="addZone != null and addZone != '' ">
+	    		and hs_add_zone = #{addZone}
+	    	</if>
+	    	<if test ="addCommunity != null and addCommunity != '' ">
+	    		and hs_add_community like '%${addCommunity}%'
+	    	</if>
+	    	<if test ="addBuilding != null and addBuilding != '' ">
+	    		and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+	    	</if>
+	    	<if test ="addDoorplateno != null and addDoorplateno != '' ">
+	    		and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+	    	</if>
+	    	<if test ="hsId != null and hsId != '' ">
+	    		and hs_id = #{hsId,jdbcType=INTEGER}
+	    	</if>
+	    	<if test ="ilfbId != null and ilfbId != '' ">
+	    		and ilfb_id = #{ilfbId,jdbcType=INTEGER}
+	    	</if>
+	      	<if test="ilfbName != null and ilfbName != '' " >
+	        	and ilfb_name like '%${ilfbName}%'
+	      	</if>
+            <if test="year != null " >
+                and date_format(ilfb_month,"%Y") = #{year}
+            </if>
+            <if test="month != null " >
+                and date_format(ilfb_month,"%m") = #{month}
+            </if>
+	    </where>
+		)b
+		ORDER BY a.ilfb_id DESC
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+</mapper>

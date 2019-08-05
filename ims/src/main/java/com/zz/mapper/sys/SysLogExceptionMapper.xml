@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysLogExceptionMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.sys.SysLogException" >
+    <id column="sle_id" property="sleId" jdbcType="BIGINT" />
+    <result column="sle_server" property="sleServer" jdbcType="VARCHAR" />
+    <result column="sle_time" property="sleTime" jdbcType="TIMESTAMP" />
+    <result column="sle_content" property="sleContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select *
+    from sys_log_exception
+    where sle_id = #{sleId,jdbcType=BIGINT}
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.sys.SysLogException" >
+    insert into sys_log_exception
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sleId != null" >
+        sle_id,
+      </if>
+      <if test="sleServer != null" >
+        sle_server,
+      </if>
+      <if test="sleTime != null" >
+        sle_time,
+      </if>
+      <if test="sleContent != null" >
+        sle_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sleId != null" >
+        #{sleId,jdbcType=BIGINT},
+      </if>
+      <if test="sleServer != null" >
+        #{sleServer,jdbcType=VARCHAR},
+      </if>
+      <if test="sleTime != null" >
+        #{sleTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sleContent != null" >
+        #{sleContent},
+      </if>
+    </trim>
+  </insert>
+</mapper>

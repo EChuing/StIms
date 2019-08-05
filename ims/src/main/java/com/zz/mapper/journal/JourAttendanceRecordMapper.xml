@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourAttendanceRecordMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.journal.JourAttendanceRecord" >
+    <id column="jar_id" property="jarId" jdbcType="INTEGER" />
+    <result column="jar_user_id" property="jarUserId" jdbcType="INTEGER" />
+    <result column="jar_department_id" property="jarDepartmentId" jdbcType="INTEGER" />
+    <result column="jar_store_id" property="jarStoreId" jdbcType="INTEGER" />
+    <result column="jar_work_time" property="jarWorkTime" jdbcType="TIMESTAMP" />
+    <result column="jar_work1" property="jarWork1" jdbcType="TIMESTAMP" />
+    <result column="jar_offwork1" property="jarOffwork1" jdbcType="TIMESTAMP" />
+    <result column="jar_work2" property="jarWork2" jdbcType="TIMESTAMP" />
+    <result column="jar_offwork2" property="jarOffwork2" jdbcType="TIMESTAMP" />
+    <result column="jar_work3" property="jarWork3" jdbcType="TIMESTAMP" />
+    <result column="jar_offwork3" property="jarOffwork3" jdbcType="TIMESTAMP" />
+    <result column="jar_work4" property="jarWork4" jdbcType="TIMESTAMP" />
+    <result column="jar_offwork4" property="jarOffwork4" jdbcType="TIMESTAMP" />
+    <result column="jar_spare" property="jarSpare" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="su_staff_name" property="jarName" jdbcType="VARCHAR" />
+    <result column="storefront_name" property="jarStoreName" jdbcType="VARCHAR" />
+    <result column="department_name" property="jarDepartmentName" jdbcType="VARCHAR" />
+    <result column="jar_status" property="jarStatus" jdbcType="INTEGER" />
+  </resultMap>
+  <select id="selectJourAttendanceRecord" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JourAttendanceRecord" >
+    select a.* ,bb.total_num from
+    (select * from
+	jour_attendance_record jar 
+	left outer join sys_users sys on sys.user_coding = jar.jar_user_id
+	left outer join sys_department sd on sd.department_id = jar.jar_department_id
+	left outer join sys_storefront ss on ss.storefront_id = jar.jar_store_id
+    <where>
+      <if test="jarUserId != null" >
+       and jar_user_id = #{jarUserId}
+      </if>
+      <if test="jarStatus != null" >
+        and jar_status = #{jarStatus}
+      </if>
+      <if test="jarDepartmentId != null " >
+       and jar_department_id = #{jarDepartmentId}
+      </if>
+      <if test="jarStoreId != null " >
+       and jar_store_id = #{jarStoreId}
+      </if>
+      <if test="jarSpare == null">
+       and date_format(jar_work_time,'%Y-%m-%d')=date_format(NOW(),'%Y-%m-%d')
+      </if>
+      <if test="jarWork1 != null " >
+       and jar_work1 = #{jarWork1}
+      </if>
+      <if test="jarOffwork1 != null " >
+       and jar_offwork1 = #{jarOffwork1}
+      </if>
+      <if test="jarWork2 != null  " >
+       and jar_work2 = #{jarWork2}
+      </if>
+      <if test="jarOffwork2 != null  " >
+       and jar_offwork2 = #{jarOffwork2}
+      </if>
+      <if test="jarWork3 != null  " >
+       and jar_work3 = #{jarWork3}
+      </if>
+      <if test="jarOffwork3 != null " >
+       and jar_offwork3 = #{jarOffwork3}
+      </if>
+      <if test="jarWork4 != null  " >
+       and jar_work4 = #{jarWork4}
+      </if>
+      <if test="jarOffwork4 != null " >
+       and jar_offwork4 = #{jarOffwork4}
+      </if>
+      <if test="jarStoreName != null and jarStoreName !=''" >
+       and storefront_name = #{jarStoreName}
+      </if>
+      <if test="jarSelectTime != null and jarSelectTime !=''" >
+       and date_format(jar_work_time,'%Y-%m-%d') = #{jarSelectTime}
+       </if>
+      <if test="jarStartTime != null and jarStartTime !='' and jarEndTime != null and jarEndTime !=''">
+      	and #{jarStartTime}  &lt;= date_format(jar_work_time,'%Y-%m-%d') and date_format(jar_work_time,'%Y-%m-%d') &lt;= #{jarEndTime}
+      </if>
+    </where>)
+    a,(select count(*) total_num from jour_attendance_record jar 
+	left outer join sys_users sys on sys.user_coding = jar.jar_user_id
+	left outer join sys_department sd on sd.department_id = jar.jar_department_id
+	left outer join sys_storefront ss on ss.storefront_id = jar.jar_store_id
+    <where>
+      <if test="jarUserId != null" >
+       and jar_user_id = #{jarUserId}
+      </if>
+      <if test="jarStatus != null" >
+        and jar_status = #{jarStatus}
+      </if>
+      <if test="jarDepartmentId != null " >
+       and jar_department_id = #{jarDepartmentId}
+      </if>
+      <if test="jarStoreId != null " >
+       and jar_store_id = #{jarStoreId}
+      </if>
+      <if test="jarSpare == null">
+       and date_format(jar_work_time,'%Y-%m-%d')=date_format(NOW(),'%Y-%m-%d')
+      </if>
+      <if test="jarWork1 != null " >
+       and jar_work1 = #{jarWork1}
+      </if>
+      <if test="jarOffwork1 != null " >
+       and jar_offwork1 = #{jarOffwork1}
+      </if>
+      <if test="jarWork2 != null  " >
+       and jar_work2 = #{jarWork2}
+      </if>
+      <if test="jarOffwork2 != null  " >
+       and jar_offwork2 = #{jarOffwork2}
+      </if>
+      <if test="jarWork3 != null  " >
+       and jar_work3 = #{jarWork3}
+      </if>
+      <if test="jarOffwork3 != null " >
+       and jar_offwork3 = #{jarOffwork3}
+      </if>
+      <if test="jarWork4 != null  " >
+       and jar_work4 = #{jarWork4}
+      </if>
+      <if test="jarOffwork4 != null " >
+       and jar_offwork4 = #{jarOffwork4}
+      </if>
+      <if test="jarStoreName != null and jarStoreName !=''" >
+       and storefront_name = #{jarStoreName}
+      </if>
+      <if test="jarSelectTime != null and jarSelectTime !=''" >
+       and date_format(jar_work_time,'%Y-%m-%d') = #{jarSelectTime}
+      </if>
+      <if test="jarStartTime != null and jarStartTime !='' and jarEndTime != null and jarEndTime !=''">
+      	and #{jarStartTime}  &lt;= date_format(jar_work_time,'%Y-%m-%d') and date_format(jar_work_time,'%Y-%m-%d') &lt;= #{jarEndTime}
+      </if>
+    </where>)bb
+    ORDER BY jar_work_time DESC
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>  
+  </select>
+ 
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourAttendanceRecord" >
+    insert into jour_attendance_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jarId != null and jarId != '' " >
+        jar_id,
+      </if>
+      <if test="jarUserId != null and jarUserId != '' " >
+        jar_user_id,
+      </if>
+      <if test="jarDepartmentId != null and jarDepartmentId != '' " >
+        jar_department_id,
+      </if>
+      <if test="jarStoreId != null and jarStoreId != '' " >
+        jar_store_id,
+      </if>
+      <if test="jarWorkTime != null and jarWorkTime != '' " >
+        jar_work_time,
+      </if>
+      <if test="jarWork1 != null and jarWork1 != '' " >
+        jar_work1,
+      </if>
+      <if test="jarOffwork1 != null and jarOffwork1 != '' " >
+        jar_offwork1,
+      </if>
+      <if test="jarWork2 != null and jarWork2 != '' " >
+        jar_work2,
+      </if>
+      <if test="jarOffwork2 != null and jarOffwork2 != '' " >
+        jar_offwork2,
+      </if>
+      <if test="jarWork3 != null and jarWork3 != '' " >
+        jar_work3,
+      </if>
+      <if test="jarOffwork3 != null and jarOffwork3 != '' " >
+        jar_offwork3,
+      </if>
+      <if test="jarWork4 != null and jarWork4 != '' " >
+        jar_work4,
+      </if>
+      <if test="jarOffwork4 != null and jarOffwork4 != '' " >
+        jar_offwork4,
+      </if>
+      <if test="jarSpare != null and jarSpare != '' " >
+        jar_spare,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jarId != null and jarId != '' ">
+        #{jarId,jdbcType=INTEGER},
+      </if>
+      <if test="jarUserId != null and jarUserId != '' " >
+        #{jarUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jarDepartmentId != null and jarDepartmentId != '' " >
+        #{jarDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="jarStoreId != null and jarStoreId != '' " >
+        #{jarStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="jarWorkTime != null and jarWorkTime != '' " >
+        #{jarWorkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarWork1 != null and jarWork1 != '' " >
+        #{jarWork1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarOffwork1 != null and jarOffwork1 != '' " >
+        #{jarOffwork1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarWork2 != null and jarWork2 != '' " >
+        #{jarWork2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarOffwork2 != null and jarOffwork2 != '' " >
+        #{jarOffwork2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarWork3 != null and jarWork3 != '' " >
+        #{jarWork3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarOffwork3 != null and jarOffwork3 != '' " >
+        #{jarOffwork3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarWork4 != null and jarWork4 != '' " >
+        #{jarWork4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarOffwork4 != null and jarOffwork4 != '' " >
+        #{jarOffwork4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jarSpare != null and jarSpare != '' " >
+        #{jarSpare,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="addAttendanceNote" parameterType="com.zz.po.journal.JourAttendanceRecord" >
+    update jour_attendance_record set jar_spare = #{jarSpare} where jar_id = #{jarId}
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourAttendanceRecord" >
+    update jour_attendance_record
+    <set >
+      <if test="jarWork1 != null" >
+        jar_work1 = #{jarWork1},
+      </if>
+      <if test="jarOffwork1 != null" >
+        jar_offwork1 = #{jarOffwork1},
+      </if>
+      <if test="jarWork2 != null" >
+        jar_work2 = #{jarWork2},
+      </if>
+      <if test="jarOffwork2 != null" >
+        jar_offwork2 = #{jarOffwork2},
+      </if>
+      <if test="jarWork3 != null" >
+        jar_work3 = #{jarWork3},
+      </if>
+      <if test="jarOffwork3 != null" >
+        jar_offwork3 = #{jarOffwork3},
+      </if>
+      <if test="jarWork4 != null" >
+        jar_work4 = #{jarWork4},
+      </if>
+      <if test="jarOffwork4 != null" >
+        jar_offwork4 = #{jarOffwork4},
+      </if>
+      <if test="jarSpare != null" >
+        jar_spare = #{jarSpare},
+      </if>
+      <if test="jarStatus != null" >
+        jar_status = #{jarStatus}
+      </if>
+    </set>
+    <where>
+   	  date_format(jar_work_time,'%Y-%m-%d')=date_format(NOW(),'%Y-%m-%d')
+      <if test="jarUserId != null" >
+        and jar_user_id = #{jarUserId}
+      </if>
+    </where>
+  </update>
+  
+</mapper>

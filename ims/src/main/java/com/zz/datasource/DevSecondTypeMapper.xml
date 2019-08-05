@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.datasource.DevSecondTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.datasource.DevSecondType">
+    <id column="dst_id" property="dst_id" jdbcType="INTEGER" />
+    <result column="dst_name" property="dst_name" jdbcType="VARCHAR" />
+    <result column="dst_dft_id" property="dst_dft_id" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 查询所有 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from device_second_type
+  	<where>
+  		<if test="dst_dft_id != null and dst_dft_id != '' ">
+  			dst_dft_id = #{dst_dft_id,jdbcType=INTEGER}
+  		</if>
+  	</where>
+  </select>
+</mapper>

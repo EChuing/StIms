@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsSellMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoodsSell" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cgs_order_id" property="cgsOrderId" jdbcType="INTEGER" />
+    <result column="cgs_goods_id" property="cgsGoodsId" jdbcType="INTEGER" />
+    <result column="cgs_operator_id" property="cgsOperatorId" jdbcType="INTEGER" />
+    <result column="cgs_goods_name" property="cgsGoodsName" jdbcType="VARCHAR" />
+    <result column="cgs_sell_num" property="cgsSellNum" jdbcType="INTEGER" />
+    <result column="cgs_remaining_num" property="cgsRemainingNum" jdbcType="INTEGER" />
+    <result column="cgs_original_price" property="cgsOriginalPrice" jdbcType="DOUBLE" />
+    <result column="cgs_current_price" property="cgsCurrentPrice" jdbcType="DOUBLE" />
+    <result column="cgs_cost_price" property="cgsCostPrice" jdbcType="DOUBLE" />
+    <result column="cgs_preferential" property="cgsPreferential" jdbcType="INTEGER" />
+    <result column="cgs_sell_well" property="cgsSellWell" jdbcType="INTEGER" />
+    <result column="cgs_registration_time" property="cgsRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="cgs_category" property="cgsCategory" jdbcType="VARCHAR" />
+    <result column="cgcId" property="cgcId" jdbcType="INTEGER" />
+    <result column="cgc_category_name" property="cgcCategoryName" jdbcType="VARCHAR" />
+    <result column="cgc_num" property="cgcNum" jdbcType="INTEGER" />
+    <result column="cgc_registration_time" property="cgcRegistrationTime" jdbcType="VARCHAR" />
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+    <result column="cg_SN" property="cgSn" jdbcType="VARCHAR" />
+    <result column="cgb_state" property="cgbState" jdbcType="VARCHAR" />
+    <result column="cgs_goods_sn" property="cgsGoodsSn" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cgs_order_id, cgs_category, cgs_operator_id, cgs_goods_name, cgs_sell_num, 
+    cgs_remaining_num, cgs_original_price, cgs_current_price, cgs_cost_price, cgs_preferential, 
+    cgs_sell_well, cgs_registration_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    cgs.*
+    from cs_goods_sell cgs
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertList" parameterType="java.util.List">
+  	insert into cs_goods_sell
+  	(   
+  		cgs_goods_id,
+        cgs_order_id,
+        cgs_category,
+        cgs_goods_name,
+        cgs_sell_num,
+        cgs_remaining_num,
+        cgs_original_price,
+        cgs_current_price,
+        cgs_cost_price,
+        cgs_preferential,
+        cgs_sell_well,
+        cgs_operator_id,
+        cgs_goods_SN
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+    	#{item.cgsGoodsId},
+		#{item.cgsOrderId},
+		#{item.cgsCategory},
+		#{item.cgsGoodsName},
+		#{item.cgsSellNum},
+		#{item.cgsRemainingNum},
+		#{item.cgsOriginalPrice},
+		#{item.cgsCurrentPrice},
+		#{item.cgsCostPrice},
+		#{item.cgsPreferential},
+		#{item.cgsSellWell},
+		#{item.cgsOperatorId},
+		#{item.cgsGoodsSn}
+    )
+    </foreach>
+  </insert>
+  
+  <select id="listGoodsSell" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsSell" >
+     select 
+    <if test="splitFlag ==0">
+		<!-- 统计查询 -->
+		count(cgs.id) totalNum
+	</if>
+	<if test="splitFlag ==1 or splitFlag ==2 or splitFlag == null">
+		<!-- 数据查询 -->
+		cgs.*,su.*,cg.cg_SN,cgb.cgb_state
+	</if>
+    from cs_goods_sell cgs
+  	left outer join sys_users su on su.user_coding = cgs.cgs_operator_id
+  	left outer join cs_goods cg on cg.id = cgs.cgs_goods_id
+  	left outer join cs_goods_billing cgb on cgb.id = cgs.cgs_order_id
+    <where> 
+    	<if test="cgsOrderId != null and cgsOrderId != ''">
+    		and cgs_order_id = #{cgsOrderId}
+    	</if>
+    	<if test="cgsGoodsName != '' and cgsGoodsName != null">
+			and cgs_goods_name like '%${cgsGoodsName}%'
+		</if>
+        <if test="cgsGoodsId != '' and cgsGoodsId != null">
+            and cgs_goods_id = #{cgsGoodsId}
+        </if>
+    	<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (cgs_registration_time 
+		 	between  
+	 			#{startTime}
+	 			 and
+	 			 #{endTime})
+		 </if>
+    </where>
+    ORDER BY cgs.id DESC
+    <if test="splitFlag ==1">
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoodsSell" useGeneratedKeys="true" keyProperty="id">
+    insert into cs_goods_sell
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cgsOrderId != null" >
+        cgs_order_id,
+      </if>
+      <if test="cgsGoodsId != null" >
+        cgs_goods_id,
+      </if>
+      <if test="cgsCategory != null" >
+        cgs_category,
+      </if>
+      <if test="cgsOperatorId != null" >
+        cgs_operator_id,
+      </if>
+      <if test="cgsGoodsName != null" >
+        cgs_goods_name,
+      </if>
+      <if test="cgsSellNum != null" >
+        cgs_sell_num,
+      </if>
+      <if test="cgsRemainingNum != null" >
+        cgs_remaining_num,
+      </if>
+      <if test="cgsOriginalPrice != null" >
+        cgs_original_price,
+      </if>
+      <if test="cgsCurrentPrice != null" >
+        cgs_current_price,
+      </if>
+      <if test="cgsCostPrice != null" >
+        cgs_cost_price,
+      </if>
+      <if test="cgsPreferential != null" >
+        cgs_preferential,
+      </if>
+      <if test="cgsSellWell != null" >
+        cgs_sell_well,
+      </if>
+      <if test="cgsRegistrationTime != null" >
+        cgs_registration_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cgsOrderId != null" >
+        #{cgsOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="cgsGoodsId != null" >
+        #{cgsGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="cgsCategory != null" >
+        #{cgsCategory},
+      </if>
+      <if test="cgsOperatorId != null" >
+        #{cgsOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="cgsGoodsName != null" >
+        #{cgsGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgsSellNum != null" >
+        #{cgsSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgsRemainingNum != null" >
+        #{cgsRemainingNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgsOriginalPrice != null" >
+        #{cgsOriginalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsCurrentPrice != null" >
+        #{cgsCurrentPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsCostPrice != null" >
+        #{cgsCostPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsPreferential != null" >
+        #{cgsPreferential,jdbcType=INTEGER},
+      </if>
+      <if test="cgsSellWell != null" >
+        #{cgsSellWell,jdbcType=INTEGER},
+      </if>
+      <if test="cgsRegistrationTime != null" >
+        #{cgsRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoodsSell" >
+    update cs_goods_sell
+    <set >
+      <if test="cgsOrderId != null" >
+        cgs_order_id = #{cgsOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="cgsCategory != null" >
+        cgs_category = #{cgsCategory},
+      </if>
+      <if test="cgsOperatorId != null" >
+        cgs_operator_id = #{cgsOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="cgsGoodsName != null" >
+        cgs_goods_name = #{cgsGoodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgsSellNum != null" >
+        cgs_sell_num = #{cgsSellNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgsRemainingNum != null" >
+        cgs_remaining_num = #{cgsRemainingNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgsOriginalPrice != null" >
+        cgs_original_price = #{cgsOriginalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsCurrentPrice != null" >
+        cgs_current_price = #{cgsCurrentPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsCostPrice != null" >
+        cgs_cost_price = #{cgsCostPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsPreferential != null" >
+        cgs_preferential = #{cgsPreferential,jdbcType=INTEGER},
+      </if>
+      <if test="cgsSellWell != null" >
+        cgs_sell_well = #{cgsSellWell,jdbcType=INTEGER},
+      </if>
+      <if test="cgsRegistrationTime != null" >
+        cgs_registration_time = #{cgsRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgsGoodsSn != null" >
+        cgs_goods_SN = #{cgsGoodsSn,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getPieNum" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsSell" >
+  	select *,sum(cgs_sell_num) sellNum  from cs_goods_sell where cgs_registration_time  between   #{startTime}  and  #{endTime} group by cgs_goods_name  order by sellNum desc limit 0,5
+  </select>
+  <select id="getCategoryNum" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsSell" >
+  	select *,sum(cgs_sell_num) sellNum  from cs_goods_sell where cgs_registration_time  between   #{startTime}  and  #{endTime} group by cgs_category  order by sellNum desc limit 0,5
+  </select>
+  <select id="getGoodsProfitNum" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsSell" >
+  	select *,(sum(cgs_current_price) - sum(cgs_cost_price)) goodsProfit from cs_goods_billing cgb left outer join cs_goods_sell cgs on cgs.cgs_order_id = cgb.id where cgb_state in ("已完成","已送达") and cgb_registration_time between   #{startTime}  and  #{endTime} group by cgs_goods_name order by goodsProfit desc limit 0,5
+  </select>
+  <select id="getSellAllNum" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsSell" >
+  	select sum(cgs_sell_num) sellNum  from cs_goods_sell  where cgs_registration_time  between   #{startTime}  and  #{endTime}
+  </select>
+  <select id="getSellAllProfitNum" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsSell" >
+  	select (sum(cgs_current_price) - sum(cgs_cost_price)) goodsProfit from cs_goods_billing cgb left outer join cs_goods_sell cgs on cgs.cgs_order_id = cgb.id where cgb_state in ("已完成","已送达") and cgs_registration_time  between   #{startTime}  and  #{endTime}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cs_goods_sell
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

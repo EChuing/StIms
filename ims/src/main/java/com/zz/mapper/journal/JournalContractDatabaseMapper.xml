@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalContractDatabaseMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalContractDatabase" >
+    <id column="jcd_id" property="jcdId" jdbcType="INTEGER" />
+    <result column="jcd_born_adult" property="jcdBornAdult" jdbcType="INTEGER" />
+    <result column="jcd_recipient" property="jcdRecipient" jdbcType="INTEGER" />
+    <result column="jcd_contract_person" property="jcdContractPerson" jdbcType="INTEGER" />
+    <result column="jcd_cancellation_person" property="jcdCancellationPerson" jdbcType="INTEGER" />
+    <result column="jcd_use_state" property="jcdUseState" jdbcType="VARCHAR" />
+    <result column="jcd_generation_time" property="jcdGenerationTime" jdbcType="TIMESTAMP" />
+    <result column="jcd_collection_time" property="jcdCollectionTime" jdbcType="DATE" />
+    <result column="jcd_signing_time" property="jcdSigningTime" jdbcType="DATE" />
+    <result column="jcd_cancellation_time" property="jcdCancellationTime" jdbcType="DATE" />
+    <result column="jcd_contract_prefix" property="jcdContractPrefix" jdbcType="VARCHAR" />
+    
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="jcd_receive_department" property="jcdReceiveDepartment" jdbcType="INTEGER" />
+    <result column="jcd_receive_store" property="jcdReceiveStore" jdbcType="INTEGER" />
+    <result column="jcd_house_address" property="jcdHouseAddress" jdbcType="VARCHAR" />
+    <result column="jcd_used_type" property="jcdUsedType" jdbcType="VARCHAR" />
+    
+    <result column="bornAdultName" property="bornAdultName" jdbcType="VARCHAR" />
+    <result column="recipientName" property="recipientName" jdbcType="VARCHAR" />
+    <result column="contractName" property="contractName" jdbcType="VARCHAR" />
+    <result column="cancellationName" property="cancellationName" jdbcType="VARCHAR" />
+    <result column="jcd_contract_number" property="jcdContractNumber" jdbcType="VARCHAR" />
+    
+    <result column="startNumber" property="startNumber" jdbcType="VARCHAR" />
+    <result column="endNumber" property="endNumber" jdbcType="VARCHAR" />
+    <result column="startEndNumber" property="startEndNumber" jdbcType="VARCHAR" />
+    <result column="numtype" property="numtype" jdbcType="VARCHAR" />
+   	<result column="jcd_note" property="jcdNote" jdbcType="VARCHAR" />
+   	
+   	<result column="jcd_cancellation_reason" property="jcdCancellationReason" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    jcd_id, jcd_born_adult, jcd_recipient, jcd_contract_person, jcd_cancellation_person, jcdReceiveDepartment,jcd_contract_prefix,jcd_note,
+    jcd_use_state, jcd_generation_time, jcd_collection_time, jcd_signing_time, jcd_cancellation_time, jcdReceiveStore, jcd_contract_number,jcd_used_type,jcd_house_address
+  </sql>
+  <!-- 检测查询 -->
+  <select id="selectPrefixNum"  resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalContractDatabase" >
+  	select * from jour_contract_number
+  	<where>
+  		<choose>
+  			<when test="numtype == 1">
+  				 jcd_contract_prefix = #{jcdContractPrefix}
+  				and jcd_contract_number = #{jcdContractNumber}
+  			</when>
+  			<when test="numtype == 2">
+  				jcd_contract_prefix is null
+  				and jcd_contract_number = #{jcdContractNumber}
+  			</when>
+  		</choose>
+  	</where>
+  </select>
+
+
+  <!-- 全部查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalContractDatabase" >
+    select a.*, b.totalNum from
+		(select jcd.*, u.su_staff_name bornAdultName, u2.su_staff_name recipientName, u3.su_staff_name contractName, u4.su_staff_name cancellationName
+		from jour_contract_number jcd 
+		left outer join sys_users u on u.user_coding = jcd.jcd_born_adult
+		left outer join sys_users u2 on u2.user_coding = jcd.jcd_recipient
+		left outer join sys_users u3 on u3.user_coding = jcd.jcd_contract_person
+		left outer join sys_users u4 on u4.user_coding = jcd.jcd_cancellation_person
+		<where> 
+			<if test="bornAdultName != null and bornAdultName != '' ">
+				and u.su_staff_name = #{bornAdultName}
+			</if>
+			<if test="recipientName != null and recipientName != '' ">
+				and u2.su_staff_name = #{recipientName}
+			</if>
+			<if test="contractName != null and contractName != '' ">
+				and u3.su_staff_name contractName = #{contractName}
+			</if>
+			<if test="cancellationName != null and cancellationName != '' ">
+				and u4.su_staff_name = #{cancellationName}
+			</if>
+			<if test="jcdUseState != null and jcdUseState != ''">
+				and jcd_use_state = #{jcdUseState}
+			</if>
+			<if test="jcdContractPrefix != null and jcdContractPrefix != ''">
+				and jcd_contract_prefix like '%${jcdContractPrefix}%'
+			</if>
+			<if test="jcdContractNumber != null and jcdContractNumber != ''">
+				and jcd_contract_number like '%${jcdContractNumber}%'
+			</if>
+			<if test="jcdUsedType != null and jcdUsedType != ''">
+				and jcd_used_type = #{jcdUsedType}
+			</if>
+			<if test="jcdHouseAddress != null and jcdHouseAddress != ''">
+				and jcd_house_address like '%${jcdHouseAddress}%' 
+			</if>
+			<if test="jcdRecipient != null and jcdRecipient != ''">
+				and jcd_recipient = #{jcdRecipient}
+			</if>
+			<if test="jcdRecipient != null and jcdRecipient != ''">
+				and jcd_recipient = #{jcdRecipient}
+			</if>
+		</where>
+		) a,
+		(select count(jcd.jcd_id) totalNum
+		from jour_contract_number jcd
+		left outer join sys_users u on u.user_coding = jcd.jcd_born_adult
+		left outer join sys_users u2 on u2.user_coding = jcd.jcd_recipient
+		left outer join sys_users u3 on u3.user_coding = jcd.jcd_contract_person
+		left outer join sys_users u4 on u4.user_coding = jcd.jcd_cancellation_person
+		<where>
+			<if test="bornAdultName != null and bornAdultName != '' ">
+				and u.su_staff_name = #{bornAdultName}
+			</if>
+			<if test="recipientName != null and recipientName != '' ">
+				and u2.su_staff_name = #{recipientName}
+			</if>
+			<if test="contractName != null and contractName != '' ">
+				and u3.su_staff_name = #{contractName}
+			</if>
+			<if test="cancellationName != null and cancellationName != '' ">
+				and u4.su_staff_name = #{cancellationName}
+			</if>
+			<if test="jcdUseState != null and jcdUseState != ''">
+				and jcd.jcd_use_state = #{jcdUseState}
+			</if>
+			<if test="jcdContractPrefix != null and jcdContractPrefix != ''">
+				and jcd.jcd_contract_prefix like '%${jcdContractPrefix}%'
+			</if>
+			<if test="jcdContractNumber != null and jcdContractNumber != ''">
+				and jcd.jcd_contract_number like '%${jcdContractNumber}%'
+			</if>
+			<if test="jcdUsedType != null and jcdUsedType != ''">
+				and jcd.jcd_used_type = #{jcdUsedType}
+			</if>
+			<if test="jcdHouseAddress != null and jcdHouseAddress != ''">
+				and jcd.jcd_house_address like '%${jcdHouseAddress}%' 
+			</if>
+			<if test="jcdRecipient != null and jcdRecipient != ''">
+				and jcd_recipient = #{jcdRecipient}
+			</if>
+			<if test="jcdRecipient != null and jcdRecipient != ''">
+				and jcd_recipient = #{jcdRecipient}
+			</if>
+		</where>
+	) b
+	ORDER BY jcd_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 单独查询 -->
+  <select id="selectcontractDatabase" resultMap="BaseResultMap" parameterType="java.util.List">
+  	select jcd.* from jour_contract_number jcd
+  	where jcd.jcd_contract_number in
+  	<foreach collection="list" index="index" item="item" open="(" separator="," close=")">  
+  		 #{item.startEndNumber}
+  	</foreach>
+  	<!-- item取的是传入的list中的最后一个 -->
+	<if test="item.jcdContractPrefix != ''">
+		and jcd_contract_prefix = #{item.jcdContractPrefix}
+	</if>
+	<if test="item.jcdContractPrefix == ''">
+		and jcd_contract_prefix is null
+	</if>
+	<if test="item.jcdUseState != null">
+		and jcd_use_state = #{item.jcdUseState}
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_contract_number
+    where jcd_id = #{jcdId,jdbcType=INTEGER}
+  </delete>
+  
+  	<!-- 批量合约生成 -->
+	<insert id="batchGenerationContractNumber" parameterType="java.util.List">
+		insert into jour_contract_number(
+			jcd_contract_number,jcd_born_adult,jcd_contract_prefix,jcd_used_type
+		 	)
+	  		values
+		  <foreach item="item" index="index" collection="list" separator=",">
+		  (
+		  #{item.jcdContractNumber},#{item.jcdBornAdult}
+		  <choose>
+			<when test="item.jcdContractPrefix != null and item.jcdContractPrefix != ''">
+				,#{item.jcdContractPrefix}
+			</when>
+			<otherwise>
+				,null
+			</otherwise>
+		  </choose>
+		  ,#{item.jcdUsedType}
+		  )
+	      </foreach> 
+	</insert>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalContractDatabase" 
+  	useGeneratedKeys="true" keyProperty="jcdId">
+    insert into jour_contract_number
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jcdBornAdult != null" >
+        jcd_born_adult,
+      </if>
+      <if test="jcdRecipient != null" >
+        jcd_recipient,
+      </if>
+      <if test="jcdContractPerson != null" >
+        jcd_contract_person,
+      </if>
+      <if test="jcdCancellationPerson != null" >
+        jcd_cancellation_person,
+      </if>
+      <if test="jcdUseState != null" >
+        jcd_use_state,
+      </if>
+      <if test="jcdGenerationTime != null" >
+        jcd_generation_time,
+      </if>
+      <if test="jcdCollectionTime != null" >
+        jcd_collection_time,
+      </if>
+      <if test="jcdSigningTime != null" >
+        jcd_signing_time,
+      </if>
+      <if test="jcdCancellationTime != null" >
+        jcd_cancellation_time,
+      </if>
+      <if test="jcdReceiveDepartment != null" >
+        jcd_receive_department,
+      </if>
+      <if test="jcdReceiveStore != null" >
+        jcd_receive_store,
+      </if>
+      <if test="jcdContractNumber != null and jcdContractNumber != ''" >
+        jcd_contract_number,
+      </if>
+      <if test="jcdContractPrefix != null and jcdContractPrefix != ''">
+		jcd_contract_prefix,
+	  </if>
+	  <if test="jcdUsedType != null and jcdUsedType != ''">
+		jcd_used_type,
+	  </if>
+	  <if test="jcdHouseAddress != null and jcdHouseAddress != ''">
+		jcd_house_address,
+	  </if>
+	  <if test="jcdNote != null and jcdNote != ''">
+		jcd_note,
+	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jcdBornAdult != null" >
+        #{jcdBornAdult,jdbcType=INTEGER},
+      </if>
+      <if test="jcdRecipient != null" >
+        #{jcdRecipient,jdbcType=INTEGER},
+      </if>
+      <if test="jcdContractPerson != null" >
+        #{jcdContractPerson,jdbcType=INTEGER},
+      </if>
+      <if test="jcdCancellationPerson != null" >
+        #{jcdCancellationPerson,jdbcType=INTEGER},
+      </if>
+      <if test="jcdUseState != null" >
+        #{jcdUseState,jdbcType=VARCHAR},
+      </if>
+      <if test="jcdGenerationTime != null" >
+        #{jcdGenerationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jcdCollectionTime != null" >
+        #{jcdCollectionTime,jdbcType=DATE},
+      </if>
+      <if test="jcdSigningTime != null" >
+        #{jcdSigningTime,jdbcType=DATE},
+      </if>
+      <if test="jcdCancellationTime != null" >
+        #{jcdCancellationTime,jdbcType=DATE},
+      </if>
+      <if test="jcdReceiveDepartment != null" >
+        #{jcdReceiveDepartment},
+      </if>
+      <if test="jcdReceiveStore != null" >
+          #{jcdReceiveStore},
+      </if>
+      <if test="jcdContractNumber != null and jcdContractNumber != ''" >
+        #{jcdContractNumber},
+      </if>
+      <if test="jcdContractPrefix != null and jcdContractPrefix != ''">
+		 #{jcdContractPrefix},
+	  </if>
+	  <if test="jcdUsedType != null and jcdUsedType != ''">
+		 #{jcdUsedType},
+	  </if>
+	  <if test="jcdHouseAddress != null and jcdHouseAddress != ''">
+		 #{jcdHouseAddress},
+	  </if>
+	  <if test="jcdNote != null and jcdNote != ''">
+		#{jcdNote},
+	  </if>
+    </trim>
+  </insert>
+  
+	<!-- 批量修改 -->
+	<update id="batchUpdateContract" parameterType="java.util.List">
+		<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+	    	update jour_contract_number set
+			jcd_use_state = #{item.jcdUseState},
+			jcd_collection_time = #{item.jcdCollectionTime},
+			jcd_recipient = #{item.jcdRecipient},
+			jcd_receive_department = #{item.jcdReceiveDepartment},
+			jcd_receive_store = #{item.jcdReceiveStore}
+	      where  jcd_id = #{item.jcdId}
+	  </foreach>
+	</update>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalContractDatabase" >
+    update jour_contract_number
+    <set >
+      <if test="jcdBornAdult != null" >
+        jcd_born_adult = #{jcdBornAdult,jdbcType=INTEGER},
+      </if>
+      <if test="jcdRecipient != null" >
+        jcd_recipient = #{jcdRecipient,jdbcType=INTEGER},
+      </if>
+      <if test="jcdContractPerson != null" >
+        jcd_contract_person = #{jcdContractPerson,jdbcType=INTEGER},
+      </if>
+      <if test="jcdCancellationPerson != null" >
+        jcd_cancellation_person = #{jcdCancellationPerson,jdbcType=INTEGER},
+      </if>
+      <if test="jcdUseState != null" >
+        jcd_use_state = #{jcdUseState,jdbcType=VARCHAR},
+      </if>
+      <if test="jcdGenerationTime != null" >
+        jcd_generation_time = #{jcdGenerationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jcdCollectionTime != null" >
+        jcd_collection_time = #{jcdCollectionTime,jdbcType=DATE},
+      </if>
+      <if test="jcdSigningTime != null" >
+        jcd_signing_time = #{jcdSigningTime,jdbcType=DATE},
+      </if>
+      <if test="jcdCancellationTime != null" >
+        jcd_cancellation_time = #{jcdCancellationTime,jdbcType=DATE},
+      </if>
+      <if test="jcdReceiveDepartment != null" >
+        jcd_receive_department = #{jcdReceiveDepartment},
+      </if>
+      <if test="jcdReceiveStore != null" >
+          jcd_receive_store = #{jcdReceiveStore},
+      </if>
+      <if test="jcdContractNumber != null and jcdContractNumber != ''" >
+        jcd_contract_number = #{jcdContractNumber},
+      </if>
+      <if test="jcdContractPrefix != null and jcdContractPrefix != ''">
+		jcd.jcd_contract_prefix = #{jcdContractPrefix},
+	  </if>
+	  <if test="jcdUsedType != null and jcdUsedType != ''">
+		 jcd_used_type = #{jcdUsedType},
+	  </if>
+	  <if test="jcdHouseAddress != null and jcdHouseAddress != ''">
+		 jcd_house_address = #{jcdHouseAddress},
+	  </if>
+	  <if test="jcdNote != null and jcdNote != ''">
+		jcd_note = #{jcdNote},
+	  </if>
+	  <if test="jcdCancellationReason != null and jcdCancellationReason != ''">
+		jcd_cancellation_reason = #{jcdCancellationReason},
+	  </if>
+    </set>
+    where jcd_id = #{jcdId,jdbcType=INTEGER}
+  </update>
+	<update id="updatePrefixNum" parameterType="com.zz.po.journal.JournalContractDatabase" >
+		update jour_contract_number
+		<set >
+			<if test="jcdBornAdult != null" >
+				jcd_born_adult = #{jcdBornAdult,jdbcType=INTEGER},
+			</if>
+			<if test="jcdRecipient != null" >
+				jcd_recipient = #{jcdRecipient,jdbcType=INTEGER},
+			</if>
+			<if test="jcdContractPerson != null" >
+				jcd_contract_person = #{jcdContractPerson,jdbcType=INTEGER},
+			</if>
+			<if test="jcdCancellationPerson != null" >
+				jcd_cancellation_person = #{jcdCancellationPerson,jdbcType=INTEGER},
+			</if>
+			<if test="jcdUseState != null" >
+				jcd_use_state = #{jcdUseState,jdbcType=VARCHAR},
+			</if>
+			<if test="jcdGenerationTime != null" >
+				jcd_generation_time = #{jcdGenerationTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="jcdCollectionTime != null" >
+				jcd_collection_time = #{jcdCollectionTime,jdbcType=DATE},
+			</if>
+			<if test="jcdSigningTime != null" >
+				jcd_signing_time = #{jcdSigningTime,jdbcType=DATE},
+			</if>
+			<if test="jcdCancellationTime != null" >
+				jcd_cancellation_time = #{jcdCancellationTime,jdbcType=DATE},
+			</if>
+			<if test="jcdReceiveDepartment != null" >
+				jcd_receive_department = #{jcdReceiveDepartment},
+			</if>
+			<if test="jcdReceiveStore != null" >
+				jcd_receive_store = #{jcdReceiveStore},
+			</if>
+			<if test="jcdUsedType != null and jcdUsedType != ''">
+				jcd_used_type = #{jcdUsedType},
+			</if>
+			<if test="jcdHouseAddress != null and jcdHouseAddress != ''">
+				jcd_house_address = #{jcdHouseAddress},
+			</if>
+			<if test="jcdNote != null and jcdNote != ''">
+				jcd_note = #{jcdNote},
+			</if>
+			<if test="jcdCancellationReason != null and jcdCancellationReason != ''">
+				jcd_cancellation_reason = #{jcdCancellationReason},
+			</if>
+		</set>
+		where jcd_contract_number = #{jcdContractNumber,jdbcType=VARCHAR} and jcd_contract_prefix = #{jcdContractPrefix,jdbcType=VARCHAR}
+	</update>
+  <update id="clearBillNum" parameterType="com.zz.po.journal.JournalContractDatabase" >
+    update jour_contract_number set jcd_contract_person = null, jcd_cancellation_person = null, jcd_use_state = '未使用',
+    jcd_signing_time = null, jcd_cancellation_time = null, jcd_house_address = null, jcd_used_type = null 
+    where jcd_id = #{jcdId,jdbcType=INTEGER}
+  </update>
+</mapper>

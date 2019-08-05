@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ims:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>ims</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="ims.war">
+      <element id="artifact" artifact-name="ims:war exploded" />
+    </root>
+  </artifact>
+</component>

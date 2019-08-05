@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourEmergencyCallMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourEmergencyCall" >
+    <id column="jour_id" property="jourId" jdbcType="INTEGER" />
+    <result column="jour_police_station" property="jourPoliceStation" jdbcType="VARCHAR" />
+    <result column="jour_fire_alarm" property="jourFireAlarm" jdbcType="VARCHAR" />
+    <result column="jour_first_aid" property="jourFirstAid" jdbcType="VARCHAR" />
+    <result column="jour_elevator_company" property="jourElevatorCompany" jdbcType="VARCHAR" />
+    <result column="jour_hydropower" property="jourHydropower" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from jour_emergency_call
+    <where>
+      <if test="jourPoliceStation !=null and jourPoliceStation !=''">
+        and jour_police_station = #{jourPoliceStation,jdbcType=VARCHAR}
+      </if>
+      <if test="jourFireAlarm !=null and jourFireAlarm !=''">
+        and jour_fire_alarm = #{jourFireAlarm,jdbcType=VARCHAR}
+      </if>
+      <if test="jourFirstAid !=null and jourFirstAid !=''">
+        and jour_first_aid = #{jourFirstAid,jdbcType=VARCHAR}
+      </if>
+      <if test="jourElevatorCompany !=null and jourElevatorCompany !=''">
+        and jour_elevator_company = #{jourElevatorCompany,jdbcType=VARCHAR}
+      </if>
+      <if test="jourHydropower !=null and jourHydropower !=''">
+        and jour_hydropower = #{jourHydropower,jdbcType=VARCHAR}
+      </if>
+      <if test="jourHydropower !=null and jourHydropower !=''">
+        and jour_id = #{jourId,jdbcType=INTEGER}
+      </if>
+    </where>
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourEmergencyCall" >
+    insert into jour_emergency_call
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jourId != null" >
+        jour_id,
+      </if>
+      <if test="jourPoliceStation != null" >
+        jour_police_station,
+      </if>
+      <if test="jourFireAlarm != null" >
+        jour_fire_alarm,
+      </if>
+      <if test="jourFirstAid != null" >
+        jour_first_aid,
+      </if>
+      <if test="jourElevatorCompany != null" >
+        jour_elevator_company,
+      </if>
+      <if test="jourHydropower != null" >
+        jour_hydropower,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jourId != null" >
+        #{jourId,jdbcType=INTEGER},
+      </if>
+      <if test="jourPoliceStation != null" >
+        #{jourPoliceStation,jdbcType=VARCHAR},
+      </if>
+      <if test="jourFireAlarm != null" >
+        #{jourFireAlarm,jdbcType=VARCHAR},
+      </if>
+      <if test="jourFirstAid != null" >
+        #{jourFirstAid,jdbcType=VARCHAR},
+      </if>
+      <if test="jourElevatorCompany != null" >
+        #{jourElevatorCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="jourHydropower != null" >
+        #{jourHydropower,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourEmergencyCall" >
+    update jour_emergency_call
+    <set >
+      <if test="jourPoliceStation != null" >
+        jour_police_station = #{jourPoliceStation,jdbcType=VARCHAR},
+      </if>
+      <if test="jourFireAlarm != null" >
+        jour_fire_alarm = #{jourFireAlarm,jdbcType=VARCHAR},
+      </if>
+      <if test="jourFirstAid != null" >
+        jour_first_aid = #{jourFirstAid,jdbcType=VARCHAR},
+      </if>
+      <if test="jourElevatorCompany != null" >
+        jour_elevator_company = #{jourElevatorCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="jourHydropower != null" >
+        jour_hydropower = #{jourHydropower,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jour_id = #{jourId,jdbcType=INTEGER}
+  </update>
+</mapper>

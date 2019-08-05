@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoFileMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoFile" >
+    <id column="file_id" property="fileId" jdbcType="INTEGER" /> 
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="file_tag" property="fileTag" jdbcType="VARCHAR" />
+    <result column="file_user" property="fileUser" jdbcType="INTEGER" />
+    <result column="file_time" property="fileTime" jdbcType="VARCHAR" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!--查询所有信息，给出条件则为条件查询 -->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoFile" >
+   select aa.*,bb.totalNum from
+	(select file.*, user.su_staff_name user_name from info_file file
+	left outer join sys_users user on user.user_coding = file.file_user
+	<where>
+	    <if test="fileName !=null and fileName !='' ">
+	    	and file_name like '%${fileName}%'
+	   	</if>
+	   	<if test="fileType !=null and fileType !='' ">
+	    	and file_type like '%${fileType}%'
+	   	</if>
+	   	<if test="fileTag !=null and fileTag !='' ">
+	    	and file_tag like '%${fileTag}%'
+	   	</if>
+	</where>
+	) aa,
+	(select count(*) totalNum from info_file file
+	left outer join sys_users user on user.user_coding = file.file_user
+	<where>
+	    <if test="fileName !=null and fileName !='' ">
+	    	and file_name like '%${fileName}%'
+	   	</if>
+	   	<if test="fileType !=null and fileType !='' ">
+	    	and file_type like '%${fileType}%'
+	   	</if>
+	   	<if test="fileTag !=null and fileTag !='' ">
+	    	and file_tag like '%${fileTag}%'
+	   	</if>
+	</where>
+	) bb
+    order by aa.file_id DESC
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+ 
+  <!--添加数据-->
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoFile" >
+    insert into info_file
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="fileType != null" >
+        file_type,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="fileTag != null" >
+        file_tag,
+      </if>
+      <if test="fileUser != null" >
+        file_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId},
+      </if>
+      <if test="fileName != null" >
+         #{fileName},
+      </if>
+      <if test="fileType != null" >
+        #{fileType},
+      </if>
+      <if test="filePath != null" >
+        #{filePath},
+      </if>
+      <if test="fileTag != null" >
+        #{fileTag},
+      </if>
+      <if test="fileUser != null" >
+        #{fileUser},
+      </if>   
+    </trim>
+  </insert>
+  
+  <!-- 修改文件 -->
+  <update id="updateFile" parameterType="com.zz.po.info.InfoFile" >
+    update info_file
+    <set >  
+      <if test="fileName != null" >
+        file_name = #{fileName},
+      </if>
+      <if test="fileTag != null" >
+        file_tag = #{fileTag},
+      </if>
+    </set>
+    where file_id = #{fileId}
+  </update>
+  
+  <!-- 删除文件 -->
+  <delete id="deleteFile" parameterType="java.lang.Integer" >
+    delete from info_file where file_id = #{fileId}
+  </delete>
+  
+</mapper>

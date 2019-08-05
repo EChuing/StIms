@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalPerfDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalPerfDetail" >
+    <id column="jpd_id" property="jpdId" jdbcType="INTEGER" />
+    <result column="jpd_user_id" property="jpdUserId" jdbcType="INTEGER" />
+    <result column="jpd_user_name" property="jpdUserName" jdbcType="VARCHAR" />
+    <result column="jpd_perf_type" property="jpdPerfType" jdbcType="VARCHAR" />
+    <result column="jpd_asst_type" property="jpdAsstType" jdbcType="VARCHAR" />
+    <result column="jpd_asst_pro" property="jpdAsstPro" jdbcType="DOUBLE" />
+    <result column="jpd_rent_id" property="jpdRentId" jdbcType="INTEGER" />
+    <result column="jpd_store_id" property="jpdStoreId" jdbcType="INTEGER" />
+    <result column="jpd_address" property="jpdAddress" jdbcType="VARCHAR" />
+    <result column="jpd_free_days" property="jpdFreeDays" jdbcType="INTEGER" />
+    <result column="jpd_free_money" property="jpdFreeMoney" jdbcType="DOUBLE" />
+    <result column="jpd_vacant_days" property="jpdVacantDays" jdbcType="INTEGER" />
+    <result column="jpd_vacant_money" property="jpdVacantMoney" jdbcType="DOUBLE" />
+    <result column="jpd_tenant_rent" property="jpdTenantRent" jdbcType="DOUBLE" />
+    <result column="jpd_landlord_rent" property="jpdLandlordRent" jdbcType="DOUBLE" />
+    <result column="jpd_comm" property="jpdComm" jdbcType="DOUBLE" />
+    <result column="jpd_furn" property="jpdFurn" jdbcType="DOUBLE" />
+    <result column="jpd_clean" property="jpdClean" jdbcType="DOUBLE" />
+    <result column="jpd_diff" property="jpdDiff" jdbcType="DOUBLE" />
+    <result column="jpd_period" property="jpdPeriod" jdbcType="DOUBLE" />
+    <result column="jpd_losses" property="jpdLosses" jdbcType="DOUBLE" />
+    <result column="jpd_gains" property="jpdGains" jdbcType="DOUBLE" />
+    <result column="jpd_deposit" property="jpdDeposit" jdbcType="DOUBLE" />
+    <result column="jpd_sum" property="jpdSum" jdbcType="DOUBLE" />
+    <result column="jpd_time" property="jpdTime" jdbcType="TIMESTAMP" />
+    <result column="jpd_remarks" property="jpdRemarks" jdbcType="VARCHAR" />
+    
+    <!-- 其他 -->
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jpd_id, jpd_user_id, jpd_user_name, jpd_perf_type, jpd_asst_type, jpd_asst_pro, jpd_rent_id, 
+    jpd_store_id, jpd_address, jpd_free_days, jpd_free_money, jpd_vacant_days, jpd_vacant_money, 
+    jpd_tenant_rent, jpd_landlord_rent, jpd_comm, jpd_furn, jpd_clean, jpd_diff, jpd_period, 
+    jpd_losses, jpd_gains, jpd_deposit, jpd_sum, jpd_time, jpd_remarks
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jour_achievement_detail
+    where jpd_id = #{jpdId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_achievement_detail
+    where jpd_id = #{jpdId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zz.po.journal.JournalPerfDetail" >
+    insert into jour_achievement_detail (jpd_id, jpd_user_id, jpd_user_name, 
+      jpd_perf_type, jpd_asst_type, jpd_asst_pro, 
+      jpd_rent_id, jpd_store_id, jpd_address, 
+      jpd_free_days, jpd_free_money, jpd_vacant_days, 
+      jpd_vacant_money, jpd_tenant_rent, jpd_landlord_rent, 
+      jpd_comm, jpd_furn, jpd_clean, 
+      jpd_diff, jpd_period, jpd_losses, 
+      jpd_gains, jpd_deposit, jpd_sum, 
+      jpd_time, jpd_remarks)
+    values (#{jpdId,jdbcType=INTEGER}, #{jpdUserId,jdbcType=INTEGER}, #{jpdUserName,jdbcType=VARCHAR}, 
+      #{jpdPerfType,jdbcType=VARCHAR}, #{jpdAsstType,jdbcType=VARCHAR}, #{jpdAsstPro,jdbcType=DOUBLE}, 
+      #{jpdRentId,jdbcType=INTEGER}, #{jpdStoreId,jdbcType=INTEGER}, #{jpdAddress,jdbcType=VARCHAR}, 
+      #{jpdFreeDays,jdbcType=INTEGER}, #{jpdFreeMoney,jdbcType=DOUBLE}, #{jpdVacantDays,jdbcType=INTEGER}, 
+      #{jpdVacantMoney,jdbcType=DOUBLE}, #{jpdTenantRent,jdbcType=DOUBLE}, #{jpdLandlordRent,jdbcType=DOUBLE}, 
+      #{jpdComm,jdbcType=DOUBLE}, #{jpdFurn,jdbcType=DOUBLE}, #{jpdClean,jdbcType=DOUBLE}, 
+      #{jpdDiff,jdbcType=DOUBLE}, #{jpdPeriod,jdbcType=DOUBLE}, #{jpdLosses,jdbcType=DOUBLE}, 
+      #{jpdGains,jdbcType=DOUBLE}, #{jpdDeposit,jdbcType=DOUBLE}, #{jpdSum,jdbcType=DOUBLE}, 
+      #{jpdTime,jdbcType=TIMESTAMP}, #{jpdRemarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalPerfDetail" >
+    insert into jour_achievement_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jpdId != null" >
+        jpd_id,
+      </if>
+      <if test="jpdUserId != null" >
+        jpd_user_id,
+      </if>
+      <if test="jpdUserName != null" >
+        jpd_user_name,
+      </if>
+      <if test="jpdPerfType != null" >
+        jpd_perf_type,
+      </if>
+      <if test="jpdAsstType != null" >
+        jpd_asst_type,
+      </if>
+      <if test="jpdAsstPro != null" >
+        jpd_asst_pro,
+      </if>
+      <if test="jpdRentId != null" >
+        jpd_rent_id,
+      </if>
+      <if test="jpdStoreId != null" >
+        jpd_store_id,
+      </if>
+      <if test="jpdAddress != null" >
+        jpd_address,
+      </if>
+      <if test="jpdFreeDays != null" >
+        jpd_free_days,
+      </if>
+      <if test="jpdFreeMoney != null" >
+        jpd_free_money,
+      </if>
+      <if test="jpdVacantDays != null" >
+        jpd_vacant_days,
+      </if>
+      <if test="jpdVacantMoney != null" >
+        jpd_vacant_money,
+      </if>
+      <if test="jpdTenantRent != null" >
+        jpd_tenant_rent,
+      </if>
+      <if test="jpdLandlordRent != null" >
+        jpd_landlord_rent,
+      </if>
+      <if test="jpdComm != null" >
+        jpd_comm,
+      </if>
+      <if test="jpdFurn != null" >
+        jpd_furn,
+      </if>
+      <if test="jpdClean != null" >
+        jpd_clean,
+      </if>
+      <if test="jpdDiff != null" >
+        jpd_diff,
+      </if>
+      <if test="jpdPeriod != null" >
+        jpd_period,
+      </if>
+      <if test="jpdLosses != null" >
+        jpd_losses,
+      </if>
+      <if test="jpdGains != null" >
+        jpd_gains,
+      </if>
+      <if test="jpdDeposit != null" >
+        jpd_deposit,
+      </if>
+      <if test="jpdSum != null" >
+        jpd_sum,
+      </if>
+      <if test="jpdTime != null" >
+        jpd_time,
+      </if>
+      <if test="jpdRemarks != null" >
+        jpd_remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jpdId != null" >
+        #{jpdId,jdbcType=INTEGER},
+      </if>
+      <if test="jpdUserId != null" >
+        #{jpdUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jpdUserName != null" >
+        #{jpdUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="jpdPerfType != null" >
+        #{jpdPerfType,jdbcType=VARCHAR},
+      </if>
+      <if test="jpdAsstType != null" >
+        #{jpdAsstType,jdbcType=VARCHAR},
+      </if>
+      <if test="jpdAsstPro != null" >
+        #{jpdAsstPro,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdRentId != null" >
+        #{jpdRentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpdStoreId != null" >
+        #{jpdStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="jpdAddress != null" >
+        #{jpdAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jpdFreeDays != null" >
+        #{jpdFreeDays,jdbcType=INTEGER},
+      </if>
+      <if test="jpdFreeMoney != null" >
+        #{jpdFreeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdVacantDays != null" >
+        #{jpdVacantDays,jdbcType=INTEGER},
+      </if>
+      <if test="jpdVacantMoney != null" >
+        #{jpdVacantMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdTenantRent != null" >
+        #{jpdTenantRent,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdLandlordRent != null" >
+        #{jpdLandlordRent,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdComm != null" >
+        #{jpdComm,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdFurn != null" >
+        #{jpdFurn,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdClean != null" >
+        #{jpdClean,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdDiff != null" >
+        #{jpdDiff,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdPeriod != null" >
+        #{jpdPeriod,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdLosses != null" >
+        #{jpdLosses,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdGains != null" >
+        #{jpdGains,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdDeposit != null" >
+        #{jpdDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdSum != null" >
+        #{jpdSum,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdTime != null" >
+        #{jpdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jpdRemarks != null" >
+        #{jpdRemarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalPerfDetail" >
+    update jour_achievement_detail
+    <set >
+      <if test="jpdUserId != null" >
+        jpd_user_id = #{jpdUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jpdUserName != null" >
+        jpd_user_name = #{jpdUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="jpdPerfType != null" >
+        jpd_perf_type = #{jpdPerfType,jdbcType=VARCHAR},
+      </if>
+      <if test="jpdAsstType != null" >
+        jpd_asst_type = #{jpdAsstType,jdbcType=VARCHAR},
+      </if>
+      <if test="jpdAsstPro != null" >
+        jpd_asst_pro = #{jpdAsstPro,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdRentId != null" >
+        jpd_rent_id = #{jpdRentId,jdbcType=INTEGER},
+      </if>
+      <if test="jpdStoreId != null" >
+        jpd_store_id = #{jpdStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="jpdAddress != null" >
+        jpd_address = #{jpdAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jpdFreeDays != null" >
+        jpd_free_days = #{jpdFreeDays,jdbcType=INTEGER},
+      </if>
+      <if test="jpdFreeMoney != null" >
+        jpd_free_money = #{jpdFreeMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdVacantDays != null" >
+        jpd_vacant_days = #{jpdVacantDays,jdbcType=INTEGER},
+      </if>
+      <if test="jpdVacantMoney != null" >
+        jpd_vacant_money = #{jpdVacantMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdTenantRent != null" >
+        jpd_tenant_rent = #{jpdTenantRent,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdLandlordRent != null" >
+        jpd_landlord_rent = #{jpdLandlordRent,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdComm != null" >
+        jpd_comm = #{jpdComm,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdFurn != null" >
+        jpd_furn = #{jpdFurn,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdClean != null" >
+        jpd_clean = #{jpdClean,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdDiff != null" >
+        jpd_diff = #{jpdDiff,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdPeriod != null" >
+        jpd_period = #{jpdPeriod,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdLosses != null" >
+        jpd_losses = #{jpdLosses,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdGains != null" >
+        jpd_gains = #{jpdGains,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdDeposit != null" >
+        jpd_deposit = #{jpdDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdSum != null" >
+        jpd_sum = #{jpdSum,jdbcType=DOUBLE},
+      </if>
+      <if test="jpdTime != null" >
+        jpd_time = #{jpdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jpdRemarks != null" >
+        jpd_remarks = #{jpdRemarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jpd_id = #{jpdId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.journal.JournalPerfDetail" >
+    update jour_achievement_detail
+    set jpd_user_id = #{jpdUserId,jdbcType=INTEGER},
+      jpd_user_name = #{jpdUserName,jdbcType=VARCHAR},
+      jpd_perf_type = #{jpdPerfType,jdbcType=VARCHAR},
+      jpd_asst_type = #{jpdAsstType,jdbcType=VARCHAR},
+      jpd_asst_pro = #{jpdAsstPro,jdbcType=DOUBLE},
+      jpd_rent_id = #{jpdRentId,jdbcType=INTEGER},
+      jpd_store_id = #{jpdStoreId,jdbcType=INTEGER},
+      jpd_address = #{jpdAddress,jdbcType=VARCHAR},
+      jpd_free_days = #{jpdFreeDays,jdbcType=INTEGER},
+      jpd_free_money = #{jpdFreeMoney,jdbcType=DOUBLE},
+      jpd_vacant_days = #{jpdVacantDays,jdbcType=INTEGER},
+      jpd_vacant_money = #{jpdVacantMoney,jdbcType=DOUBLE},
+      jpd_tenant_rent = #{jpdTenantRent,jdbcType=DOUBLE},
+      jpd_landlord_rent = #{jpdLandlordRent,jdbcType=DOUBLE},
+      jpd_comm = #{jpdComm,jdbcType=DOUBLE},
+      jpd_furn = #{jpdFurn,jdbcType=DOUBLE},
+      jpd_clean = #{jpdClean,jdbcType=DOUBLE},
+      jpd_diff = #{jpdDiff,jdbcType=DOUBLE},
+      jpd_period = #{jpdPeriod,jdbcType=DOUBLE},
+      jpd_losses = #{jpdLosses,jdbcType=DOUBLE},
+      jpd_gains = #{jpdGains,jdbcType=DOUBLE},
+      jpd_deposit = #{jpdDeposit,jdbcType=DOUBLE},
+      jpd_sum = #{jpdSum,jdbcType=DOUBLE},
+      jpd_time = #{jpdTime,jdbcType=TIMESTAMP},
+      jpd_remarks = #{jpdRemarks,jdbcType=VARCHAR}
+    where jpd_id = #{jpdId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByJP" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalPerfDetail" >
+    select a.*, b.totalNum from 
+    (select *
+    from jour_achievement_detail
+    <where>
+    	<if test="jpdUserId != null and jpdUserId != '' " >
+        	and jpd_user_id = #{jpdUserId,jdbcType=INTEGER}
+      	</if>
+      	<if test="startDate != null and startDate != '' " >
+        	and date_format(jpd_time,"%Y%m%d") &gt;= date_format(#{startDate,jdbcType=VARCHAR},"%Y%m%d")
+      	</if>
+      	<if test="endDate != null and endDate != '' " >
+        	and date_format(jpd_time,"%Y%m%d") &lt;= date_format(#{endDate,jdbcType=VARCHAR},"%Y%m%d")
+      	</if>
+    </where>) a,
+    (select count(*) totalNum
+    from jour_achievement_detail
+    <where>
+    	<if test="jpdUserId != null and jpdUserId != '' " >
+        	and jpd_user_id = #{jpdUserId,jdbcType=INTEGER}
+      	</if>
+      	<if test="startDate != null and startDate != '' " >
+        	and date_format(jpd_time,"%Y%m%d") &gt;= date_format(#{startDate,jdbcType=VARCHAR},"%Y%m%d")
+      	</if>
+      	<if test="endDate != null and endDate != '' " >
+        	and date_format(jpd_time,"%Y%m%d") &lt;= date_format(#{endDate,jdbcType=VARCHAR},"%Y%m%d")
+      	</if>
+    </where>) b
+    order by a.jpd_time DESC 
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+</mapper>

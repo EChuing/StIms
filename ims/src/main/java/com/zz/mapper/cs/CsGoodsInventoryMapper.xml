@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsInventoryMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoodsInventory" >
+    <id column="cgi_id" property="cgiId" jdbcType="INTEGER" />
+    <result column="cgi_goods_id" property="cgiGoodsId" jdbcType="INTEGER" />
+    <result column="cgi_operation_id" property="cgiOperationId" jdbcType="INTEGER" />
+    <result column="cgi_before_num" property="cgiBeforeNum" jdbcType="INTEGER" />
+    <result column="cgi_update_num" property="cgiUpdateNum" jdbcType="INTEGER" />
+    <result column="cgi_remark" property="cgiRemark" jdbcType="VARCHAR" />
+    <result column="cgi_register_time" property="cgiRegisterTime" jdbcType="TIMESTAMP" />
+    
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+    <result column="cg_name" property="cgName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cgi_id, cgi_goods_id, cgi_operation_id, cgi_before_num, cgi_update_num, cgi_remark, 
+    cgi_register_time
+  </sql>
+  
+  <select id="listCsGoodsInventory" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsInventory" >
+    select 
+  	<if test="splitFlag ==0">
+		<!-- 统计查询 -->
+		count(cgi.cgi_id) totalNum
+	</if>
+	<if test="splitFlag ==1">
+		<!-- 数据查询 -->
+		cgi.*,su.su_staff_name,cg.*
+	</if>
+  	from cs_goods_inventory cgi   
+  	left outer join sys_users su on su.user_coding = cgi.cgi_operation_id
+  	left outer join cs_goods cg on cg.id = cgi.cgi_goods_id
+  	<where>
+		<if test="cgName != null and cgName != ''">
+			and cg_name like '%${cgName}%'
+		</if>
+		<if test="cgCode != null and cgCode != ''">
+			and cg_code = #{cgCode}
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (cgi_register_time 
+		 	between  
+	 			#{startTime}
+	 			 and
+	 			 #{endTime})
+		 </if>
+  	</where>
+  	ORDER BY cgi_id DESC
+	<if test="splitFlag ==1">
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+	
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsInventory" >
+    select 
+    *
+    from cs_goods_inventory
+    where cgi_id = #{cgiId,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoodsInventory" >
+    insert into cs_goods_inventory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cgiId != null" >
+        cgi_id,
+      </if>
+      <if test="cgiGoodsId != null" >
+        cgi_goods_id,
+      </if>
+      <if test="cgiOperationId != null" >
+        cgi_operation_id,
+      </if>
+      <if test="cgiBeforeNum != null" >
+        cgi_before_num,
+      </if>
+      <if test="cgiUpdateNum != null" >
+        cgi_update_num,
+      </if>
+      <if test="cgiRemark != null" >
+        cgi_remark,
+      </if>
+      <if test="cgiRegisterTime != null" >
+        cgi_register_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cgiId != null" >
+        #{cgiId,jdbcType=INTEGER},
+      </if>
+      <if test="cgiGoodsId != null" >
+        #{cgiGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="cgiOperationId != null" >
+        #{cgiOperationId,jdbcType=INTEGER},
+      </if>
+      <if test="cgiBeforeNum != null" >
+        #{cgiBeforeNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgiUpdateNum != null" >
+        #{cgiUpdateNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgiRemark != null" >
+        #{cgiRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="cgiRegisterTime != null" >
+        #{cgiRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoodsInventory" >
+    update cs_goods_inventory
+    <set >
+      <if test="cgiGoodsId != null" >
+        cgi_goods_id = #{cgiGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="cgiOperationId != null" >
+        cgi_operation_id = #{cgiOperationId,jdbcType=INTEGER},
+      </if>
+      <if test="cgiBeforeNum != null" >
+        cgi_before_num = #{cgiBeforeNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgiUpdateNum != null" >
+        cgi_update_num = #{cgiUpdateNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgiRemark != null" >
+        cgi_remark = #{cgiRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="cgiRegisterTime != null" >
+        cgi_register_time = #{cgiRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cgi_id = #{cgiId,jdbcType=INTEGER}
+  </update>
+</mapper>

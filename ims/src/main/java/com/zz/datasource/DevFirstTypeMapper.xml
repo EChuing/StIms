@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.datasource.DevFirstTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.datasource.DevFirstType">
+    <id column="dft_id" property="dft_id" jdbcType="INTEGER" />
+    <result column="dft_name" property="dft_name" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询所有 -->
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select * from device_first_type 
+  </select>
+  <select id="selectPolice" resultMap="BaseResultMap">
+  	SELECT dft_id,dft_name FROM device_first_type WHERE dft_id IN(9,10,11,12,13,14,15,16,21,24)
+  </select>
+</mapper>

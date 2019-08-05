@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.collection.MainConsoleMapper" >
+  <!-- 业绩 -->
+  <resultMap id="dashWorkerAchievement" type="com.zz.po.collection.MainConsoleExpand" >
+    <result column="mps_intentional_number" property="mpsIntentionalNumber" jdbcType="INTEGER" />
+    <result column="mps_follow_up_number" property="mpsFollowUpNumber" jdbcType="INTEGER" />
+    <result column="mps_with_guest_house_number" property="mpsWithGuestHouseNumber" jdbcType="INTEGER" />
+    <result column="mps_look_number_room" property="mpsLookNumberRoom" jdbcType="INTEGER" />
+    <result column="mps_house_number" property="mpsHouseNumber" jdbcType="INTEGER" />
+    <result column="mps_room_number" property="mpsRoomNumber" jdbcType="INTEGER" />
+    <result column="mps_choose_room_number" property="mpsChooseRoomNumber" jdbcType="INTEGER" />
+    <result column="mps_date" property="mpsDate" jdbcType="DATE" />
+  </resultMap>
+  <!-- 公告 -->
+  <resultMap id="dashAnnouncement" type="com.zz.po.collection.MainConsoleExpand" >
+    <result column="dn_id" property="dnId" jdbcType="INTEGER" />
+    <result column="dn_user_id" property="dnUserId" jdbcType="INTEGER" />
+    <result column="dn_type" property="dnType" jdbcType="VARCHAR" />
+    <result column="dn_title" property="dnTitle" jdbcType="VARCHAR" />
+    <result column="dn_content" property="dnContent" jdbcType="VARCHAR" />
+    <result column="dn_time" property="dnTime" jdbcType="TIMESTAMP" />
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 统计 -->
+  <resultMap id="countNum" type="com.zz.po.collection.MainConsoleExpand" >
+	<result column="countNum1" property="countNum1" jdbcType="VARCHAR" />
+	<result column="countNum2" property="countNum2" jdbcType="VARCHAR" />
+	<result column="countNum3" property="countNum3" jdbcType="VARCHAR" />
+	<result column="countNum4" property="countNum4" jdbcType="VARCHAR" />
+	<result column="countNum5" property="countNum5" jdbcType="VARCHAR" />
+	<result column="countNum6" property="countNum6" jdbcType="VARCHAR" />
+    <result column="countNum7" property="countNum7" jdbcType="VARCHAR" />
+    <result column="countNum8" property="countNum8" jdbcType="VARCHAR" />
+  </resultMap>
+  	<!-- 查询近30天业绩 -->
+   <select id="queryOneYearAchievement" resultMap="dashWorkerAchievement" parameterType="com.zz.po.collection.MainConsoleExpand" >
+    select mps.*
+	from dash_worker_achievement mps
+	<where>
+    	<if test="userId !=null and userId != '' ">
+    		and mps_staff_id = #{userId}
+    	</if>
+    	and (mps_date between date_sub(curdate(),interval 30 day) and date_sub(curdate(),interval 1 day))
+    </where>
+  </select>
+  <!-- 查询公告 -->
+  <select id="queryNoticeInConsole" resultMap="dashAnnouncement" parameterType="com.zz.po.collection.MainConsoleExpand" >
+        SELECT a.* ,u.su_staff_name
+        FROM ( SELECT * FROM dash_announcement ORDER BY dn_time DESC LIMIT 10000000000) a 
+        LEFT OUTER JOIN sys_users u ON a.dn_user_id=u.user_coding
+        GROUP BY dn_type  
+  </select>
+  <!-- 查询盘源管理数值-关注/私盘/公盘 -->
+  <select id="countHouseNumsInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+ 		 SELECT a.countNum1 countNum1 ,b.countNum2 countNum2,c.countNum3 countNum3 from 
+			(select count(house_coding) countNum1 
+			from info_house_paper 
+			where (house_people4rent = #{userId} or house_people4sell = #{userId}) and first_follow = 1 and house_signed_state = "未托管") a,
+			(select count(house_coding) countNum2 
+			from info_house_paper 
+			where house_people4rent = #{userId} or house_people4sell = #{userId} and house_signed_state = "未托管") b,
+			(select count(house_coding) countNum3 
+			from info_house_paper 
+			where house_people4rent is null and house_people4sell is null and house_signed_state = "未托管") c
+  </select>
+  <!-- 查询事务数值-发起/待办-->
+  <select id="countEventNumsInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 from 
+			(select count(ea_id) countNum1 from jour_approval_paper where ea_event_publisher = #{userId} and ea_event_state = "处理中") a,
+			(select count(ea_id) countNum2 from jour_approval_paper where ea_event_handler = #{userId} and ea_event_state = "处理中") b 
+  </select>
+  <!-- 查询出房数值-已定/未租/意向人-->
+  <select id="countStoreNumsInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3 from 
+			(select count(hs_id) countNum1 from info_house_4store where hs_salesman_id = #{userId} and (hs_lease_state = "空置未租" or hs_lease_state = "到期不续" or hs_lease_state = "毁约待租" or hs_lease_state = "正在转租")) a,
+			(select count(hs_id) countNum2 from info_house_4store where hs_down_deposit = '否' and (hs_lease_state = '空置未租' or hs_lease_state = '正在转租' or hs_lease_state = '到期不续' or hs_lease_state = '毁约待租') and hs_state = '正常') b,
+			(select count(ip_id) countNum3 from info_intended_renter where ip_user_id = #{userId} and  (ip_date between date_sub(CURDATE(),interval 30 day) and now())) c
+  </select>
+  <!-- 查询收租数值 -->
+  <select id="countGetRentInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3,d.countNum4 countNum4 from 
+			(select count(jci_id) countNum1 from info_contract_divider where jci_type = "租客租金" and jci_state = "待收" and  jci_fukuanri &lt; CURDATE()) a,
+			(select count(jci_id) countNum2 from info_contract_divider where jci_type = "租客租金" and jci_state = "待收" and jci_fukuanri = CURDATE()) b,
+			(select count(jci_id) countNum3 from info_contract_divider where jci_type = "租客租金" and jci_state = "待收" and  (jci_fukuanri between CURDATE() and date_add(CURDATE(),interval 3 day)) and jci_message_time is null) c,
+			(select count(jci_id) countNum4 from info_contract_divider where jci_type = "租客租金" and (jci_fukuanri between CURDATE() and date_add(CURDATE(),interval 15 day))) d
+  </select>
+  <!-- 查询付租数值 -->
+  <select id="countPayStoreInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3,d.countNum4 countNum4 from 
+			(select count(jci_id) countNum1 from info_contract_divider where jci_type = "房东租金" and jci_state = "待付" and  jci_fukuanri &lt; CURDATE()) a,
+			(select count(jci_id) countNum2 from info_contract_divider where jci_type = "房东租金" and jci_state = "待付" and jci_fukuanri = CURDATE()) b,
+			(select count(jci_id) countNum3 from info_contract_divider where jci_type = "房东租金" and jci_state = "待付" and  (jci_fukuanri between CURDATE() and date_add(CURDATE(),interval 3 day))) c,
+			(select count(jci_id) countNum4 from info_contract_divider where jci_type = "房东租金" and (jci_fukuanri between CURDATE() and date_add(CURDATE(),interval 15 day))) d
+  </select>
+  <!-- 查询收支数值 -->
+  <select id="countFinancialInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 from 
+			(select count(jf_id) countNum1 from jour_financial_records where jf_audit_state = "未审核" ) a,
+			(select count(jf_id) countNum2 from jour_financial_records where jf_audit_state = "已审核" ) b 
+  </select>
+  <!-- 查询租客到期数值 -->
+  <select id="countRentRenewalInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3 from 
+			(select count(*) countNum1 from 
+				(select hr_state, max(jrr_end_time) as maxtime
+					from info_renter_contract jrr
+					left outer join info_house_4rent hr on jrr.jrr_house_4rent_id = hr.hr_id
+					group by jrr_house_4rent_id
+					having maxtime between curdate() and date_add(curdate(),interval 15 day) and (hr_state = '正常')
+				)aa
+			)a,
+			(select count(*) countNum2 from 
+				(select hr_state, max(jrr_end_time) as maxtime
+					from info_renter_contract jrr
+					left outer join info_house_4rent hr on jrr.jrr_house_4rent_id = hr.hr_id
+					group by jrr_house_4rent_id
+					having maxtime between curdate() and date_add(curdate(),interval 30 day) and (hr_state = '正常')
+				)bb
+			)b,
+			(select count(*) countNum3 from 
+				(select hr_state, max(jrr_end_time) as maxtime
+					from info_renter_contract jrr
+					left outer join info_house_4rent hr on jrr.jrr_house_4rent_id = hr.hr_id
+					group by jrr_house_4rent_id
+					having maxtime between curdate() and date_add(curdate(),interval 60 day) and (hr_state = '正常')
+				)cc
+			)c
+  </select>
+  <!-- 查询业主到期数值 -->
+  <select id="countLandLordRenewalInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3 from 
+			(select count(*) countNum1 from 
+				(select hs_state, max(jrl_end_time) as maxtime
+					from info_landlord_contract jrl
+					left outer join info_house_4store hs on jrl.jrl_house_4store_id = hs_id
+					group by jrl_house_4store_id
+					having maxtime between curdate() and date_add(curdate(),interval 15 day) and (hs_state = '正常')
+				)aa
+			)a,
+			(select count(*) countNum2 from 
+				(select hs_state, max(jrl_end_time) as maxtime
+					from info_landlord_contract jrl
+					left outer join info_house_4store hr on jrl.jrl_house_4store_id = hs_id
+					group by jrl_house_4store_id
+					having maxtime between curdate() and date_add(curdate(),interval 30 day) and (hs_state = '正常')
+				)bb
+			)b,
+			(select count(*) countNum3 from 
+				(select hs_state, max(jrl_end_time) as maxtime
+					from info_landlord_contract jrl
+					left outer join info_house_4store hr on jrl.jrl_house_4store_id = hs_id
+					group by jrl_house_4store_id
+					having maxtime between curdate() and date_add(curdate(),interval 60 day) and (hs_state = '正常')
+				)cc
+			)c
+  </select>
+  <!-- 查询维修数值 -->
+  <select id="countRepirInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3 from 
+			(select count(rep_id) countNum1 from jour_oddjobs where rep_state="事件完成" ) a,
+			(select count(rep_id) countNum2 from jour_oddjobs where rep_state="跟进中" ) b,
+			(select count(rep_id) countNum3 from jour_oddjobs where rep_state="未领取" ) c
+  </select>
+  <!-- 查询租客退房数值 -->
+  <select id="countRentCheckOutInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3,d.countNum4 countNum4 from 
+			(select count(rco_id) countNum1 from info_rented_checkout where rco_check_out_the_state = "退房待出账" and rco_procedures = "正常") a,
+			(select count(rco_id) countNum2 from info_rented_checkout where rco_check_out_the_state = "退房待复核" and rco_procedures = "正常") b,
+			(select count(rco_id) countNum3 from info_rented_checkout where rco_check_out_the_state = "退房待审核" and rco_procedures = "正常") c,
+			(select count(rco_id) countNum4 from info_rented_checkout where rco_check_out_the_state = "正办理退房" and rco_procedures = "正常") d
+  </select>
+  <!-- 查询业主退房数值 -->
+  <select id="countStoreCheckOutInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3,d.countNum4 countNum4 from 
+			(select count(nrc_id) countNum1 from info_stored_checkout where nrc_check_out_the_state = "退房待出账" and nrc_procedures = "正常") a,
+			(select count(nrc_id) countNum2 from info_stored_checkout where nrc_check_out_the_state = "退房待复核" and nrc_procedures = "正常") b,
+			(select count(nrc_id) countNum3 from info_stored_checkout where nrc_check_out_the_state = "退房待审核" and nrc_procedures = "正常") c,
+			(select count(nrc_id) countNum4 from info_stored_checkout where nrc_check_out_the_state = "正办理退房" and nrc_procedures = "正常") d
+  </select>
+  <!-- 查询管房数值 -->
+  <select id="countManageCheckOutInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3 from 
+			(select count(rep_id) countNum1 from jour_oddjobs where rep_state="跟进中" and rep_repair_people_id = #{userId}) a,
+			(select count(rep_id) countNum2 from jour_oddjobs where rep_state="未领取" and rep_repair_people_id = #{userId}) b,
+			(select count(hr_id) countNum3 from info_house_4rent where hr_manager_user_id=7  and hr_state = "正常") c
+  </select>
+  <!-- 查询是否有待办审批/未领取维保/未领取任务 -->
+  <select id="countEventRepairInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		SELECT a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3 from 
+			(select count(ea_id) countNum1 from jour_approval_paper 
+			where ea_event_handler = #{userId} and ea_event_state = "处理中") a, 
+			
+			(select count(rep_id) countNum2 from jour_oddjobs 
+			where rep_type_rp in ('租务维修','空置维修','退房维修','微信报修') 
+			and (rep_state = '未领取' or rep_state = '跟进中') and rep_repair_people_id = #{userId} ) b,
+			
+			(select count(rep_id) countNum3 from jour_oddjobs
+			where rep_type_rp != '租务维修' and rep_type_rp != '空置维修' and rep_type_rp != '退房维修' and rep_type_rp != '微信报修'
+			and (rep_state = '未领取' or rep_state = '跟进中') and rep_repair_people_id = #{userId} ) c
+  </select>
+  <!-- 查询新签租客/业主合约数 -->
+  <select id="countNewContractInConsole" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+  		select a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3,
+  			   d.countNum4 countNum4 ,e.countNum5 countNum5 ,f.countNum6 countNum6 
+  			from 
+			(select count(*) countNum1 from info_renter_contract where year(jrr_signed_time)=year(now()) and month(jrr_signed_time)=month(now())) a,
+			(select count(*) countNum2 from info_renter_contract where year(jrr_signed_time)=year(now()) and quarter(jrr_signed_time) = quarter(now())) b,
+			(select count(*) countNum3 from info_renter_contract where year(jrr_signed_time)=year(now())) c,
+			(select count(*) countNum4 from info_landlord_contract where year(jrl_signed_time)=year(now()) and month(jrl_signed_time)=month(now())) d,
+			(select count(*) countNum5 from info_landlord_contract where year(jrl_signed_time)=year(now()) and quarter(jrl_signed_time) = quarter(now())) e,
+			(select count(*) countNum6 from info_landlord_contract where year(jrl_signed_time)=year(now())) f
+  </select>
+  <!-- 查询即将到期合约数 -->
+  <select id="countContractDueExpired" resultMap="countNum" parameterType="com.zz.po.collection.MainConsoleExpand" >
+		select a.countNum1 countNum1 ,b.countNum2 countNum2 ,c.countNum3 countNum3,
+		    d.countNum4 countNum4 ,e.countNum5 countNum5 ,f.countNum6 countNum6, 
+		    g.countNum7 countNum7 ,h.countNum8 countNum8 
+		from 
+        (select count(*) countNum1 from (select * from (select jrr_house_4rent_id, jrr_end_time from info_renter_contract where jrr_rental_type = "正常" order by jrr_end_time desc) a group by jrr_house_4rent_id having jrr_end_time between curdate() and date_add(curdate()-day(curdate())+1,interval 1 month)) b) a,
+		(select count(*) countNum2 from (select * from (select jrr_house_4rent_id, jrr_end_time from info_renter_contract where jrr_rental_type = "正常" order by jrr_end_time desc) a group by jrr_house_4rent_id having jrr_end_time between curdate() and date_add(curdate(), interval 6 month)) b) b,
+        (select count(*) countNum3 from (select * from (select jrr_house_4rent_id, jrr_end_time from info_renter_contract where jrr_rental_type = "正常" order by jrr_end_time desc) a group by jrr_house_4rent_id having jrr_end_time between curdate() and date_add(curdate(), interval 1 year)) b) c,
+        (select count(*) countNum4 from (select * from (select jrr_house_4rent_id, jrr_end_time from info_renter_contract where jrr_rental_type = "正常" order by jrr_end_time desc) a group by jrr_house_4rent_id) b) d,
+		(select count(*) countNum5 from (select * from (select jrl_house_4store_id, jrl_end_time from info_landlord_contract where jrl_rental_type = "正常" order by jrl_end_time desc) a group by jrl_house_4store_id having jrl_end_time between curdate() and date_add(curdate()-day(curdate())+1,interval 1 month)) b) e,
+        (select count(*) countNum6 from (select * from (select jrl_house_4store_id, jrl_end_time from info_landlord_contract where jrl_rental_type = "正常" order by jrl_end_time desc) a group by jrl_house_4store_id having jrl_end_time between curdate() and date_add(curdate(), interval 6 month)) b) f,
+        (select count(*) countNum7 from (select * from (select jrl_house_4store_id, jrl_end_time from info_landlord_contract where jrl_rental_type = "正常" order by jrl_end_time desc) a group by jrl_house_4store_id having jrl_end_time between curdate() and date_add(curdate(), interval 1 year)) b) g,
+		(select count(*) countNum8 from (select * from (select jrl_house_4store_id, jrl_end_time from info_landlord_contract where jrl_rental_type = "正常" order by jrl_end_time desc) a group by jrl_house_4store_id) b) h
+  </select>
+</mapper>

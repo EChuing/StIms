@@ -1,0 +1,99 @@
+
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.apache.http.client.ClientProtocolException;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSON;
+import com.bj58.finance.realhouse.third.util.ThirdHttpUtil;
+import com.bj58.finance.realhouse.third.util.ThirdRSACoder;
+
+public class TestMain {
+	private static Logger logger = LoggerFactory.getLogger(TestMain.class);
+
+	public static String privateKey = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDaGr9Rtak4WxFugFtPoxZKV00dOYzDMvE5Zfi7OTyZJvAfwQfNVmwu4oHCYQTcBAy4PH9AOFMUrhJfmpMJBTmzZpAI1wqDDJpoUdtSLMBu+Oeew4zbLccjiQryEFAdmN3bYUNDwXLPjVtRJq7cxh6Eg18/x0Gu0vJmExV/y7QO/sW5/QjbNwILKCUMZeRtnwpmFxtv2MdoYKUeu3y948dHU0nCmP3eTqL9pK2O0t/LECRdTIzYbxRH5OqlIxyavvzg7/mzMUqDce7lMlDobpOiXI6iB4IojcRkU2lBKIzaryrxZUwDMxqcdS/eKjoIWGREeFA2LyCnYii6cSSMrcGHAgMBAAECggEADdZwmQCLkfXFL1uZb34LZgAP9nC2S5Qp1dhwZYCGJblgtsMKea6oAnmAfhKlukfPfsjn0e1A6Cj7JXGrLoFUXdt9+/GYyyO7kC7RWW9ZbjEAkQQbJbTL06dYOG9shdQzDz4mhF/7pstzJbzsjzlKqmGjY2qC8lKT6oH/dTI5ZFILu3EE9GfXcyMg9/7ZQ5pLJHurDQOSkRmDWZOOTvY4vk6qh7NAA6fRdwDCoCNhoQG6q3PQ3WYOHDJO5/2n25h0/edrVmj16sRNIZeMjR1CrqP+lOpYfoX+p6yGWWaawwSJtEO7qCCyuOCHXzCwJQhFl962knDSVyLTP4AauCfRUQKBgQD19WOSblY1rei74QAwVrGlDwm9NnnNNDxgqPKNA4mvgAglMS5/VyqD3OPcfkWc80yHDjHYhdiVzeYCx8KbZgVFhCf9Ru0aKvdt0ApbaB/9xatgwYgiiqwVthPGqPiMne9fXvy5jCgVL+yucSb5qfg+/ff0F8Z8phEu+UvPxe7qAwKBgQDjAj6QUb04imctYRiK7y59Lj6HL7pew7amCjs2vuAVSH/qq+dfMhB5Vg6pXAioZ/78a6RZ3azP2qG/Nh+fDQ5l0vdwrIZqe48TAWmU6/CFnTw/beyCKhp/qb43t4dLX6PMgfFhlqrMrzIr/JXykFfbYo69U0V/rr5L/UawARQ1LQKBgEzp1Z9e3ZqfrZ3C+JolIhwpnbQLqv8ejJr1ehPavV2iPenTfWTYzzS5CJBU9FPmSVIagD/jax09a+YGrbaGqrNYZmDvowmB0ioG2pZG82oaPENfgcC7eKC5dWm0QTVH1ikOvR0Q1R/7AppyS+va2QRpyvYL0Uf9bnYwAyMQFGwdAoGAX1lG/AlJKCGB+t6Il3qlFTFCVDfo2PrtkcpEWtdLecUM7X2s3iBCKSTLXblpbYrY4B86VgC1IEzdmVnbaEvsmzpEclAU2U7ypnH2bfW3/fcwIhhCud2DadHbMr3klvUh8Lk3sNy++uAve6hJNywHqv83ozABxgKYrYRBl5WsbjUCgYEAzFJ2hi+5djr480FOoWXlqZZ+ytgSjfbRXBu9yPR7xdCEgOWnGJIyudHNg5ybBXNPxBLSMOxMGsSusp9OcwWPNnXpWx82ydGDeKswblmkL8TC5cDo6Vh8WGs+KXoDyOduWnRcv/o3yDLKDJOSaI57F6CIdNK9JsyTZxuFFW7jo7c=";
+	public static String publicKey = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2hq/UbWpOFsRboBbT6MWSldNHTmMwzLxOWX4uzk8mSbwH8EHzVZsLuKBwmEE3AQMuDx/QDhTFK4SX5qTCQU5s2aQCNcKgwyaaFHbUizAbvjnnsOM2y3HI4kK8hBQHZjd22FDQ8Fyz41bUSau3MYehINfP8dBrtLyZhMVf8u0Dv7Fuf0I2zcCCyglDGXkbZ8KZhcbb9jHaGClHrt8vePHR1NJwpj93k6i/aStjtLfyxAkXUyM2G8UR+TqpSMcmr784O/5szFKg3Hu5TJQ6G6TolyOogeCKI3EZFNpQSiM2q8q8WVMAzManHUv3io6CFhkRHhQNi8gp2IounEkjK3BhwIDAQAB";
+
+	@Test
+	public void testAddHouse() {
+		for (int i = 0; i < 1; i++) {
+			TreeMap<String, Object> dataMap = new TreeMap<String, Object>();
+			dataMap.put("appId", "sh_yujian_001");// 58分配给合作公寓的接入ID
+			dataMap.put("outHouseId", System.currentTimeMillis() + ""); // 合作公寓系统的房屋id
+			dataMap.put("rentType", "1");// 出租方式，枚举值 1.整套出租 2.单间出租 例如：1
+			dataMap.put("bedRoomNum", "2");// 房屋户型-室 例如（2室）：2
+			dataMap.put("livingRoomNum", "1");// 房屋户型-厅例如（1室）：1
+			dataMap.put("toiletNum", "1");// 房屋户型-卫 例如（1卫）：1
+			dataMap.put("rentRoomArea", "90");// 对于单间出租的，为出租间面积。对于整租的为房屋总面积.单位（㎡），最多支持两位小数。例如：110
+			// dataMap.put("bedRoomType", "31");//
+			// 出租屋类型，枚举值。31.主卧。32.次卧。例如（主卧）：31
+			// dataMap.put("faceToType","60");//朝向，枚举值。60:东61:南62:西63:北64:东南65:西南66:东北67:西北68:东西69:南北例如（朝南）：61
+			dataMap.put("totalFloor", "15");// 楼层总数 例如（18层高的楼房）：18
+			dataMap.put("houseFloor", "8");// 房间所在楼层 例如（房屋在5楼）：5
+			dataMap.put("featureTag", "10,11,12,13");// 房间标签，枚举值，可多选，以逗号分隔10.离地铁近11.阳台12.独立卫生间13.厨房例如（离地铁近，有阳台）：11,12
+			dataMap.put("detailPoint", "71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86");// 房屋配置，枚举值，可多选，以逗号分隔71:床;72:衣柜;73:书桌74:空调;75:暖气76:电视机77:燃气;78:微波炉79:电磁炉80:热水器;81:洗衣机;82:冰箱83:WIFI;84:沙发;85:橱柜86:油烟机例如（床，沙发）：71,84
+			dataMap.put("servicePoint", "91,92,93,94,95,96,97");// 公寓配套服务，枚举值，可多选，以逗号分隔;91:健身房;92:公寓超市;93:智能门锁;94:ATM机;95:代收快递;96:专属客服;97:房间清洁
+			dataMap.put("monthRent", "2500");// 月租金，以元为单位;例如（2100元/月）：2100
+			dataMap.put("rentStartDate", "2016-01-01");// 起租时间，格式yyyy-MM-dd;例如：2015-12-31
+			dataMap.put("shortRent", "1");// 是否支持短租，枚举值;0:不支持;1:支持s;例如(支持短租)：1
+			dataMap.put("cityName", "上海");// 房屋所在城市，城市名（没有“市”字） 例如：上海
+			// dataMap.put("countyName", "浦东");// 房屋所在区县，上海区县详见附录1-区县;例如：浦东
+			// dataMap.put("areaName", "高行");// 房屋所在商圈，上海商圈详见附录1-商圈 例如：高行
+			dataMap.put("districtName", "新高苑");// 房屋所在小区名称s 例如：新高苑
+			dataMap.put("street", "浦东高宝路229弄");// 房屋所在小区详细地址 例如：浦东高宝路229弄
+			dataMap.put("address", "1号楼3单元208室");// 出租房屋门牌地址 例如：1号楼3单元208室
+			// dataMap.put("subwayLine", "1号线");//
+			// 房屋附近地铁站所在线路名，上海地铁线路详见附录2-线路;例如：1号线
+			// dataMap.put("subwayStation", "上海南站");//
+			// 房屋附近地铁站名，上海地铁站明详见附录2-站点;例如：上海南站
+			dataMap.put("houseDesc", "房间不错！！！！");// 房间描述（500字以内）
+			// dataMap.put("xCoord", "116.506584");// 房间位置标注-经度 例如：116.506584
+			// dataMap.put("yCoord", "39.973175");// 房间位置标注-纬度 例如：39.973175
+			dataMap.put("agentPhone", "13466666666");// 房管员手机号 例如：13466666666
+			dataMap.put("agentName", "张三");// 房管员姓名 例如：张三
+			List<String> list = new ArrayList<String>();
+			// list.add("http://7qn8hl.com1.z0.glb.clouddn.com/9738C7262F0C4719A897A84AE8EC8354.jpg");
+			// list.add("http://7qn8hl.com1.z0.glb.clouddn.com/9738C7262F0C4719A897A84AE8EC8354.jpg");
+			// list.add("http://7qn8hl.com1.z0.glb.clouddn.com/9738C7262F0C4719A897A84AE8EC8354.jpg");
+			// list.add("http://7qn8hl.com1.z0.glb.clouddn.com/9738C7262F0C4719A897A84AE8EC8354.jpg");
+			// list.add("http://7qn8hl.com1.z0.glb.clouddn.com/9738C7262F0C4719A897A84AE8EC8354.jpg");
+			list.add("http://pic.58.com/manage.yuefu.58.com/n_v1bkujjd2aw5xfmf3qzyeq_cdebc1e04c8f0db9.jpg");
+			list.add("http://pic.58.com/manage.yuefu.58.com/n_v1bkujjd2aw5xfmf3qzyeq_cdebc1e04c8f0db9.jpg");
+			list.add("http://pic.58.com/manage.yuefu.58.com/n_v1bkujjd2aw5xfmf3qzyeq_cdebc1e04c8f0db9.jpg");
+			list.add("http://pic.58.com/manage.yuefu.58.com/n_v1bkujjd2aw5xfmf3qzyeq_cdebc1e04c8f0db9.jpg");
+			list.add("http://pic.58.com/manage.yuefu.58.com/n_v1bkujjd2aw5xfmf3qzyeq_cdebc1e04c8f0db9.jpg");
+			list.add("http://pic.58.com/manage.yuefu.58.com/n_v1bkujjd2aw5xfmf3qzyeq_cdebc1e04c8f0db9.jpg");
+			dataMap.put("picUrlList", list);
+
+			logger.info("info=" + JSON.toJSONString(dataMap));
+			String en = ThirdRSACoder.encrypt(JSON.toJSONString(dataMap), privateKey);
+			logger.info("en=" + en);
+			String de = ThirdRSACoder.decrypt(en, publicKey);
+			logger.info("de=" + de);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("data", en);
+			try {
+				// String url = "http://jinrong.test3.58v5.cn/b/api/houseAdd";
+				// String url = "http://jinrong.test2.58v5.cn/b/api/houseAdd";
+				String url = "http://manage.yuefu.58.com/b/api/houseAdd";
+				String resultStr = ThirdHttpUtil.postResponse(url, map);
+				Object result = JSON.parse(resultStr);
+				logger.info("http post result=" + result);
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();Syslog.writeErr(e);
+			} catch (IOException e) {
+				e.printStackTrace();Syslog.writeErr(e);
+			}
+
+		}
+	}
+
+}

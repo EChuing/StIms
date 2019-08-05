@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsDiscountMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoodsDiscount" >
+    <id column="cgd_id" property="cgdId" jdbcType="INTEGER" />
+    <result column="cgd_category_id" property="cgdCategoryId" jdbcType="INTEGER" />
+    <result column="cgd_name" property="cgdName" jdbcType="VARCHAR" />
+    <result column="cgd_type" property="cgdType" jdbcType="VARCHAR" />
+    <result column="cgd_state" property="cgdState" jdbcType="INTEGER" />
+    <result column="cgd_describe" property="cgdDescribe" jdbcType="LONGVARCHAR" />
+    <result column="cgd_mode" property="cgdMode" jdbcType="LONGVARCHAR" />
+    <result column="cgd_register_time" property="cgdRegisterTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    cgd.*,cgc_category_name categoryName
+    from cs_goods_discount cgd
+    left outer join cs_goods_category cgc on cgc.id = cgd.cgd_category_id
+    <where>
+    	<if test="cgdId != null">
+    		and cgd_id = #{cgdId,jdbcType=INTEGER}
+    	</if>
+    	<!-- cgd_state 2是删除过了的数据 -->
+    	and cgd_state != 2;
+    </where>
+   
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoodsDiscount" >
+    insert into cs_goods_discount
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cgdId != null" >
+        cgd_id,
+      </if>
+      <if test="cgdCategoryId != null" >
+        cgd_category_id,
+      </if>
+      <if test="cgdName != null" >
+        cgd_name,
+      </if>
+      <if test="cgdType != null" >
+        cgd_type,
+      </if>
+      <if test="cgdState != null" >
+        cgd_state,
+      </if>
+      <if test="cgdRegisterTime != null" >
+        cgd_register_time,
+      </if>
+      <if test="cgdDescribe != null" >
+        cgd_describe,
+      </if>
+      <if test="cgdMode != null" >
+        cgd_mode,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cgdId != null" >
+        #{cgdId,jdbcType=INTEGER},
+      </if>
+      <if test="cgdCategoryId != null" >
+        #{cgdCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="cgdName != null" >
+        #{cgdName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgdType != null" >
+        #{cgdType,jdbcType=VARCHAR},
+      </if>
+      <if test="cgdState != null" >
+        #{cgdState,jdbcType=INTEGER},
+      </if>
+      <if test="cgdRegisterTime != null" >
+        #{cgdRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgdDescribe != null" >
+        #{cgdDescribe,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cgdMode != null" >
+        #{cgdMode,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoodsDiscount" >
+    update cs_goods_discount
+    <set>
+      <if test="cgdCategoryId != null and cgdType == '品类满减'" >
+        cgd_category_id = #{cgdCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="cgdType != '' and cgdType != null and cgdType != '品类满减'">
+      	cgd_category_id = null,
+      </if>
+      <if test="cgdName != null" >
+        cgd_name = #{cgdName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgdType != null" >
+        cgd_type = #{cgdType,jdbcType=VARCHAR},
+      </if>
+      <if test="cgdState != null" >
+        cgd_state = #{cgdState,jdbcType=INTEGER},
+      </if>
+      <if test="cgdRegisterTime != null" >
+        cgd_register_time = #{cgdRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgdDescribe != null" >
+        cgd_describe = #{cgdDescribe,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="cgdMode != null" >
+        cgd_mode = #{cgdMode,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cgd_id = #{cgdId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsSetUpMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoodsSetUp" >
+    <id column="cgsu_id" property="cgsuId" jdbcType="INTEGER" />
+    <result column="cgsu_shop_account" property="cgsuShopAccount" jdbcType="INTEGER" />
+    <result column="cgsu_cash_account" property="cgsuCashAccount" jdbcType="INTEGER" />
+    <result column="cgsu_gisongjine" property="cgsuGisongjine" jdbcType="DOUBLE" />
+    <result column="cgsu_shipping_fee" property="cgsuShippingFee" jdbcType="DOUBLE" />
+    <result column="cgsu_free_shipping_fee_num" property="cgsuFreeShippingFeeNum" jdbcType="DOUBLE" />
+    <result column="cgsu_owe_max" property="cgsuOweMax" jdbcType="DOUBLE" />
+    <result column="cgsu_owe_state" property="cgsuOweState" jdbcType="INTEGER" />
+    <result column="cgsu_ad_font" property="cgsuAdFont" jdbcType="VARCHAR" />
+    <result column="cgsu_community" property="cgsuCommunity" jdbcType="VARCHAR" />
+    <result column="cgsu_license_img" property="cgsuLicenseImg" jdbcType="VARCHAR" />
+    <result column="cgsu_ad_img_path" property="cgsuAdImgPath" jdbcType="VARCHAR" />
+    <result column="cgsu_shop_name" property="cgsuShopName" jdbcType="VARCHAR" />
+    <result column="cgsu_begin_time" property="cgsuBeginTime" jdbcType="VARCHAR" />
+    <result column="cgsu_end_time" property="cgsuEndTime" jdbcType="VARCHAR" />
+    <result column="cgsu_state" property="cgsuState" jdbcType="INTEGER" />
+    <result column="cgsu_registration_time" property="cgsuRegistrationTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsSetUp" >
+    select 
+    *
+    from cs_goods_set_up
+    where cgsu_id = #{cgsuId,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoodsSetUp" >
+    insert into cs_goods_set_up
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cgsuShippingFee != null" >
+        cgsu_shipping_fee,
+      </if>
+      <if test="cgsuGisongjine != null" >
+        cgsu_gisongjine,
+      </if>
+      <if test="cgsuFreeShippingFeeNum != null" >
+        cgsu_free_shipping_fee_num,
+      </if>
+      <if test="cgsuOweMax != null" >
+        cgsu_owe_max,
+      </if>
+      <if test="cgsuOweState != null" >
+        cgsu_owe_state,
+      </if>
+      <if test="cgsuRegistrationTime != null" >
+        cgsu_registration_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cgsuShippingFee != null" >
+        #{cgsuShippingFee,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsuGisongjine != null" >
+        #{cgsuGisongjine,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsuFreeShippingFeeNum != null" >
+        #{cgsuFreeShippingFeeNum,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsuOweMax != null" >
+        #{cgsuOweMax,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsuOweState != null" >
+        #{cgsuOweState,jdbcType=INTEGER},
+      </if>
+      <if test="cgsuRegistrationTime != null" >
+        #{cgsuRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoodsSetUp" >
+    update cs_goods_set_up
+    <set>
+      <if test="cgsuShopAccount != null and cgsuShopAccount != ''" >
+        cgsu_shop_account = #{cgsuShopAccount},
+      </if>
+      <if test="cgsuCashAccount != null and cgsuCashAccount != ''" >
+        cgsu_cash_account = #{cgsuCashAccount},
+      </if>
+      <if test="cgsuShippingFee != null and cgsuShippingFee != ''" >
+        cgsu_shipping_fee = #{cgsuShippingFee,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsuGisongjine != null and cgsuGisongjine != ''" >
+        cgsu_gisongjine = #{cgsuGisongjine,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsuFreeShippingFeeNum != null and cgsuFreeShippingFeeNum != ''" >
+        cgsu_free_shipping_fee_num = #{cgsuFreeShippingFeeNum,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsuOweMax != null and cgsuOweMax != ''" >
+        cgsu_owe_max = #{cgsuOweMax,jdbcType=DOUBLE},
+      </if>
+      <if test="cgsuOweState != null and cgsuOweState != ''" >
+        cgsu_owe_state = #{cgsuOweState,jdbcType=INTEGER},
+      </if>
+      <if test="cgsuShopName != null and cgsuShopName != ''" >
+        cgsu_shop_name = #{cgsuShopName},
+      </if>
+      <if test="cgsuAdFont != null and cgsuAdFont != ''" >
+        cgsu_ad_font = #{cgsuAdFont},
+      </if>
+      <if test="cgsuLicenseImg != null and cgsuLicenseImg != ''" >
+        cgsu_license_img = #{cgsuLicenseImg},
+      </if>
+      <if test="cgsuAdImgPath != null and cgsuAdImgPath != ''" >
+        cgsu_ad_img_path = #{cgsuAdImgPath},
+      </if>
+      <if test="cgsuCommunity != null and cgsuCommunity != ''" >
+        cgsu_community = #{cgsuCommunity},
+      </if>
+      <if test="cgsuRegistrationTime != null and cgsuRegistrationTime != ''" >
+        cgsu_registration_time = #{cgsuRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgsuState != null" >
+        cgsu_state = #{cgsuState},
+      </if>
+      <if test="cgsuBeginTime != null and cgsuBeginTime != ''" >
+        cgsu_begin_time = #{cgsuBeginTime},
+      </if>
+      <if test="cgsuEndTime != null and cgsuEndTime != ''" >
+        cgsu_end_time = #{cgsuEndTime},
+      </if>
+    </set>
+    where cgsu_id = #{cgsuId,jdbcType=INTEGER}
+  </update>
+</mapper>

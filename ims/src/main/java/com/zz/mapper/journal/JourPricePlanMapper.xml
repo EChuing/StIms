@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourPricePlanMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourPricePlan" >
+    <id column="jpp_id" property="jppId" jdbcType="INTEGER" />
+    <result column="jpp_plan_name" property="jppPlanName" jdbcType="VARCHAR" />
+    <result column="jpp_plan_package" property="jppPlanPackage" jdbcType="VARCHAR" />
+    <result column="jpp_priority_level" property="jppPriorityLevel" jdbcType="INTEGER" />
+    <result column="jpp_state" property="jppState" jdbcType="INTEGER" />
+
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryJourPricePlan" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourPricePlan" >
+  	select a.*,b.total_num from
+  	(select * from jour_price_plan
+  	<where>
+  		<if test="jppId != null and jppId !='' ">
+  			and jpp_id = #{jppId}
+  		</if>
+  		<if test="jppPlanName != null and jppPlanName !='' ">
+  			and jpp_plan_name like '%${jppPlanName}%'
+  		</if>
+  		<if test="jppPriorityLevel != null and jppPriorityLevel !='' ">
+  			and jpp_priority_level = #{jppPriorityLevel}
+  		</if>
+  		<if test="jppState != null and jppState !='' ">
+  			and jpp_state = #{jppState}
+  		</if>
+  	</where>
+  	)a,
+  	(select count(jpp_id) total_num  from jour_price_plan
+  	<where>
+  		<if test="jppId != null and jppId !='' ">
+  			and jpp_id = #{jppId}
+  		</if>
+  		<if test="jppPlanName != null and jppPlanName !='' ">
+  			and jpp_plan_name = #{jppPlanName}
+  		</if>
+  		<if test="jppPriorityLevel != null and jppPriorityLevel !='' ">
+  			and jpp_priority_level = #{jppPriorityLevel}
+  		</if>
+  		<if test="jppState != null and jppState !='' ">
+  			and jpp_state = #{jppState}
+  		</if>
+  	</where>
+  	)b
+  	ORDER by jpp_id DESC
+  	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if> 
+  </select>
+  
+  <select id="selectByPrimaryKeySelective" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourPricePlan" >
+  	select * from jour_price_plan where jpp_id = #{jppId}
+  	ORDER by jpp_id DESC
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourPricePlan" useGeneratedKeys="true" keyProperty="jppId">
+  	insert into jour_price_plan
+  	<trim prefix="(" suffix=")" suffixOverrides="," >
+      	<if test="jppPlanPackage != null and jppPlanPackage !='' ">
+  			jpp_plan_package,
+  		</if>
+  		<if test="jppPlanName != null and jppPlanName !='' ">
+  			jpp_plan_name,
+  		</if>
+  		<if test="jppPriorityLevel != null and jppPriorityLevel !='' ">
+  			jpp_priority_level
+  		</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      	<if test="jppPlanPackage != null and jppPlanPackage !='' ">
+  			#{jppPlanPackage},
+  		</if>
+  		<if test="jppPlanName != null and jppPlanName !='' ">
+  			#{jppPlanName},
+  		</if>
+  		<if test="jppPriorityLevel != null and jppPriorityLevel !='' ">
+  			#{jppPriorityLevel}
+  		</if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourPricePlan" >
+    update jour_price_plan
+    <set>
+  		<if test="jppPlanPackage != null and jppPlanPackage !='' ">
+  			jpp_plan_package = #{jppPlanPackage},
+  		</if>
+  		<if test="jppPlanName != null and jppPlanName !='' ">
+  			jpp_plan_name = #{jppPlanName},
+  		</if>
+  		<if test="jppPriorityLevel != null and jppPriorityLevel !='' ">
+  			jpp_priority_level = #{jppPriorityLevel}
+  		</if>
+    </set>
+    where jpp_id = #{jppId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 批量修改 -->
+  <update id="updateJppState" parameterType="java.util.List">
+  		update jour_price_plan
+		<trim prefix="set" suffixOverrides=",">
+	      <trim prefix="jpp_state =case" suffix="end,">
+	          <foreach collection="list" item="i" index="index">
+                 <if test="i.jppState!=null">
+                  when jpp_id=#{i.jppId} then #{i.jppState}
+                 </if>
+	          </foreach>
+	      </trim>
+	    </trim>
+	    where jpp_id in
+	   <foreach collection="list" index="index" item="i" separator="," open="(" close=")">
+	       #{i.jppId}
+	   </foreach>
+  </update>
+  
+</mapper>

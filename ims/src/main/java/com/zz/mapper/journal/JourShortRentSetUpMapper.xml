@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourShortRentSetUpMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourShortRentSetUp" >
+    <id column="jsrsu_id" property="jsrsuId" jdbcType="INTEGER" />
+    <result column="jsrsu_wxgzh_title" property="jsrsuWxgzhTitle" jdbcType="VARCHAR" />
+    <result column="jsrsu_state" property="jsrsuState" jdbcType="TINYINT" />
+    <result column="jsrsu_check_in_time" property="jsrsuCheckInTime" jdbcType="VARCHAR" />
+    <result column="jsrsu_check_out_time" property="jsrsuCheckOutTime" jdbcType="VARCHAR" />
+    <result column="jsrsu_telphone" property="jsrsuTelphone" jdbcType="VARCHAR" />
+    <result column="jsrsu_ad_imgs" property="jsrsuAdImgs" jdbcType="LONGVARCHAR" />
+    <result column="jsrsu_register_time" property="jsrsuRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="jsrsu_room_type" property="jsrsuRoomType" jdbcType="VARCHAR" />
+    <result column="jsrsu_trading_rules" property="jsrsuTradingRules" jdbcType="VARCHAR" />
+    <result column="jsrsu_refund_room_charge_time" property="jsrsuRefundRoomChargeTime" jdbcType="VARCHAR" />
+    <result column="jsrsu_service_charge" property="jsrsuServiceCharge" jdbcType="LONGVARCHAR" />
+    <result column="jsrsu_hour_room" property="jsrsuHourRoom" jdbcType="VARCHAR" />
+    <result column="jsrsu_shop_account" property="jsrsuShopAccount" jdbcType="INTEGER" />
+    <result column="jsrsu_cash_account" property="jsrsuCashAccount" jdbcType="INTEGER" />
+    <result column="jsrsu_deposit_rules" property="jsrsuDepositRules" jdbcType="INTEGER" />
+    <result column="jsrsu_room_charge_percent" property="jsrsuRoomChargePercent" jdbcType="INTEGER" />
+    <result column="jsrsu_refund_room_charge" property="jsrsuRefundRoomCharge" jdbcType="INTEGER" />
+    <result column="jsrsu_grogshop_introduce" property="jsrsuGrogshopIntroduce" jdbcType="INTEGER" />
+    <result column="jsrsu_deposit_set_type" property="jsrsuDepositSetType" jdbcType="VARCHAR" />
+    <result column="jsrsu_longest_booking_days" property="jsrsuLongestBookingDays" jdbcType="INTEGER" />
+    <result column="jsrsu_future_booking_days" property="jsrsuFutureBookingDays" jdbcType="INTEGER" />
+    <result column="jsrsu_electronic_doorplateno" property="jsrsuElectronicDoorplateno" jdbcType="VARCHAR" />
+    <result column="jsrsu_tm_password" property="jsrsuTmPassword" jdbcType="VARCHAR" />
+    
+    <result column="jsrrtp_plan_package" property="jsrrtpPlanPackage" jdbcType="VARCHAR" />
+    <result column="jsrrtp_plan_number" property="jsrrtpPlanNumber" jdbcType="INTEGER" />
+    <result column="jsrrtp_id" property="jsrrtpId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    jsrsu_id, jsrsu_wxgzh_title, jsrsu_state, jsrsu_check_in_time, jsrsu_check_out_time, 
+    jsrsu_register_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    jsrsu_ad_imgs
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentSetUp" >
+    select 
+    *
+    from jour_short_rent_set_up 
+    where jsrsu_id = #{jsrsuId,jdbcType=INTEGER}
+  </select>
+  
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourShortRentSetUp" >
+    insert into jour_short_rent_set_up
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jsrsuId != null" >
+        jsrsu_id,
+      </if>
+      <if test="jsrsuWxgzhTitle != null" >
+        jsrsu_wxgzh_title,
+      </if>
+      <if test="jsrsuState != null" >
+        jsrsu_state,
+      </if>
+      <if test="jsrsuCheckInTime != null" >
+        jsrsu_check_in_time,
+      </if>
+      <if test="jsrsuCheckOutTime != null" >
+        jsrsu_check_out_time,
+      </if>
+      <if test="jsrsuRegisterTime != null" >
+        jsrsu_register_time,
+      </if>
+      <if test="jsrsuAdImgs != null" >
+        jsrsu_ad_imgs,
+      </if>
+      <if test="jsrsuTelphone != null" >
+        jsrsu_telphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jsrsuId != null" >
+        #{jsrsuId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrsuWxgzhTitle != null" >
+        #{jsrsuWxgzhTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuState != null" >
+        #{jsrsuState,jdbcType=TINYINT},
+      </if>
+      <if test="jsrsuCheckInTime != null" >
+        #{jsrsuCheckInTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuCheckOutTime != null" >
+        #{jsrsuCheckOutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuRegisterTime != null" >
+        #{jsrsuRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrsuAdImgs != null" >
+        #{jsrsuAdImgs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jsrsuTelphone != null" >
+         #{jsrsuTelphone,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourShortRentSetUp" >
+    update jour_short_rent_set_up
+    <set>
+      <if test="jsrsuWxgzhTitle != null" >
+        jsrsu_wxgzh_title = #{jsrsuWxgzhTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuLongestBookingDays != null" >
+        jsrsu_longest_booking_days = #{jsrsuLongestBookingDays,jdbcType=INTEGER},
+      </if>
+      <if test="jsrsuFutureBookingDays != null" >
+        jsrsu_future_booking_days = #{jsrsuFutureBookingDays,jdbcType=INTEGER},
+      </if>
+      <if test="jsrsuState != null" >
+        jsrsu_state = #{jsrsuState,jdbcType=TINYINT},
+      </if>
+      <if test="jsrsuCheckInTime != null" >
+        jsrsu_check_in_time = #{jsrsuCheckInTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuCheckOutTime != null" >
+        jsrsu_check_out_time = #{jsrsuCheckOutTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuRegisterTime != null" >
+        jsrsu_register_time = #{jsrsuRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrsuRoomType != null" >
+        jsrsu_room_type = #{jsrsuRoomType,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuAdImgs != null" >
+        jsrsu_ad_imgs = #{jsrsuAdImgs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jsrsuTelphone != null" >
+        jsrsu_telphone = #{jsrsuTelphone,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuTradingRules != null" >
+        jsrsu_trading_rules = #{jsrsuTradingRules,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuServiceCharge != null" >
+        jsrsu_service_charge = #{jsrsuServiceCharge,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jsrsuHourRoom != null" >
+        jsrsu_hour_room = #{jsrsuHourRoom,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuShopAccount != null" >
+        jsrsu_shop_account = #{jsrsuShopAccount,jdbcType=INTEGER},
+      </if>
+      <if test="jsrsuCashAccount != null" >
+        jsrsu_cash_account = #{jsrsuCashAccount,jdbcType=INTEGER},
+      </if>
+      <if test="jsrsuDepositRules != null" >
+        jsrsu_deposit_rules = #{jsrsuDepositRules,jdbcType=INTEGER},
+      </if>
+      <if test="jsrsuRoomChargePercent != null" >
+        jsrsu_room_charge_percent = #{jsrsuRoomChargePercent,jdbcType=INTEGER},
+      </if>
+      <if test="jsrsuRefundRoomCharge != null" >
+        jsrsu_refund_room_charge = #{jsrsuRefundRoomCharge,jdbcType=INTEGER},
+      </if>
+      <if test="jsrsuRefundRoomChargeTime != null" >
+        jsrsu_refund_room_charge_time = #{jsrsuRefundRoomChargeTime,jdbcType=VARCHAR},
+      </if>
+       <if test="jsrsuGrogshopIntroduce != null" >
+        jsrsu_grogshop_introduce = #{jsrsuGrogshopIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuDepositSetType != null" >
+        jsrsu_deposit_set_type = #{jsrsuDepositSetType,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuElectronicDoorplateno != null" >
+        jsrsu_electronic_doorplateno = #{jsrsuElectronicDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrsuTmPassword != null" >
+        jsrsu_tm_password = #{jsrsuTmPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jsrsu_id = #{jsrsuId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

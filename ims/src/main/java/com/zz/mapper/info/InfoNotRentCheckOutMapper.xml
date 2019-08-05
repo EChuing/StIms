@@ -1,0 +1,710 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoNotRentCheckOutMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoNotRentCheckOut" >
+    <id column="nrc_id" property="nrcId" jdbcType="INTEGER" />
+    <result column="house_coding" property="houseCoding" jdbcType="INTEGER" />
+    <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="nrc_landlord_id" property="nrcLandlordId" jdbcType="INTEGER" />
+    <result column="nrc_store_id" property="nrcStoreId" jdbcType="INTEGER" />
+    <result column="nrc_financial_account_table" property="nrcFinancialAccountTable" jdbcType="INTEGER" />
+    <result column="nrc_check_out_nature" property="nrcCheckOutNature" jdbcType="VARCHAR" />
+    <result column="nrc_check_out_time" property="nrcCheckOutTime" jdbcType="DATE" />
+    <result column="nrc_apply_for_time" property="nrcApplyForTime" jdbcType="TIMESTAMP" />
+    <result column="nrc_a_refund_of_time" property="nrcARefundOfTime" jdbcType="DATE" />
+    <result column="nrc_refund_the_user_name" property="nrcRefundTheUserName" jdbcType="VARCHAR" />
+    <result column="nrc_refund_account" property="nrcRefundAccount" jdbcType="VARCHAR" />
+    <result column="nrc_refund_bank" property="nrcRefundBank" jdbcType="VARCHAR" />
+    <result column="nrc_water_vol_first" property="nrcWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="nrc_electrit_vol_first" property="nrcElectritVolFirst" jdbcType="DOUBLE" />
+    <result column="nrc_gas_vol_first" property="nrcGasVolFirst" jdbcType="DOUBLE" />
+   
+    <result column="nrc_hotwater_vol_first" property="nrcHotWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="nrc_hotair_vol_first" property="nrcHotAirVolFirst" jdbcType="DOUBLE" />
+   
+    <result column="nrc_water_combined" property="nrcWaterCombined" jdbcType="DOUBLE" />
+    <result column="nrc_electricity_combined" property="nrcElectricityCombined" jdbcType="DOUBLE" />
+    <result column="nrc_gas_combined" property="nrcGasCombined" jdbcType="DOUBLE" />
+    
+    <result column="nrc_hotwater_combined" property="nrcHotWaterCombined" jdbcType="DOUBLE" />
+    <result column="nrc_hotair_combined" property="nrcHotAirCombined" jdbcType="DOUBLE" />
+    
+    
+    <result column="nrc_refund_the_amount" property="nrcRefundTheAmount" jdbcType="DOUBLE" />
+    <result column="nrc_deduct_the_amount" property="nrcDeductTheAmount" jdbcType="DOUBLE" />
+    <result column="nrc_real_refund_amount" property="nrcRealRefundAmount" jdbcType="DOUBLE" />
+    <result column="nrc_actual_check_out_time" property="nrcActualCheckOutTime" jdbcType="DATE" />
+    <result column="nrc_breach_of_contract" property="nrcBreachOfContract" jdbcType="DOUBLE" />
+    <result column="nrc_breach_of_contract_note" property="nrcBreachOfContractNote" jdbcType="VARCHAR" />
+    <result column="nrc_maintenance_compensation" property="nrcMaintenanceCompensation" jdbcType="DOUBLE" />
+    <result column="nrc_remaining_rental" property="nrcRemainingRental" jdbcType="DOUBLE" />
+    <result column="nrc_house_deposit" property="nrcHouseDeposit" jdbcType="DOUBLE" />
+    <result column="nrc_content_canal_fee" property="nrcContentCanalFee" jdbcType="DOUBLE" />
+    <result column="nrc_Hand_in_time" property="nrcHandInTime" jdbcType="DATE" />
+    <result column="nrc_check_out_the_state" property="nrcCheckOutTheState" jdbcType="VARCHAR" />
+    <result column="nrc_check_out_reason" property="nrcCheckOutReason" jdbcType="LONGVARCHAR" />
+    <result column="nrc_procedures" property="nrcProcedures" jdbcType="VARCHAR" />
+    <result column="nrc_pay_type" property="nrcPayType" jdbcType="VARCHAR" />
+    <result column="nrc_img_path" property="nrcImgPath" jdbcType="VARCHAR" />
+    <result column="nrc_img_num" property="nrcImgNum" jdbcType="VARCHAR" />
+    <result column="nrc_operation_records" property="nrcOperationRecords" jdbcType="VARCHAR" />
+    <result column="nrc_water_vol_last" property="nrcWaterVolLast" jdbcType="DOUBLE" />
+    <result column="nrc_water_diff" property="nrcWaterDiff" jdbcType="DOUBLE" />
+    <result column="nrc_water_unit_price" property="nrcWaterUnitPrice" jdbcType="DOUBLE" />
+    <result column="nrc_electrit_vol_last" property="nrcElectritVolLast" jdbcType="DOUBLE" />
+    <result column="nrc_electrit_diff" property="nrcElectritDiff" jdbcType="DOUBLE" />
+    <result column="nrc_electrit_unit_price" property="nrcElectritUnitPrice" jdbcType="DOUBLE" />
+    <result column="nrc_gas_vol_last" property="nrcGasVolLast" jdbcType="DOUBLE" />
+    <result column="nrc_gas_diff" property="nrcGasDiff" jdbcType="DOUBLE" />
+    <result column="nrc_gas_unit_price" property="nrcGasUnitPrice" jdbcType="DOUBLE" />
+   	
+   	<result column="nrc_hotwater_vol_last" property="nrcHotWaterVolLast" jdbcType="DOUBLE" />
+    <result column="nrc_hotwater_diff" property="nrcHotWaterDiff" jdbcType="DOUBLE" />
+    <result column="nrc_hotwater_unit_price" property="nrcHotWaterUnitPrice" jdbcType="DOUBLE" />
+   	
+   	<result column="nrc_hotair_vol_last" property="nrcHotAirVolLast" jdbcType="DOUBLE" />
+    <result column="nrc_hotair_diff" property="nrcHotAirDiff" jdbcType="DOUBLE" />
+    <result column="nrc_hotair_unit_price" property="nrcHotAirUnitPrice" jdbcType="DOUBLE" />
+   	
+   	
+    <result column="nrc_save" property="nrcSave" jdbcType="VARCHAR" />
+    <result column="nrc_repair_note" property="nrcRepairNote" jdbcType="VARCHAR" />
+    <result column="nrc_number" property="nrcNumber" jdbcType="VARCHAR" />
+    <result column="nrc_apply_user" property="nrcApplyUser" jdbcType="INTEGER" />
+    <result column="nrc_handler" property="nrcHandler" jdbcType="INTEGER" />
+    <result column="nrc_tv_cost" property="nrcTvCost" jdbcType="DOUBLE" />
+    <result column="nrcApplyUserName" property="nrcApplyUserName" jdbcType="VARCHAR" />
+    <result column="nrcHandlerName" property="nrcHandlerName" jdbcType="VARCHAR" />
+    <result column="nrc_pay_note" property="nrcPayNote" jdbcType="VARCHAR" />
+    <result column="nrc_return_note" property="nrcReturnNote" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="total_num2" property="totalNum2" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 查退房总数量 -->
+  <select id="queryHouseStoreNum" resultMap="BaseResultMap" >
+  SELECT a.nrc_check_out_the_state, a.total_num, b.total_num total_num2 from 
+  	(select hs_state nrc_check_out_the_state, count(*) total_num from info_house_4store hs
+  	left outer join info_stored_checkout ck on ck.nrc_store_id = hs.hs_id where nrc_procedures = '正常' 
+  	group by hs_state)a,
+  	(select hs_state nrc_check_out_the_state, count(*) total_num from info_house_4store hs
+  	left outer join info_stored_checkout ck on ck.nrc_store_id = hs.hs_id where nrc_procedures = '未办手续')b
+  </select>
+  
+  <!-- 查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoNotRentCheckOut" >
+    select ck.*, u1.su_staff_name nrcApplyUserName, u2.su_staff_name nrcHandlerName
+    from info_stored_checkout ck
+    left outer join sys_users u1 on ck.nrc_apply_user = u1.user_coding
+    left outer join sys_users u2 on ck.nrc_handler = u2.user_coding
+    <where> 
+    	<if test="nrcId != null and nrcId != '' ">
+    		and nrc_id = #{nrcId,jdbcType=INTEGER}
+    	</if>
+    	<if test="nrcStoreId != null and nrcStoreId != '' ">
+    		and nrc_store_id = #{nrcStoreId,jdbcType=INTEGER}
+    	</if>
+    </where>
+    ORDER BY nrc_id DESC
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_stored_checkout
+    where nrc_id = #{nrcId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 新增 -->
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoNotRentCheckOut" >
+    insert into info_stored_checkout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nrcId != null" >
+        nrc_id,
+      </if>
+      <if test="nrcLandlordId != null" >
+        nrc_landlord_id,
+      </if>
+      <if test="nrcStoreId != null" >
+        nrc_store_id,
+      </if>
+      <if test="nrcFinancialAccountTable != null" >
+        nrc_financial_account_table,
+      </if>
+      <if test="nrcCheckOutNature != null" >
+        nrc_check_out_nature,
+      </if>
+      <if test="nrcCheckOutTime != null and nrcCheckOutTime != '' " >
+        nrc_check_out_time,
+      </if>
+      <if test="nrcApplyForTime != null and nrcApplyForTime != '' " >
+        nrc_apply_for_time,
+      </if>
+      <if test="nrcARefundOfTime != null and nrcARefundOfTime != '' " >
+        nrc_a_refund_of_time,
+      </if>
+      <if test="nrcRefundTheUserName != null and nrcRefundTheUserName != '' " >
+        nrc_refund_the_user_name,
+      </if>
+      <if test="nrcRefundAccount != null" >
+        nrc_refund_account,
+      </if>
+      <if test="nrcRefundBank != null" >
+        nrc_refund_bank,
+      </if>
+      <if test="nrcWaterVolFirst != null" >
+        nrc_water_vol_first,
+      </if>
+      <if test="nrcElectritVolFirst != null" >
+        nrc_electrit_vol_first,
+      </if>
+      <if test="nrcGasVolFirst != null" >
+        nrc_gas_vol_first,
+      </if>
+      
+      <if test="nrcHotWaterVolFirst != null" >
+        nrc_hotwater_vol_first,
+      </if>
+      <if test="nrcHotAirVolFirst != null" >
+        nrc_hotair_vol_first,
+      </if>
+      
+      <if test="nrcWaterCombined != null" >
+        nrc_water_combined,
+      </if>
+      <if test="nrcElectricityCombined != null" >
+        nrc_electricity_combined,
+      </if>
+      <if test="nrcGasCombined != null" >
+        nrc_gas_combined,
+      </if>
+      
+      <if test="nrcHotWaterCombined != null" >
+        nrc_hotwater_combined,
+      </if>
+      <if test="nrcHotAirCombined != null" >
+        nrc_hotair_combined,
+      </if>
+      
+      <if test="nrcRefundTheAmount != null" >
+        nrc_refund_the_amount,
+      </if>
+      <if test="nrcDeductTheAmount != null" >
+        nrc_deduct_the_amount,
+      </if>
+      <if test="nrcRealRefundAmount != null" >
+        nrc_real_refund_amount,
+      </if>
+      <if test="nrcActualCheckOutTime != null and nrcActualCheckOutTime != '' " >
+        nrc_actual_check_out_time,
+      </if>
+      <if test="nrcBreachOfContract != null" >
+        nrc_breach_of_contract,
+      </if>
+      <if test="nrcBreachOfContractNote != null" >
+        nrc_breach_of_contract_note,
+      </if>
+      <if test="nrcMaintenanceCompensation != null" >
+        nrc_maintenance_compensation,
+      </if>
+      <if test="nrcRemainingRental != null" >
+        nrc_remaining_rental,
+      </if>
+      <if test="nrcHouseDeposit != null" >
+        nrc_house_deposit,
+      </if>
+      <if test="nrcContentCanalFee != null" >
+        nrc_content_canal_fee,
+      </if>
+      <if test="nrcHandInTime != null and nrcHandInTime != '' " >
+        nrc_Hand_in_time,
+      </if>
+      <if test="nrcCheckOutReason != null" >
+        nrc_check_out_reason,
+      </if>
+      <if test="nrcCheckOutTheState != null" >
+        nrc_check_out_the_state,
+      </if>
+      <if test="nrcPayType != null" >
+        nrc_pay_type,
+      </if>
+      <if test="nrcImgPath != null" >
+        nrc_img_path,
+      </if>
+      <if test="nrcImgNum != null" >
+        nrc_img_num,
+      </if>
+      <if test="nrcOperationRecords != null" >
+        nrc_operation_records,
+      </if>
+      <if test="nrcWaterVolLast != null" >
+        nrc_water_vol_last,
+      </if>
+      <if test="nrcWaterDiff != null" >
+        nrc_water_diff,
+      </if>
+      <if test="nrcWaterUnitPrice != null" >
+        nrc_water_unit_price,
+      </if>
+      <if test="nrcElectritVolLast != null" >
+        nrc_electrit_vol_last,
+      </if>
+      <if test="nrcElectritDiff != null" >
+        nrc_electrit_diff,
+      </if>
+      <if test="nrcElectritUnitPrice != null" >
+        nrc_electrit_unit_price,
+      </if>
+      <if test="nrcGasVolLast != null" >
+        nrc_gas_vol_last,
+      </if>
+      <if test="nrcGasDiff != null" >
+        nrc_gas_diff,
+      </if>
+      <if test="nrcGasUnitPrice != null" >
+        nrc_gas_unit_price,
+      </if>
+      
+      <if test="nrcHotWaterVolLast != null" >
+        nrc_hotwater_vol_last,
+      </if>
+      <if test="nrcHotWaterDiff != null" >
+        nrc_hotwater_diff,
+      </if>
+      <if test="nrcHotWaterUnitPrice != null" >
+        nrc_hotwater_unit_price,
+      </if>
+      
+      <if test="nrcHotAirVolLast != null" >
+        nrc_hotair_vol_last,
+      </if>
+      <if test="nrcHotAirDiff != null" >
+        nrc_hotair_diff,
+      </if>
+      <if test="nrcHotAirUnitPrice != null" >
+        nrc_hotair_unit_price,
+      </if>
+      
+      <if test="nrcSave != null" >
+        nrc_save,
+      </if>
+      <if test="nrcRepairNote != null" >
+        nrc_repair_note,
+      </if>
+      <if test="nrcNumber != null" >
+        nrc_number,
+      </if>
+      <if test="nrcHandler != null" >
+        nrc_handler,
+      </if>
+      <if test="nrcApplyUser != null" >
+        nrc_apply_user,
+      </if>
+      <if test="nrcTvCost != null" >
+        nrc_tv_cost,
+      </if>
+      <if test="nrcPayNote != null" >
+        nrc_pay_note,
+      </if>
+      <if test="nrcReturnNote != null" >
+        nrc_return_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nrcId != null" >
+        #{nrcId,jdbcType=INTEGER},
+      </if>
+      <if test="nrcLandlordId != null" >
+        #{nrcLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="nrcStoreId != null" >
+        #{nrcStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="nrcFinancialAccountTable != null" >
+        #{nrcFinancialAccountTable,jdbcType=INTEGER},
+      </if>
+      <if test="nrcCheckOutNature != null" >
+        #{nrcCheckOutNature,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcCheckOutTime != null and nrcCheckOutTime != ''" >
+        #{nrcCheckOutTime,jdbcType=DATE},
+      </if>
+      <if test="nrcApplyForTime != null and nrcApplyForTime != ''" >
+        #{nrcApplyForTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nrcARefundOfTime != null and nrcARefundOfTime != ''" >
+        #{nrcARefundOfTime,jdbcType=DATE},
+      </if>
+      <if test="nrcRefundTheUserName != null" >
+        #{nrcRefundTheUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcRefundAccount != null" >
+        #{nrcRefundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcRefundBank != null" >
+        #{nrcRefundBank,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcWaterVolFirst != null" >
+        #{nrcWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcElectritVolFirst != null" >
+        #{nrcElectritVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcGasVolFirst != null" >
+        #{nrcGasVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="nrcHotWaterVolFirst != null" >
+        #{nrcHotWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcHotAirVolFirst != null" >
+        #{nrcHotAirVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="nrcWaterCombined != null" >
+        #{nrcWaterCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcElectricityCombined != null" >
+        #{nrcElectricityCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcGasCombined != null" >
+        #{nrcGasCombined,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="nrcHotWaterCombined != null" >
+        #{nrcHotWaterCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcHotAirCombined != null" >
+        #{nrcHotAirCombined,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="nrcRefundTheAmount != null" >
+        #{nrcRefundTheAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcDeductTheAmount != null" >
+        #{nrcDeductTheAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcRealRefundAmount != null" >
+        #{nrcRealRefundAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcActualCheckOutTime != null and nrcActualCheckOutTime != ''" >
+        #{nrcActualCheckOutTime,jdbcType=DATE},
+      </if>
+      <if test="nrcBreachOfContract != null" >
+        #{nrcBreachOfContract,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcBreachOfContractNote != null" >
+        #{nrcBreachOfContractNote,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcMaintenanceCompensation != null" >
+        #{nrcMaintenanceCompensation,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcRemainingRental != null" >
+        #{nrcRemainingRental,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcHouseDeposit != null" >
+        #{nrcHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcContentCanalFee != null" >
+        #{nrcContentCanalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcHandInTime != null and nrcHandInTime != ''" >
+        #{nrcHandInTime,jdbcType=DATE},
+      </if>
+      <if test="nrcCheckOutReason != null" >
+        #{nrcCheckOutReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="nrcCheckOutTheState != null" >
+        #{nrcCheckOutTheState,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcPayType != null" >
+        #{nrcPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcImgPath != null" >
+        #{nrcImgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcImgNum != null" >
+        #{nrcImgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcOperationRecords != null" >
+        #{nrcOperationRecords},
+      </if>
+      <if test="nrcWaterVolLast != null" >
+        #{nrcWaterVolLast},
+      </if>
+      <if test="nrcWaterDiff != null" >
+        #{nrcWaterDiff},
+      </if>
+      <if test="nrcWaterUnitPrice != null" >
+        #{nrcWaterUnitPrice},
+      </if>
+      <if test="nrcElectritVolLast != null" >
+        #{nrcElectritVolLast},
+      </if>
+      <if test="nrcElectritDiff != null" >
+        #{nrcElectritDiff},
+      </if>
+      <if test="nrcElectritUnitPrice != null" >
+        #{nrcElectritUnitPrice},
+      </if>
+      <if test="nrcGasVolLast != null" >
+        #{nrcGasVolLast},
+      </if>
+      <if test="nrcGasDiff != null" >
+        #{nrcGasDiff},
+      </if>
+      <if test="nrcGasUnitPrice != null" >
+        #{nrcGasUnitPrice},
+      </if>
+      
+      <if test="nrcHotWaterVolLast != null" >
+        #{nrcHotWaterVolLast},
+      </if>
+      <if test="nrcHotWaterDiff != null" >
+        #{nrcHotWaterDiff},
+      </if>
+      <if test="nrcHotWaterUnitPrice != null" >
+        #{nrcHotWaterUnitPrice},
+      </if>
+      
+      <if test="nrcHotAirVolFirst != null" >
+        #{nrcHotAirVolFirst},
+      </if>
+      <if test="nrcHotAirDiff != null" >
+        #{nrcHotAirDiff},
+      </if>
+      <if test="nrcHotAirUnitPrice != null" >
+        #{nrcHotAirUnitPrice},
+      </if>
+      
+      
+      <if test="nrcSave != null" >
+        #{nrcSave},
+      </if>
+      <if test="nrcRepairNote != null" >
+        #{nrcRepairNote},
+      </if>
+      <if test="nrcNumber != null" >
+        #{nrcNumber},
+      </if>
+      <if test="nrcHandler != null" >
+        #{nrcHandler},
+      </if>
+      <if test="nrcApplyUser != null" >
+        #{nrcApplyUser},
+      </if>
+      <if test="nrcTvCost != null" >
+        #{nrcTvCost},
+      </if>
+      <if test="nrcPayNote != null" >
+        #{nrcPayNote},
+      </if>
+      <if test="nrcReturnNote != null" >
+        #{nrcReturnNote},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoNotRentCheckOut" >
+    update info_stored_checkout
+    <set >
+      <if test="nrcLandlordId != null" >
+        nrc_landlord_id = #{nrcLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="nrcStoreId != null" >
+        nrc_store_id = #{nrcStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="nrcFinancialAccountTable != null" >
+        nrc_financial_account_table = #{nrcFinancialAccountTable,jdbcType=INTEGER},
+      </if>
+      <if test="nrcCheckOutNature != null" >
+        nrc_check_out_nature = #{nrcCheckOutNature,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcCheckOutTime != null and nrcCheckOutTime != ''" >
+        nrc_check_out_time = #{nrcCheckOutTime,jdbcType=DATE},
+      </if>
+      <if test="nrcApplyForTime != null and nrcApplyForTime != ''" >
+        nrc_apply_for_time = #{nrcApplyForTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="nrcARefundOfTime != null and nrcARefundOfTime != ''" >
+        nrc_a_refund_of_time = #{nrcARefundOfTime,jdbcType=DATE},
+      </if>
+      <if test="nrcRefundTheUserName != null" >
+        nrc_refund_the_user_name = #{nrcRefundTheUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcRefundAccount != null" >
+        nrc_refund_account = #{nrcRefundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcRefundBank != null" >
+        nrc_refund_bank = #{nrcRefundBank,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcWaterVolFirst != null" >
+        nrc_water_vol_first = #{nrcWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcElectritVolFirst != null" >
+        nrc_electrit_vol_first = #{nrcElectritVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcGasVolFirst != null" >
+        nrc_gas_vol_first = #{nrcGasVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="nrcHotWaterVolFirst != null" >
+        nrc_hotwater_vol_first = #{nrcHotWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcHotAirVolFirst != null" >
+        nrc_hotair_vol_first = #{nrcHotAirVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="nrcWaterCombined != null" >
+        nrc_water_combined = #{nrcWaterCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcElectricityCombined != null" >
+        nrc_electricity_combined = #{nrcElectricityCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcGasCombined != null" >
+        nrc_gas_combined = #{nrcGasCombined,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="nrcHotWaterCombined != null" >
+        nrc_hotwater_combined = #{nrcHotWaterCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcHotAirCombined != null" >
+        nrc_hotair_combined = #{nrcHotAirCombined,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="nrcRefundTheAmount != null" >
+        nrc_refund_the_amount = #{nrcRefundTheAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcDeductTheAmount != null" >
+        nrc_deduct_the_amount = #{nrcDeductTheAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcRealRefundAmount != null" >
+        nrc_real_refund_amount = #{nrcRealRefundAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcActualCheckOutTime != null and nrcActualCheckOutTime != ''" >
+        nrc_actual_check_out_time = #{nrcActualCheckOutTime,jdbcType=DATE},
+      </if>
+      <if test="nrcBreachOfContract != null" >
+        nrc_breach_of_contract = #{nrcBreachOfContract,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcBreachOfContractNote != null" >
+        nrc_breach_of_contract_note = #{nrcBreachOfContractNote,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcMaintenanceCompensation != null" >
+        nrc_maintenance_compensation = #{nrcMaintenanceCompensation,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcRemainingRental != null" >
+        nrc_remaining_rental = #{nrcRemainingRental,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcHouseDeposit != null" >
+        nrc_house_deposit = #{nrcHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcContentCanalFee != null" >
+        nrc_content_canal_fee = #{nrcContentCanalFee,jdbcType=DOUBLE},
+      </if>
+      <if test="nrcHandInTime != null and nrcHandInTime != ''" >
+        nrc_Hand_in_time = #{nrcHandInTime,jdbcType=DATE},
+      </if>
+      <if test="nrcCheckOutReason != null and nrcCheckOutReason != ''" >
+        nrc_check_out_reason = #{nrcCheckOutReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="nrcCheckOutTheState != null and nrcCheckOutTheState != ''" >
+        nrc_check_out_the_state = #{nrcCheckOutTheState,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcProcedures != null and nrcProcedures != ''" >
+        nrc_procedures = #{nrcProcedures,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcPayType != null and nrcPayType != ''" >
+        nrc_pay_type = #{nrcPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="nrcImgPath != null" >
+        nrc_img_path = #{nrcImgPath},
+      </if>
+      <if test="nrcImgNum != null" >
+        nrc_img_num = #{nrcImgNum},
+      </if>
+      <if test="nrcOperationRecords != null and nrcOperationRecords != ''" >
+        nrc_operation_records = #{nrcOperationRecords},
+      </if>
+      <if test="nrcWaterVolLast != null" >
+        nrc_water_vol_last = #{nrcWaterVolLast},
+      </if>
+      <if test="nrcWaterDiff != null" >
+        nrc_water_diff = #{nrcWaterDiff},
+      </if>
+      <if test="nrcWaterUnitPrice != null" >
+        nrc_water_unit_price = #{nrcWaterUnitPrice},
+      </if>
+      <if test="nrcElectritVolLast != null" >
+        nrc_electrit_vol_last = #{nrcElectritVolLast},
+      </if>
+      <if test="nrcElectritDiff != null" >
+        nrc_electrit_diff = #{nrcElectritDiff},
+      </if>
+      <if test="nrcElectritUnitPrice != null" >
+        nrc_electrit_unit_price = #{nrcElectritUnitPrice},
+      </if>
+      <if test="nrcGasVolLast != null" >
+        nrc_gas_vol_last = #{nrcGasVolLast},
+      </if>
+      <if test="nrcGasDiff != null" >
+        nrc_gas_diff = #{nrcGasDiff},
+      </if>
+      <if test="nrcGasUnitPrice != null" >
+        nrc_gas_unit_price = #{nrcGasUnitPrice},
+      </if>
+      
+      <if test="nrcHotWaterVolLast != null" >
+        nrc_hotwater_vol_last = #{nrcHotWaterVolLast},
+      </if>
+      <if test="nrcHotWaterDiff != null" >
+        nrc_hotwater_diff = #{nrcHotWaterDiff},
+      </if>
+      <if test="nrcHotWaterUnitPrice != null" >
+        nrc_hotwater_unit_price = #{nrcHotWaterUnitPrice},
+      </if>
+      
+      <if test="nrcHotAirVolLast != null" >
+        nrc_hotair_vol_last = #{nrcHotAirVolLast},
+      </if>
+      <if test="nrcHotAirDiff != null" >
+        nrc_hotair_diff = #{nrcHotAirDiff},
+      </if>
+      <if test="nrcHotAirUnitPrice != null" >
+        nrc_hotair_unit_price = #{nrcHotAirUnitPrice},
+      </if>
+      
+      <if test="nrcSave != null and nrcSave != ''" >
+        nrc_save = #{nrcSave},
+      </if>
+      <if test="nrcRepairNote != null" >
+        nrc_repair_note = #{nrcRepairNote},
+      </if>
+      <if test="nrcNumber != null" >
+        nrc_number = #{nrcNumber},
+      </if>
+      <if test="nrcHandler != null" >
+        nrc_handler = #{nrcHandler},
+      </if>
+      <if test="nrcApplyUser != null" >
+        nrc_apply_user = #{nrcApplyUser},
+      </if>
+      <if test="nrcTvCost != null" >
+        nrc_tv_cost = #{nrcTvCost},
+      </if>
+      <if test="nrcPayNote != null" >
+        nrc_pay_note = #{nrcPayNote},
+      </if>
+      <if test="nrcReturnNote != null" >
+        nrc_return_note = #{nrcReturnNote},
+      </if>
+    </set>
+    where nrc_id = #{nrcId,jdbcType=INTEGER}
+  </update>
+  <!-- 撤销退房时修改未租房和盘源的状态  -->
+  <update id="updateHsState" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+   		update info_house_4store set hs_state='正常' where hs_id = #{hsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateHouseState" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+   		update info_house_paper set house_signed_state = '已托管' where house_coding = #{houseCoding,jdbcType=INTEGER}
+  </update>
+</mapper>

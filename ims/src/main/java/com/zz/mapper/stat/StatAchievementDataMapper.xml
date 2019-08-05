@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.stat.StatAchievementDataMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.stat.StatAchievementData" >
+    <id column="ad_id" property="adId" jdbcType="INTEGER" />
+    <result column="ad_date" property="adDate" jdbcType="DATE" />
+    <result column="ad_office_id" property="adOfficeId" jdbcType="INTEGER" />
+    <result column="ad_office_name" property="adOfficeName" jdbcType="VARCHAR" />
+    <result column="ad_dept_id" property="adDeptId" jdbcType="INTEGER" />
+    <result column="ad_dept_name" property="adDeptName" jdbcType="VARCHAR" />
+    <result column="ad_emp_id" property="adEmpId" jdbcType="INTEGER" />
+    <result column="ad_emp_name" property="adEmpName" jdbcType="VARCHAR" />
+    <result column="ad_hs_num" property="adHsNum" jdbcType="INTEGER" />
+    <result column="ad_cost" property="adCost" jdbcType="DOUBLE" />
+    <result column="ad_forecast_income" property="adForecastIncome" jdbcType="DOUBLE" />
+    <result column="ad_forecast_difference" property="adForecastDifference" jdbcType="DOUBLE" />
+    <result column="ad_real_income" property="adRealIncome" jdbcType="DOUBLE" />
+    <result column="ad_real_difference" property="adRealDifference" jdbcType="DOUBLE" />
+    <result column="ad_rent_loss_value" property="adRentLossValue" jdbcType="DOUBLE" />
+    <result column="ad_rent_loss_rate" property="adRentLossRate" jdbcType="DOUBLE" />
+    <result column="ad_vacant_day" property="adVacantDay" jdbcType="INTEGER" />
+    <result column="ad_trust_day" property="adTrustDay" jdbcType="INTEGER" />
+    <result column="ad_vacant_rate" property="adVacantRate" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="selectByDate" resultMap="BaseResultMap" >
+    select * from stat_achievement_data 
+    <where>
+	  	<if test="year != null " >
+	        and date_format(ad_date,"%Y") = #{year}
+	    </if>
+	  	<if test="month != null " >
+	  	    and date_format(ad_date,"%m") = #{month}
+	  	</if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,62 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>微信绑定</title>
+    <style>
+        img{
+            width: auto;
+            height:auto;
+            max-height: 100%;
+            max-width: 100%;
+        }
+        #authorize{
+            border-radius: 20px;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body style="text-align:center; ">
+<div style="width: 100%;height: 100%;text-align: center; background-color: #ffffff ;" >
+    <div style="height:30%; width:100%; text-align: center;" ><img src="chain.png"></div>
+    <div style="color:#000000;font-size: 6vw; font-weight: bold;  text-align: center;     background-color:#ffffff; height: 10%; margin-top: 10px;">微信绑定</div>
+    <div style="color:#ffffff; font-weight: bold;  text-align: center;  background-color:#ffffff; height: 10%; ;width:90%; margin-left: 5%;margin-top: 10px; border: 0px;">
+        <input id="authorize"  onclick="authorize()"  type="button"  value="确认" style="
+        width: 100%; height: 100%;    background-color:#00c900;  font-size: 6vw; font-weight: bold; color: #ffffff; border: 0px; ">
+    </div>
+</div>
+<script src="http://pic-static.fangzhizun.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://pic-static.fangzhizun.com/jquery/2.1.4/jquery.js"></script>
+<script >
+    function authorize() {
+        var code=GetQueryString('code');
+        var toUserId=GetQueryString('state');
+        var coId=GetQueryString('coId');
+        // alert("code="+code);
+        // alert("userId"+toUserId);
+        // alert("coId"+coId);
+        // alert("======"+window.location.href );
+        //try测试版本
+        // var url ="http://www.fangzhizun.com/try/getOpenIdByCode.action";
+        var url= "http://www.fangzhizun.com/ims/getOpenIdByCode.action";
+        $.post(url, {
+            code:code,
+            toUserId:toUserId,
+            coId:coId
+        },function (data) {
+            if (data.code < 0) {
+                alert(data.msg);
+            }
+            // alert("success");
+            data=data.body;
+            // alert("data="+data);
+            window.location.href =data;
+        });
+    }
+    function GetQueryString(name){
+        var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if(r!=null)return unescape(r[2]); return null;
+    }
+</script>
+</body>
+</html>

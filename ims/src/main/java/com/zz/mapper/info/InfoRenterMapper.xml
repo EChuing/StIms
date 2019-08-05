@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 已优化 -->
+<mapper namespace="com.zz.mapper.info.InfoRenterMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoRenter" >
+    <id column="renter_id" property="renterId" jdbcType="INTEGER" />
+    <result column="renter_user_id" property="renterUserId" jdbcType="INTEGER" />
+    <result column="renter_second_contacts" property="renterSecondContacts" jdbcType="VARCHAR" />
+    <result column="renter_second_phone" property="renterSecondPhone" jdbcType="VARCHAR" />
+    <result column="renter_register_time" property="renterRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="renter_department" property="renterDepartment" jdbcType="INTEGER" />
+    <result column="renter_storefront" property="renterStorefront" jdbcType="INTEGER" />
+    <result column="renter_population_id" property="renterPopulationId" jdbcType="INTEGER" />
+    
+    <result column="tempAssist" property="tempAssist" jdbcType="VARCHAR" />
+    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    
+    <result column="pop_name" property="renterPopName" jdbcType="VARCHAR" />
+    <result column="pop_telephone" property="renterPopTelephone" jdbcType="VARCHAR" />
+    <result column="pop_idcard" property="renterPopIdcard" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoRenterExpand" >
+    <id column="renter_id" property="renterId" jdbcType="INTEGER" />
+    <result column="renter_user_id" property="renterUserId" jdbcType="INTEGER" />
+    <result column="renter_second_contacts" property="renterSecondContacts" jdbcType="VARCHAR" />
+    <result column="renter_second_phone" property="renterSecondPhone" jdbcType="VARCHAR" />
+    <result column="renter_register_time" property="renterRegisterTime" jdbcType="TIMESTAMP" />
+    <!--user  -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="renter_department" property="renterDepartment" jdbcType="INTEGER" />
+    <result column="renter_storefront" property="renterStorefront" jdbcType="INTEGER" />
+    
+    <result column="tempAssist" property="tempAssist" jdbcType="VARCHAR" />
+    
+    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="renter_population_id" property="renterPopulationId" jdbcType="INTEGER" />
+    <result column="pop_name" property="renterPopName" jdbcType="VARCHAR" />
+    <result column="pop_telephone" property="renterPopTelephone" jdbcType="VARCHAR" />
+    <result column="pop_idcard" property="renterPopIdcard" jdbcType="VARCHAR" />
+    
+    <result column="pop_nation" property="popNation" jdbcType="VARCHAR" />
+    <result column="pop_marriage_state" property="popMarriageState" jdbcType="VARCHAR" />
+    <result column="pop_from_area" property="popFromArea" jdbcType="VARCHAR" />
+    <result column="pop_present_address" property="popPresentAddress" jdbcType="VARCHAR" />
+    <result column="pop_idcard_type" property="popIdcardType" jdbcType="VARCHAR" />
+    <result column="pop_birth" property="popBirth" jdbcType="VARCHAR" />
+    <result column="pop_sex" property="popSex" jdbcType="VARCHAR" />
+    <result column="pop_degree_education" property="popDegreeEducation" jdbcType="VARCHAR" />
+    <result column="pop_occupation" property="popOccupation" jdbcType="VARCHAR" />
+    <result column="pop_unit_service" property="popUnitService" jdbcType="VARCHAR" />
+    <result column="pop_checkin_time" property="popCheckinTime" jdbcType="DATE" />
+    <result column="pop_residence_type" property="popResidenceType" jdbcType="VARCHAR" />
+    <result column="pop_residence_cause" property="popResidenceCause" jdbcType="VARCHAR" />
+    <result column="pop_relation" property="popRelation" jdbcType="VARCHAR" />
+    <result column="pop_modify_the_record" property="popModifyTheRecord" jdbcType="VARCHAR" />
+    <result column="pop_name_remark" property="popNameRemark" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <!--************************手写方法"***************************  -->
+  
+  <!-- 租客数据导入查询 -->
+  <select id="tenantDataImportQuery" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+  	select 
+    *
+    from info_renter
+    where
+    renter_population_id = #{renterPopulationId}
+  </select>
+  
+  <!-- 专用查询租客姓名 -->
+  <select id="selectHouseRentName" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenterExpand" >
+    select aa.*, bb.total_num from
+	(select ip.pop_name , ip.pop_telephone , ip.pop_idcard ,ir.renter_id,ir.renter_population_id,ip.pop_name_remark
+	from info_renter ir left outer join info_pop_tmp ip
+	on (ir.renter_population_id = ip.pop_id)
+    <where>
+    	<if test="renterId != null and renterId != ''" >
+    		and renter_id = '${renterId}'</if>
+    	<if test="renterPopName != null and renterPopName != '' ">
+	    	and pop_name like '%${renterPopName}%'
+    	</if>
+    	<if test="renterPopTelephone != null and renterPopTelephone != '' ">
+    		and pop_telephone like '%${renterPopTelephone}%'
+    	</if>
+    	<if test="renterPopIdcard != null and renterPopIdcard != '' ">
+    		and pop_idcard like '%${renterPopIdcard}%'
+    	</if>
+    </where>
+	) aa,
+	(select count(ar.renter_id) total_num from info_renter ar left outer join info_pop_tmp ap
+	on (ar.renter_population_id = ap.pop_id)
+	<where>
+    	<if test="renterId != null and renterId != ''" >
+    		and renter_id = '${renterId}'</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+	    	and pop_name like '%${renterPopName}%'
+    	</if>
+    	<if test="renterPopTelephone != null and renterPopTelephone != '' ">
+    		and pop_telephone like '%${renterPopTelephone}%'
+    	</if>
+    	<if test="renterPopIdcard != null and renterPopIdcard != '' ">
+    		and pop_idcard like '%${renterPopIdcard}%'
+    	</if>
+    </where>
+	) bb
+    ORDER BY renter_id DESC
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+   
+  <!-- 根据房源ID查找 -->
+  <select id="selectByHouse4rentId" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from info_renter
+    where
+    renter_id = #{renterId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenterExpand" >
+	select rr.*, bb.total_num from
+	(select cc.* ,ip.pop_name, ip.pop_telephone, ip.pop_idcard, ip.pop_name_remark from 
+		(select aa.*, ih.hr_add_province, ih.hr_add_city, ih.hr_add_district, ih.hr_add_zone,
+			ih.hr_add_street, ih.hr_add_community, ih.hr_add_building, ih.hr_add_doorplateno
+				from (select ren.*,u.su_staff_name username
+					from info_renter ren left outer join sys_users u
+				on (ren.renter_user_id = u.user_coding)) aa 
+			left outer join info_house_4rent ih 
+		on (aa.renter_id = ih.hr_renter_id)) cc left outer join info_pop_tmp ip
+	on (cc.renter_population_id = ip.pop_id)
+	<where>
+		<if test="addProvince != null and addProvince != ''">
+			and hr_add_province = #{addProvince}
+		</if>
+		<if test="addCity != null and addCity != ''">
+			and hr_add_city = #{addCity}
+		</if>
+		<if test="addDistrict != null and addDistrict != ''">
+			and hr_add_district = #{addDistrict}
+		</if>
+		<if test="addZone != null and addZone != ''">
+			and hr_add_zone = #{addZone}
+		</if>
+		<if test="addStreet != null and addStreet != ''">
+			and hr_add_street like '%${addStreet}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and hr_add_community like '%${addCommunity}%' 
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="renterUserId != null and renterUserId != ''" >
+	      	and renter_user_id = #{renterUserId}
+	    </if>
+	    <if test="renterDepartment != null and renterDepartment != ''" >
+	      	and renter_department = #{renterDepartment}
+		</if>
+	    <if test="renterStorefront != null and renterStorefront != ''" >
+	      	and renter_storefront = #{renterStorefront}
+	    </if>
+    	<if test="renterId != null and renterId != ''" >
+    		and renter_id = #{renterId}
+    	</if>
+        <if test="renterSecondContacts != null and renterSecondContacts != ''" >
+        	and renter_second_contacts like '%${renterSecondContacts}%'
+        </if>
+        <if test="renterSecondPhone != null and renterSecondPhone != ''" >
+        	and renter_second_phone like '%${renterSecondPhone}%'
+        </if>
+		<if test="fromTime != null and fromTime != '' and toTime != null and toTime != ''" >
+			and renter_register_time between #{fromTime} and #{toTime}
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+	    	and pop_name like '%${renterPopName}%'
+    	</if>
+    	<if test="renterPopTelephone != null and renterPopTelephone != '' ">
+    		and pop_telephone like '%${renterPopTelephone}%'
+    	</if>
+    	<if test="renterPopIdcard != null and renterPopIdcard != '' ">
+    		and pop_idcard like '%${renterPopIdcard}%'
+    	</if>
+    	<if test="renterPopulationId != null and renterPopulationId != '' ">
+    		and renter_population_id = #{renterPopulationId}
+		</if>
+    </where>
+	) rr,
+	(select count(ff.renter_id) total_num from
+		(select ee.*,ip.pop_name, ip.pop_telephone, ip.pop_idcard from
+			(select * from info_renter left outer join info_house_4rent ih 
+			on (renter_id = ih.hr_renter_id)) ee left outer join info_pop_tmp ip
+		on (ee.renter_population_id = ip.pop_id)) ff
+	<where>
+		<if test="addProvince != null and addProvince != ''">
+			and hr_add_province = #{addProvince}
+		</if>
+		<if test="addCity != null and addCity != ''">
+			and hr_add_city = #{addCity}
+		</if>
+		<if test="addDistrict != null and addDistrict != ''">
+			and hr_add_district = #{addDistrict}
+		</if>
+		<if test="addZone != null and addZone != ''">
+			and hr_add_zone = #{addZone}
+		</if>
+		<if test="addStreet != null and addStreet != ''">
+			and hr_add_street like '%${addStreet}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and hr_add_community like '%${addCommunity}%' 
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="renterUserId != null and renterUserId != ''" >
+	      	and renter_user_id = #{renterUserId}
+	    </if>
+	    <if test="renterDepartment != null and renterDepartment != ''" >
+	      	and renter_department = #{renterDepartment}
+		</if>
+	    <if test="renterStorefront != null and renterStorefront != ''" >
+	      	and renter_storefront = #{renterStorefront}
+	    </if>
+    	<if test="renterId != null and renterId != ''" >
+    		and renter_id = #{renterId}
+    	</if>
+        <if test="renterSecondContacts != null and renterSecondContacts != ''" >
+        	and renter_second_contacts like '%${renterSecondContacts}%'
+        </if>
+        <if test="renterSecondPhone != null and renterSecondPhone != ''" >
+        	and renter_second_phone like '%${renterSecondPhone}%'
+        </if>
+		<if test="fromTime != null and fromTime != '' and toTime != null and toTime != ''" >
+			and renter_register_time between #{fromTime} and #{toTime}
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+	    	and pop_name like '%${renterPopName}%'
+    	</if>
+    	<if test="renterPopTelephone != null and renterPopTelephone != '' ">
+    		and pop_telephone like '%${renterPopTelephone}%'
+    	</if>
+    	<if test="renterPopIdcard != null and renterPopIdcard != '' ">
+    		and pop_idcard like '%${renterPopIdcard}%'
+    	</if>
+    	<if test="renterPopulationId != null and renterPopulationId != '' ">
+    		and renter_population_id = #{renterPopulationId}
+		</if>
+    </where>
+	) bb
+    ORDER BY renter_id DESC
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <select id="isExist" resultType="java.lang.Integer" parameterType="java.lang.String" >
+    select renter_id
+    from info_renter
+    where renter_idcard = #{renterIdcard,jdbcType=VARCHAR}
+  </select>
+  <!--************************手写方法***************************  -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from info_renter
+    where renter_id = #{renterId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_renter
+    where renter_id = #{renterId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoRenterExpand" 
+  			useGeneratedKeys="true" keyProperty="renterId">
+    insert into info_renter 
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="renterPopulationId != null and renterPopulationId != ''" >
+        renter_population_id,
+      </if>
+      <if test="renterUserId != null and renterUserId != ''" >
+        renter_user_id,
+      </if>
+      <if test="renterSecondContacts != null and renterSecondContacts != ''" >
+        renter_second_contacts,
+      </if>
+      <if test="renterSecondPhone != null and renterSecondPhone != ''" >
+        renter_second_phone,
+      </if>
+      <if test="renterDepartment != null and renterDepartment != ''" >
+        renter_department,
+      </if>
+      <if test="renterStorefront != null and renterStorefront != ''" >
+        renter_storefront,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="renterPopulationId != null and renterPopulationId != ''" >
+        #{renterPopulationId,jdbcType=INTEGER},
+      </if>
+      <if test="renterUserId != null and renterUserId != ''" >
+        #{renterUserId,jdbcType=INTEGER},
+      </if>
+      <if test="renterSecondContacts != null and renterSecondContacts != ''" >
+        #{renterSecondContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="renterSecondPhone != null and renterSecondPhone != ''" >
+        #{renterSecondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="renterDepartment != null and renterDepartment != ''" >
+        #{renterDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="renterStorefront != null and renterStorefront != ''" >
+        #{renterStorefront,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoRenterExpand" >
+    update info_renter
+    <set >
+      <if test="renterPopulationId != null and renterPopulationId != ''" >
+        renter_population_id = #{renterPopulationId,jdbcType=INTEGER},
+      </if>
+      <if test="renterUserId != null and renterUserId != ''" >
+        renter_user_id = #{renterUserId,jdbcType=INTEGER},
+      </if>
+      <if test="renterSecondContacts != null and renterSecondContacts != ''" >
+        renter_second_contacts = #{renterSecondContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="renterSecondPhone != null and renterSecondPhone != ''" >
+        renter_second_phone = #{renterSecondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="renterDepartment != null and renterDepartment != ''" >
+        renter_department = #{renterDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="renterStorefront != null and renterStorefront != ''" >
+        renter_storefront = #{renterStorefront,jdbcType=INTEGER},
+      </if>
+    </set>
+    where renter_id = #{renterId,jdbcType=INTEGER}
+  </update>
+</mapper>

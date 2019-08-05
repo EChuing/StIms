@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourShortRentNexusMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourShortRentNexus" >
+    <id column="jsrn_id" property="jsrnId" jdbcType="INTEGER" />
+    <result column="jsrn_jsrc_id" property="jsrnJsrcId" jdbcType="INTEGER" />
+    <result column="jsrn_jsrr_id" property="jsrnJsrrId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jsrn_id, jsrn_jsrc_id, jsrn_jsrr_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentNexus" >
+    select 
+    <include refid="Base_Column_List" />
+    from jour_short_rent_nexus
+    <where>
+    	<if test="jsrnJsrcId != null">
+    		and jsrn_jsrc_id = #{jsrnJsrcId,jdbcType=INTEGER}
+    	</if>
+    	<if test="jsrnJsrrId != null">
+    		and jsrn_jsrr_id = #{jsrnJsrrId,jdbcType=INTEGER}
+    	</if>
+    </where>
+  </select>
+ 
+
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourShortRentNexus" >
+    insert into jour_short_rent_nexus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jsrnId != null" >
+        jsrn_id,
+      </if>
+      <if test="jsrnJsrcId != null" >
+        jsrn_jsrc_id,
+      </if>
+      <if test="jsrnJsrrId != null" >
+        jsrn_jsrr_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jsrnId != null" >
+        #{jsrnId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrnJsrcId != null" >
+        #{jsrnJsrcId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrnJsrrId != null" >
+        #{jsrnJsrrId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourShortRentNexus" >
+    update jour_short_rent_nexus
+    <set >
+      <if test="jsrnJsrcId != null" >
+        jsrn_jsrc_id = #{jsrnJsrcId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrnJsrrId != null" >
+        jsrn_jsrr_id = #{jsrnJsrrId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jsrn_id = #{jsrnId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

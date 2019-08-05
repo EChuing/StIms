@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.DashHousePriceMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.DashHousePrice" >
+    <id column="dhp_id" property="dhpId" jdbcType="INTEGER" />
+    <result column="dhp_store_json" property="dhpStoreJson" jdbcType="VARCHAR" />
+    <result column="dhp_store_price" property="dhpStorePrice" jdbcType="VARCHAR" />
+    <result column="dhp_rent_json" property="dhpRentJson" jdbcType="VARCHAR" />
+    <result column="dhp_rent_price" property="dhpRentPrice" jdbcType="VARCHAR" />
+    <result column="dhp_time" property="dhpTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from stat_price_distribution where dhp_id = #{dhpId}
+  </select>
+</mapper>

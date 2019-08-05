@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.push.PushBkUnitMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.push.PushBkUnit" >
+    <id column="pbu_id" property="pbuId" jdbcType="INTEGER" />
+    <result column="pbu_hs_id" property="pbuHsId" jdbcType="INTEGER" />
+    <result column="pbu_house_type" property="pbuHouseType" jdbcType="VARCHAR" />
+    <result column="pbu_gmt_create" property="pbuGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="pbu_gmt_modified" property="pbuGmtModified" jdbcType="TIMESTAMP" />
+    <result column="pbu_detail" property="pbuDetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+   
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+  	*
+    from push_bk_unit
+    where pbu_id = #{pbuId,jdbcType=INTEGER}
+  </select>
+	
+ <select id="queryBkUnit" resultMap="BaseResultMap" parameterType="com.zz.po.push.PushBkUnit" >
+    select 
+  	*
+    from push_bk_unit
+    <where>
+      <if test="pbuId != null" >
+        and pbu_id=#{pbhId}
+      </if>
+      <if test="pbuHsId != null" >
+        and pbu_id=#{pbuHsId}
+      </if>
+      <if test="pbuHouseType != null" >
+        and pbu_house_type=#{pbuHouseType}
+      </if>
+      <if test="pbuGmtCreate != null" >
+        and pbu_gmt_create=#{pbuGmtCreate}
+      </if>
+      <if test="pbuGmtModified != null" >
+        and pbu_gmt_modified=#{pbuGmtModified}
+      </if>
+      <if test="pbuDetail != null" >
+        and pbu_detail=#{pbuDetail}
+      </if>
+    </where>
+ </select>
+	
+  <insert id="insertSelective" parameterType="com.zz.po.push.PushBkUnit" keyProperty="pbuId" useGeneratedKeys="true">
+    insert into push_bk_unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pbuId != null" >
+        pbu_id,
+      </if>
+      <if test="pbuHsId != null" >
+        pbu_hs_id,
+      </if>
+      <if test="pbuHouseType != null" >
+        pbu_house_type,
+      </if>
+      <if test="pbuGmtCreate != null" >
+        pbu_gmt_create,
+      </if>
+      <if test="pbuGmtModified != null" >
+        pbu_gmt_modified,
+      </if>
+      <if test="pbuDetail != null" >
+        pbu_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pbuId != null" >
+        #{pbuId,jdbcType=INTEGER},
+      </if>
+      <if test="pbuHsId != null" >
+        #{pbuHsId,jdbcType=INTEGER},
+      </if>
+      <if test="pbuHouseType != null" >
+        #{pbuHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="pbuGmtCreate != null" >
+        #{pbuGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbuGmtModified != null" >
+        #{pbuGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbuDetail != null" >
+        #{pbuDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.push.PushBkUnit" >
+    update push_bk_unit
+    <set >
+      <if test="pbuHsId != null" >
+        pbu_hs_id = #{pbuHsId,jdbcType=INTEGER},
+      </if>
+      <if test="pbuHouseType != null" >
+        pbu_house_type = #{pbuHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="pbuGmtCreate != null" >
+        pbu_gmt_create = #{pbuGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbuGmtModified != null" >
+        pbu_gmt_modified = #{pbuGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbuDetail != null" >
+        pbu_detail = #{pbuDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pbu_id = #{pbuId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

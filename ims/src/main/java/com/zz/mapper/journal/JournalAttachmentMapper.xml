@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalAttachmentMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalAttachment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="att" property="att" jdbcType="VARCHAR" />
+     <result column="att2" property="att2" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zz.po.journal.JournalAttachment" extends="BaseResultMap" >
+    <result column="path" property="path" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, att, att2, num, time
+  </sql>
+  <sql id="Blob_Column_List" >
+    path
+  </sql>
+  <select id="selectByAtt" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jour_upload_tmp
+    where att = #{att,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByAtt2" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from jour_upload_tmp
+    where att2 = #{att2,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByAtt" parameterType="java.lang.String" >
+    delete from jour_upload_tmp
+    where att = #{att,jdbcType=VARCHAR}
+  </delete>
+  
+  <delete id="deleteByAtt2" parameterType="java.lang.String" >
+    delete from jour_upload_tmp
+    where att2 = #{att2,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zz.po.journal.JournalAttachment" >
+    insert into jour_upload_tmp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="att != null" >
+        att,
+      </if>
+      <if test="att2 != null" >
+        att2,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="att != null" >
+        #{att,jdbcType=VARCHAR},
+      </if>
+      <if test="att2 != null" >
+        #{att2,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByAtt" parameterType="com.zz.po.journal.JournalAttachment" >
+    update jour_upload_tmp
+    <set>
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where att = #{att,jdbcType=VARCHAR}
+  </update>
+  
+   <update id="updateByAtt2" parameterType="com.zz.po.journal.JournalAttachment" >
+    update jour_upload_tmp
+    <set>
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null" >
+        time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where att2 = #{att2,jdbcType=VARCHAR}
+  </update>
+</mapper>

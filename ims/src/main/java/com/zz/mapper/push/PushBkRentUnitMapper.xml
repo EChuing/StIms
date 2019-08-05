@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.push.PushBkRentUnitMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.push.PushBkRentUnit" >
+    <id column="pbru_id" property="pbruId" jdbcType="INTEGER" />
+    <result column="pbru_house_id" property="pbruHouseId" jdbcType="VARCHAR" />
+    <result column="pbru_unit_id" property="pbruUnitId" jdbcType="VARCHAR" />
+    <result column="pbru_pbu_id" property="pbruPbuId" jdbcType="INTEGER" />
+    <result column="pbru_unit_name" property="pbruUnitName" jdbcType="VARCHAR" />
+    <result column="pbru_gmt_create" property="pbruGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="pbru_gmt_modified" property="pbruGmtModified" jdbcType="TIMESTAMP" />
+    <result column="pbru_detail" property="pbruDetail" jdbcType="LONGVARCHAR" />
+    <result column="pbru_payment" property="pbruPayment" jdbcType="VARCHAR" />
+    <result column="pbru_img_path" property="pbruImgPath" jdbcType="LONGVARCHAR" />
+    <result column="pbru_img_num" property="pbruImgNum" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="hs_add_province" property="hsAddProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="hsAddCity" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="hsAddDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="hsAddZone" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="hsAddStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="pbu_hs_id" property="pbuHsId" jdbcType="INTEGER" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+   	*
+    from push_bk_rent_unit
+    where pbru_id = #{pbruId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="queryBkRentUnit" resultMap="BaseResultMap" parameterType="com.zz.po.push.PushBkRentUnit" >
+    select aa.*, bb.totalNum 
+    from (select * from push_bk_rent_unit pbru
+    left outer join push_bk_unit pbu on pbu.pbu_id = pbru.pbru_pbu_id
+    left outer join info_house_4store hs on hs.hs_id = pbu.pbu_hs_id
+    <where>
+   		<if test="pbruId != null and pbruId !=''">
+    		and pbru_id = #{pbruId}
+    	</if>
+    	<if test="pbruHouseId != null and pbruHouseId !=''">
+    		and pbru_house_id = #{pbruHouseId}
+    	</if>
+   		<if test="pbruUnitId != null and pbruUnitId !=''">
+    		and pbru_unit_id = #{pbruUnitId}
+    	</if>
+    	<if test="pbruPbuId != null and pbruPbuId !=''">
+    		and pbru_pbu_id = #{pbruPbuId}
+    	</if>
+    	<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+    </where>
+    ) aa, 
+    (select count(pbru_id) totalNum from push_bk_rent_unit pbru
+    left outer join push_bk_unit pbu on pbu.pbu_id = pbru.pbru_pbu_id
+    left outer join info_house_4store hs on hs.hs_id = pbu.pbu_hs_id
+    <where>
+   		<if test="pbruId != null and pbruId !=''">
+    		and pbru_id = #{pbruId}
+    	</if>
+    	<if test="pbruHouseId != null and pbruHouseId !=''">
+    		and pbru_house_id = #{pbruHouseId}
+    	</if>
+   		<if test="pbruUnitId != null and pbruUnitId !=''">
+    		and pbru_unit_id = #{pbruUnitId}
+    	</if>
+    	<if test="pbruPbuId != null and pbruPbuId !=''">
+    		and pbru_pbu_id = #{pbruPbuId}
+    	</if>
+    	<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+    </where>
+    ) bb
+    ORDER BY pbru_id DESC 
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.push.PushBkRentUnit" >
+    insert into push_bk_rent_unit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pbruId != null" >
+        pbru_id,
+      </if>
+      <if test="pbruHouseId != null" >
+        pbru_house_id,
+      </if>
+      <if test="pbruUnitId != null" >
+        pbru_unit_id,
+      </if>
+      <if test="pbruPbuId != null" >
+        pbru_pbu_id,
+      </if>
+      <if test="pbruUnitName != null" >
+        pbru_unit_name,
+      </if>
+      <if test="pbruGmtCreate != null" >
+        pbru_gmt_create,
+      </if>
+      <if test="pbruGmtModified != null" >
+        pbru_gmt_modified,
+      </if>
+      <if test="pbruDetail != null" >
+        pbru_detail,
+      </if>
+      <if test="pbruPayment != null" >
+        pbru_payment,
+      </if>
+      <if test="pbruImgPath != null" >
+        pbru_img_path,
+      </if>
+      <if test="pbruImgNum != null" >
+        pbru_img_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pbruId != null" >
+        #{pbruId,jdbcType=INTEGER},
+      </if>
+      <if test="pbruHouseId != null" >
+        #{pbruHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="pbruUnitId != null" >
+        #{pbruUnitId,jdbcType=VARCHAR},
+      </if>
+      <if test="pbruPbuId != null" >
+        #{pbruPbuId,jdbcType=INTEGER},
+      </if>
+      <if test="pbruUnitName != null" >
+        #{pbruUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="pbruGmtCreate != null" >
+        #{pbruGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbruGmtModified != null" >
+        #{pbruGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbruDetail != null" >
+        #{pbruDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbruPayment != null" >
+        #{pbruPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="pbruImgPath != null" >
+        #{pbruImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbruImgNum != null" >
+        #{pbruImgNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.push.PushBkRentUnit" >
+    update push_bk_rent_unit
+    <set >
+      <if test="pbruHouseId != null" >
+        pbru_house_id = #{pbruHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="pbruUnitId != null" >
+        pbru_unit_id = #{pbruUnitId,jdbcType=VARCHAR},
+      </if>
+      <if test="pbruPbuId != null" >
+        pbru_pbu_id = #{pbruPbuId,jdbcType=INTEGER},
+      </if>
+      <if test="pbruUnitName != null" >
+        pbru_unit_name = #{pbruUnitName,jdbcType=VARCHAR},
+      </if>
+      <if test="pbruGmtCreate != null" >
+        pbru_gmt_create = #{pbruGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbruGmtModified != null" >
+        pbru_gmt_modified = #{pbruGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbruDetail != null" >
+        pbru_detail = #{pbruDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbruPayment != null" >
+        pbru_payment = #{pbruPayment,jdbcType=VARCHAR},
+      </if>
+      <if test="pbruImgPath != null" >
+        pbru_img_path = #{pbruImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="pbruImgNum != null" >
+        pbru_img_num = #{pbruImgNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pbru_id = #{pbruId,jdbcType=INTEGER}
+  </update>
+  
+
+</mapper>

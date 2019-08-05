@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.freeNet.ListingsReleaseTableMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.freeNet.ListingsReleaseTable" >
+    <id column="lrt_id" property="lrtId" jdbcType="INTEGER" />
+    <result column="lrt_hre_id" property="lrtHreId" jdbcType="VARCHAR" />
+    <result column="lrt_company_english" property="lrtCompanyEnglish" jdbcType="VARCHAR" />
+    <result column="lrt_contacts" property="lrtContacts" jdbcType="VARCHAR" />
+    <result column="lrt_contacts_phone" property="lrtContactsPhone" jdbcType="VARCHAR" />
+    <result column="lrt_house_title" property="lrtHouseTitle" jdbcType="VARCHAR" />
+    <result column="lrt_house_subtitle" property="lrtHouseSubtitle" jdbcType="VARCHAR" />
+    <result column="lrt_house_owner" property="lrtHouseOwner" jdbcType="VARCHAR" />
+    <result column="lrt_house_type" property="lrtHouseType" jdbcType="VARCHAR" />
+    <result column="lrt_section_type" property="lrtSectionType" jdbcType="VARCHAR" />
+    <result column="lrt_house_direction" property="lrtHouseDirection" jdbcType="VARCHAR" />
+    <result column="lrt_house_decoration" property="lrtHouseDecoration" jdbcType="VARCHAR" />
+    <result column="lrt_house_in_floors" property="lrtHouseInFloors" jdbcType="VARCHAR" />
+    <result column="lrt_house_square" property="lrtHouseSquare" jdbcType="DOUBLE" />
+    <result column="lrt_house_price" property="lrtHousePrice" jdbcType="DOUBLE" />
+    <result column="lrt_furniture_config" property="lrtFurnitureConfig" jdbcType="VARCHAR" />
+    <result column="lrt_add_city" property="lrtAddCity" jdbcType="VARCHAR" />
+    <result column="lrt_add_district" property="lrtAddDistrict" jdbcType="VARCHAR" />
+    <result column="lrt_add_zone" property="lrtAddZone" jdbcType="VARCHAR" />
+    <result column="lrt_add_street" property="lrtAddStreet" jdbcType="VARCHAR" />
+    <result column="lrt_add_community" property="lrtAddCommunity" jdbcType="VARCHAR" />
+    <result column="lrt_add_building" property="lrtAddBuilding" jdbcType="VARCHAR" />
+    <result column="lrt_add_doorplateno" property="lrtAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="lrt_detailed_address" property="lrtDetailedAddress" jdbcType="VARCHAR" />
+    <result column="lrt_traffic" property="lrtTraffic" jdbcType="VARCHAR" />
+    <result column="lrt_house_description" property="lrtHouseDescription" jdbcType="VARCHAR" />
+    <result column="lrt_house_belong" property="lrtHouseBelong" jdbcType="VARCHAR" />
+    <result column="lrt_house_label" property="lrtHouseLabel" jdbcType="VARCHAR" />
+    <result column="lrt_authenticate_state" property="lrtAuthenticateState" jdbcType="VARCHAR" />
+    <result column="lrt_authenticate_ways" property="lrtAuthenticateWays" jdbcType="VARCHAR" />
+    <result column="lrt_check_info" property="lrtCheckInfo" jdbcType="VARCHAR" />
+    <result column="lrt_release_time" property="lrtReleaseTime" jdbcType="DATE" />
+    <result column="lrt_house_state" property="lrtHouseState" jdbcType="VARCHAR" />
+    <result column="lrt_remake" property="lrtRemake" jdbcType="VARCHAR" />
+    <result column="lrt_house_img" property="lrtHouseImg" jdbcType="LONGVARCHAR" />
+    <result column="lrt_detailed_img" property="lrtDetailedImg" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lrt_id, lrt_hre_id, "lrt_company_english", lrt_contacts, lrt_contacts_phone, lrt_house_title, 
+    lrt_house_subtitle, lrt_house_owner, lrt_house_type, lrt_section_type, lrt_house_direction, 
+    lrt_house_decoration, lrt_house_in_floors, lrt_house_square, lrt_house_price, lrt_furniture_config, 
+    lrt_add_city, lrt_add_district, lrt_add_zone, lrt_add_street, lrt_add_community, 
+    lrt_add_building, lrt_add_doorplateno, lrt_detailed_address, lrt_traffic, lrt_house_description, 
+    lrt_house_belong, lrt_house_label, lrt_authenticate_state, lrt_authenticate_ways, 
+    lrt_check_info, lrt_release_time, lrt_house_state, lrt_remake,
+    lrt_house_img, lrt_detailed_img
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.freeNet.ListingsReleaseTable" >
+    select 
+    <include refid="Base_Column_List" />
+    from listings_release_table
+    where lrt_id = #{lrtId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from listings_release_table
+    where lrt_id = #{lrtId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zz.freeNet.ListingsReleaseTable" >
+    insert into listings_release_table (lrt_id, lrt_hre_id, "lrt_company_english", 
+      lrt_contacts, lrt_contacts_phone, lrt_house_title, 
+      lrt_house_subtitle, lrt_house_owner, lrt_house_type, 
+      lrt_section_type, lrt_house_direction, lrt_house_decoration, 
+      lrt_house_in_floors, lrt_house_square, lrt_house_price, 
+      lrt_furniture_config, lrt_add_city, lrt_add_district, 
+      lrt_add_zone, lrt_add_street, lrt_add_community, 
+      lrt_add_building, lrt_add_doorplateno, lrt_detailed_address, 
+      lrt_traffic, lrt_house_description, lrt_house_belong, 
+      lrt_house_label, lrt_authenticate_state, lrt_authenticate_ways, 
+      lrt_check_info, lrt_release_time, lrt_house_state, 
+      lrt_remake, lrt_house_img, lrt_detailed_img
+      )
+    values (#{lrtId,jdbcType=INTEGER}, #{lrtHreId,jdbcType=VARCHAR}, #{lrtCompanyEnglish,jdbcType=VARCHAR}, 
+      #{lrtContacts,jdbcType=VARCHAR}, #{lrtContactsPhone,jdbcType=VARCHAR}, #{lrtHouseTitle,jdbcType=VARCHAR}, 
+      #{lrtHouseSubtitle,jdbcType=VARCHAR}, #{lrtHouseOwner,jdbcType=VARCHAR}, #{lrtHouseType,jdbcType=VARCHAR}, 
+      #{lrtSectionType,jdbcType=VARCHAR}, #{lrtHouseDirection,jdbcType=VARCHAR}, #{lrtHouseDecoration,jdbcType=VARCHAR}, 
+      #{lrtHouseInFloors,jdbcType=VARCHAR}, #{lrtHouseSquare,jdbcType=DOUBLE}, #{lrtHousePrice,jdbcType=DOUBLE}, 
+      #{lrtFurnitureConfig,jdbcType=VARCHAR}, #{lrtAddCity,jdbcType=VARCHAR}, #{lrtAddDistrict,jdbcType=VARCHAR}, 
+      #{lrtAddZone,jdbcType=VARCHAR}, #{lrtAddStreet,jdbcType=VARCHAR}, #{lrtAddCommunity,jdbcType=VARCHAR}, 
+      #{lrtAddBuilding,jdbcType=VARCHAR}, #{lrtAddDoorplateno,jdbcType=VARCHAR}, #{lrtDetailedAddress,jdbcType=VARCHAR}, 
+      #{lrtTraffic,jdbcType=VARCHAR}, #{lrtHouseDescription,jdbcType=VARCHAR}, #{lrtHouseBelong,jdbcType=VARCHAR}, 
+      #{lrtHouseLabel,jdbcType=VARCHAR}, #{lrtAuthenticateState,jdbcType=VARCHAR}, #{lrtAuthenticateWays,jdbcType=VARCHAR}, 
+      #{lrtCheckInfo,jdbcType=VARCHAR}, #{lrtReleaseTime,jdbcType=DATE}, #{lrtHouseState,jdbcType=VARCHAR}, 
+      #{lrtRemake,jdbcType=VARCHAR}, #{lrtHouseImg,jdbcType=LONGVARCHAR}, #{lrtDetailedImg,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zz.freeNet.ListingsReleaseTable" useGeneratedKeys="true" keyProperty="lrtId">
+    insert into listings_release_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lrtId != null" >
+        lrt_id,
+      </if>
+      <if test="lrtHreId != null" >
+        lrt_hre_id,
+      </if>
+      <if test="lrtCompanyEnglish != null" >
+        "lrt_company_english",
+      </if>
+      <if test="lrtContacts != null" >
+        lrt_contacts,
+      </if>
+      <if test="lrtContactsPhone != null" >
+        lrt_contacts_phone,
+      </if>
+      <if test="lrtHouseTitle != null" >
+        lrt_house_title,
+      </if>
+      <if test="lrtHouseSubtitle != null" >
+        lrt_house_subtitle,
+      </if>
+      <if test="lrtHouseOwner != null" >
+        lrt_house_owner,
+      </if>
+      <if test="lrtHouseType != null" >
+        lrt_house_type,
+      </if>
+      <if test="lrtSectionType != null" >
+        lrt_section_type,
+      </if>
+      <if test="lrtHouseDirection != null" >
+        lrt_house_direction,
+      </if>
+      <if test="lrtHouseDecoration != null" >
+        lrt_house_decoration,
+      </if>
+      <if test="lrtHouseInFloors != null" >
+        lrt_house_in_floors,
+      </if>
+      <if test="lrtHouseSquare != null" >
+        lrt_house_square,
+      </if>
+      <if test="lrtHousePrice != null" >
+        lrt_house_price,
+      </if>
+      <if test="lrtFurnitureConfig != null" >
+        lrt_furniture_config,
+      </if>
+      <if test="lrtAddCity != null" >
+        lrt_add_city,
+      </if>
+      <if test="lrtAddDistrict != null" >
+        lrt_add_district,
+      </if>
+      <if test="lrtAddZone != null" >
+        lrt_add_zone,
+      </if>
+      <if test="lrtAddStreet != null" >
+        lrt_add_street,
+      </if>
+      <if test="lrtAddCommunity != null" >
+        lrt_add_community,
+      </if>
+      <if test="lrtAddBuilding != null" >
+        lrt_add_building,
+      </if>
+      <if test="lrtAddDoorplateno != null" >
+        lrt_add_doorplateno,
+      </if>
+      <if test="lrtDetailedAddress != null" >
+        lrt_detailed_address,
+      </if>
+      <if test="lrtTraffic != null" >
+        lrt_traffic,
+      </if>
+      <if test="lrtHouseDescription != null" >
+        lrt_house_description,
+      </if>
+      <if test="lrtHouseBelong != null" >
+        lrt_house_belong,
+      </if>
+      <if test="lrtHouseLabel != null" >
+        lrt_house_label,
+      </if>
+      <if test="lrtAuthenticateState != null" >
+        lrt_authenticate_state,
+      </if>
+      <if test="lrtAuthenticateWays != null" >
+        lrt_authenticate_ways,
+      </if>
+      <if test="lrtCheckInfo != null" >
+        lrt_check_info,
+      </if>
+      <if test="lrtReleaseTime != null" >
+        lrt_release_time,
+      </if>
+      <if test="lrtHouseState != null" >
+        lrt_house_state,
+      </if>
+      <if test="lrtRemake != null" >
+        lrt_remake,
+      </if>
+      <if test="lrtHouseImg != null" >
+        lrt_house_img,
+      </if>
+      <if test="lrtDetailedImg != null" >
+        lrt_detailed_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lrtId != null" >
+        #{lrtId,jdbcType=INTEGER},
+      </if>
+      <if test="lrtHreId != null" >
+        #{lrtHreId,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtCompanyEnglish != null" >
+        #{lrtCompanyEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtContacts != null" >
+        #{lrtContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtContactsPhone != null" >
+        #{lrtContactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseTitle != null" >
+        #{lrtHouseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseSubtitle != null" >
+        #{lrtHouseSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseOwner != null" >
+        #{lrtHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseType != null" >
+        #{lrtHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtSectionType != null" >
+        #{lrtSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseDirection != null" >
+        #{lrtHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseDecoration != null" >
+        #{lrtHouseDecoration,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseInFloors != null" >
+        #{lrtHouseInFloors,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseSquare != null" >
+        #{lrtHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="lrtHousePrice != null" >
+        #{lrtHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="lrtFurnitureConfig != null" >
+        #{lrtFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddCity != null" >
+        #{lrtAddCity,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddDistrict != null" >
+        #{lrtAddDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddZone != null" >
+        #{lrtAddZone,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddStreet != null" >
+        #{lrtAddStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddCommunity != null" >
+        #{lrtAddCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddBuilding != null" >
+        #{lrtAddBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddDoorplateno != null" >
+        #{lrtAddDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtDetailedAddress != null" >
+        #{lrtDetailedAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtTraffic != null" >
+        #{lrtTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseDescription != null" >
+        #{lrtHouseDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseBelong != null" >
+        #{lrtHouseBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseLabel != null" >
+        #{lrtHouseLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAuthenticateState != null" >
+        #{lrtAuthenticateState,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAuthenticateWays != null" >
+        #{lrtAuthenticateWays,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtCheckInfo != null" >
+        #{lrtCheckInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtReleaseTime != null" >
+        #{lrtReleaseTime,jdbcType=DATE},
+      </if>
+      <if test="lrtHouseState != null" >
+        #{lrtHouseState,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtRemake != null" >
+        #{lrtRemake,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseImg != null" >
+        #{lrtHouseImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lrtDetailedImg != null" >
+        #{lrtDetailedImg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.freeNet.ListingsReleaseTable" >
+    update listings_release_table
+    <set >
+      <if test="lrtHreId != null" >
+        lrt_hre_id = #{lrtHreId,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtCompanyEnglish != null" >
+        "lrt_company_english" = #{lrtCompanyEnglish,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtContacts != null" >
+        lrt_contacts = #{lrtContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtContactsPhone != null" >
+        lrt_contacts_phone = #{lrtContactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseTitle != null" >
+        lrt_house_title = #{lrtHouseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseSubtitle != null" >
+        lrt_house_subtitle = #{lrtHouseSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseOwner != null" >
+        lrt_house_owner = #{lrtHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseType != null" >
+        lrt_house_type = #{lrtHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtSectionType != null" >
+        lrt_section_type = #{lrtSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseDirection != null" >
+        lrt_house_direction = #{lrtHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseDecoration != null" >
+        lrt_house_decoration = #{lrtHouseDecoration,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseInFloors != null" >
+        lrt_house_in_floors = #{lrtHouseInFloors,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseSquare != null" >
+        lrt_house_square = #{lrtHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="lrtHousePrice != null" >
+        lrt_house_price = #{lrtHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="lrtFurnitureConfig != null" >
+        lrt_furniture_config = #{lrtFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddCity != null" >
+        lrt_add_city = #{lrtAddCity,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddDistrict != null" >
+        lrt_add_district = #{lrtAddDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddZone != null" >
+        lrt_add_zone = #{lrtAddZone,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddStreet != null" >
+        lrt_add_street = #{lrtAddStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddCommunity != null" >
+        lrt_add_community = #{lrtAddCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddBuilding != null" >
+        lrt_add_building = #{lrtAddBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAddDoorplateno != null" >
+        lrt_add_doorplateno = #{lrtAddDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtDetailedAddress != null" >
+        lrt_detailed_address = #{lrtDetailedAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtTraffic != null" >
+        lrt_traffic = #{lrtTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseDescription != null" >
+        lrt_house_description = #{lrtHouseDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseBelong != null" >
+        lrt_house_belong = #{lrtHouseBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseLabel != null" >
+        lrt_house_label = #{lrtHouseLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAuthenticateState != null" >
+        lrt_authenticate_state = #{lrtAuthenticateState,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtAuthenticateWays != null" >
+        lrt_authenticate_ways = #{lrtAuthenticateWays,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtCheckInfo != null" >
+        lrt_check_info = #{lrtCheckInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtReleaseTime != null" >
+        lrt_release_time = #{lrtReleaseTime,jdbcType=DATE},
+      </if>
+      <if test="lrtHouseState != null" >
+        lrt_house_state = #{lrtHouseState,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtRemake != null" >
+        lrt_remake = #{lrtRemake,jdbcType=VARCHAR},
+      </if>
+      <if test="lrtHouseImg != null" >
+        lrt_house_img = #{lrtHouseImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="lrtDetailedImg != null" >
+        lrt_detailed_img = #{lrtDetailedImg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where lrt_id = #{lrtId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

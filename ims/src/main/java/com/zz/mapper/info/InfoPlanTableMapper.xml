@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 已优化 -->
+<mapper namespace="com.zz.mapper.info.InfoPlanTableMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoPlanTable" >
+    <id column="plan_id" property="planId" jdbcType="INTEGER" />
+    <result column="plan_package" property="planPackage" jdbcType="LONGVARCHAR" />
+    <result column="plan_type" property="planType" jdbcType="VARCHAR" />
+    <result column="plan_comment" property="planComment" jdbcType="LONGVARCHAR" />
+    <result column="plan_default" property="planDefault" jdbcType="VARCHAR" />
+    <result column="plan_hd_id" property="planHdId" jdbcType="INTEGER" />
+    <result column="plan_name" property="planName" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="district" property="district" jdbcType="VARCHAR" />
+    <result column="zone" property="zone" jdbcType="VARCHAR" />
+    <result column="road" property="road" jdbcType="VARCHAR" />
+    <result column="community" property="community" jdbcType="VARCHAR" />
+    <result column="building" property="building" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    plan_id, plan_package, plan_type, plan_comment, plan_default, plan_hd_id, plan_name
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPlanTable" >
+    select a.*, b.totalNum from
+    (select <include refid="Base_Column_List" />,hd.hd_city city,hd.hd_district district,
+    	hd.hd_zone zone,hd.hd_road road,hd.hd_community community,hd.hd_building building
+    from info_charging_table left outer join sys_house_dict hd on plan_hd_id = hd.hd_id
+	<where>
+    	<if test="planId != null and planId != ''" >
+    		and plan_id = #{planId,jdbcType=INTEGER}
+    	</if>
+    	<if test="planHdId != null and planHdId != ''" >
+    		and (plan_hd_id = #{planHdId,jdbcType=INTEGER} or plan_default = 'true')
+    	</if>
+    	<if test="planType != null and planType != ''" >
+    		and plan_type = #{planType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="planDefault != null and planDefault != ''" >
+    		and plan_default = #{planDefault,jdbcType=VARCHAR}
+    	</if>
+    	<if test="community != null and community != ''" >
+    		and hd.hd_community like '%${community}%'
+    	</if>
+    	<if test="planName != null and planName != ''" >
+    		and plan_name like '%${planName}%'
+    	</if>
+    </where>
+    ) a,
+    (select count(plan_id) totalNum from info_charging_table
+    <where>
+    	<if test="planId != null and planId != ''" >
+    		and plan_id = #{planId,jdbcType=INTEGER}
+    	</if>
+    	<if test="planHdId != null and planHdId != ''" >
+    		and (plan_hd_id = #{planHdId,jdbcType=INTEGER} or plan_default = 'true')
+    	</if>
+    	<if test="planType != null and planType != ''" >
+    		and plan_type = #{planType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="planDefault != null and planDefault != ''" >
+    		and plan_default = #{planDefault,jdbcType=VARCHAR}
+    	</if>
+        <if test="community != null and community != ''" >
+            and hd.hd_community like '%${community}%'
+        </if>
+        <if test="planName != null and planName != ''" >
+            and plan_name like '%${planName}%'
+        </if>
+    </where>
+    ) b
+    ORDER BY plan_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_charging_table
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoPlanTable" >
+    insert into info_charging_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="planId != null" >
+        plan_id,
+      </if>
+      <if test="planPackage != null" >
+        plan_package,
+      </if>
+      <if test="planType != null" >
+        plan_type,
+      </if>
+      <if test="planComment != null" >
+        plan_comment,
+      </if>
+      <if test="planDefault != null" >
+        plan_default,
+      </if>
+      <if test="planHdId != null" >
+        plan_hd_id,
+      </if>
+      <if test="planName != null" >
+        plan_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="planId != null" >
+        #{planId,jdbcType=INTEGER},
+      </if>
+      <if test="planPackage != null" >
+        #{planPackage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="planType != null" >
+        #{planType,jdbcType=VARCHAR},
+      </if>
+      <if test="planComment != null" >
+        #{planComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="planDefault != null" >
+        #{planDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="planHdId != null" >
+        #{planHdId,jdbcType=INTEGER},
+      </if>
+      <if test="planName != null" >
+        #{planName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoPlanTable" >
+    update info_charging_table
+    <set >
+      <if test="planPackage != null" >
+        plan_package = #{planPackage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="planType != null" >
+        plan_type = #{planType,jdbcType=VARCHAR},
+      </if>
+      <if test="planComment != null" >
+        plan_comment = #{planComment,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="planDefault != null" >
+        plan_default = #{planDefault,jdbcType=VARCHAR},
+      </if>
+      <if test="planHdId != null" >
+        plan_hd_id = #{planHdId,jdbcType=INTEGER},
+      </if>
+      <if test="planName != null" >
+        plan_name = #{planName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where plan_id = #{planId,jdbcType=INTEGER}
+  </update>
+</mapper>

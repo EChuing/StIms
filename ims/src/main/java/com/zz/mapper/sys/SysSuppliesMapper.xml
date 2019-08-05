@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysSuppliesMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.sys.SysSuppliesExpand" >
+    <id column="sup_id" property="supId" jdbcType="INTEGER" />
+    <result column="sup_house_id" property="supHouseId" jdbcType="INTEGER" />
+    <result column="sup_department" property="supDepartment" jdbcType="INTEGER" />
+    <result column="sup_storefront" property="supStorefront" jdbcType="INTEGER" />
+    <result column="sup_user_id" property="supUserId" jdbcType="INTEGER" />
+    <result column="sup_type" property="supType" jdbcType="VARCHAR" />
+    <result column="sup_name" property="supName" jdbcType="VARCHAR" />
+    <result column="sup_brand" property="supBrand" jdbcType="VARCHAR" />
+    <result column="sup_model" property="supModel" jdbcType="VARCHAR" />
+    <result column="sup_price" property="supPrice" jdbcType="DOUBLE" />
+    <result column="sup_num" property="supNum" jdbcType="INTEGER" />
+    <result column="sup_remark" property="supRemark" jdbcType="VARCHAR" />
+    <result column="sup_img_path" property="supImgPath" jdbcType="VARCHAR" />
+    <result column="sup_img_num" property="supImgNum" jdbcType="VARCHAR" />
+    <result column="sup_follow_up" property="supFollowUp" jdbcType="VARCHAR" />
+    <result column="sup_gmt_create" property="supGmtCreate" jdbcType="VARCHAR" />
+    <result column="sup_gmt_modified" property="supGmtModified" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="key_administrator" property="keyAdministrator" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询全部 -->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.sys.SysSuppliesExpand" >
+    select a.*, b.total_num from 
+	(select supplies.*, house.key_administrator, user.su_staff_name userName 
+	from jour_supplies supplies 
+	left outer join info_house_paper house on house.house_coding = supplies.sup_house_id
+	left outer join sys_users user on user.user_coding = supplies.sup_user_id
+	<where>
+	   	<if test="supId != null">
+	    	and sup_id = #{supId}
+	   	</if>
+	   	<if test="supHouseId != null">
+	    	and sup_house_id = #{supHouseId}
+	   	</if>
+	    <if test="supStorefront !=null">
+	    	and sup_storefront = #{supStorefront}
+	   	</if>
+	   	<if test="supDepartment !=null">
+	    	and sup_department = #{supDepartment}
+	   	</if>
+		<if test="virtualType == 1">
+			and house.inner_virtual_room = 1
+		</if>
+		<if test="virtualType == 2">
+			and house.outer_virtual_room = 1
+		</if>
+		<if test="virtualType == 3">
+			and house.non_cost_virtual_room = 1
+		</if>
+		<if test="keyAdministrator != null and keyAdministrator != '' ">
+			and house.key_administrator like '%${keyAdministrator}%'
+		</if>
+	   	<if test="supType !=null and supType !='' ">
+	    	and sup_type = #{supType}
+	   	</if>
+	    <if test="supName !=null and supName !='' ">
+	    	and sup_name like '%${supName}%'
+	   	</if>
+	   	<if test="supBrand !=null and supBrand !='' ">
+	    	and sup_brand like '%${supBrand}%'
+	   	</if>
+	   	<if test="supModel !=null and supModel !='' ">
+	    	and sup_model like '%${supModel}%'
+	   	</if>
+    </where>
+	) a, 
+	(select count(supplies.sup_id) total_num
+	from jour_supplies supplies 
+	left outer join info_house_paper house on house.house_coding = supplies.sup_house_id
+	left outer join sys_users user on user.user_coding = supplies.sup_user_id
+	<where>
+	   	<if test="supId != null">
+	    	and sup_id = #{supId}
+	   	</if>
+	   	<if test="supHouseId != null">
+	    	and sup_house_id = #{supHouseId}
+	   	</if>
+	    <if test="supStorefront !=null">
+	    	and sup_storefront = #{supStorefront}
+	   	</if>
+	   	<if test="supDepartment !=null">
+	    	and sup_department = #{supDepartment}
+	   	</if>
+		<if test="virtualType == 1">
+			and house.inner_virtual_room = 1
+		</if>
+		<if test="virtualType == 2">
+			and house.outer_virtual_room = 1
+		</if>
+		<if test="virtualType == 3">
+			and house.non_cost_virtual_room = 1
+		</if>
+		<if test="keyAdministrator != null and keyAdministrator != '' ">
+			and house.key_administrator like '%${keyAdministrator}%'
+		</if>
+	   	<if test="supType !=null and supType !='' ">
+	    	and sup_type = #{supType}
+	   	</if>
+	    <if test="supName !=null and supName !='' ">
+	    	and sup_name like '%${supName}%'
+	   	</if>
+	   	<if test="supBrand !=null and supBrand !='' ">
+	    	and sup_brand like '%${supBrand}%'
+	   	</if>
+	   	<if test="supModel !=null and supModel !='' ">
+	    	and sup_model like '%${supModel}%'
+	   	</if>
+    </where>
+	) b
+    order by sup_id DESC
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 添加耗材 -->
+  <insert id="insertSelective" parameterType="com.zz.po.sys.SysSuppliesExpand" >
+    insert into jour_supplies
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supHouseId != null" >
+        sup_house_id,
+      </if>
+      <if test="supDepartment != null" >
+        sup_department,
+      </if>
+      <if test="supStorefront != null" >
+        sup_storefront,
+      </if>
+      <if test="supUserId != null" >
+        sup_user_id,
+      </if>
+      <if test="supType != null" >
+        sup_type,
+      </if>
+      <if test="supName != null" >
+        sup_name,
+      </if>
+      <if test="supBrand != null" >
+        sup_brand,
+      </if>
+      <if test="supModel != null" >
+        sup_model,
+      </if>
+      <if test="supPrice != null" >
+        sup_price,
+      </if>
+      <if test="supNum != null" >
+        sup_num,
+      </if>
+      <if test="supRemark != null" >
+        sup_remark,
+      </if>
+      <if test="supImgPath != null" >
+        sup_img_path,
+      </if>
+      <if test="supImgNum != null" >
+        sup_img_num,
+      </if>
+      <if test="supFollowUp != null" >
+        sup_follow_up,
+      </if>
+      <if test="supGmtCreate != null" >
+        sup_gmt_create,
+      </if>
+      <if test="supGmtModified != null" >
+        sup_gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supHouseId != null" >
+        #{supHouseId},
+      </if>
+      <if test="supDepartment != null" >
+        #{supDepartment},
+      </if>
+      <if test="supStorefront != null" >
+        #{supStorefront},
+      </if>
+      <if test="supUserId != null" >
+        #{supUserId},
+      </if>
+      <if test="supType != null" >
+        #{supType},
+      </if>
+      <if test="supName != null" >
+        #{supName},
+      </if>
+      <if test="supBrand != null" >
+        #{supBrand},
+      </if>
+      <if test="supModel != null" >
+        #{supModel},
+      </if>
+      <if test="supPrice != null" >
+        #{supPrice},
+      </if>
+      <if test="supNum != null" >
+        #{supNum},
+      </if>
+      <if test="supRemark != null" >
+        #{supRemark},
+      </if>
+      <if test="supImgPath != null" >
+        #{supImgPath},
+      </if>
+      <if test="supImgNum != null" >
+        #{supImgNum},
+      </if>
+      <if test="supFollowUp != null" >
+        #{supFollowUp},
+      </if>
+      <if test="supGmtCreate != null" >
+        #{supGmtCreate},
+      </if>
+      <if test="supGmtModified != null" >
+        #{supGmtModified},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改耗材 -->
+  <update id="updateById" parameterType="com.zz.po.sys.SysSuppliesExpand" >
+    update jour_supplies
+    <set >
+      <if test="supType != null" >
+        sup_type = #{supType},
+      </if>
+      <if test="supName != null" >
+        sup_name = #{supName},
+      </if>
+      <if test="supBrand != null" >
+        sup_brand = #{supBrand},
+      </if>
+      <if test="supModel != null" >
+        sup_model = #{supModel},
+      </if>
+      <if test="supPrice != null" >
+        sup_price = #{supPrice},
+      </if>
+      <if test="supNum != null" >
+        sup_num = #{supNum},
+      </if>
+      <if test="supRemark != null" >
+        sup_remark = #{supRemark},
+      </if>
+      <if test="supImgPath != null" >
+        sup_img_path = #{supImgPath},
+      </if>
+      <if test="supImgNum != null" >
+        sup_img_num = #{supImgNum},
+      </if>
+      <if test="supFollowUp != null" >
+        sup_follow_up = #{supFollowUp},
+      </if>
+    </set>
+    where sup_id = #{supId}
+  </update>
+  
+</mapper>

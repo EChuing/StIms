@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalStaffSalariesMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalStaffSalaries" >
+    <id column="ssa_id" property="ssaId" jdbcType="INTEGER" />
+    <result column="ssa_register_people" property="ssaRegisterPeople" jdbcType="INTEGER" />
+    <result column="ssa_employee_id" property="ssaEmployeeId" jdbcType="INTEGER" />
+    <result column="ssa_department" property="ssaDepartment" jdbcType="INTEGER" />
+    <result column="ssa_storefront" property="ssaStorefront" jdbcType="INTEGER" />
+    <result column="ssa_basic_salary" property="ssaBasicSalary" jdbcType="DOUBLE" />
+    <result column="ssa_pay_for_performance" property="ssaPayForPerformance" jdbcType="DOUBLE" />
+    <result column="ssa_real_wages" property="ssaRealWages" jdbcType="DOUBLE" />
+    <result column="ssa_salary_should_be_made" property="ssaSalaryShouldBeMade" jdbcType="DOUBLE" />
+    <result column="ssa_real_wage_earnings" property="ssaRealWageEarnings" jdbcType="DOUBLE" />
+    <result column="ssa_should_the_post_days" property="ssaShouldThePostDays" jdbcType="DOUBLE" />
+    <result column="ssa_number_of_days" property="ssaNumberOfDays" jdbcType="DOUBLE" />
+    <result column="ssa_deduction_of_wages" property="ssaDeductionOfWages" jdbcType="DOUBLE" />
+    <result column="ssa_wage_losses" property="ssaWageLosses" jdbcType="DOUBLE" />
+    <result column="ssa_social_security" property="ssaSocialSecurity" jdbcType="DOUBLE" />
+    <result column="ssa_lodging" property="ssaLodging" jdbcType="DOUBLE" />
+    <result column="ssa_others" property="ssaOthers" jdbcType="DOUBLE" />
+    <result column="ssa_salary" property="ssaSalary" jdbcType="DOUBLE" />
+    <result column="ssa_payment_status" property="ssaPaymentStatus" jdbcType="VARCHAR" />
+    <result column="ssa_monthly_salary" property="ssaMonthlySalary" jdbcType="DATE" />
+    <result column="ssa_payment_time" property="ssaPaymentTime" jdbcType="DATE" />
+    <result column="ssa_register_time" property="ssaRegisterTime" jdbcType="DATE" />
+    <result column="ssa_state" property="ssaState" jdbcType="VARCHAR" />
+    <result column="ssa_remark" property="ssaRemark" jdbcType="VARCHAR" />
+    
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="ssa_month" property="ssaMonth" jdbcType="VARCHAR" />
+    <result column="staffname" property="staffname" jdbcType="VARCHAR" />
+    <result column="departmentname" property="departmentname" jdbcType="VARCHAR" />
+    <result column="storefrontname" property="storefrontname" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ssa_id, ssa_register_people, ssa_employee_id, ssa_department, ssa_storefront, ssa_basic_salary, 
+    ssa_pay_for_performance, ssa_real_wages, ssa_salary_should_be_made, ssa_real_wage_earnings, 
+    ssa_should_the_post_days, ssa_number_of_days, ssa_deduction_of_wages, ssa_wage_losses, 
+    ssa_social_security, ssa_lodging, ssa_others, ssa_salary, ssa_payment_status, ssa_monthly_salary, 
+    ssa_payment_time, ssa_register_time, ssa_state, ssa_remark,ssa_month
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalStaffSalaries" >
+    select a.*, b.totalNum from
+	(select jss.*, u.su_staff_name staffname, d.department_name departmentname, s.storefront_name storefrontname
+	from jour_salaries jss
+	left outer join sys_users u on jss.ssa_employee_id = u.user_coding
+	left outer join sys_department d on d.department_id = jss.ssa_department
+	left outer join sys_storefront s on s.storefront_id = jss.ssa_storefront
+	<where>
+		<if test="ssaDepartment != null and  ssaDepartment != '' ">
+			and ssa_department = #{ssaDepartment}
+		</if>
+		<if test="ssaStorefront != null and  ssaStorefront != '' ">
+			and ssa_storefront = #{ssaStorefront}
+		</if>
+		<if test="staffname != null and  staffname != '' ">
+			and su_staff_name = #{staffname}
+		</if>
+		<if test="startTime != null and startTime != ''  and endTime != null and endTime != '' ">
+			and (ssa_monthly_salary between  #{startTime} and #{endTime})
+		</if>
+	</where>
+	) a,
+	(select count(jss.ssa_id) totalNum
+	from jour_salaries jss
+	left outer join sys_users u on jss.ssa_employee_id = u.user_coding
+	left outer join sys_department d on d.department_id = jss.ssa_department
+	left outer join sys_storefront s on s.storefront_id = jss.ssa_storefront
+	<where>
+		<if test="ssaDepartment != null and  ssaDepartment != '' ">
+			and ssa_department = #{ssaDepartment}
+		</if>
+		<if test="ssaStorefront != null and  ssaStorefront != '' ">
+			and ssa_storefront = #{ssaStorefront}
+		</if>
+		<if test="staffname != null and  staffname != '' ">
+			and ssa_employee_id = #{ssaEmployeeId}
+		</if>
+		<if test="startTime != null and startTime != ''  and endTime != null and endTime != '' ">
+			and (ssa_monthly_salary between  #{startTime} and #{endTime})
+		</if>
+	</where> 
+	) b
+    ORDER BY ssa_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_salaries
+    where ssa_id = #{ssaId,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalStaffSalaries" >
+    insert into jour_salaries
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       <if test="ssaMonth != null" >
+        ssa_month,
+      </if>
+      <if test="ssaId != null" >
+        ssa_id,
+      </if>
+      <if test="ssaRegisterPeople != null" >
+        ssa_register_people,
+      </if>
+      <if test="ssaEmployeeId != null" >
+        ssa_employee_id,
+      </if>
+      <if test="ssaDepartment != null" >
+        ssa_department,
+      </if>
+      <if test="ssaStorefront != null" >
+        ssa_storefront,
+      </if>
+      <if test="ssaBasicSalary != null" >
+        ssa_basic_salary,
+      </if>
+      <if test="ssaPayForPerformance != null" >
+        ssa_pay_for_performance,
+      </if>
+      <if test="ssaRealWages != null" >
+        ssa_real_wages,
+      </if>
+      <if test="ssaSalaryShouldBeMade != null" >
+        ssa_salary_should_be_made,
+      </if>
+      <if test="ssaRealWageEarnings != null" >
+        ssa_real_wage_earnings,
+      </if>
+      <if test="ssaShouldThePostDays != null" >
+        ssa_should_the_post_days,
+      </if>
+      <if test="ssaNumberOfDays != null" >
+        ssa_number_of_days,
+      </if>
+      <if test="ssaDeductionOfWages != null" >
+        ssa_deduction_of_wages,
+      </if>
+      <if test="ssaWageLosses != null" >
+        ssa_wage_losses,
+      </if>
+      <if test="ssaSocialSecurity != null" >
+        ssa_social_security,
+      </if>
+      <if test="ssaLodging != null" >
+        ssa_lodging,
+      </if>
+      <if test="ssaOthers != null" >
+        ssa_others,
+      </if>
+      <if test="ssaSalary != null" >
+        ssa_salary,
+      </if>
+      <if test="ssaPaymentStatus != null" >
+        ssa_payment_status,
+      </if>
+      <if test="ssaMonthlySalary != null" >
+        ssa_monthly_salary,
+      </if>
+      <if test="ssaPaymentTime != null" >
+        ssa_payment_time,
+      </if>
+      <if test="ssaRegisterTime != null" >
+        ssa_register_time,
+      </if>
+      <if test="ssaState != null" >
+        ssa_state,
+      </if>
+      <if test="ssaRemark != null" >
+        ssa_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ssaMonth != null" >
+        #{ssaMonth,jdbcType=VARCHAR},
+      </if>
+      <if test="ssaId != null" >
+        #{ssaId,jdbcType=INTEGER},
+      </if>
+      <if test="ssaRegisterPeople != null" >
+        #{ssaRegisterPeople,jdbcType=INTEGER},
+      </if>
+      <if test="ssaEmployeeId != null" >
+        #{ssaEmployeeId,jdbcType=INTEGER},
+      </if>
+      <if test="ssaDepartment != null" >
+        #{ssaDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="ssaStorefront != null" >
+        #{ssaStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="ssaBasicSalary != null" >
+        #{ssaBasicSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaPayForPerformance != null" >
+        #{ssaPayForPerformance,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaRealWages != null" >
+        #{ssaRealWages,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaSalaryShouldBeMade != null" >
+        #{ssaSalaryShouldBeMade,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaRealWageEarnings != null" >
+        #{ssaRealWageEarnings,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaShouldThePostDays != null" >
+        #{ssaShouldThePostDays,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaNumberOfDays != null" >
+        #{ssaNumberOfDays,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaDeductionOfWages != null" >
+        #{ssaDeductionOfWages,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaWageLosses != null" >
+        #{ssaWageLosses,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaSocialSecurity != null" >
+        #{ssaSocialSecurity,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaLodging != null" >
+        #{ssaLodging,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaOthers != null" >
+        #{ssaOthers,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaSalary != null" >
+        #{ssaSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaPaymentStatus != null" >
+        #{ssaPaymentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ssaMonthlySalary != null" >
+        #{ssaMonthlySalary,jdbcType=DATE},
+      </if>
+      <if test="ssaPaymentTime != null" >
+        #{ssaPaymentTime,jdbcType=DATE},
+      </if>
+      <if test="ssaRegisterTime != null" >
+        #{ssaRegisterTime,jdbcType=DATE},
+      </if>
+      <if test="ssaState != null" >
+        #{ssaState,jdbcType=VARCHAR},
+      </if>
+      <if test="ssaRemark != null" >
+        #{ssaRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalStaffSalaries" >
+    update jour_salaries
+    <set >
+      <if test="ssaRegisterPeople != null" >
+        ssa_register_people = #{ssaRegisterPeople,jdbcType=INTEGER},
+      </if>
+      <if test="ssaEmployeeId != null" >
+        ssa_employee_id = #{ssaEmployeeId,jdbcType=INTEGER},
+      </if>
+      <if test="ssaDepartment != null" >
+        ssa_department = #{ssaDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="ssaStorefront != null" >
+        ssa_storefront = #{ssaStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="ssaBasicSalary != null" >
+        ssa_basic_salary = #{ssaBasicSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaPayForPerformance != null" >
+        ssa_pay_for_performance = #{ssaPayForPerformance,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaRealWages != null" >
+        ssa_real_wages = #{ssaRealWages,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaSalaryShouldBeMade != null" >
+        ssa_salary_should_be_made = #{ssaSalaryShouldBeMade,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaRealWageEarnings != null" >
+        ssa_real_wage_earnings = #{ssaRealWageEarnings,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaShouldThePostDays != null" >
+        ssa_should_the_post_days = #{ssaShouldThePostDays,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaNumberOfDays != null" >
+        ssa_number_of_days = #{ssaNumberOfDays,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaDeductionOfWages != null" >
+        ssa_deduction_of_wages = #{ssaDeductionOfWages,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaWageLosses != null" >
+        ssa_wage_losses = #{ssaWageLosses,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaSocialSecurity != null" >
+        ssa_social_security = #{ssaSocialSecurity,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaLodging != null" >
+        ssa_lodging = #{ssaLodging,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaOthers != null" >
+        ssa_others = #{ssaOthers,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaSalary != null" >
+        ssa_salary = #{ssaSalary,jdbcType=DOUBLE},
+      </if>
+      <if test="ssaPaymentStatus != null" >
+        ssa_payment_status = #{ssaPaymentStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="ssaMonthlySalary != null" >
+        ssa_monthly_salary = #{ssaMonthlySalary,jdbcType=DATE},
+      </if>
+      <if test="ssaPaymentTime != null" >
+        ssa_payment_time = #{ssaPaymentTime,jdbcType=DATE},
+      </if>
+      <if test="ssaRegisterTime != null" >
+        ssa_register_time = #{ssaRegisterTime,jdbcType=DATE},
+      </if>
+      <if test="ssaState != null" >
+        ssa_state = #{ssaState,jdbcType=VARCHAR},
+      </if>
+      <if test="ssaRemark != null" >
+        ssa_remark = #{ssaRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="ssaMonth != null" >
+        ssa_month =  #{ssaMonth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ssa_id = #{ssaId,jdbcType=INTEGER}
+  </update>
+</mapper>

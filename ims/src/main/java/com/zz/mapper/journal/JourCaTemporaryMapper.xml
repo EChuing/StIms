@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourCaTemporaryMapper">
+	<resultMap id="MyBaseResultMap" type="com.zz.po.journal.JourCaTemporary" >
+		<id column="id" property="id" jdbcType="INTEGER"/>
+		<result column="identifying" property="identifying" jdbcType="VARCHAR"/>
+		<result column="section_type" property="sectionType" jdbcType="VARCHAR"/>
+		<result column="house_direction" property="houseDirection" jdbcType="VARCHAR"/>
+		<result column="house_state" property="houseState" jdbcType="VARCHAR"/>
+		<result column="house_square" property="houseSquare" jdbcType="DOUBLE"/>
+		<result column="guide_price" property="guidePrice" jdbcType="DOUBLE"/>
+		<result column="cost_price" property="costPrice" jdbcType="DOUBLE"/>
+		<result column="jct_cost_price_val" property="jctCostPriceVal" jdbcType="VARCHAR"/>
+		<result column="community" property="community" jdbcType="VARCHAR"/>
+		<result column="building" property="building" jdbcType="VARCHAR"/>
+		<result column="doorplateno" property="doorplateno" jdbcType="VARCHAR"/>
+		<result column="floor_num_prefix" property="floorNumPrefix" jdbcType="VARCHAR"/>
+		<result column="floor" property="floor" jdbcType="INTEGER"/>
+		<result column="room_number" property="roomNumber" jdbcType="VARCHAR"/>
+		<result column="room_num_prefix" property="roomNumPrefix" jdbcType="VARCHAR"/>
+		<result column="max_people" property="maxPeople" jdbcType="VARCHAR"/>
+		<result column="daily_rent" property="dailyRent" jdbcType="VARCHAR"/>
+		<result column="hot_daily_rent" property="hotDailyRent" jdbcType="VARCHAR"/>
+		<result column="room_type" property="roomType" jdbcType="VARCHAR"/>
+		<result column="room_configuration" property="roomConfiguration" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="insertCentralized" parameterType="com.zz.po.journal.JourCaTemporary" >
+		insert into jour_ca_temporary 
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="identifying != null" >
+	        	identifying,
+	      	</if>
+			<if test="community != null" >
+	        	community,
+	      	</if>
+			<if test="building != null" >
+	        	building,
+	      	</if>
+			<if test="doorplateno != null" >
+	        	doorplateno,
+	      	</if>
+			<if test="floorNumPrefix != null" >
+	        	floor_num_prefix,
+	      	</if>
+			<if test="floor != null" >
+	        	floor,
+	      	</if>
+			<if test="roomNumber != null" >
+	        	room_number,
+	      	</if>
+			<if test="roomNumPrefix != null" >
+	        	room_num_prefix,
+	      	</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="identifying != null" >
+	        	#{identifying,jdbcType=VARCHAR},
+	      	</if>
+			<if test="community != null" >
+	        	#{community,jdbcType=VARCHAR},
+	      	</if>
+			<if test="building != null" >
+	        	#{building,jdbcType=VARCHAR},
+	      	</if>
+			<if test="doorplateno != null" >
+	        	#{doorplateno,jdbcType=VARCHAR},
+	      	</if>
+			<if test="floorNumPrefix != null" >
+	        	#{floorNumPrefix,jdbcType=VARCHAR},
+	      	</if>
+			<if test="floor != null" >
+	        	#{floor,jdbcType=INTEGER},
+	      	</if>
+			<if test="roomNumber != null" >
+	        	#{roomNumber,jdbcType=VARCHAR},
+	      	</if>
+			<if test="roomNumPrefix != null" >
+	        	#{roomNumPrefix,jdbcType=VARCHAR},
+	      	</if>
+		</trim>
+	</insert>
+	
+	<select id="selectCentralized" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JourCaTemporary">
+		select * from jour_ca_temporary
+		<where>
+			<if test="identifying != null and identifying != ''">
+				and identifying = #{identifying,jdbcType=VARCHAR}
+			</if>
+			<if test="community != null and community != ''">
+				and community = #{community,jdbcType=VARCHAR}
+			</if>
+			<if test="building != null and building != ''">
+				and building = #{building,jdbcType=VARCHAR}
+			</if>
+			<if test="doorplateno != null and doorplateno != ''">
+				and doorplateno = #{doorplateno,jdbcType=VARCHAR}
+			</if>
+			<if test="floorNumPrefix != null and floorNumPrefix != ''">
+				and floor_num_prefix = #{floorNumPrefix,jdbcType=VARCHAR}
+			</if>
+			<if test="roomNumPrefix != null and roomNumPrefix != ''">
+				and room_num_prefix = #{roomNumPrefix,jdbcType=VARCHAR}
+			</if>
+			<if test="floor != null and floor != ''">
+				and floor like '${floor}%'
+			</if>
+			<if test="roomNumber != null and roomNumber != ''">
+				and room_number like '%${roomNumber}%'
+			</if>
+		</where>
+		ORDER BY floor ASC
+	</select>
+	
+	<update id="updateCentralized" parameterType="com.zz.po.journal.JourCaTemporary">
+		update jour_ca_temporary
+		<set>
+			<if test="community != null and community != ''" >
+				community = #{community,jdbcType=VARCHAR},
+			</if>
+			<if test="building != null and building != ''" >
+				building = #{building,jdbcType=VARCHAR},
+			</if>
+			<if test="doorplateno != null and doorplateno != ''" >
+				doorplateno = #{doorplateno,jdbcType=VARCHAR},
+			</if>
+			<if test="floorNumPrefix != null and floorNumPrefix != ''" >
+				floor_num_prefix = #{floorNumPrefix,jdbcType=VARCHAR},
+			</if>
+			<if test="roomNumPrefix != null and roomNumPrefix != ''" >
+				room_num_prefix = #{roomNumPrefix,jdbcType=VARCHAR},
+			</if>
+			<if test="floor != null and floor != ''" >
+				floor = #{floor,jdbcType=INTEGER},
+			</if>
+			<if test="roomNumber != null and roomNumber != ''" >
+				room_number = #{roomNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="sectionType != null and sectionType != ''" >
+				section_type = #{sectionType,jdbcType=VARCHAR},
+			</if>
+			<if test="houseDirection != null and houseDirection != ''" >
+				house_direction = #{houseDirection,jdbcType=VARCHAR},
+			</if>
+			<if test="houseState != null and houseState !=''">
+				house_state  = #{houseState,jdbcType=VARCHAR},
+			</if>
+			<if test="houseSquare != null and houseSquare != ''" >
+				house_square = #{houseSquare,jdbcType=VARCHAR},
+			</if>
+			<if test="guidePrice != null and guidePrice != ''" >
+				guide_price = #{guidePrice,jdbcType=VARCHAR},
+			</if>
+			<if test="costPrice != null and costPrice != ''" >
+				cost_price = #{costPrice,jdbcType=VARCHAR},
+			</if>
+			<if test="jctCostPriceVal != null and jctCostPriceVal != ''" >
+				jct_cost_price_val = #{jctCostPriceVal,jdbcType=VARCHAR},
+			</if>
+			<if test="maxPeople != null and maxPeople != ''" >
+				max_people = #{maxPeople,jdbcType=VARCHAR},
+			</if>
+			<if test="dailyRent != null and dailyRent != ''" >
+				daily_rent = #{dailyRent,jdbcType=VARCHAR},
+			</if>
+			<if test="hotDailyRent != null and hotDailyRent != ''" >
+				hot_daily_rent = #{hotDailyRent,jdbcType=VARCHAR},
+			</if>
+			<if test="roomType != null and roomType != ''" >
+				room_type = #{roomType,jdbcType=VARCHAR},
+			</if>
+			<if test="roomConfiguration != null and roomConfiguration != ''" >
+				room_configuration = #{roomConfiguration,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER} and identifying = #{identifying,jdbcType=VARCHAR}
+	</update>
+</mapper>

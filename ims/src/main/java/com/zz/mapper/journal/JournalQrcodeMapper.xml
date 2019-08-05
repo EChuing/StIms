@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalQrcodeMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalQrcode" >
+    <id column="jq_id" property="jqId" jdbcType="INTEGER" />
+    <result column="qr" property="qr" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="time" property="time" jdbcType="TIMESTAMP" />
+    <result column="co" property="co" jdbcType="VARCHAR" />
+    <result column="jrl_id" property="jrlId" jdbcType="INTEGER" />
+    <result column="jrr_id" property="jrrId" jdbcType="INTEGER" />
+    <result column="att" property="att" jdbcType="VARCHAR" />
+    <result column="att2" property="att2" jdbcType="VARCHAR" />
+    <result column="ea_id" property="eaId" jdbcType="INTEGER" />
+    <result column="sa_id" property="saId" jdbcType="INTEGER" />
+    <result column="handler_id" property="handlerId" jdbcType="INTEGER" />
+    <result column="handler_name" property="handlerName" jdbcType="VARCHAR" />
+    <result column="rco_id" property="rcoId" jdbcType="INTEGER" />
+    <result column="nrc_id" property="nrcId" jdbcType="INTEGER" />
+    <result column="rep_id" property="repId" jdbcType="INTEGER" />
+    <result column="variables_id" property="variablesId" jdbcType="INTEGER" />
+    <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="sup_id" property="supId" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="file_id" property="fileId" jdbcType="INTEGER" />
+    <result column="file_tag" property="fileTag" jdbcType="VARCHAR" />
+    <result column="jci_id" property="jciId" jdbcType="INTEGER" />
+    <result column="user_coding" property="jciId" jdbcType="INTEGER" />
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="cgsu_id" property="cgsuId" jdbcType="INTEGER" />
+    <result column="jsrsu_id" property="jsrsuId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="dn_id" property="dnId" jdbcType="INTEGER" />
+    <result column="house_coding" property="houseCoding" jdbcType="INTEGER" />
+
+  </resultMap>
+  <select id="selectByQr" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select * from jour_qrcode where qr = #{qr}
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from jour_qrcode where jq_id = #{jqId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_qrcode where jq_id = #{jqId}
+  </delete>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalQrcode" >
+    insert into jour_qrcode
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jqId != null" >
+        jq_id,
+      </if>
+      <if test="qr != null" >
+        qr,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+      <if test="time != null" >
+        time,
+      </if>
+      <if test="co != null" >
+        co,
+      </if>
+      <if test="jrlId != null" >
+        jrl_id,
+      </if>
+      <if test="jrrId != null" >
+        jrr_id,
+      </if>
+      <if test="att != null" >
+        att,
+      </if>
+       <if test="att2 != null" >
+        att2,
+      </if>
+      <if test="eaId != null" >
+        ea_id,
+      </if>
+      <if test="fileTag != null" >
+        file_tag,
+      </if>
+      <if test="saId != null" >
+        sa_id,
+      </if>
+      <if test="handlerId != null" >
+        handler_id,
+      </if>
+      <if test="handlerName != null" >
+        handler_name,
+      </if>
+      <if test="rcoId != null" >
+        rco_id,
+      </if>
+      <if test="nrcId != null" >
+        nrc_id,
+      </if>
+      <if test="repId != null" >
+        rep_id,
+      </if>
+      <if test="variablesId != null" >
+        variables_id,
+      </if>
+      <if test="hsId != null" >
+        hs_id,
+      </if>
+      <if test="supId != null" >
+        sup_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="jciId != null" >
+        jci_id,
+      </if>
+      <if test="userCoding != null" >
+        user_coding,
+      </if>
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cgsuId != null" >
+        cgsu_id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="jsrsuId != null" >
+        jsrsu_id,
+      </if>
+      <if test="subId != null" >
+        sub_id,
+      </if>
+      <if test="dnId != null" >
+        dn_id,
+      </if>
+      <if test="houseCoding != null" >
+        house_coding,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jqId != null" >
+        #{jqId},
+      </if>
+      <if test="qr != null" >
+        #{qr},
+      </if>
+      <if test="token != null" >
+        #{token},
+      </if>
+      <if test="url != null" >
+        #{url},
+      </if>
+      <if test="time != null" >
+        #{time},
+      </if>
+      <if test="co != null" >
+        #{co},
+      </if>
+      <if test="jrlId != null" >
+        #{jrlId},
+      </if>
+      <if test="jrrId != null" >
+        #{jrrId},
+      </if>
+      <if test="att != null" >
+        #{att},
+      </if>
+       <if test="att2!= null" >
+        #{att2},
+      </if>
+      <if test="eaId != null" >
+        #{eaId},
+      </if>
+      <if test="fileTag != null" >
+        #{fileTag},
+      </if>
+      <if test="saId != null" >
+        #{saId},
+      </if>
+      <if test="handlerId != null" >
+        #{handlerId},
+      </if>
+      <if test="handlerName != null" >
+        #{handlerName},
+      </if>
+      <if test="rcoId != null" >
+        #{rcoId},
+      </if>
+      <if test="nrcId != null" >
+        #{nrcId},
+      </if>
+      <if test="repId != null" >
+        #{repId},
+      </if>
+      <if test="variablesId != null" >
+        #{variablesId},
+      </if>
+      <if test="hsId != null" >
+        #{hsId},
+      </if>
+      <if test="supId != null" >
+        #{supId},
+      </if>
+      <if test="userName != null" >
+        #{userName},
+      </if>
+      <if test="userId != null" >
+        #{userId},
+      </if>
+      <if test="fileId != null" >
+        #{fileId},
+      </if>
+      <if test="jciId != null" >
+        #{jciId},
+      </if>
+      <if test="userCoding != null" >
+        #{userCoding},
+      </if>
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="cgsuId != null" >
+        #{cgsuId},
+      </if>
+       <if test="type != null" >
+        #{type},
+      </if>
+      <if test="jsrsuId != null" >
+        #{jsrsuId},
+      </if>
+      <if test="subId != null" >
+        #{subId},
+      </if>
+      <if test="dnId != null" >
+        #{dnId},
+      </if>
+      <if test="houseCoding != null" >
+        #{houseCoding},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalQrcode" >
+    update jour_qrcode
+    <set >
+      <if test="qr != null" >
+        qr = #{qr},
+      </if>
+      <if test="token != null" >
+        token = #{token},
+      </if>
+      <if test="url != null" >
+        url = #{url},
+      </if>
+      <if test="time != null" >
+        time = #{time},
+      </if>
+      <if test="co != null" >
+        co = #{co},
+      </if>
+      <if test="jrlId != null" >
+        jrl_id = #{jrlId},
+      </if>
+      <if test="jrrId != null" >
+        jrr_id = #{jrrId},
+      </if>
+      <if test="att != null" >
+        att = #{att},
+      </if>
+       <if test="att2 != null" >
+        att2 = #{att2},
+      </if>
+      <if test="eaId != null" >
+        ea_id = #{eaId},
+      </if>
+      <if test="saId != null" >
+        sa_id = #{saId},
+      </if>
+      <if test="handlerId != null" >
+        handler_id = #{handlerId},
+      </if>
+      <if test="handlerName != null" >
+        handler_name = #{handlerName},
+      </if>
+      <if test="rcoId != null" >
+        rco_id = #{rcoId},
+      </if>
+      <if test="nrcId != null" >
+        nrc_id = #{nrcId},
+      </if>
+      <if test="repId != null" >
+        rep_id = #{repId},
+      </if>
+      <if test="variablesId != null" >
+        variables_id = #{variablesId},
+      </if>
+      <if test="hsId != null" >
+        hs_id = #{hsId},
+      </if>
+      <if test="supId != null" >
+        sup_id = #{supId},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId},
+      </if>
+      <if test="fileId != null" >
+        file_id = #{fileId},
+      </if>
+      <if test="fileTag != null" >
+        file_tag = #{fileTag},
+      </if>
+      <if test="jciId != null" >
+        jci_id = #{jciId},
+      </if>
+      <if test="userCoding != null" >
+        userCoding = #{userCoding},
+      </if>
+      <if test="id != null" >
+        id = #{id},
+      </if>
+      <if test="cgsuId != null" >
+        cgsu_id = #{cgsuId},
+      </if>
+      <if test="type != null" >
+        type = #{type},
+      </if>
+      <if test="jsrsuId != null" >
+        jsrsu_id = #{jsrsuId},
+      </if>
+      <if test="subId != null" >
+        sub_id = #{subId},
+      </if>
+      <if test="dnId != null" >
+        dn_id = #{dnId},
+      </if>
+      <if test="houseCoding != null" >
+        house_coding = #{houseCoding},
+      </if>
+    </set>
+    where jq_id = #{jqId}
+  </update>
+  <update id="updateUrlByQr" parameterType="com.zz.po.journal.JournalQrcode" >
+    update jour_qrcode set url = #{url} where qr = #{qr}
+  </update>
+</mapper>

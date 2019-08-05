@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsDeviceRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoodsDeviceRelation" >
+    <id column="cgdr_id" property="cgdrId" jdbcType="INTEGER" />
+    <result column="cgdr_goods_id" property="cgdrGoodsId" jdbcType="INTEGER" />
+    <result column="cgdr_sn" property="cgdrSn" jdbcType="VARCHAR" />
+    <result column="cgdr_register_time" property="cgdrRegisterTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cgdr_id, cgdr_goods_id, cgdr_sn, cgdr_register_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cs_goods_device_relation
+    where cgdr_id = #{cgdrId,jdbcType=INTEGER}
+  </select>
+
+ <insert id="insertList" parameterType="java.util.List">
+  	insert into cs_goods_device_relation
+  	(   
+  		cgdr_goods_id,
+        cgdr_sn
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+    	#{item.cgdrGoodsId},
+		#{item.cgdrSn}
+    )
+    </foreach>
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoodsDeviceRelation" >
+    insert into cs_goods_device_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cgdrId != null" >
+        cgdr_id,
+      </if>
+      <if test="cgdrGoodsId != null" >
+        cgdr_goods_id,
+      </if>
+      <if test="cgdrSn != null" >
+        cgdr_sn,
+      </if>
+      <if test="cgdrRegisterTime != null" >
+        cgdr_register_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cgdrId != null" >
+        #{cgdrId,jdbcType=INTEGER},
+      </if>
+      <if test="cgdrGoodsId != null" >
+        #{cgdrGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="cgdrSn != null" >
+        #{cgdrSn,jdbcType=VARCHAR},
+      </if>
+      <if test="cgdrRegisterTime != null" >
+        #{cgdrRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoodsDeviceRelation" >
+    update cs_goods_device_relation
+    <set >
+      <if test="cgdrGoodsId != null" >
+        cgdr_goods_id = #{cgdrGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="cgdrSn != null" >
+        cgdr_sn = #{cgdrSn,jdbcType=VARCHAR},
+      </if>
+      <if test="cgdrRegisterTime != null" >
+        cgdr_register_time = #{cgdrRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cgdr_id = #{cgdrId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateState" parameterType="com.zz.po.cs.CsGoodsDeviceRelation" >
+    update cs_goods_device_relation
+    <set >
+    	<if test="cgdrState != null">
+    		cgdr_state = #{cgdrState},
+    	</if>
+    	<if test="cgdrGoodsSellId != null">
+        	cgdr_goods_sell_id = #{cgdrGoodsSellId},
+    	</if>
+    </set>
+    where cgdr_sn = #{cgdrSn,jdbcType=VARCHAR} and cgdr_goods_id = #{cgdrGoodsId,jdbcType=INTEGER}
+  </update>
+ 
+ <select id="selectSn" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsDeviceRelation">
+ 	select cs_goods_device_relation.cgdr_sn from cs_goods_device_relation where cgdr_goods_sell_id = #{cgdrGoodsSellId}
+ </select>
+</mapper>

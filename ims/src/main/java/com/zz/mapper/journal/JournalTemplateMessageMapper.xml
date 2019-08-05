@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalTemplateMessageMapper" >
+    <resultMap id="MyBaseResultMap" type="com.zz.po.journal.JournalTemplateMessageExpand">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <!-- 模板消息 -->
+        <result column="template_id" property="templateId" jdbcType="VARCHAR"/>
+        <result column="datasource_name" property="datasourceName" jdbcType="VARCHAR"/>
+        <result column="scene" property="scene" jdbcType="INTEGER"/>
+        <result column="ssit_id" property="ssitId" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="appid" property="appid" jdbcType="VARCHAR"/>
+        <result column="pagepath" property="pagepath" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <!--公司-->
+        <result column="access_token" property="accessToken" jdbcType="VARCHAR"/>
+        <result column="token_last_time" property="tokenLastTime" jdbcType="BIGINT"/>
+        <result column="gzh_access_token" property="gzhAccessToken" jdbcType="VARCHAR"/>
+        <result column="gzh_token_last_time" property="gzhTokenLastTime" jdbcType="BIGINT"/>
+        <result column="wx_openid" property="wxOpenid" jdbcType="VARCHAR"></result>
+    </resultMap>
+
+    <!-- 根据公司id查询Token以及最近一次生成token的时间 -->
+    <select id="selectAppId" resultMap="MyBaseResultMap" parameterType="INTEGER">
+        select
+          appid,secret
+        from
+          company.datasource
+        where
+           id=#{coId,jdbcType=VARCHAR}
+    </select>
+
+    <!-- 根据公司id查询Token以及最近一次生成token的时间 -->
+    <select id="selectAccessToken" resultMap="MyBaseResultMap" parameterType="INTEGER">
+        select
+          gzh_access_token,gzh_token_last_time
+        from
+           sys_system_setting
+        where
+          ssit_id =#{ssitId,jdbcType=INTEGER}
+    </select>
+
+    <!-- 更新token -->
+    <update id="updateAccessToken" parameterType="com.zz.po.journal.JournalTemplateMessageExpand">
+        update rental_sys.sys_system_setting
+        set
+          gzh_access_token=#{gzhAccessToken,jdbcType=VARCHAR},
+          gzh_token_last_time=#{gzhTokenLastTime,jdbcType=BIGINT}
+        where
+          ssit_id=#{ssitId,jdbcType=INTEGER}
+    </update>
+
+
+    <select id="selectByTemplateMsg" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalTemplateMessageExpand">
+        select   *
+        from  company.template_message
+        <where>
+            datasource_name=#{datasourceName,jdbcType=VARCHAR} and
+        <trim prefixOverrides="and">
+            <if test="id !=null and id!='' ">
+                and id=#{id,jdbcType=INTEGER}
+            </if>
+            <if test=" scene !=null and scene!='' ">
+                and scene=#{scene,jdbcType=INTEGER}
+            </if>
+            <if test="templateId != null and templateId != '' ">
+                and template_id=#{templateId,jdbcType=VARCHAR}
+            </if>
+            <if test=" url !=null and  url !='' ">
+                and  url =#{ url , jdbcType=VARCHAR}
+            </if>
+            <if test=" appid !=null and  appid !='' ">
+                and appid =#{ appid , jdbcType=VARCHAR}
+            </if>
+            <if test=" pagepath !=null and  pagepath !='' ">
+                and pagepath =#{ pagepath , jdbcType=VARCHAR}
+            </if>
+            <if test=" title !=null and title  !='' ">
+                and title =#{ title , jdbcType=VARCHAR}
+            </if>
+        </trim>
+        </where>
+    </select>
+
+    <select id="selectOpenIdByPopId" resultType="String" parameterType="java.lang.Integer">
+        select
+          wx_openid
+        from
+          info_pop_tmp
+        where
+          pop_id=#{popId,jdbcType=INTEGER};
+    </select>
+
+    <select id="selectTemplateMsgScene" parameterType="com.zz.po.journal.JournalTemplateMessageExpand" resultMap="MyBaseResultMap">
+        select
+          *
+        from
+          company.template_message
+        where
+          scene=#{scene,jdbcType=INTEGER}
+          and
+          datasource_name=#{datasourceName,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

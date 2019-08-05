@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.mapper.journal.JourShiftRecordMapper">
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourShiftRecord">
+    <id column="jsr_id" jdbcType="INTEGER" property="jsrId" />
+    <result column="jsr_end_worker" jdbcType="VARCHAR" property="jsrEndWorker" />
+    <result column="jsr_start_worker" jdbcType="VARCHAR" property="jsrStartWorker" />
+    <result column="jsr_start_time" jdbcType="TIMESTAMP" property="jsrStartTime" />
+    <result column="jsr_end_time" jdbcType="TIMESTAMP" property="jsrEndTime" />
+    <result column="jsr_time" jdbcType="TIMESTAMP" property="jsrTime" />
+    <result column="jsr_remark" jdbcType="VARCHAR" property="jsrRemark" />
+    <result column="jsr_check_in_nums" jdbcType="INTEGER" property="jsrCheckInNums" />
+    <result column="jsr_check_out_nums" jdbcType="INTEGER" property="jsrCheckOutNums" />
+    <result column="jsr_deposit_in_residence" jdbcType="DOUBLE" property="jsrDepositInResidence" />
+    <result column="jsr_total_income" jdbcType="DOUBLE" property="jsrTotalIncome" />
+    <result column="jsr_real_income" jdbcType="DOUBLE" property="jsrRealIncome" />
+    <result column="jsr_on_account" jdbcType="DOUBLE" property="jsrOnAccount" />
+    <result column="jsr_members_card_pay" jdbcType="DOUBLE" property="jsrMembersCardPay" />
+    <result column="jsr_commodity_consumption" jdbcType="DOUBLE" property="jsrCommodityConsumption" />
+    <result column="jsr_petty_cash" jdbcType="DOUBLE" property="jsrPettyCash" />
+    <result column="jsr_work_balance" jdbcType="DOUBLE" property="jsrWorkBalance" />
+    <result column="jsr_recorded_deposit_amount" jdbcType="DOUBLE" property="jsrRecordedDepositAmount" />
+    <result column="jsr_other_income" jdbcType="DOUBLE" property="jsrOtherIncome" />
+    <result column="jsr_return_deposit_amount" jdbcType="DOUBLE" property="jsrReturnDepositAmount" />
+    <result column="jsr_other_pay" jdbcType="DOUBLE" property="jsrOtherPay" />
+    <result column="jsr_hand_in_amount" jdbcType="DOUBLE" property="jsrHandInAmount" />
+    <result column="jsr_transfer_amount" jdbcType="DOUBLE" property="jsrTransferAmount" />
+    <result column="total_num" jdbcType="INTEGER" property="totalNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    jsr_id, jsr_end_worker, jsr_start_worker, jsr_start_time, jsr_end_time, jsr_remark, 
+    jsr_check_in_nums, jsr_check_out_nums, jsr_deposit_in_residence, jsr_total_income, 
+    jsr_real_income, jsr_on_account, jsr_members_card_pay, jsr_commodity_consumption, 
+    jsr_petty_cash, jsr_work_balance, jsr_recorded_deposit_amount, jsr_other_income, 
+    jsr_return_deposit_amount, jsr_other_pay, jsr_hand_in_amount, jsr_transfer_amount,jsr_time
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"></include>
+    from jour_shift_record
+
+  </select>
+
+  <select id="selectShiftRecord" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShiftRecord">
+    SELECT
+    a.*,b.total_num from
+    (select * from jour_shift_record
+
+    <where>
+      <if test="jsrStartTime !=null || jsrEndTime !=null">
+        #{jsrStartTime}     &lt;=  jsr_start_time  AND  jsr_end_time   &lt;=  #{jsrEndTime}
+      </if>
+
+    </where>
+
+    )a ,
+
+    (select count(jsr_id) total_num  from jour_shift_record
+      <where>
+        <if test="jsrStartTime !=null || jsrEndTime !=null">
+          #{jsrStartTime}     &lt;=  jsr_start_time  AND  jsr_end_time   &lt;=  #{jsrEndTime}
+        </if>
+    </where>
+    ) b
+    ORDER BY jsr_time DESC
+    <if test="startNum != '' and startNum != null">
+      limit ${startNum}
+      <if test="endNum != '' and endNum != null">
+        ,${endNum}
+      </if>
+    </if>
+
+
+  </select>
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jour_shift_record
+    where jsr_id = #{jsrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jour_shift_record
+    where jsr_id = #{jsrId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zz.po.journal.JourShiftRecord">
+    insert into jour_shift_record (jsr_id, jsr_end_worker, jsr_start_worker, 
+      jsr_start_time, jsr_end_time, jsr_remark, 
+      jsr_check_in_nums, jsr_check_out_nums, jsr_deposit_in_residence, 
+      jsr_total_income, jsr_real_income, jsr_on_account, 
+      jsr_members_card_pay, jsr_commodity_consumption, 
+      jsr_petty_cash, jsr_work_balance, jsr_recorded_deposit_amount, 
+      jsr_other_income, jsr_return_deposit_amount, jsr_other_pay, 
+      jsr_hand_in_amount, jsr_transfer_amount)
+    values (#{jsrId,jdbcType=INTEGER}, #{jsrEndWorker,jdbcType=VARCHAR}, #{jsrStartWorker,jdbcType=VARCHAR}, 
+      #{jsrStartTime,jdbcType=TIMESTAMP}, #{jsrEndTime,jdbcType=TIMESTAMP}, #{jsrRemark,jdbcType=VARCHAR}, 
+      #{jsrCheckInNums,jdbcType=INTEGER}, #{jsrCheckOutNums,jdbcType=INTEGER}, #{jsrDepositInResidence,jdbcType=DOUBLE}, 
+      #{jsrTotalIncome,jdbcType=DOUBLE}, #{jsrRealIncome,jdbcType=DOUBLE}, #{jsrOnAccount,jdbcType=DOUBLE}, 
+      #{jsrMembersCardPay,jdbcType=DOUBLE}, #{jsrCommodityConsumption,jdbcType=DOUBLE}, 
+      #{jsrPettyCash,jdbcType=DOUBLE}, #{jsrWorkBalance,jdbcType=DOUBLE}, #{jsrRecordedDepositAmount,jdbcType=DOUBLE}, 
+      #{jsrOtherIncome,jdbcType=DOUBLE}, #{jsrReturnDepositAmount,jdbcType=DOUBLE}, #{jsrOtherPay,jdbcType=DOUBLE}, 
+      #{jsrHandInAmount,jdbcType=DOUBLE}, #{jsrTransferAmount,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourShiftRecord">
+    insert into jour_shift_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jsrId != null">
+        jsr_id,
+      </if>
+      <if test="jsrEndWorker != null">
+        jsr_end_worker,
+      </if>
+      <if test="jsrStartWorker != null">
+        jsr_start_worker,
+      </if>
+      <if test="jsrStartTime != null">
+        jsr_start_time,
+      </if>
+      <if test="jsrTime != null">
+        jsr_time,
+      </if>
+      <if test="jsrEndTime != null">
+        jsr_end_time,
+      </if>
+      <if test="jsrRemark != null">
+        jsr_remark,
+      </if>
+      <if test="jsrCheckInNums != null">
+        jsr_check_in_nums,
+      </if>
+      <if test="jsrCheckOutNums != null">
+        jsr_check_out_nums,
+      </if>
+      <if test="jsrDepositInResidence != null">
+        jsr_deposit_in_residence,
+      </if>
+      <if test="jsrTotalIncome != null">
+        jsr_total_income,
+      </if>
+      <if test="jsrRealIncome != null">
+        jsr_real_income,
+      </if>
+      <if test="jsrOnAccount != null">
+        jsr_on_account,
+      </if>
+      <if test="jsrMembersCardPay != null">
+        jsr_members_card_pay,
+      </if>
+      <if test="jsrCommodityConsumption != null">
+        jsr_commodity_consumption,
+      </if>
+      <if test="jsrPettyCash != null">
+        jsr_petty_cash,
+      </if>
+      <if test="jsrWorkBalance != null">
+        jsr_work_balance,
+      </if>
+      <if test="jsrRecordedDepositAmount != null">
+        jsr_recorded_deposit_amount,
+      </if>
+      <if test="jsrOtherIncome != null">
+        jsr_other_income,
+      </if>
+      <if test="jsrReturnDepositAmount != null">
+        jsr_return_deposit_amount,
+      </if>
+      <if test="jsrOtherPay != null">
+        jsr_other_pay,
+      </if>
+      <if test="jsrHandInAmount != null">
+        jsr_hand_in_amount,
+      </if>
+      <if test="jsrTransferAmount != null">
+        jsr_transfer_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jsrId != null">
+        #{jsrId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrEndWorker != null">
+        #{jsrEndWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrStartWorker != null">
+        #{jsrStartWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrStartTime != null">
+        #{jsrStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrTime != null">
+        #{jsrTime},
+      </if>
+      <if test="jsrEndTime != null">
+        #{jsrEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrRemark != null">
+        #{jsrRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrCheckInNums != null">
+        #{jsrCheckInNums,jdbcType=INTEGER},
+      </if>
+      <if test="jsrCheckOutNums != null">
+        #{jsrCheckOutNums,jdbcType=INTEGER},
+      </if>
+      <if test="jsrDepositInResidence != null">
+        #{jsrDepositInResidence,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrTotalIncome != null">
+        #{jsrTotalIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrRealIncome != null">
+        #{jsrRealIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrOnAccount != null">
+        #{jsrOnAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrMembersCardPay != null">
+        #{jsrMembersCardPay,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrCommodityConsumption != null">
+        #{jsrCommodityConsumption,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrPettyCash != null">
+        #{jsrPettyCash,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrWorkBalance != null">
+        #{jsrWorkBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrRecordedDepositAmount != null">
+        #{jsrRecordedDepositAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrOtherIncome != null">
+        #{jsrOtherIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrReturnDepositAmount != null">
+        #{jsrReturnDepositAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrOtherPay != null">
+        #{jsrOtherPay,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrHandInAmount != null">
+        #{jsrHandInAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrTransferAmount != null">
+        #{jsrTransferAmount,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourShiftRecord">
+    update jour_shift_record
+    <set>
+      <if test="jsrEndWorker != null">
+        jsr_end_worker = #{jsrEndWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrStartWorker != null">
+        jsr_start_worker = #{jsrStartWorker,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrStartTime != null">
+        jsr_start_time = #{jsrStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrEndTime != null">
+        jsr_end_time = #{jsrEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrRemark != null">
+        jsr_remark = #{jsrRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrCheckInNums != null">
+        jsr_check_in_nums = #{jsrCheckInNums,jdbcType=INTEGER},
+      </if>
+      <if test="jsrCheckOutNums != null">
+        jsr_check_out_nums = #{jsrCheckOutNums,jdbcType=INTEGER},
+      </if>
+      <if test="jsrDepositInResidence != null">
+        jsr_deposit_in_residence = #{jsrDepositInResidence,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrTotalIncome != null">
+        jsr_total_income = #{jsrTotalIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrRealIncome != null">
+        jsr_real_income = #{jsrRealIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrOnAccount != null">
+        jsr_on_account = #{jsrOnAccount,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrMembersCardPay != null">
+        jsr_members_card_pay = #{jsrMembersCardPay,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrCommodityConsumption != null">
+        jsr_commodity_consumption = #{jsrCommodityConsumption,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrPettyCash != null">
+        jsr_petty_cash = #{jsrPettyCash,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrWorkBalance != null">
+        jsr_work_balance = #{jsrWorkBalance,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrRecordedDepositAmount != null">
+        jsr_recorded_deposit_amount = #{jsrRecordedDepositAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrOtherIncome != null">
+        jsr_other_income = #{jsrOtherIncome,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrReturnDepositAmount != null">
+        jsr_return_deposit_amount = #{jsrReturnDepositAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrOtherPay != null">
+        jsr_other_pay = #{jsrOtherPay,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrHandInAmount != null">
+        jsr_hand_in_amount = #{jsrHandInAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrTransferAmount != null">
+        jsr_transfer_amount = #{jsrTransferAmount,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where jsr_id = #{jsrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.journal.JourShiftRecord">
+    update jour_shift_record
+    set jsr_end_worker = #{jsrEndWorker,jdbcType=VARCHAR},
+      jsr_start_worker = #{jsrStartWorker,jdbcType=VARCHAR},
+      jsr_start_time = #{jsrStartTime,jdbcType=TIMESTAMP},
+      jsr_end_time = #{jsrEndTime,jdbcType=TIMESTAMP},
+      jsr_remark = #{jsrRemark,jdbcType=VARCHAR},
+      jsr_check_in_nums = #{jsrCheckInNums,jdbcType=INTEGER},
+      jsr_check_out_nums = #{jsrCheckOutNums,jdbcType=INTEGER},
+      jsr_deposit_in_residence = #{jsrDepositInResidence,jdbcType=DOUBLE},
+      jsr_total_income = #{jsrTotalIncome,jdbcType=DOUBLE},
+      jsr_real_income = #{jsrRealIncome,jdbcType=DOUBLE},
+      jsr_on_account = #{jsrOnAccount,jdbcType=DOUBLE},
+      jsr_members_card_pay = #{jsrMembersCardPay,jdbcType=DOUBLE},
+      jsr_commodity_consumption = #{jsrCommodityConsumption,jdbcType=DOUBLE},
+      jsr_petty_cash = #{jsrPettyCash,jdbcType=DOUBLE},
+      jsr_work_balance = #{jsrWorkBalance,jdbcType=DOUBLE},
+      jsr_recorded_deposit_amount = #{jsrRecordedDepositAmount,jdbcType=DOUBLE},
+      jsr_other_income = #{jsrOtherIncome,jdbcType=DOUBLE},
+      jsr_return_deposit_amount = #{jsrReturnDepositAmount,jdbcType=DOUBLE},
+      jsr_other_pay = #{jsrOtherPay,jdbcType=DOUBLE},
+      jsr_hand_in_amount = #{jsrHandInAmount,jdbcType=DOUBLE},
+      jsr_transfer_amount = #{jsrTransferAmount,jdbcType=DOUBLE}
+    where jsr_id = #{jsrId,jdbcType=INTEGER}
+  </update>
+</mapper>

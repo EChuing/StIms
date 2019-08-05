@@ -1,0 +1,1642 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.mapper.info.InfoContractInstallmentMapper">
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoContractInstallmentExpand">
+    <id column="jci_id" jdbcType="INTEGER" property="jciId" />
+    <result column="jci_register_people" jdbcType="INTEGER" property="jciRegisterPeople" />
+    <result column="jci_house4rent_id" jdbcType="INTEGER" property="jciHouse4rentId" />
+    <result column="jci_house4store_id" jdbcType="INTEGER" property="jciHouse4storeId" />
+    <result column="jci_department" jdbcType="INTEGER" property="jciDepartment" />
+    <result column="jci_storefront" jdbcType="INTEGER" property="jciStorefront" />
+    <result column="jci_landlord_id" jdbcType="INTEGER" property="jciLandlordId" />
+    <result column="jci_renter_id" jdbcType="INTEGER" property="jciRenterId" />
+    <result column="jci_periods" jdbcType="INTEGER" property="jciPeriods" />
+    <result column="jci_land_cont_id" jdbcType="INTEGER" property="jciLandContId" />
+    <result column="jci_rent_cont_id" jdbcType="INTEGER" property="jciRentContId" />
+    <result column="jci_begin_periods" jdbcType="DATE" property="jciBeginPeriods" />
+    <result column="jci_fukuanri" jdbcType="DATE" property="jciFukuanri" />
+    <result column="jci_end_periods" jdbcType="DATE" property="jciEndPeriods" />
+    <result column="jci_nature" jdbcType="VARCHAR" property="jciNature" />
+    <result column="jci_type" jdbcType="VARCHAR" property="jciType" />
+    <result column="jci_money" jdbcType="DOUBLE" property="jciMoney" />
+    <result column="jci_state" jdbcType="VARCHAR" property="jciState" />
+    <result column="jci_register_time" jdbcType="TIMESTAMP" property="jciRegisterTime" />
+    <result column="jci_remark" jdbcType="VARCHAR" property="jciRemark" />
+    <result column="jci_message_time" property="jciMessageTime" jdbcType="DATE" />
+    <result column="jci_message_note" property="jciMessageNote" jdbcType="VARCHAR" />
+    <result column="jci_payment_voucher" property="jciPaymentVoucher" jdbcType="VARCHAR" />
+    <result column="jci_read" property="jciRead" jdbcType="VARCHAR" />
+    <result column="jci_audit" property="jciAudit" jdbcType="VARCHAR" />
+    <result column="jci_manage_cost" property="jciManageCost" jdbcType="DOUBLE" />
+    <result column="jci_server_cost" property="jciServerCost" jdbcType="DOUBLE" />
+    <result column="jci_if_print" property="jciIfPrint" jdbcType="VARCHAR" />
+    <result column="jci_img_path" property="jciImgPath" jdbcType="VARCHAR" />
+    <result column="jci_img_num" property="jciImgNum" jdbcType="VARCHAR" />
+    <result column="jci_label_type" property="jciLabelType" jdbcType="VARCHAR" />
+    <result column="jci_bill_json" property="jciBillJson" jdbcType="VARCHAR" />
+    <!-- user -->
+    <result column="register_people" property="registerPeople" jdbcType="VARCHAR" />
+    <!-- renter -->
+    <result column="renter_name" property="renterName" jdbcType="VARCHAR" />
+    <result column="renter_telephone" property="renterTelephone" jdbcType="VARCHAR" />
+    <result column="renter_name_remark" property="renterNameRemark" jdbcType="VARCHAR" />
+    <!-- landlord -->
+    <result column="landlord_name" property="landlordName" jdbcType="VARCHAR" />
+    <result column="landlord_telephone" property="landlordTelephone" jdbcType="VARCHAR" />
+    <result column="landlord_name_remark" property="landlordNameRemark" jdbcType="VARCHAR" />
+    <!-- house -->
+    <result column="hs_base" property="hsBase" jdbcType="DOUBLE" />
+    <result column="hs_state" property="hsState" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_house_id" property="hsHouseId" jdbcType="INTEGER" />
+    <!-- department -->
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <!-- storefront -->
+    <result column="storefront_name" property="storefrontName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="byTheTime" property="byTheTime" jdbcType="VARCHAR" />
+    <result column="monthRent" property="monthRent" jdbcType="INTEGER" />
+    
+    <result column="hs_bank_type" property="hsBankType" jdbcType="VARCHAR" />
+    <result column="hs_bank_num" property="hsBankNum" jdbcType="VARCHAR" />
+    <result column="hs_bank_name" property="hsBankName" jdbcType="VARCHAR" />
+    
+    <result column="total_money" property="totalMoney" jdbcType="DOUBLE" />
+    <result column="pop_id" property="popId" jdbcType="INTEGER" />
+    
+    <result column="jci_special_number" property="jciSpecialNumber" jdbcType="VARCHAR" />
+    <result column="jrr_contract_type" property="jrrContractType" jdbcType="VARCHAR" />
+    
+    <result column="jrr_id" property="jrrId" jdbcType="INTEGER" />
+    <result column="jrr_money" property="jrrMoney" jdbcType="DOUBLE" />
+    <result column="jrr_manage_cost" property="jrrManageCost" jdbcType="DOUBLE" />
+    <result column="jrr_server_cost" property="jrrServerCost" jdbcType="DOUBLE" />
+    
+    <result column="jci_jhp_id" property="jciJhpId" jdbcType="INTEGER" />
+    <result column="jci_overdue_days" property="jciOverdueDays" jdbcType="INTEGER" />
+  </resultMap>
+  <!-- 查询最近一期有金额的账单的开始时间之后的账单是否存在已收的账单，有的话也是要退的 -->
+  <!-- <select id="queryByTheTime4" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+    select * from info_contract_divider 
+	where jci_house4rent_id = #{jciHouse4rentId}
+	and jci_money != 0
+	and jci_state = "已收"
+	and unix_timestamp(jci_begin_periods) &gt; unix_timestamp(#{byTheTime})
+  </select> -->
+  
+  <!-- 查询最近一期有金额的账单的开始时间之前的账单是否存在待收的账单，有的话也是要补交的 -->
+  <!-- <select id="queryByTheTime3" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+    select * from info_contract_divider 
+	where jci_house4rent_id = #{jciHouse4rentId}
+	and jci_money != 0
+	and jci_state = "待收"
+	and unix_timestamp(jci_begin_periods) &lt; unix_timestamp(#{byTheTime})
+  </select> -->
+  
+  <!-- 查询此日期之后下一期有金额的账单 -->
+  <!-- <select id="queryByTheTime2" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+    select * from info_contract_divider 
+	where jci_house4rent_id = #{jciHouse4rentId}
+	and jci_money != 0
+	and unix_timestamp(jci_begin_periods) &gt; unix_timestamp(#{byTheTime})
+	order by jci_begin_periods asc
+	limit 1
+  </select> -->
+  
+  <!-- 查询退房所在的那期有金额的账单 -->
+  <!-- <select id="queryByTheTime" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+	select * from info_contract_divider 
+	where jci_house4rent_id = #{jciHouse4rentId}
+	and jci_money != 0
+	and unix_timestamp(jci_begin_periods) &lt;= unix_timestamp(#{byTheTime})
+	order by jci_begin_periods desc
+	limit 1
+  </select> -->
+  
+  <!-- 退房时用的 -->
+  <select id="queryByTheTime" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+	select * from info_contract_divider 
+	<where>
+		jci_money != 0
+		<if test="jciHouse4rentId != null ">
+			and jci_house4rent_id = #{jciHouse4rentId}
+		</if>
+		<if test="jciHouse4storeId != null ">
+			and jci_house4store_id = #{jciHouse4storeId}
+		</if>
+		<if test="jciState != null and jciState != '' ">
+			and jci_state = #{jciState}
+		</if>
+		<if test="jciType != null and jciType != '' ">
+			and jci_type = #{jciType}
+		</if>
+		<if test="lessThan == 1 and byTheTime != null and byTheTime != '' ">
+			and unix_timestamp(jci_begin_periods) &lt;= unix_timestamp(#{byTheTime})
+		</if>
+		<if test="lessThan == 2 and byTheTime != null and byTheTime != '' ">
+			and unix_timestamp(jci_begin_periods) &lt; unix_timestamp(#{byTheTime})
+		</if>
+		<if test="greaterThan == 1 and byTheTime != null and byTheTime != '' ">
+			and unix_timestamp(jci_begin_periods) &gt;= unix_timestamp(#{byTheTime})
+		</if>
+		<if test="greaterThan == 2 and byTheTime != null and byTheTime != '' ">
+			and unix_timestamp(jci_begin_periods) &gt; unix_timestamp(#{byTheTime})
+		</if>
+	</where> 
+	<if test="sort == 1">
+		order by jci_begin_periods desc
+	</if>
+	<if test="sort == 2">
+		order by jci_begin_periods asc
+	</if>
+	<if test="limitNum == 1">
+		limit 1
+	</if>
+  </select>
+  
+  <!-- 计算合约期内待收账单总金额 -->
+  <select id="countJciMoney" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+  	SELECT sum(jci_money) jci_money FROM info_contract_divider 
+  	<where>
+  		<if test="jciType != null and jciType != '' ">
+  			jci_type = #{jciType}
+  		</if>
+  		<if test="jciState != null and jciState != '' ">
+  			and jci_state = #{jciState}
+  		</if>
+  		<if test="jciHouse4rentId != null">
+  			and jci_house4rent_id = #{jciHouse4rentId}
+  		</if>
+  		<if test="jciHouse4storeId != null">
+  			and jci_house4store_id = #{jciHouse4storeId}
+  		</if>
+	</where>
+  </select>
+  
+  <!-- 查询当期的租金、物管费、服务费 -->
+  <select id="queryTheCurrentDataInformation" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+	SELECT jrr_id, jrr_money, jrr_manage_cost, jrr_server_cost FROM info_renter_contract
+  	where
+	jrr_house_4rent_id = #{jciHouse4rentId}
+	and jrr_rental_type = '正常'
+  </select>
+  
+  <!-- 查询新签租客合约信息 -->
+  <select id="queryNewTenantContractInformation" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+  	select jc.*, u.su_staff_name  register_people, r.renter_population_id, la.la_population_id, 
+		hs.hs_add_district,hs.hs_add_community,hs.hs_add_building,hs.hs_add_doorplateno,
+		ip.pop_name renter_name, p.pop_name landlord_name, rc.jrr_rental_type, rc.jrr_contract_type
+	from info_contract_divider jc
+	left outer join sys_users u on jc.jci_register_people = u.user_coding
+	left outer join info_renter r on jc.jci_renter_id = r.renter_id
+	left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+	left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+	left outer join info_pop_tmp ip on ip.pop_id = r.renter_population_id
+	left outer join info_pop_tmp p on p.pop_id = la.la_population_id
+	left outer join info_renter_contract rc on rc.jrr_id = jc.jci_rent_cont_id
+	where
+		jci_type = "租客租金"
+		and rc.jrr_rental_type = '正常'
+		and rc.jrr_contract_type = '新签合同'
+		<if test="jciHouse4rentId != null and jciHouse4rentId != ''">
+			and jci_house4rent_id = #{jciHouse4rentId}
+		</if>
+		<if test="jciPeriods != null and jciPeriods != ''">
+			and jci_periods = #{jciPeriods}
+		</if>
+	ORDER BY jci_house4rent_id DESC,jci_register_time DESC,jci_periods ASC
+  </select>
+  
+  <select id="selectFukuanri" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+  	select jc.*, u.su_staff_name  register_people, r.renter_population_id, la.la_population_id, 
+		hs.hs_add_district,hs.hs_add_community,hs.hs_add_building,hs.hs_add_doorplateno,
+		ip.pop_name renter_name, p.pop_name landlord_name
+		
+		from info_contract_divider jc
+		left outer join sys_users u on jc.jci_register_people = u.user_coding
+		left outer join info_renter r on jc.jci_renter_id = r.renter_id
+		left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+		left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+		left outer join info_pop_tmp ip on ip.pop_id = r.renter_population_id
+		left outer join info_pop_tmp p on p.pop_id = la.la_population_id
+		<where>
+			<if test="jciType != null and jciType != ''">
+				and jci_type = #{jciType,jdbcType=VARCHAR}
+			</if>
+	    	<if test="jciId != null and jciId != ''">
+	    		and jci_id = #{jciId,jdbcType=INTEGER}
+	    	</if>
+	    	<if test="jciState != null and jciState != ''">
+	    		and jci_state = #{jciState,jdbcType=VARCHAR}
+	    	</if>
+	    	<if test="jciPeriods != null and jciPeriods != ''">
+	    		and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+	    	</if>
+	    	<if test="jciRemark != null and jciRemark != ''">
+	    		and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+	    	</if>
+	    	<if test="jciHouse4storeId != null and jciHouse4storeId != ''">
+	    		and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+	    	</if>
+	    	<if test="addDistrict != null and addDistrict != '' ">
+				and hs_add_district = #{addDistrict}
+			</if>
+			<if test="addCommunity != null and addCommunity != '' ">
+				and hs_add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding != '' ">
+				and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != '' ">
+				and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+			</if>
+			<if test="landlordName != null and landlordName != ''">
+				and p.pop_name like '%${landlordName}%'
+			</if>
+			<if test="renterName != null and renterName != ''">
+				and ip.pop_name like '%${renterName}%'
+			</if>
+			<if test="jciLandlordId != null and jciLandlordId != ''">
+				and jci_landlord_id = #{jciLandlordId,jdbcType=INTEGER}
+			</if>
+			<if test="jciLandContId != null and jciLandContId != ''">
+				and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+			</if>
+			<if test="jciRentContId != null and jciRentContId != ''">
+				and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+			</if>
+			<if test="jciBeginPeriods != null and jciBeginPeriods != '' and jciEndPeriods != null and jciEndPeriods != '' ">
+				and ((jci_begin_periods &gt;= #{jciBeginPeriods} 
+				and jci_begin_periods &lt;= #{jciEndPeriods} )
+				or (jci_end_periods &gt;= #{jciBeginPeriods}
+				and jci_end_periods &lt;= #{jciEndPeriods}) )
+			</if>
+			<if test="firstday != null and firstday != '' and lastday != null and lastday != '' ">
+				and jci_fukuanri between #{firstday} and #{lastday}
+			</if>
+		</where>
+  </select>
+  
+  <!-- (数据与统计分开)查询所有-->
+  <select id="selectAllContract" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+  <choose>
+	  <when test="contractType == 'landlord'">
+		 select 
+		  	<if test="splitFlag ==0">
+				<!-- 统计查询 -->
+				count(jc.jci_id) total_num
+			</if>
+			<if test="splitFlag ==1">
+				<!-- 数据查询 -->
+				jc.*, u.su_staff_name  register_people, r.renter_population_id, la.la_population_id, 
+				hs.hs_add_district,hs.hs_add_community,hs.hs_add_building,hs.hs_add_doorplateno,
+				ip.pop_name renter_name, p.pop_name landlord_name
+			</if>
+			from info_contract_divider jc
+			left outer join sys_users u on jc.jci_register_people = u.user_coding
+			left outer join info_renter r on jc.jci_renter_id = r.renter_id
+			left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+			left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+			left outer join info_pop_tmp ip on ip.pop_id = r.renter_population_id
+			left outer join info_pop_tmp p on p.pop_id = la.la_population_id
+			<where>
+				jci_type = "房东租金"
+		    	<if test="jciId != null and jciId != ''">
+		    		and jci_id = #{jciId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciState != null and jciState != ''">
+		    		and jci_state = #{jciState,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciPeriods != null and jciPeriods != ''">
+		    		and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciRemark != null and jciRemark != ''">
+		    		and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciHouse4storeId != null and jciHouse4storeId != ''">
+		    		and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="addDistrict != null and addDistrict != '' ">
+					and hs_add_district = #{addDistrict}
+				</if>
+				<if test="addCommunity != null and addCommunity != '' ">
+					and hs_add_community like '%${addCommunity}%'
+				</if>
+				<if test="addBuilding != null and addBuilding != '' ">
+					and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+				</if>
+				<if test="addDoorplateno != null and addDoorplateno != '' ">
+					and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+				</if>
+				<if test="landlordName != null and landlordName != ''">
+					and p.pop_name like '%${landlordName}%'
+				</if>
+				<if test="renterName != null and renterName != ''">
+					and ip.pop_name like '%${renterName}%'
+				</if>
+				<if test="jciLandlordId != null and jciLandlordId != ''">
+					and jci_landlord_id = #{jciLandlordId,jdbcType=INTEGER}
+				</if>
+				<if test="jciLandContId != null and jciLandContId != ''">
+					and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+				</if>
+				<if test="jciRentContId != null and jciRentContId != ''">
+					and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+				</if>
+				<if test="jciBeginPeriods != null and jciBeginPeriods != '' and jciEndPeriods != null and jciEndPeriods != '' ">
+					and ((jci_begin_periods &gt;= #{jciBeginPeriods} 
+					and jci_begin_periods &lt;= #{jciEndPeriods} )
+					or (jci_end_periods &gt;= #{jciBeginPeriods}
+					and jci_end_periods &lt;= #{jciEndPeriods}) )
+				</if>
+				<if test="firstday != null and firstday != '' and lastday != null and lastday != '' ">
+					and jci_fukuanri between #{lastday} and #{firstday}
+				</if>
+			</where>
+			<if test="splitFlag ==1">
+				ORDER BY jci_house4store_id DESC,jci_register_time DESC,jci_periods ASC
+				<if test="startNum != '' and startNum != null">
+					limit ${startNum}
+					<if test="endNum != '' and endNum != null">
+						,${endNum}
+					</if>
+				</if>
+			</if>
+		</when>
+		<when test="contractType == 'renter'">
+		 select 
+		  	<if test="splitFlag ==0">
+				<!-- 统计查询 -->
+				count(jc.jci_id) total_num
+			</if>
+			<if test="splitFlag ==1">
+				<!-- 数据查询 -->
+				jc.*, u.su_staff_name  register_people, r.renter_population_id, la.la_population_id, 
+				hs.hs_add_district,hs.hs_add_community,hs.hs_add_building,hs.hs_add_doorplateno,
+				ip.pop_name renter_name, p.pop_name landlord_name
+			</if>
+			from info_contract_divider jc
+			left outer join sys_users u on jc.jci_register_people = u.user_coding
+			left outer join info_renter r on jc.jci_renter_id = r.renter_id
+			left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+			left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+			left outer join info_pop_tmp ip on ip.pop_id = r.renter_population_id
+			left outer join info_pop_tmp p on p.pop_id = la.la_population_id
+			<where>
+				jci_type = "租客租金"
+		    	<if test="jciId != null and jciId != ''">
+		    		and jci_id = #{jciId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciState != null and jciState != ''">
+		    		and jci_state = #{jciState,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciPeriods != null and jciPeriods != ''">
+		    		and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciRemark != null and jciRemark != ''">
+		    		and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciHouse4rentId != null and jciHouse4rentId != ''">
+		    		and jci_house4rent_id = #{jciHouse4rentId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="addDistrict != null and addDistrict != '' ">
+					and hs_add_district = #{addDistrict}
+				</if>
+				<if test="addCommunity != null and addCommunity != '' ">
+					and hs_add_community like '%${addCommunity}%'
+				</if>
+				<if test="addBuilding != null and addBuilding != '' ">
+					and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+				</if>
+				<if test="addDoorplateno != null and addDoorplateno != '' ">
+					and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+				</if>
+				<if test="landlordName != null and landlordName != ''">
+					and p.pop_name like '%${landlordName}%'
+				</if>
+				<if test="renterName != null and renterName != ''">
+					and ip.pop_name like '%${renterName}%'
+				</if>
+				<if test="jciRenterId != null and jciRenterId != ''">
+					and jci_renter_id = #{jciRenterId,jdbcType=INTEGER}
+				</if>
+				<if test="jciLandContId != null and jciLandContId != ''">
+					and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+				</if>
+				<if test="jciRentContId != null and jciRentContId != ''">
+					and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+				</if>
+				<if test="jciBeginPeriods != null and jciBeginPeriods != '' and jciEndPeriods != null and jciEndPeriods != '' ">
+					and ((jci_begin_periods &gt;= #{jciBeginPeriods} 
+					and jci_begin_periods &lt;= #{jciEndPeriods} )
+					or (jci_end_periods &gt;= #{jciBeginPeriods}
+					and jci_end_periods &lt;= #{jciEndPeriods}) )
+				</if>
+				<if test="firstday != null and firstday != '' and lastday != null and lastday != '' ">
+					and jci_fukuanri between #{lastday} and #{firstday}
+				</if>
+			</where>
+			<if test="splitFlag ==1">
+				ORDER BY jci_house4rent_id DESC,jci_register_time DESC,jci_periods ASC
+				<if test="startNum != '' and startNum != null">
+					limit ${startNum}
+					<if test="endNum != '' and endNum != null">
+						,${endNum}
+					</if>
+				</if>
+			</if>
+		</when>
+	</choose>
+  </select>
+  
+  <!-- 已租房id查询第一期分期账单 -->
+  <select id="rentIdAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+  	select * from info_contract_divider
+  	where jci_house4rent_id = #{jciHouse4rentId} and jci_periods = #{jciPeriods}
+  </select>
+  
+  <!-- 查询房东银行账号与类型 -->
+  <select id="landlordCard" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+  	select ic.jci_house4store_id, hs.hs_bank_type, hs.hs_bank_num, hs.hs_bank_name, hs.hs_id
+	from info_contract_divider ic
+	left outer join info_house_4store hs on hs.hs_id = ic.jci_house4store_id
+	<where>
+		<if test="jciId != null and jciId != '' "> 
+			and jci_id = #{jciId}
+		</if>
+	</where>
+  </select>
+  
+  <!-- 修改退房状态 -->
+  <update id="checkoutthestate" parameterType="com.zz.po.info.InfoContractInstallment">
+  	update info_contract_divider 
+	<set>
+		<if test="jciState != null and jciState != '' ">
+			jci_state = #{jciState}
+		</if>
+	</set>
+	<where> 
+		unix_timestamp(#{byTheTime,jdbcType=VARCHAR}) &lt;= unix_timestamp(jci_end_periods)
+		<if test="jciRentContId != null and jciRentContId != '' ">
+			and jci_rent_cont_id = #{jciRentContId}
+		</if>
+		<if test="jciLandContId != null and jciLandContId != '' ">
+			and jci_land_cont_id = #{jciLandContId}
+		</if>
+		<if test="jciNature != null and jciNature != '' ">
+			and jci_nature = #{jciNature}
+		</if>
+		and (jci_state = "待收" or jci_state ="待付")
+	</where>
+  </update>
+  
+  <!-- 查询已租房剩余待交租金-->
+  <select id="selectcontractInstallment" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+  	select jci_money,jci_begin_periods,jci_end_periods from info_contract_divider 
+	where unix_timestamp(#{byTheTime,jdbcType=VARCHAR}) &gt;= unix_timestamp(jci_begin_periods) 
+	and jci_house4rent_id = #{jciHouse4rentId,jdbcType=INTEGER}
+	and jci_nature = '应收'
+	and jci_state = '待收'
+  </select>
+  
+  <!-- 查询已租房预交租金 -->
+  <select id="paysTheRent" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+  	select jci_money,jci_begin_periods,jci_end_periods from info_contract_divider 
+	where unix_timestamp(#{byTheTime,jdbcType=VARCHAR}) &lt;= unix_timestamp(jci_end_periods) 
+	and jci_house4rent_id = #{jciHouse4rentId,jdbcType=INTEGER}
+	and jci_nature = '应收'
+	and jci_state = '已收'
+  </select>
+  
+  <!-- 查询未租房应付款 -->
+  <select id="accountsPayable" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+  	select jci_money,jci_begin_periods,jci_end_periods from info_contract_divider 
+	where unix_timestamp(#{byTheTime,jdbcType=VARCHAR}) &gt;= unix_timestamp(jci_begin_periods) 
+	and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+	and jci_nature = '应支'
+	and jci_state = '待付'
+  </select>
+  
+  
+  <!-- 查询租客房东分期账单的总条数 -->
+  <select id="billCount" resultType="Integer" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+    <choose>
+        <when test="contractType == 'landlord'">
+            select count(jc.jci_id) total_num
+            from info_contract_installment jc
+            left outer join sys_user u on jc.jci_register_people = u.user_coding
+            left outer join info_renter r on jc.jci_renter_id = r.renter_id
+            left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+            left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+            left outer join info_population ip on ip.pop_id = r.renter_population_id
+            left outer join info_population p on p.pop_id = la.la_population_id
+            <where>
+                jci_type = "房东租金"
+                <if test="jciId != null and jciId != ''">
+                    and jci_id = #{jciId,jdbcType=INTEGER}
+                </if>
+                <if test="jciState != null and jciState != ''">
+                    and jci_state = #{jciState,jdbcType=VARCHAR}
+                </if>
+                <if test="jciPeriods != null and jciPeriods != ''">
+                    and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+                </if>
+                <if test="jciRemark != null and jciRemark != ''">
+                    and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+                </if>
+                <if test="jciHouse4storeId != null and jciHouse4storeId != ''">
+                    and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+                </if>
+                <if test="addDistrict != null and addDistrict != '' ">
+                    and hs_add_district = #{addDistrict}
+                </if>
+                <if test="addCommunity != null and addCommunity != '' ">
+                    and hs_add_community like '%${addCommunity}%'
+                </if>
+                <if test="addBuilding != null and addBuilding != '' ">
+                    and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+                </if>
+                <if test="addDoorplateno != null and addDoorplateno != '' ">
+                    and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+                </if>
+                <if test="landlordName != null and landlordName != ''">
+                    and p.pop_name like '%${landlordName}%'
+                </if>
+                <if test="renterName != null and renterName != ''">
+                    and ip.pop_name like '%${renterName}%'
+                </if>
+                <if test="jciLandlordId != null and jciLandlordId != ''">
+                    and jci_landlord_id = #{jciLandlordId,jdbcType=INTEGER}
+                </if>
+                <if test="jciLandContId != null and jciLandContId != ''">
+                    and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+                </if>
+                <if test="jciRentContId != null and jciRentContId != ''">
+                    and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+                </if>
+            </where>
+            ORDER BY jci_house4store_id DESC,jci_register_time DESC,jci_periods ASC
+            <if test="startNum != '' and startNum != null">
+                limit ${startNum}
+                <if test="endNum != '' and endNum != null">
+                    ,${endNum}
+                </if>
+            </if>
+        </when>
+        <when test="contractType == 'renter'">
+            select count(jc.jci_id) total_num
+            from info_contract_installment jc
+            left outer join sys_user u on jc.jci_register_people = u.user_coding
+            left outer join info_renter r on jc.jci_renter_id = r.renter_id
+            left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+            left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+            left outer join info_population ip on ip.pop_id = r.renter_population_id
+            left outer join info_population p on p.pop_id = la.la_population_id
+            <where>
+                jci_type = "租客租金"
+                <if test="jciId != null and jciId != ''">
+                    and jci_id = #{jciId,jdbcType=INTEGER}
+                </if>
+                <if test="jciState != null and jciState != ''">
+                    and jci_state = #{jciState,jdbcType=VARCHAR}
+                </if>
+                <if test="jciPeriods != null and jciPeriods != ''">
+                    and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+                </if>
+                <if test="jciRemark != null and jciRemark != ''">
+                    and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+                </if>
+                <if test="jciHouse4rentId != null and jciHouse4rentId != ''">
+                    and jci_house4rent_id = #{jciHouse4rentId,jdbcType=INTEGER}
+                </if>
+                <if test="addDistrict != null and addDistrict != '' ">
+                    and hs_add_district = #{addDistrict}
+                </if>
+                <if test="addCommunity != null and addCommunity != '' ">
+                    and hs_add_community like '%${addCommunity}%'
+                </if>
+                <if test="addBuilding != null and addBuilding != '' ">
+                    and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+                </if>
+                <if test="addDoorplateno != null and addDoorplateno != '' ">
+                    and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+                </if>
+                <if test="landlordName != null and landlordName != ''">
+                    and p.pop_name like '%${landlordName}%'
+                </if>
+                <if test="renterName != null and renterName != ''">
+                    and ip.pop_name like '%${renterName}%'
+                </if>
+                <if test="jciRenterId != null and jciRenterId != ''">
+                    and jci_renter_id = #{jciRenterId,jdbcType=INTEGER}
+                </if>
+                <if test="jciLandContId != null and jciLandContId != ''">
+                    and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+                </if>
+                <if test="jciRentContId != null and jciRentContId != ''">
+                    and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+                </if>
+            </where>
+            ORDER BY jci_house4rent_id DESC,jci_register_time DESC,jci_periods ASC
+            <if test="startNum != '' and startNum != null">
+                limit ${startNum}
+                <if test="endNum != '' and endNum != null">
+                    ,${endNum}
+                </if>
+            </if>
+        </when>
+    </choose>
+  </select>
+  
+  <!-- 查询所有 -->
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+    <choose>
+    	<when test="contractType == 'landlord'">
+    	   select a.*, b.total_num from
+			(select jc.*, u.su_staff_name  register_people, r.renter_population_id, la.la_population_id, 
+				hs.hs_add_district,hs.hs_add_community,hs.hs_add_building,hs.hs_add_doorplateno,
+				ip.pop_name renter_name, p.pop_name landlord_name
+			from info_contract_divider jc
+			left outer join sys_users u on jc.jci_register_people = u.user_coding
+			left outer join info_renter r on jc.jci_renter_id = r.renter_id
+			left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+			left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+			left outer join info_pop_tmp ip on ip.pop_id = r.renter_population_id
+			left outer join info_pop_tmp p on p.pop_id = la.la_population_id
+			<where>
+				jci_type = "房东租金"
+		    	<if test="jciId != null and jciId != ''">
+		    		and jci_id = #{jciId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciState != null and jciState != ''">
+		    		and jci_state = #{jciState,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciPeriods != null and jciPeriods != ''">
+		    		and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciRemark != null and jciRemark != ''">
+		    		and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciHouse4storeId != null and jciHouse4storeId != ''">
+		    		and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="addDistrict != null and addDistrict != '' ">
+					and hs_add_district = #{addDistrict}
+				</if>
+				<if test="addCommunity != null and addCommunity != '' ">
+					and hs_add_community like '%${addCommunity}%'
+				</if>
+				<if test="addBuilding != null and addBuilding != '' ">
+					and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+				</if>
+				<if test="addDoorplateno != null and addDoorplateno != '' ">
+					and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+				</if>
+				<if test="landlordName != null and landlordName != ''">
+					and p.pop_name like '%${landlordName}%'
+				</if>
+				<if test="renterName != null and renterName != ''">
+					and ip.pop_name like '%${renterName}%'
+				</if>
+				<if test="jciLandlordId != null and jciLandlordId != ''">
+					and jci_landlord_id = #{jciLandlordId,jdbcType=INTEGER}
+				</if>
+				<if test="jciLandContId != null and jciLandContId != ''">
+					and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+				</if>
+				<if test="jciRentContId != null and jciRentContId != ''">
+					and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+				</if>
+		    </where>
+			) a,
+			(select count(jc.jci_id) total_num
+			from info_contract_divider jc
+			left outer join sys_users u on jc.jci_register_people = u.user_coding
+			left outer join info_renter r on jc.jci_renter_id = r.renter_id
+			left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+			left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+			left outer join info_pop_tmp ip on ip.pop_id = r.renter_population_id
+			left outer join info_pop_tmp p on p.pop_id = la.la_population_id
+			<where>
+				jci_type = "房东租金"
+		    	<if test="jciId != null and jciId != ''">
+		    		and jci_id = #{jciId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciState != null and jciState != ''">
+		    		and jci_state = #{jciState,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciPeriods != null and jciPeriods != ''">
+		    		and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciRemark != null and jciRemark != ''">
+		    		and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciHouse4storeId != null and jciHouse4storeId != ''">
+		    		and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="addDistrict != null and addDistrict != '' ">
+					and hs_add_district = #{addDistrict}
+				</if>
+				<if test="addCommunity != null and addCommunity != '' ">
+					and hs_add_community like '%${addCommunity}%'
+				</if>
+				<if test="addBuilding != null and addBuilding != '' ">
+					and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+				</if>
+				<if test="addDoorplateno != null and addDoorplateno != '' ">
+					and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+				</if>
+				<if test="landlordName != null and landlordName != ''">
+					and p.pop_name like '%${landlordName}%'
+				</if>
+				<if test="renterName != null and renterName != ''">
+					and ip.pop_name like '%${renterName}%'
+				</if>
+				<if test="jciLandlordId != null and jciLandlordId != ''">
+					and jci_landlord_id = #{jciLandlordId,jdbcType=INTEGER}
+				</if>
+				<if test="jciLandContId != null and jciLandContId != ''">
+					and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+				</if>
+				<if test="jciRentContId != null and jciRentContId != ''">
+					and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+				</if>
+		    </where>
+			)b
+			ORDER BY jci_house4store_id DESC,jci_register_time DESC,jci_periods ASC
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+    	</when>
+    	<when test="contractType == 'renter'">
+    	select a.*, b.total_num from
+			(select jc.*, u.su_staff_name  register_people, r.renter_population_id, la.la_population_id, 
+				hs.hs_add_district,hs.hs_add_community,hs.hs_add_building,hs.hs_add_doorplateno,
+				ip.pop_name renter_name, p.pop_name landlord_name
+			from info_contract_divider jc
+			left outer join sys_users u on jc.jci_register_people = u.user_coding
+			left outer join info_renter r on jc.jci_renter_id = r.renter_id
+			left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+			left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+			left outer join info_pop_tmp ip on ip.pop_id = r.renter_population_id
+			left outer join info_pop_tmp p on p.pop_id = la.la_population_id
+			<where>
+				jci_type = "租客租金"
+		    	<if test="jciId != null and jciId != ''">
+		    		and jci_id = #{jciId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciState != null and jciState != ''">
+		    		and jci_state = #{jciState,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciPeriods != null and jciPeriods != ''">
+		    		and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciRemark != null and jciRemark != ''">
+		    		and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciHouse4rentId != null and jciHouse4rentId != ''">
+		    		and jci_house4rent_id = #{jciHouse4rentId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciHouse4storeId != null and jciHouse4storeId != ''">
+		    		and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="addDistrict != null and addDistrict != '' ">
+					and hs_add_district = #{addDistrict}
+				</if>
+				<if test="addCommunity != null and addCommunity != '' ">
+					and hs_add_community like '%${addCommunity}%'
+				</if>
+				<if test="addBuilding != null and addBuilding != '' ">
+					and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+				</if>
+				<if test="addDoorplateno != null and addDoorplateno != '' ">
+					and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+				</if>
+				<if test="landlordName != null and landlordName != ''">
+					and p.pop_name like '%${landlordName}%'
+				</if>
+				<if test="renterName != null and renterName != ''">
+					and ip.pop_name like '%${renterName}%'
+				</if>
+				<if test="jciRenterId != null and jciRenterId != ''">
+					and jci_renter_id = #{jciRenterId,jdbcType=INTEGER}
+				</if>
+				<if test="jciLandContId != null and jciLandContId != ''">
+					and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+				</if>
+				<if test="jciRentContId != null and jciRentContId != ''">
+					and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+				</if>
+				<if test="temporaryAuspiciousBill != null and temporaryAuspiciousBill != ''">
+					and jci_label_type is null
+				</if>
+		    </where>
+			) a,
+			(select count(jc.jci_id) total_num
+			from info_contract_divider jc
+			left outer join sys_users u on jc.jci_register_people = u.user_coding
+			left outer join info_renter r on jc.jci_renter_id = r.renter_id
+			left outer join info_landlord la on jc.jci_landlord_id = la.la_id
+			left outer join info_house_4store hs on jc.jci_house4store_id = hs.hs_id
+			left outer join info_pop_tmp ip on ip.pop_id = r.renter_population_id
+			left outer join info_pop_tmp p on p.pop_id = la.la_population_id
+			<where>
+				jci_type = "租客租金"
+		    	<if test="jciId != null and jciId != ''">
+		    		and jci_id = #{jciId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciState != null and jciState != ''">
+		    		and jci_state = #{jciState,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciPeriods != null and jciPeriods != ''">
+		    		and jci_periods = #{jciPeriods,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciRemark != null and jciRemark != ''">
+		    		and jci_remark = #{jciRemark,jdbcType=VARCHAR}
+		    	</if>
+		    	<if test="jciHouse4rentId != null and jciHouse4rentId != ''">
+		    		and jci_house4rent_id = #{jciHouse4rentId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="jciHouse4storeId != null and jciHouse4storeId != ''">
+		    		and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+		    	</if>
+		    	<if test="addDistrict != null and addDistrict != '' ">
+					and hs_add_district = #{addDistrict}
+				</if>
+				<if test="addCommunity != null and addCommunity != '' ">
+					and hs_add_community like '%${addCommunity}%'
+				</if>
+				<if test="addBuilding != null and addBuilding != '' ">
+					and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+				</if>
+				<if test="addDoorplateno != null and addDoorplateno != '' ">
+					and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+				</if>
+				<if test="landlordName != null and landlordName != ''">
+					and p.pop_name like '%${landlordName}%'
+				</if>
+				<if test="renterName != null and renterName != ''">
+					and ip.pop_name like '%${renterName}%'
+				</if>
+				<if test="jciRenterId != null and jciRenterId != ''">
+					and jci_renter_id = #{jciRenterId,jdbcType=INTEGER}
+				</if>
+				<if test="jciLandContId != null and jciLandContId != ''">
+					and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+				</if>
+				<if test="jciRentContId != null and jciRentContId != ''">
+					and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+				</if>
+				<if test="temporaryAuspiciousBill != null and temporaryAuspiciousBill != ''">
+					and jci_label_type is null
+				</if>
+		    </where>
+			)b
+			<choose>
+				<when test="sort == 1 ">
+					ORDER BY jci_fukuanri DESC
+				</when>
+				<when test="sort == 2 ">
+					ORDER BY jci_fukuanri ASC
+				</when>
+				<otherwise>
+					ORDER BY jci_house4rent_id DESC,jci_register_time DESC,jci_periods ASC
+				</otherwise>
+			</choose>
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+    	</when>
+    </choose>
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="MyBaseResultMap">
+    select *
+    from info_contract_divider
+    where jci_id = #{jciId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 修改合约时查询最后一条已付、已支账单的结束周期 -->
+  <select id="selectEndPeriods" resultType="String" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+  	select jci_end_periods from info_contract_divider
+  	<where>
+	  	<if test="jciLandContId != null and jciLandContId != ''">
+	  		and jci_land_cont_id = #{jciLandContId}
+	  	</if>
+	  	<if test="jciRentContId != null and jciRentContId != ''">
+	  		and jci_rent_cont_id = #{jciRentContId}
+	  	</if>
+	  	<if test="jciState != null and jciState != ''">
+	  		and jci_state = #{jciState}
+	  	</if>
+  	</where> 
+  	order by jci_periods DESC LIMIT 1
+  </select>
+  
+  <!-- 修改合约时查询待付的第一条 -->
+  <select id="selectBeginPeriods" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+  	select * from info_contract_divider
+  	<where>
+  		<if test="jciLandContId != null and jciLandContId != '' ">
+	  		and jci_land_cont_id = #{jciLandContId}
+	  	</if>
+  		<if test="jciRentContId != null and jciRentContId != ''">
+	  		and jci_rent_cont_id = #{jciRentContId}
+	  	</if>
+	  	<if test="jciState != null and jciState != ''">
+	  		and jci_state = #{jciState}
+	  	</if>
+  	</where>
+  </select>
+  
+  <!-- 房东账单 -->
+  <select id="selectPayableToLandlord" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoContractInstallmentExpand" >
+  	select * from 
+	(select 
+		ci.jci_id, ci.jci_land_cont_id, ci.jci_house4store_id, ci.jci_landlord_id, ci.jci_periods, ci.jci_begin_periods, ci.jci_if_print,
+		ci.jci_fukuanri, ci.jci_end_periods, ci.jci_money, ci.jci_state, ci.jci_audit, ci.jci_special_number,
+		hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, hs.hs_add_community, 
+		hs.hs_add_building, hs.hs_add_doorplateno, hs.hs_bank_type, hs.hs_bank_num, hs.hs_bank_name,
+		hs.hs_base, hs.hs_state, hs.hs_house_id, pop.pop_name landlord_name, pop.pop_name_remark landlord_name_remark, pop.pop_id
+		from info_contract_divider ci 
+		left outer join info_house_4store hs on hs.hs_id = ci.jci_house4store_id
+		left outer join info_landlord la on la.la_id = ci.jci_landlord_id
+		left outer join info_pop_tmp pop on pop.pop_id = la.la_population_id
+	<where>
+		jci_type = "房东租金"
+		<if test ="hsId != null">
+    		and hs_id = #{hsId}
+    	</if>
+    	<if test ="addCity != null and addCity != '' ">
+    		and hs_add_city = #{addCity}
+    	</if>
+    	<if test ="addDistrict != null and addDistrict != '' ">
+    		and hs_add_district = #{addDistrict}
+    	</if>
+    	<if test ="addZone != null and addZone != '' ">
+    		and hs_add_zone = #{addZone}
+    	</if>
+    	<if test ="addCommunity != null and addCommunity != '' ">
+    		and hs_add_community like '%${addCommunity}%'
+    	</if>
+    	<if test ="addBuilding != null and addBuilding != '' ">
+    		and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+    	</if>
+    	<if test ="addDoorplateno != null and addDoorplateno != '' ">
+    		and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+    	</if>
+		<if test ="hsState == '正常' ">
+    		and hs_state = #{hsState}
+    	</if>
+		<if test ="hsState == '退房' ">
+    		and hs_state like '%${hsState}%'
+    	</if>
+    	<if test="landlordName != null and landlordName != '' " >
+        	and pop_name like '%${landlordName}%'
+      	</if>
+      	<if test="jciMoney != null " >
+        	and jci_money = #{jciMoney}
+      	</if>
+    	<if test="auditStatus != null and auditStatus != '' " >
+        	and jci_audit like '{"auditStatus":"${auditStatus}"%'
+      	</if>
+      	<if test="startDate != null and startDate != '' " >
+        	and jci_fukuanri &gt;= #{startDate}
+      	</if>
+      	<if test="endDate != null and endDate != '' " >
+        	and jci_fukuanri &lt;= #{endDate}
+      	</if>
+      	<if test="year != null " >
+        	and date_format(jci_begin_periods,"%Y") = #{year}
+      	</if>
+      	<if test="month != null " >
+        	and date_format(jci_begin_periods,"%m") = #{month}
+      	</if>
+      	<if test="month != null " >
+        	and date_format(jci_begin_periods,"%m") = #{month}
+      	</if>
+      	<if test="jciIfPrint != null " >
+        	and jci_if_print = #{jciIfPrint}
+      	</if>
+      	<if test="jciState != null and jciState != ''" >
+        	and jci_state = #{jciState}
+      	</if>
+	</where>
+	) a,
+	(select count(ci.jci_id) totalNum 
+		from info_contract_divider ci 
+		left outer join info_house_4store hs on hs.hs_id = ci.jci_house4store_id
+		left outer join info_landlord la on la.la_id = ci.jci_landlord_id
+		left outer join info_pop_tmp pop on pop.pop_id = la.la_population_id
+	<where>
+		jci_type = "房东租金"
+		<if test ="hsId != null">
+    		and hs_id = #{hsId}
+    	</if>
+    	<if test ="addCity != null and addCity != '' ">
+    		and hs_add_city = #{addCity}
+    	</if>
+    	<if test ="addDistrict != null and addDistrict != '' ">
+    		and hs_add_district = #{addDistrict}
+    	</if>
+    	<if test ="addZone != null and addZone != '' ">
+    		and hs_add_zone = #{addZone}
+    	</if>
+    	<if test ="addCommunity != null and addCommunity != '' ">
+    		and hs_add_community like '%${addCommunity}%'
+    	</if>
+    	<if test ="addBuilding != null and addBuilding != '' ">
+    		and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+    	</if>
+    	<if test ="addDoorplateno != null and addDoorplateno != '' ">
+    		and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+    	</if>
+		<if test ="hsState == '正常' ">
+    		and hs_state = #{hsState}
+    	</if>
+		<if test ="hsState == '退房' ">
+    		and hs_state like '%${hsState}%'
+    	</if>
+    	<if test="landlordName != null and landlordName != '' " >
+        	and pop_name like '%${landlordName}%'
+      	</if>
+      	<if test="jciMoney != null " >
+        	and jci_money = #{jciMoney}
+      	</if>
+    	<if test="auditStatus != null and auditStatus != '' " >
+        	and jci_audit like '{"auditStatus":"${auditStatus}"%'
+      	</if>
+      	<if test="startDate != null and startDate != '' " >
+        	and jci_fukuanri &gt;= #{startDate}
+      	</if>
+      	<if test="endDate != null and endDate != '' " >
+        	and jci_fukuanri &lt;= #{endDate}
+      	</if>
+      	<if test="year != null " >
+        	and date_format(jci_begin_periods,"%Y") = #{year}
+      	</if>
+      	<if test="month != null " >
+        	and date_format(jci_begin_periods,"%m") = #{month}
+      	</if>
+      	<if test="jciIfPrint != null " >
+        	and jci_if_print = #{jciIfPrint}
+      	</if>
+      	<if test="jciState != null and jciState != ''" >
+        	and jci_state = #{jciState}
+      	</if>
+	</where>
+	) b,
+	(select sum(ci.jci_money) total_money 
+		from info_contract_divider ci 
+		left outer join info_house_4store hs on hs.hs_id = ci.jci_house4store_id
+		left outer join info_landlord la on la.la_id = ci.jci_landlord_id
+		left outer join info_pop_tmp pop on pop.pop_id = la.la_population_id
+	<where>
+		jci_type = "房东租金"
+		<if test ="hsId != null">
+    		and hs_id = #{hsId}
+    	</if>
+    	<if test ="addCity != null and addCity != '' ">
+    		and hs_add_city = #{addCity}
+    	</if>
+    	<if test ="addDistrict != null and addDistrict != '' ">
+    		and hs_add_district = #{addDistrict}
+    	</if>
+    	<if test ="addZone != null and addZone != '' ">
+    		and hs_add_zone = #{addZone}
+    	</if>
+    	<if test ="addCommunity != null and addCommunity != '' ">
+    		and hs_add_community like '%${addCommunity}%'
+    	</if>
+    	<if test ="addBuilding != null and addBuilding != '' ">
+    		and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+    	</if>
+    	<if test ="addDoorplateno != null and addDoorplateno != '' ">
+    		and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+    	</if>
+		<if test ="hsState == '正常' ">
+    		and hs_state = #{hsState}
+    	</if>
+		<if test ="hsState == '退房' ">
+    		and hs_state like '%${hsState}%'
+    	</if>
+    	<if test="landlordName != null and landlordName != '' " >
+        	and pop_name like '%${landlordName}%'
+      	</if>
+      	<if test="jciMoney != null " >
+        	and jci_money = #{jciMoney}
+      	</if>
+    	<if test="auditStatus != null and auditStatus != '' " >
+        	and jci_audit like '{"auditStatus":"${auditStatus}"%'
+      	</if>
+      	<if test="startDate != null and startDate != '' " >
+        	and jci_fukuanri &gt;= #{startDate}
+      	</if>
+      	<if test="endDate != null and endDate != '' " >
+        	and jci_fukuanri &lt;= #{endDate}
+      	</if>
+      	<if test="year != null " >
+        	and date_format(jci_begin_periods,"%Y") = #{year}
+      	</if>
+      	<if test="month != null " >
+        	and date_format(jci_begin_periods,"%m") = #{month}
+      	</if>
+      	<if test="jciIfPrint != null " >
+        	and jci_if_print = #{jciIfPrint}
+      	</if>
+      	<if test="jciState != null and jciState != ''" >
+        	and jci_state = #{jciState}
+      	</if>
+	</where>
+	) c
+	<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+		ORDER BY 
+	 	<if test="theSortTerm ==1 ">
+	 		landlord_name 
+ 		</if>
+ 		<if test="theSortTerm ==2 ">
+	 		jci_fukuanri 
+ 		</if>
+ 		<if test="theSortTerm ==3 ">
+	 		jci_id 
+ 		</if>
+ 		<if test="theSortTerm ==4 ">
+	 		hs_add_community 
+ 		</if>
+ 		<if test="theSortContrary ==1 ">
+ 			ASC
+ 		</if>
+ 		<if test="theSortContrary ==2 ">
+ 			DESC
+ 		</if>
+	</if>
+	<!-- ORDER BY abs(datediff(jci_fukuanri,now())) ASC,jci_land_cont_id DESC,jci_periods DESC -->
+	<if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+	 	 ORDER BY jci_fukuanri ASC
+	</if>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.zz.po.info.InfoContractInstallmentExpand">
+    delete from info_contract_divider
+    <where>
+    	<if test="jciId != null and jciId != ''">
+    		and jci_id = #{jciId,jdbcType=INTEGER}
+    	</if>
+    	<if test="jciState != null and jciState != ''">
+    		and jci_state = #{jciState,jdbcType=VARCHAR}
+    	</if>
+    	<if test="jciHouse4rentId != null and jciHouse4rentId != ''">
+    		and jci_house4rent_id = #{jciHouse4rentId,jdbcType=INTEGER}
+    	</if>
+    	<if test="jciHouse4storeId != null and jciHouse4storeId != ''">
+    		and jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER}
+    	</if>
+    	<if test="jciLandlordId != null and jciLandlordId != ''">
+    		and jci_landlord_id = #{jciLandlordId,jdbcType=INTEGER}
+    	</if>
+    	<if test="jciRenterId != null and jciRenterId != ''">
+    		and jci_renter_id = #{jciRenterId,jdbcType=INTEGER}
+    	</if>
+    	<if test="jciLandContId != null and jciLandContId != ''">
+			and jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER}
+		</if>
+		<if test="jciRentContId != null and jciRentContId != ''">
+			and jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER}
+		</if>
+    </where>
+  </delete>
+  <!-- 包含分期账单全部字段 -->
+  <insert id="insertList" parameterType="java.util.List" >
+		insert into info_contract_divider(
+			jci_register_people,
+			jci_house4rent_id,
+			jci_house4store_id, 
+			jci_department, 
+			jci_storefront, 
+			jci_landlord_id, 
+			jci_renter_id,
+			jci_land_cont_id, 
+			jci_rent_cont_id, 
+			jci_periods, 
+			jci_fukuanri,
+			jci_begin_periods, 
+			jci_end_periods, 
+			jci_nature, 
+			jci_type, 
+			jci_money, 
+			jci_state,
+			jci_message_note,
+			jci_payment_voucher, 
+			jci_read, 
+			jci_audit,
+			jci_manage_cost,
+			jci_server_cost,
+			jci_if_print,
+			jci_special_number,
+			jci_img_path,
+			jci_label_type,
+			jci_img_num,
+	  		jci_bill_json
+	 	)
+		values
+	  	<foreach item="item" index="index" collection="list" separator=",">
+		(
+			#{item.jciRegisterPeople,jdbcType=INTEGER},
+			#{item.jciHouse4rentId,jdbcType=INTEGER},
+			#{item.jciHouse4storeId,jdbcType=INTEGER}, 
+			#{item.jciDepartment,jdbcType=INTEGER},
+			#{item.jciStorefront,jdbcType=INTEGER}, 
+			#{item.jciLandlordId,jdbcType=INTEGER}, 
+			#{item.jciRenterId,jdbcType=INTEGER},
+			#{item.jciLandContId,jdbcType=INTEGER},
+			#{item.jciRentContId,jdbcType=INTEGER},
+			#{item.jciPeriods,jdbcType=INTEGER}, 
+			#{item.jciFukuanri,jdbcType=DATE},
+			#{item.jciBeginPeriods,jdbcType=DATE}, 
+			#{item.jciEndPeriods,jdbcType=DATE},
+			#{item.jciNature,jdbcType=VARCHAR}, 
+			#{item.jciType,jdbcType=VARCHAR}, 
+			#{item.jciMoney,jdbcType=DOUBLE}, 
+			#{item.jciState,jdbcType=VARCHAR},
+			#{item.jciMessageNote},
+			#{item.jciPaymentVoucher}, 
+			#{item.jciRead}, 
+			#{item.jciAudit},
+			#{item.jciManageCost}, 
+			#{item.jciServerCost},
+			#{item.jciIfPrint},
+			#{item.jciSpecialNumber},
+			#{item.jciImgPath},
+			#{item.jciLabelType},
+			#{item.jciImgNum},
+			#{item.jciBillJson}
+		)
+		</foreach>	  
+  </insert>
+  
+  <!-- 增加 -->
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoContractInstallment" useGeneratedKeys="true" keyProperty="jciId">
+    insert into info_contract_divider
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jciId != null">
+        jci_id,
+      </if>
+      <if test="jciRegisterPeople != null">
+        jci_register_people,
+      </if>
+      <if test="jciHouse4rentId != null">
+        jci_house4rent_id,
+      </if>
+      <if test="jciHouse4storeId != null">
+        jci_house4store_id,
+      </if>
+      <if test="jciDepartment != null">
+        jci_department,
+      </if>
+      <if test="jciStorefront != null">
+        jci_storefront,
+      </if>
+      <if test="jciLandlordId != null">
+        jci_landlord_id,
+      </if>
+      <if test="jciRenterId != null">
+        jci_renter_id,
+      </if>
+      <if test="jciPeriods != null">
+        jci_periods,
+      </if>
+      <if test="jciLandContId != null">
+		jci_land_cont_id,
+		</if>
+	  <if test="jciRentContId != null">
+		jci_rent_cont_id,
+	  </if>
+      <if test="jciBeginPeriods != null">
+        jci_begin_periods,
+      </if>
+      <if test="jciEndPeriods != null">
+        jci_end_periods,
+      </if>
+      <if test="jciNature != null">
+        jci_nature,
+      </if>
+      <if test="jciType != null">
+        jci_type,
+      </if>
+      <if test="jciMoney != null">
+        jci_money,
+      </if>
+      <if test="jciState != null">
+        jci_state,
+      </if>
+      <if test="jciRegisterTime != null">
+        jci_register_time,
+      </if>
+      <if test="jciRemark != null">
+        jci_remark,
+      </if>
+      <if test="jciFukuanri != null">
+        jci_fukuanri,
+      </if>
+      <if test="jciMessageTime != null">
+        jci_message_time,
+      </if>
+      <if test="jciMessageNote != null">
+        jci_message_note,
+      </if>
+      <if test="jciPaymentVoucher != null">
+        jci_payment_voucher,
+      </if>
+      <if test="jciRead != null">
+        jci_read,
+      </if>
+      <if test="jciAudit != null">
+        jci_audit,
+      </if>
+      <if test="jciManageCost != null">
+        jci_manage_cost,
+      </if>
+      <if test="jciServerCost != null">
+        jci_server_cost,
+      </if>
+      <if test="jciSpecialNumber != null">
+        jci_special_number,
+      </if>
+      <if test="jciIfPrint != null">
+        jci_if_print,
+      </if>
+      <if test="jciImgPath != null">
+        jci_img_path,
+      </if>
+      <if test="jciImgNum != null">
+        jci_img_num,
+      </if>
+      
+      <if test="jciJhpId != null">
+        jci_jhp_id,
+      </if>
+      <if test="jciLabelType != null">
+        jci_label_type,
+      </if>
+      <if test="jciBillJson != null">
+        jci_bill_json,
+      </if>
+      <if test="jciOverdueDays != null">
+        jci_overdue_days,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jciId != null">
+        #{jciId,jdbcType=INTEGER},
+      </if>
+      <if test="jciRegisterPeople != null">
+        #{jciRegisterPeople,jdbcType=INTEGER},
+      </if>
+      <if test="jciHouse4rentId != null">
+        #{jciHouse4rentId,jdbcType=INTEGER},
+      </if>
+      <if test="jciHouse4storeId != null">
+        #{jciHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="jciDepartment != null">
+        #{jciDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="jciStorefront != null">
+        #{jciStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="jciLandlordId != null">
+        #{jciLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="jciRenterId != null">
+        #{jciRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="jciPeriods != null">
+        #{jciPeriods,jdbcType=INTEGER},
+      </if>
+      <if test="jciLandContId != null">
+		#{jciLandContId,jdbcType=INTEGER},
+	  </if>
+	  <if test="jciRentContId != null">
+		#{jciRentContId,jdbcType=INTEGER},
+	  </if>
+      <if test="jciBeginPeriods != null">
+        #{jciBeginPeriods,jdbcType=DATE},
+      </if>
+      <if test="jciEndPeriods != null">
+        #{jciEndPeriods,jdbcType=DATE},
+      </if>
+      <if test="jciNature != null">
+        #{jciNature,jdbcType=VARCHAR},
+      </if>
+      <if test="jciType != null">
+        #{jciType,jdbcType=VARCHAR},
+      </if>
+      <if test="jciMoney != null">
+        #{jciMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jciState != null">
+        #{jciState,jdbcType=VARCHAR},
+      </if>
+      <if test="jciRegisterTime != null">
+        #{jciRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jciRemark != null">
+        #{jciRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jciFukuanri != null">
+        #{jciFukuanri,jdbcType=DATE},
+      </if>
+      <if test="jciMessageTime != null">
+        #{jciMessageTime,jdbcType=DATE},
+      </if>
+      <if test="jciMessageNote != null">
+        #{jciMessageNote,jdbcType=VARCHAR},
+      </if>
+      <if test="jciPaymentVoucher != null">
+        #{jciPaymentVoucher},
+      </if>
+      <if test="jciRead != null">
+        #{jciRead},
+      </if>
+      <if test="jciAudit != null">
+        #{jciAudit},
+      </if>
+      <if test="jciManageCost != null">
+        #{jciManageCost},
+      </if>
+      <if test="jciServerCost != null">
+        #{jciServerCost},
+      </if>
+      <if test="jciSpecialNumber != null">
+        #{jciSpecialNumber},
+      </if>
+      <if test="jciIfPrint != null">
+        #{jciIfPrint},
+      </if>
+      <if test="jciImgPath != null">
+        #{jciImgPath},
+      </if>
+      <if test="jciImgNum != null">
+        #{jciImgNum},
+      </if>
+      
+      <if test="jciJhpId != null">
+        #{jciJhpId},
+      </if>
+      <if test="jciLabelType != null">
+        #{jciLabelType},
+      </if>
+       <if test="jciBillJson != null">
+        #{jciBillJson},
+      </if>
+      <if test="jciOverdueDays != null">
+        #{jciOverdueDays},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoContractInstallment">
+    update info_contract_divider
+     <set>
+      <if test="jciRegisterPeople != null">
+        jci_register_people = #{jciRegisterPeople,jdbcType=INTEGER},
+      </if>
+      <if test="jciHouse4rentId != null">
+        jci_house4rent_id = #{jciHouse4rentId,jdbcType=INTEGER},
+      </if>
+      <if test="jciHouse4storeId != null">
+        jci_house4store_id = #{jciHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="jciDepartment != null">
+        jci_department = #{jciDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="jciStorefront != null">
+        jci_storefront = #{jciStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="jciLandlordId != null">
+        jci_landlord_id = #{jciLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="jciRenterId != null">
+        jci_renter_id = #{jciRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="jciPeriods != null">
+        jci_periods = #{jciPeriods,jdbcType=INTEGER},
+      </if>
+      <if test="jciLandContId != null">
+		jci_land_cont_id = #{jciLandContId,jdbcType=INTEGER},
+	  </if>
+	  <if test="jciRentContId != null">
+		jci_rent_cont_id = #{jciRentContId,jdbcType=INTEGER},
+	  </if>
+      <if test="jciBeginPeriods != null">
+        jci_begin_periods = #{jciBeginPeriods,jdbcType=DATE},
+      </if>
+      <if test="jciEndPeriods != null">
+        jci_end_periods = #{jciEndPeriods,jdbcType=DATE},
+      </if>
+      <if test="jciNature != null">
+        jci_nature = #{jciNature,jdbcType=VARCHAR},
+      </if>
+      <if test="jciType != null">
+        jci_type = #{jciType,jdbcType=VARCHAR},
+      </if>
+      <if test="jciMoney != null">
+        jci_money = #{jciMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jciState != null">
+        jci_state = #{jciState,jdbcType=VARCHAR},
+      </if>
+      <if test="jciRegisterTime != null">
+        jci_register_time = #{jciRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jciRemark != null">
+        jci_remark = #{jciRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jciFukuanri != null">
+        jci_fukuanri = #{jciFukuanri,jdbcType=DATE},
+      </if>
+      <if test="jciMessageTime != null">
+        jci_message_time = #{jciMessageTime,jdbcType=DATE},
+      </if>
+      <if test="jciMessageNote != null">
+        jci_message_note = #{jciMessageNote,jdbcType=VARCHAR},
+      </if>
+      <if test="jciPaymentVoucher != null">
+        jci_payment_voucher = #{jciPaymentVoucher},
+      </if>
+      <if test="jciRead != null">
+        jci_read = #{jciRead},
+      </if>
+      <if test="jciAudit != null">
+        jci_audit = #{jciAudit},
+      </if>
+      <if test="jciManageCost != null">
+        jci_manage_cost = #{jciManageCost},
+      </if>
+      <if test="jciServerCost != null">
+        jci_server_cost = #{jciServerCost},
+      </if>
+      <if test="jciIfPrint != null">
+        jci_if_print = #{jciIfPrint},
+      </if>
+      <if test="jciSpecialNumber != null">
+        jci_special_number = #{jciSpecialNumber},
+      </if>
+      <if test="jciImgPath != null">
+        jci_img_path = #{jciImgPath},
+      </if>
+      <if test="jciImgNum != null">
+        jci_img_num = #{jciImgNum},
+      </if>
+      <if test="jciJhpId != null">
+        jci_jhp_id = #{jciJhpId},
+      </if>
+      <if test="jciLabelType != null">
+        jci_label_type = #{jciLabelType},
+      </if>
+      <if test="jciOverdueDays != null">
+        jci_overdue_days = #{jciOverdueDays},
+      </if>
+	  <if test="jciBillJson != null">
+		 jci_bill_json = #{jciBillJson},
+	  </if>
+    </set>
+    where jci_id = #{jciId}
+  </update>
+  
+  <update id="updateIfPrintYes" parameterType="java.util.List">
+    <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+       	update info_contract_divider set
+		jci_if_print = "是",
+		jci_special_number = #{item.jciSpecialNumber}
+        where jci_id = #{item.jciId}
+    </foreach>
+  </update>
+  
+  <update id="updateIfPrintNo" parameterType="java.util.List">
+    update info_contract_divider set jci_if_print = "否"
+    where jci_id in 
+    <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </update>
+</mapper>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.DashMonthlyPerformanceStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.DashMonthlyPerformanceStatistics" >
+    <id column="mps_id" property="mpsId" jdbcType="INTEGER" />
+    <result column="mps_staff_id" property="mpsStaffId" jdbcType="INTEGER" />
+    <result column="mps_intentional_number" property="mpsIntentionalNumber" jdbcType="INTEGER" />
+    <result column="mps_follow_up_number" property="mpsFollowUpNumber" jdbcType="INTEGER" />
+    <result column="mps_with_guest_house_number" property="mpsWithGuestHouseNumber" jdbcType="INTEGER" />
+    <result column="mps_look_number_room" property="mpsLookNumberRoom" jdbcType="INTEGER" />
+    <result column="mps_house_number" property="mpsHouseNumber" jdbcType="INTEGER" />
+    <result column="mps_room_number" property="mpsRoomNumber" jdbcType="INTEGER" />
+    <result column="mps_choose_room_number" property="mpsChooseRoomNumber" jdbcType="INTEGER" />
+    <result column="mps_date" property="mpsDate" jdbcType="DATE" />
+    <result column="mpsType" property="mpsType" jdbcType="VARCHAR" />
+    
+    <result column="starTime" property="starTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+    <result column="startNum" property="startNum" jdbcType="VARCHAR" />
+    <result column="endNum" property="endNum" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="INTEGER" />
+    <result column="StaffName" property="StaffName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    mps_id, mps_staff_id, mps_intentional_number, mps_follow_up_number, mps_with_guest_house_number, 
+    mps_look_number_room, mps_house_number, mps_room_number, mps_choose_room_number,mps_date
+  </sql>
+  
+  <select id="listPerformance" parameterType="com.zz.po.journal.DashMonthlyPerformanceStatistics" resultMap="BaseResultMap" >
+    select a.*, b.totalNum from
+	(select sum(mps.mps_intentional_number) mps_intentional_number,
+		  sum(mps.mps_follow_up_number) mps_follow_up_number,
+		  sum(mps.mps_with_guest_house_number) mps_with_guest_house_number,
+		  sum(mps.mps_look_number_room) mps_look_number_room,
+		  sum(mps.mps_house_number) mps_house_number,
+		  sum(mps.mps_room_number) mps_room_number,
+		  sum(mps.mps_choose_room_number) mps_choose_room_number,
+		  mps.mps_staff_id, u.su_staff_name StaffName
+	from dash_worker_achievement mps	
+	left outer join sys_users u on u.user_coding = mps.mps_staff_id
+	<where>
+		<if test="mpsType == '近7天'">
+			 mps_date between date_sub(curdate(),interval 7 day) and date_sub(curdate(),interval 1 day)
+		</if>
+		<if test="mpsType == '本月'">
+			 year(mps_date)=year(curdate()) and month(mps_date) = month(curdate())
+		</if>
+		<if test="mpsType == '上月'">
+			 year(mps_date)=year(date_sub(curdate(),interval 1 month)) and  month(mps_date) = month(date_sub(curdate(),interval 1 month))
+		</if>
+		<if test="mpsType == '本季'">
+			 year(mps_date)=year(curdate()) and  quarter(mps_date) = quarter(curdate())
+		</if>
+		<if test="mpsType == '本年'">
+			 year(mps_date)=year(curdate())
+		</if>
+		<if test="mpsStaffId != null and mpsStaffId != ''">
+			 and mps_staff_id = #{mpsStaffId}
+		</if>
+		<if test="dept != null and dept != ''">
+			 and u.su_department_id = #{dept}
+		</if>
+		and u.su_state="正常"
+	</where>
+	group by mps_staff_id
+	) a,
+	(select count(bb.mps_staff_id) totalNum from (select  mps.mps_staff_id mps_staff_id
+		from dash_worker_achievement mps	
+		left outer join sys_users u on u.user_coding = mps.mps_staff_id
+		<where>
+			<if test="mpsType == '近7天'">
+				 mps_date between date_sub(curdate(),interval 7 day) and date_sub(curdate(),interval 1 day)
+			</if>
+			<if test="mpsType == '本月'">
+				 year(mps_date)=year(curdate()) and month(mps_date) = month(curdate())
+			</if>
+			<if test="mpsType == '上月'">
+				 year(mps_date)=year(date_sub(curdate(),interval 1 month)) and  month(mps_date) = month(date_sub(curdate(),interval 1 month))
+			</if>
+			<if test="mpsType == '本季'">
+				 year(mps_date)=year(curdate()) and  quarter(mps_date) = quarter(curdate())
+			</if>
+			<if test="mpsType == '本年'">
+				 year(mps_date)=year(curdate())
+			</if>
+			<if test="mpsStaffId != null and mpsStaffId != ''">
+				 and mps_staff_id = #{mpsStaffId}
+			</if>
+			<if test="dept != null and dept != ''">
+				 and u.su_department_id = #{dept}
+			</if>
+			and u.su_state="正常"
+		</where>
+		group by mps_staff_id
+		) bb 
+    ) b
+	group by mps_staff_id 
+	order by mps_house_number desc,mps_room_number desc,mps_intentional_number desc, mps_choose_room_number desc, mps_follow_up_number desc
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+</mapper>

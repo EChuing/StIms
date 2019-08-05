@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoHouseReleaseMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoHouseRelease" >
+    <id column="hre_id" property="hreId" jdbcType="INTEGER" />
+    <result column="hre_house4store_id" property="hreHouse4storeId" jdbcType="INTEGER" />
+    <result column="hre_housedict_id" property="hreHousedictId" jdbcType="INTEGER" />
+    <result column="hre_contacts" property="hreContacts" jdbcType="INTEGER" />
+    <result column="hre_contacts_phone" property="hreContactsPhone" jdbcType="VARCHAR" />
+    <result column="hre_house_title" property="hreHouseTitle" jdbcType="VARCHAR" />
+    <result column="hre_house_subtitle" property="hreHouseSubtitle" jdbcType="VARCHAR" />
+    <result column="hre_house_owner" property="hreHouseOwner" jdbcType="VARCHAR" />
+    <result column="hre_house_type" property="hreHouseType" jdbcType="VARCHAR" />
+    <result column="hre_section_type" property="hreSectionType" jdbcType="VARCHAR" />
+    <result column="hre_house_direction" property="hreHouseDirection" jdbcType="VARCHAR" />
+    <result column="hre_house_decoration" property="hreHouseDecoration" jdbcType="VARCHAR" />
+    <result column="hre_house_in_floors" property="hreHouseInFloors" jdbcType="VARCHAR" />
+    <result column="hre_house_square" property="hreHouseSquare" jdbcType="DOUBLE" />
+    <result column="hre_house_price" property="hreHousePrice" jdbcType="DOUBLE" />
+    <result column="hre_house_deposit" property="hreHouseDeposit" jdbcType="DOUBLE" />
+    <result column="hre_furniture_config" property="hreFurnitureConfig" jdbcType="VARCHAR" />
+    <result column="hre_traffic" property="hreTraffic" jdbcType="VARCHAR" />
+    <result column="hre_house_description" property="hreHouseDescription" jdbcType="VARCHAR" />
+    <result column="hre_house_belong" property="hreHouseBelong" jdbcType="VARCHAR" />
+    <result column="hre_house_label" property="hreHouseLabel" jdbcType="VARCHAR" />
+    <result column="hre_authenticate_state" property="hreAuthenticateState" jdbcType="VARCHAR" />
+    <result column="hre_authenticate_ways" property="hreAuthenticateWays" jdbcType="VARCHAR" />
+    <result column="hre_check_info" property="hreCheckInfo" jdbcType="VARCHAR" />
+    <result column="hre_release_time" property="hreReleaseTime" jdbcType="DATE" />
+    <result column="hre_house_state" property="hreHouseState" jdbcType="VARCHAR" />
+    <result column="hre_remake" property="hreRemake" jdbcType="VARCHAR" />
+    <result column="hre_house_img" property="hreHouseImg" jdbcType="LONGVARCHAR" />
+    <result column="hre_detailed_img" property="hreDetailedImg" jdbcType="LONGVARCHAR" />
+    
+    <result column="hreAddCity" property="hreAddCity" jdbcType="VARCHAR" />
+    <result column="hreAddDistrict" property="hreAddDistrict" jdbcType="VARCHAR" />
+    <result column="hreAddZone" property="hreAddZone" jdbcType="VARCHAR" />
+    <result column="hreAddStreet" property="hreAddStreet" jdbcType="VARCHAR" />
+    <result column="hreAddCommunity" property="hreAddCommunity" jdbcType="VARCHAR" />
+    <result column="hreAddBuilding" property="hreAddBuilding" jdbcType="VARCHAR" />
+    <result column="hreAddDoorplateno" property="hreAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="contactNumber" property="contactNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    hre_id, hre_house4store_id, hre_housedict_id, hre_contacts, hre_contacts_phone, hre_house_title, 
+    hre_house_subtitle, hre_house_owner, hre_house_type, hre_section_type, hre_house_direction, 
+    hre_house_decoration, hre_house_in_floors, hre_house_square, hre_house_price, hre_house_deposit, 
+    hre_furniture_config, hre_traffic, 
+    hre_house_description, hre_house_belong, hre_house_label, hre_authenticate_state, 
+    hre_authenticate_ways, hre_check_info, hre_release_time, hre_house_state, hre_remake, hre_house_img, hre_detailed_img
+  </sql>
+  
+  <!--  查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoHouseRelease" >
+    select <include refid="Base_Column_List" />, hs.hs_add_city hreAddCity, hs.hs_add_district hreAddDistrict, hs.hs_add_zone hreAddZone, 
+            hs.hs_add_street hreAddStreet, hs.hs_add_community hreAddCommunity, hs.hs_add_building hreAddBuilding, 
+            hs.hs_add_doorplateno hreAddDoorplateno, u.su_staff_name userName, u.su_contact contactNumber
+	from info_house_4sales hre 
+	left outer join info_house_4store hs on hre.hre_house4store_id = hs.hs_id
+	left outer join sys_users u on u.user_coding = hre.hre_contacts
+    <where>
+        <if test="hreId != null and hreId != '' ">
+            and hre_id = #{hreId,jdbcType=INTEGER}
+        </if>
+        <if test="hreAddCity != null and hreAddCity != '' ">
+            and hs_add_city = #{hreAddCity}
+        </if>
+        <if test="hreAddDistrict != null and hreAddDistrict != '' ">
+            and hs_add_district = #{hreAddDistrict} 
+        </if>
+        <if test="hreAddZone != null and hreAddZone != '' ">
+            and hs_add_zone = #{hreAddZone}
+        </if>
+        <if test="hreAddStreet != null and hreAddStreet != '' ">
+            and hs_add_street = #{hreAddStreet}
+        </if>
+        <if test="hreAddCommunity != null and hreAddCommunity != '' ">
+            and hs_add_community = #{hreAddCommunity}
+        </if>
+        <if test="hreAddBuilding != null and hreAddBuilding != '' ">
+            and hs_add_building = #{hreAddBuilding}
+        </if>
+        <if test="hreAddDoorplateno != null and hreAddDoorplateno != '' ">
+            and hs_add_doorplateno = #{hreAddDoorplateno}
+        </if>
+        <if test="userName != null and userName != '' ">
+            and su_staff_name = #{userName}
+        </if>
+        <if test="contactNumber != null and contactNumber != '' ">
+            and su_contact = #{contactNumber}
+        </if>
+        <if test="hreHouseState != null and hreHouseState != '' ">
+            and hre_house_state = #{hreHouseState}
+        </if>
+    </where> 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_house_4sales
+    where hre_id = #{hreId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zz.po.info.InfoHouseRelease" >
+    insert into info_house_4sales (hre_id, hre_house4store_id, hre_housedict_id, 
+      hre_contacts, hre_contacts_phone, hre_house_title, 
+      hre_house_subtitle, hre_house_owner, hre_house_type, 
+      hre_section_type, hre_house_direction, hre_house_decoration, 
+      hre_house_in_floors, hre_house_square, hre_house_price, 
+      hre_house_deposit, hre_furniture_config, hre_traffic, hre_house_description, 
+      hre_house_belong, hre_house_label, hre_authenticate_state, 
+      hre_authenticate_ways, hre_check_info, hre_release_time, 
+      hre_house_state, hre_remake, hre_house_img, 
+      hre_detailed_img)
+    values (#{hreId,jdbcType=INTEGER}, #{hreHouse4storeId,jdbcType=INTEGER}, #{hreHousedictId,jdbcType=INTEGER}, 
+      #{hreContacts,jdbcType=INTEGER}, #{hreContactsPhone,jdbcType=VARCHAR}, #{hreHouseTitle,jdbcType=VARCHAR}, 
+      #{hreHouseSubtitle,jdbcType=VARCHAR}, #{hreHouseOwner,jdbcType=VARCHAR}, #{hreHouseType,jdbcType=VARCHAR}, 
+      #{hreSectionType,jdbcType=VARCHAR}, #{hreHouseDirection,jdbcType=VARCHAR}, #{hreHouseDecoration,jdbcType=VARCHAR}, 
+      #{hreHouseInFloors,jdbcType=VARCHAR}, #{hreHouseSquare,jdbcType=DOUBLE}, #{hreHousePrice,jdbcType=DOUBLE}, 
+      #{hreHouseDeposit,jdbcType=DOUBLE}, #{hreFurnitureConfig,jdbcType=VARCHAR}, #{hreTraffic,jdbcType=VARCHAR}, 
+      #{hreHouseDescription,jdbcType=VARCHAR}, 
+      #{hreHouseBelong,jdbcType=VARCHAR}, #{hreHouseLabel,jdbcType=VARCHAR}, #{hreAuthenticateState,jdbcType=VARCHAR}, 
+      #{hreAuthenticateWays,jdbcType=VARCHAR}, #{hreCheckInfo,jdbcType=VARCHAR}, #{hreReleaseTime,jdbcType=DATE}, 
+      #{hreHouseState,jdbcType=VARCHAR}, #{hreRemake,jdbcType=VARCHAR}, #{hreHouseImg,jdbcType=LONGVARCHAR}, 
+      #{hreDetailedImg,jdbcType=LONGVARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoHouseRelease" useGeneratedKeys="true" keyProperty="hreId">
+    insert into info_house_4sales
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hreId != null" >
+        hre_id,
+      </if>
+      <if test="hreHouse4storeId != null" >
+        hre_house4store_id,
+      </if>
+      <if test="hreHousedictId != null" >
+        hre_housedict_id,
+      </if>
+      <if test="hreContacts != null" >
+        hre_contacts,
+      </if>
+      <if test="hreContactsPhone != null" >
+        hre_contacts_phone,
+      </if>
+      <if test="hreHouseTitle != null" >
+        hre_house_title,
+      </if>
+      <if test="hreHouseSubtitle != null" >
+        hre_house_subtitle,
+      </if>
+      <if test="hreHouseOwner != null" >
+        hre_house_owner,
+      </if>
+      <if test="hreHouseType != null" >
+        hre_house_type,
+      </if>
+      <if test="hreSectionType != null" >
+        hre_section_type,
+      </if>
+      <if test="hreHouseDirection != null" >
+        hre_house_direction,
+      </if>
+      <if test="hreHouseDecoration != null" >
+        hre_house_decoration,
+      </if>
+      <if test="hreHouseInFloors != null" >
+        hre_house_in_floors,
+      </if>
+      <if test="hreHouseSquare != null" >
+        hre_house_square,
+      </if>
+      <if test="hreHousePrice != null" >
+        hre_house_price,
+      </if>
+      <if test="hreHouseDeposit != null" >
+        hre_house_deposit,
+      </if>
+      <if test="hreFurnitureConfig != null" >
+        hre_furniture_config,
+      </if>
+      <if test="hreTraffic != null" >
+        hre_traffic,
+      </if>
+      <if test="hreHouseDescription != null" >
+        hre_house_description,
+      </if>
+      <if test="hreHouseBelong != null" >
+        hre_house_belong,
+      </if>
+      <if test="hreHouseLabel != null" >
+        hre_house_label,
+      </if>
+      <if test="hreAuthenticateState != null" >
+        hre_authenticate_state,
+      </if>
+      <if test="hreAuthenticateWays != null" >
+        hre_authenticate_ways,
+      </if>
+      <if test="hreCheckInfo != null" >
+        hre_check_info,
+      </if>
+      <if test="hreReleaseTime != null" >
+        hre_release_time,
+      </if>
+      <if test="hreHouseState != null" >
+        hre_house_state,
+      </if>
+      <if test="hreRemake != null" >
+        hre_remake,
+      </if>
+      <if test="hreHouseImg != null" >
+        hre_house_img,
+      </if>
+      <if test="hreDetailedImg != null" >
+        hre_detailed_img,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hreId != null" >
+        #{hreId,jdbcType=INTEGER},
+      </if>
+      <if test="hreHouse4storeId != null" >
+        #{hreHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="hreHousedictId != null" >
+        #{hreHousedictId,jdbcType=INTEGER},
+      </if>
+      <if test="hreContacts != null" >
+        #{hreContacts,jdbcType=INTEGER},
+      </if>
+      <if test="hreContactsPhone != null" >
+        #{hreContactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseTitle != null" >
+        #{hreHouseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseSubtitle != null" >
+        #{hreHouseSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseOwner != null" >
+        #{hreHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseType != null" >
+        #{hreHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hreSectionType != null" >
+        #{hreSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseDirection != null" >
+        #{hreHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseDecoration != null" >
+        #{hreHouseDecoration,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseInFloors != null" >
+        #{hreHouseInFloors,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseSquare != null" >
+        #{hreHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="hreHousePrice != null" >
+        #{hreHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hreHouseDeposit != null" >
+        #{hreHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hreFurnitureConfig != null" >
+        #{hreFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="hreTraffic != null" >
+        #{hreTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseDescription != null" >
+        #{hreHouseDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseBelong != null" >
+        #{hreHouseBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseLabel != null" >
+        #{hreHouseLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="hreAuthenticateState != null" >
+        #{hreAuthenticateState,jdbcType=VARCHAR},
+      </if>
+      <if test="hreAuthenticateWays != null" >
+        #{hreAuthenticateWays,jdbcType=VARCHAR},
+      </if>
+      <if test="hreCheckInfo != null" >
+        #{hreCheckInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="hreReleaseTime != null" >
+        #{hreReleaseTime,jdbcType=DATE},
+      </if>
+      <if test="hreHouseState != null" >
+        #{hreHouseState,jdbcType=VARCHAR},
+      </if>
+      <if test="hreRemake != null" >
+        #{hreRemake,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseImg != null" >
+        #{hreHouseImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hreDetailedImg != null" >
+        #{hreDetailedImg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoHouseRelease" >
+    update info_house_4sales
+    <set >
+      <if test="hreHouse4storeId != null" >
+        hre_house4store_id = #{hreHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="hreHousedictId != null" >
+        hre_housedict_id = #{hreHousedictId,jdbcType=INTEGER},
+      </if>
+      <if test="hreContacts != null" >
+        hre_contacts = #{hreContacts,jdbcType=INTEGER},
+      </if>
+      <if test="hreContactsPhone != null" >
+        hre_contacts_phone = #{hreContactsPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseTitle != null" >
+        hre_house_title = #{hreHouseTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseSubtitle != null" >
+        hre_house_subtitle = #{hreHouseSubtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseOwner != null" >
+        hre_house_owner = #{hreHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseType != null" >
+        hre_house_type = #{hreHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hreSectionType != null" >
+        hre_section_type = #{hreSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseDirection != null" >
+        hre_house_direction = #{hreHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseDecoration != null" >
+        hre_house_decoration = #{hreHouseDecoration,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseInFloors != null" >
+        hre_house_in_floors = #{hreHouseInFloors,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseSquare != null" >
+        hre_house_square = #{hreHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="hreHousePrice != null" >
+        hre_house_price = #{hreHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hreHouseDeposit != null" >
+        hre_house_deposit = #{hreHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hreFurnitureConfig != null" >
+        hre_furniture_config = #{hreFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="hreTraffic != null" >
+        hre_traffic = #{hreTraffic,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseDescription != null" >
+        hre_house_description = #{hreHouseDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseBelong != null" >
+        hre_house_belong = #{hreHouseBelong,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseLabel != null" >
+        hre_house_label = #{hreHouseLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="hreAuthenticateState != null" >
+        hre_authenticate_state = #{hreAuthenticateState,jdbcType=VARCHAR},
+      </if>
+      <if test="hreAuthenticateWays != null" >
+        hre_authenticate_ways = #{hreAuthenticateWays,jdbcType=VARCHAR},
+      </if>
+      <if test="hreCheckInfo != null" >
+        hre_check_info = #{hreCheckInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="hreReleaseTime != null" >
+        hre_release_time = #{hreReleaseTime,jdbcType=DATE},
+      </if>
+      <if test="hreHouseState != null" >
+        hre_house_state = #{hreHouseState,jdbcType=VARCHAR},
+      </if>
+      <if test="hreRemake != null" >
+        hre_remake = #{hreRemake,jdbcType=VARCHAR},
+      </if>
+      <if test="hreHouseImg != null" >
+        hre_house_img = #{hreHouseImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="hreDetailedImg != null" >
+        hre_detailed_img = #{hreDetailedImg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where hre_id = #{hreId,jdbcType=INTEGER}
+  </update>
+
+</mapper>

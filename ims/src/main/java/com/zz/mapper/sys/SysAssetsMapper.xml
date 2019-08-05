@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysAssetsMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.sys.SysAssetsExpand" >
+    <id column="sa_id" property="saId" jdbcType="INTEGER" />
+    <result column="sa_number" property="saNumber" jdbcType="VARCHAR" />
+    <result column="sa_house_store_id" property="saHouseStoreId" jdbcType="INTEGER" />
+    <result column="department" property="department" jdbcType="INTEGER" />
+    <result column="storefront" property="storefront" jdbcType="INTEGER" />
+    <result column="sa_agent" property="saAgent" jdbcType="INTEGER" />
+    <result column="sa_registrant" property="saRegistrant" jdbcType="INTEGER" />
+    <result column="sa_use" property="saUse" jdbcType="VARCHAR" />
+    <result column="sa_type" property="saType" jdbcType="VARCHAR" />
+    <result column="sa_classify" property="saClassify" jdbcType="VARCHAR" />
+    <result column="sa_name" property="saName" jdbcType="VARCHAR" />
+    <result column="sa_brand" property="saBrand" jdbcType="VARCHAR" />
+    <result column="sa_model" property="saModel" jdbcType="VARCHAR" />
+    <result column="sa_price" property="saPrice" jdbcType="DOUBLE" />
+    <result column="sa_status" property="saStatus" jdbcType="VARCHAR" />
+    <result column="sa_remarks" property="saRemarks" jdbcType="VARCHAR" />
+    <result column="sa_registration_time" property="saRegistrationTime" jdbcType="VARCHAR" />
+    <result column="sa_gmt_modified" property="saGmtModified" jdbcType="VARCHAR" />
+    <result column="sa_house_id" property="saHouseId" jdbcType="INTEGER" />
+    <result column="sa_photos" property="saPhotos" jdbcType="LONGVARCHAR" />
+    <result column="sa_photos_num" property="saPhotosNum" jdbcType="VARCHAR" />
+    <result column="sa_supplier" property="saSupplier" jdbcType="INTEGER" />
+
+    <result column="number" property="number" jdbcType="VARCHAR" />
+    <result column="sa_depreciation_price" property="saDepreciationPrice" jdbcType="DOUBLE" />
+
+    <!-- 时间查询 -->
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+	<!-- 其他 -->
+	<result column="num" property="num" jdbcType="INTEGER" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="houseType" property="houseType" jdbcType="INTEGER" />  
+    <!-- 查询名字 -->
+    <result column="adName" property="adName" jdbcType="VARCHAR" />
+    <result column="agentName" property="agentName" jdbcType="VARCHAR" />
+    <result column="registrantName" property="registrantName" jdbcType="VARCHAR" />
+    <result column="add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="key_administrator" property="keyAdministrator" jdbcType="VARCHAR" />
+    <result column="inner_virtual_room" property="innerVirtualRoom" jdbcType="INTEGER" />
+    <result column="outer_virtual_room" property="outerVirtualRoom" jdbcType="INTEGER" />
+    <result column="non_cost_virtual_room" property="nonCostVirtualRoom" jdbcType="INTEGER" />
+    <result column="saSupplierName" property="saSupplierName" jdbcType="VARCHAR" />
+    <result column="sa_follow_up" property="saFollowUp" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询所有资产 -->
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.sys.SysAssetsExpand" >
+
+
+
+
+
+
+
+	  select a.*, b.total_num from
+	(select asset.*, hs.hs_add_city add_city, hs.hs_add_district add_district, hs.hs_add_community add_community, 
+	hs.hs_add_building add_building, hs.hs_add_doorplateno add_doorplateno, 
+	house.key_administrator, house.inner_virtual_room, house.outer_virtual_room, house.non_cost_virtual_room, house.add_city addCity,
+	supplier.key_administrator saSupplierName, user1.su_staff_name agentName, user2.su_staff_name registrantName 
+	from jour_assets asset 
+	left outer join info_house_paper house on house.house_coding = asset.sa_house_id
+	left outer join info_house_paper supplier on supplier.house_coding = asset.sa_supplier
+    left outer join info_house_4store hs on hs.hs_id = asset.sa_house_store_id
+	left outer join sys_users user1 on user1.user_coding = asset.sa_agent
+	left outer join sys_users user2 on user2.user_coding = asset.sa_registrant
+	<where>
+	   	<if test="saId != null and saId !='' ">
+	    	and sa_id = #{saId}
+	   	</if>
+	   	<if test="saNumber != null and saNumber !='' ">
+	    	and sa_number like '%${saNumber}%'
+	   	</if>
+	   	<if test="saStatus != null and saStatus !='' ">
+	    	and sa_status = #{saStatus}
+	   	</if>
+	   	<if test="saClassify != null and saClassify !='' ">
+	    	and sa_classify = #{saClassify}
+	   	</if>
+	   	<if test="saHouseStoreId != null and saHouseStoreId !='' " >
+	    	and sa_house_store_id = #{saHouseStoreId}
+	   	</if>
+	   	<if test="saHouseId != null and saHouseId !='' ">
+	    	and sa_house_id = #{saHouseId}
+	   	</if>
+	    <if test="storefront !=null and storefront !='' ">
+	    	and storefront = #{storefront}
+	   	</if>
+	   	<if test="department !=null and department !='' ">
+	    	and department = #{department}
+	   	</if>
+		<if test="virtualType == 1">
+			and (house.add_city = '库房' or house.add_city = '公区')
+		</if>
+		<if test="virtualType == 2">
+			and house.add_city = '库房'
+		</if>
+		<if test="virtualType == 3">
+			and house.add_city = '公区'
+		</if>
+		<if test="keyAdministrator != null and keyAdministrator != '' ">
+			and house.key_administrator like '%${keyAdministrator}%'
+		</if>
+	   	<if test="addCity != null and addCity != '' ">
+			and hs.hs_add_city = #{addCity}
+		</if>
+		<if test="addDistrict != null and addDistrict != '' ">
+			and hs.hs_add_district = #{addDistrict}
+		</if>
+		<if test="addZone != null and addZone != '' ">
+			and hs.hs_add_zone = #{addZone}
+		</if>
+		<if test="addStreet != null and addStreet != '' ">
+			and hs.hs_add_street like '%${addStreet}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and hs.hs_add_community like '%${addCommunity}%'
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hs.hs_add_building like '${addBuilding}%' or hs.hs_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and (hs.hs_add_doorplateno like '${addDoorplateno}%' or hs.hs_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+	   	<if test="saType !=null and saType !='' ">
+	    	and sa_type = #{saType}
+	   	</if>
+	   	<if test="saUse !=null and saUse !='' ">
+	   		<if test="saUse == '正常'">
+				and (sa_use = "未使用" or sa_use = "使用中")	   		
+	   		</if>
+	   		<if test="saUse != '正常'">
+				and sa_use = #{saUse}   		
+	   		</if>
+	    	
+	   	</if>
+	    <if test="saName !=null and saName !='' ">
+	    	and sa_name like '%${saName}%'
+	   	</if>
+	   	<if test="saBrand !=null and saBrand !='' ">
+	    	and sa_brand like '%${saBrand}%'
+	   	</if>
+	   	<if test="saModel !=null and saModel !='' ">
+	    	and sa_model like '%${saModel}%'
+	   	</if>
+    </where>
+	) a, 
+	(select count(asset.sa_id) total_num
+	from jour_assets asset 
+	left outer join info_house_paper house on house.house_coding = asset.sa_house_id
+	left outer join info_house_paper supplier on supplier.house_coding = asset.sa_supplier
+    left outer join info_house_4store hs on hs.hs_id = asset.sa_house_store_id
+	left outer join sys_users user1 on user1.user_coding = asset.sa_agent
+	left outer join sys_users user2 on user2.user_coding = asset.sa_registrant
+	<where>
+	   	<if test="saId != null and saId !='' ">
+	    	and sa_id = #{saId}
+	   	</if>
+	   	<if test="saNumber != null and saNumber !='' ">
+	    	and sa_number like '%${saNumber}%'
+	   	</if>
+	   	<if test="saStatus != null and saStatus !='' ">
+	    	and sa_status = #{saStatus}
+	   	</if>
+	   	<if test="saClassify != null and saClassify !='' ">
+	    	and sa_classify = #{saClassify}
+	   	</if>
+	   	<if test="saHouseStoreId != null and saHouseStoreId !='' " >
+	    	and sa_house_store_id = #{saHouseStoreId}
+	   	</if>
+	   	<if test="saHouseId != null and saHouseId !='' ">
+	    	and sa_house_id = #{saHouseId}
+	   	</if>
+	    <if test="storefront !=null and storefront !='' ">
+	    	and storefront = #{storefront}
+	   	</if>
+	   	<if test="department !=null and department !='' ">
+	    	and department = #{department}
+	   	</if>
+		<if test="virtualType == 1">
+			and (house.add_city = '库房' or house.add_city = '公区')
+		</if>
+		<if test="virtualType == 2">
+			and house.add_city = '库房'
+		</if>
+		<if test="virtualType == 3">
+			and house.add_city = '公区'
+		</if>
+		<if test="keyAdministrator != null and keyAdministrator != '' ">
+			and house.key_administrator like '%${keyAdministrator}%'
+		</if>
+	   	<if test="addCity != null and addCity != '' ">
+			and hs.hs_add_city = #{addCity}
+		</if>
+		<if test="addDistrict != null and addDistrict != '' ">
+			and hs.hs_add_district = #{addDistrict}
+		</if>
+		<if test="addZone != null and addZone != '' ">
+			and hs.hs_add_zone = #{addZone}
+		</if>
+		<if test="addStreet != null and addStreet != '' ">
+			and hs.hs_add_street like '%${addStreet}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and hs.hs_add_community like '%${addCommunity}%'
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hs.hs_add_building like '${addBuilding}%' or hs.hs_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and (hs.hs_add_doorplateno like '${addDoorplateno}%' or hs.hs_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+	   	<if test="saType !=null and saType !='' ">
+	    	and sa_type = #{saType}
+	   	</if>
+	   	<if test="saUse !=null and saUse !='' ">
+	   		<if test="saUse == '正常'">
+				and (sa_use = "未使用" or sa_use = "使用中")	   		
+	   		</if>
+	   		<if test="saUse != '正常'">
+				and sa_use = #{saUse}   		
+	   		</if>
+	    	
+	   	</if>
+	    <if test="saName !=null and saName !='' ">
+	    	and sa_name like '%${saName}%'
+	   	</if>
+	   	<if test="saBrand !=null and saBrand !='' ">
+	    	and sa_brand like '%${saBrand}%'
+	   	</if>
+	   	<if test="saModel !=null and saModel !='' ">
+	    	and sa_model like '%${saModel}%'
+	   	</if>
+    </where>
+	) b
+    order by sa_id DESC
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <!-- 添加资产 -->  
+  <insert id="insertList" parameterType="java.util.List"  >
+    insert into jour_assets 
+    (
+      sa_number,
+      sa_registrant, 
+      department, 
+      storefront, 
+   	  sa_house_store_id, 
+      sa_house_id,
+      sa_type, 
+      sa_classify, 
+      sa_use, 
+      sa_status, 
+      sa_name, 
+      sa_brand, 
+      sa_model, 
+      sa_price, 
+      sa_depreciation_price, 
+      sa_supplier,
+      sa_remarks
+    )
+    values 
+    <foreach collection="list" item="item" index="index" separator=",">
+    (
+      #{item.saNumber},
+      #{item.saRegistrant}, 
+      #{item.department}, 
+      #{item.storefront}, 
+      #{item.saHouseStoreId}, 
+      #{item.saHouseId}, 
+      #{item.saType}, 
+      #{item.saClassify}, 
+      #{item.saUse}, 
+      #{item.saStatus}, 
+      #{item.saName}, 
+      #{item.saBrand}, 
+      #{item.saModel},  
+      #{item.saPrice}, 
+      #{item.saDepreciationPrice}, 
+      #{item.saSupplier},
+      #{item.saRemarks}
+    )
+    </foreach>
+  </insert>
+  <!-- 修改资产 -->
+  <update id="updateById" parameterType="com.zz.po.sys.SysAssetsExpand" >
+    update jour_assets
+    <set >
+	   	<if test="saNumber != null">
+	    	sa_number = #{saNumber},
+	   	</if>
+      <if test="saType != null" >
+        sa_type = #{saType,jdbcType=VARCHAR},
+      </if>
+      <if test="saClassify != null" >
+        sa_classify = #{saClassify,jdbcType=VARCHAR},
+      </if>
+      <if test="saUse != null" >
+        sa_use = #{saUse,jdbcType=VARCHAR},
+      </if>
+      <if test="saStatus != null" >
+        sa_status = #{saStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="saName != null" >
+        sa_name = #{saName,jdbcType=VARCHAR},
+      </if>
+      <if test="saBrand != null" >
+        sa_brand = #{saBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="saModel != null" >
+        sa_model = #{saModel,jdbcType=VARCHAR},
+      </if>
+      <if test="saPrice != null" >
+        sa_price = #{saPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="saDepreciationPrice != null" >
+        sa_depreciation_price = #{saDepreciationPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="saRemarks != null" >
+        sa_remarks = #{saRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="saSupplier != null" >
+        sa_supplier = #{saSupplier,jdbcType=INTEGER},
+      </if>
+      <if test="saPhotos != null" >
+        sa_photos = #{saPhotos,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="saPhotosNum != null " >
+        sa_photos_num = #{saPhotosNum,jdbcType=VARCHAR},
+      </if>
+      <if test="saFollowUp != null" >
+        sa_follow_up = #{saFollowUp,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where sa_id = #{saId,jdbcType=INTEGER}
+  </update>
+  <!-- 迁移资产 -->
+  <update id="moveById" parameterType="com.zz.po.sys.SysAssetsExpand" >
+    update jour_assets set sa_house_store_id = #{saHouseStoreId}, sa_house_id = #{saHouseId}, 
+    sa_follow_up = #{saFollowUp} where sa_id = #{saId}
+  </update>
+  <!-- 写资产跟进 -->
+  <update id="followById" parameterType="com.zz.po.sys.SysAssetsExpand" >
+    update jour_assets set sa_follow_up = #{saFollowUp} where sa_id = #{saId}
+  </update>
+  
+</mapper>

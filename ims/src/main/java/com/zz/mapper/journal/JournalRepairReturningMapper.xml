@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalRepairReturningMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalRepairReturning" >
+    <id column="ret_id" property="retId" jdbcType="INTEGER" />
+    <result column="ret_repair_id" property="retRepairId" jdbcType="INTEGER" />
+    <result column="ret_user_id" property="retUserId" jdbcType="INTEGER" />
+    <result column="ret_violation_people" property="retViolationPeople" jdbcType="INTEGER" />
+    <result column="ret_time" property="retTime" jdbcType="TIMESTAMP" />
+    <result column="ret_result" property="retResult" jdbcType="VARCHAR" />
+    <result column="ret_service_attitude" property="retServiceAttitude" jdbcType="VARCHAR" />
+    <result column="ret_complete_quality" property="retCompleteQuality" jdbcType="VARCHAR" />
+    <result column="ret_violation_shopping" property="retViolationShopping" jdbcType="VARCHAR" />
+    <result column="ret_violation_getpay" property="retViolationGetpay" jdbcType="VARCHAR" />
+    <result column="ret_violation_regulation" property="retViolationRegulation" jdbcType="VARCHAR" />
+    <result column="ret_should_fine" property="retShouldFine" jdbcType="DOUBLE" />
+    <result column="ret_actually_fine" property="retActuallyFine" jdbcType="DOUBLE" />
+    <result column="rte_remark" property="rteRemark" jdbcType="VARCHAR" />
+    
+    <result column="department" property="department" jdbcType="INTEGER" />
+     <result column="storefront" property="storefront" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="MyBaseResultMap" type="com.zz.po.journal.JournalRepairReturningExpand" >
+    <id column="ret_id" property="retId" jdbcType="INTEGER" />
+    <result column="ret_repair_id" property="retRepairId" jdbcType="INTEGER" />
+    <result column="ret_user_id" property="retUserId" jdbcType="INTEGER" />
+    <result column="ret_violation_people" property="retViolationPeople" jdbcType="INTEGER" />
+    <result column="ret_time" property="retTime" jdbcType="TIMESTAMP" />
+    <result column="ret_result" property="retResult" jdbcType="VARCHAR" />
+    <result column="ret_service_attitude" property="retServiceAttitude" jdbcType="VARCHAR" />
+    <result column="ret_complete_quality" property="retCompleteQuality" jdbcType="VARCHAR" />
+    <result column="ret_violation_shopping" property="retViolationShopping" jdbcType="VARCHAR" />
+    <result column="ret_violation_getpay" property="retViolationGetpay" jdbcType="VARCHAR" />
+    <result column="ret_violation_regulation" property="retViolationRegulation" jdbcType="VARCHAR" />
+    <result column="ret_should_fine" property="retShouldFine" jdbcType="DOUBLE" />
+    <result column="ret_actually_fine" property="retActuallyFine" jdbcType="DOUBLE" />
+    <result column="rte_remark" property="rteRemark" jdbcType="VARCHAR" />
+    <!-- user -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <result column="violation_people" property="violationPeople" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="department" property="department" jdbcType="INTEGER" />
+     <result column="storefront" property="storefront" jdbcType="INTEGER" />
+  </resultMap>
+  <!-- *************************** -->
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalRepairReturningExpand" >
+  	select aa.*,bb.total_num
+	from (select rr.*, u1.su_staff_name username, u.su_staff_name violation_people
+		from jour_oddjobs_interview rr 
+		left outer join sys_users u on rr.ret_violation_people = u.user_coding
+		left outer join sys_users u1 on rr.ret_user_id = u1.user_coding
+	<where>
+		<if test="retRepairId != null" >
+        	and ret_repair_id = #{retRepairId,jdbcType=INTEGER}</if>
+	</where>
+		) aa ,
+		(select count(ret_id) total_num from jour_oddjobs_interview 
+		left outer join sys_users u on ret_violation_people = u.user_coding
+		left outer join sys_users u1 on ret_user_id = u1.user_coding
+	<where>
+			<if test="retRepairId != null" >
+	        	and ret_repair_id = #{retRepairId,jdbcType=INTEGER}</if>
+	</where>
+	) bb
+	ORDER BY ret_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <!-- *************************** -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from jour_oddjobs_interview
+    where ret_id = #{retId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_oddjobs_interview
+    where ret_id = #{retId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalRepairReturningExpand"
+  			useGeneratedKeys="true" keyProperty="retId" >
+    insert into jour_oddjobs_interview
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="retId != null and retId != ''" >
+        ret_id,
+      </if>
+      <if test="retRepairId != null and retRepairId != ''" >
+        ret_repair_id,
+      </if>
+      <if test="retUserId != null and retUserId != ''" >
+        ret_user_id,
+      </if>
+      <if test="retViolationPeople != null and  retViolationPeople!= ''" >
+        ret_violation_people,
+      </if>
+      <if test="retTime != null and retTime != ''" >
+        ret_time,
+      </if>
+      <if test="retResult != null and retResult != ''" >
+        ret_result,
+      </if>
+      <if test="retServiceAttitude != null and retServiceAttitude != ''" >
+        ret_service_attitude,
+      </if>
+      <if test="retCompleteQuality != null and retCompleteQuality != ''" >
+        ret_complete_quality,
+      </if>
+      <if test="retViolationShopping != null and retViolationShopping != ''" >
+        ret_violation_shopping,
+      </if>
+      <if test="retViolationGetpay != null and retViolationGetpay != ''" >
+        ret_violation_getpay,
+      </if>
+      <if test="retViolationRegulation != null and retViolationRegulation != ''" >
+        ret_violation_regulation,
+      </if>
+      <if test="retShouldFine != null and retShouldFine != ''" >
+        ret_should_fine,
+      </if>
+      <if test="retActuallyFine != null and retActuallyFine != ''" >
+        ret_actually_fine,
+      </if>
+      <if test="rteRemark != null and rteRemark != ''" >
+        rte_remark,
+      </if>
+      
+      <if test="department != null and department !=''" >
+    	department,
+    </if>
+    <if test="storefront != null and storefront !=''" >
+    	storefront,
+    </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="retId != null and retId != ''" >
+        #{retId,jdbcType=INTEGER},
+      </if>
+      <if test="retRepairId != null and retRepairId != ''" >
+        #{retRepairId,jdbcType=INTEGER},
+      </if>
+      <if test="retUserId != null and retUserId != ''" >
+        #{retUserId,jdbcType=INTEGER},
+      </if>
+      <if test="retViolationPeople != null and retViolationPeople != ''" >
+        #{retViolationPeople,jdbcType=INTEGER},
+      </if>
+      <if test="retTime != null and retTime != ''" >
+        #{retTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="retResult != null and retResult != ''" >
+        #{retResult,jdbcType=VARCHAR},
+      </if>
+      <if test="retServiceAttitude != null and retServiceAttitude != ''" >
+        #{retServiceAttitude,jdbcType=VARCHAR},
+      </if>
+      <if test="retCompleteQuality != null and retCompleteQuality != ''" >
+        #{retCompleteQuality,jdbcType=VARCHAR},
+      </if>
+      <if test="retViolationShopping != null and retViolationShopping != ''" >
+        #{retViolationShopping,jdbcType=VARCHAR},
+      </if>
+      <if test="retViolationGetpay != null and retViolationGetpay != ''" >
+        #{retViolationGetpay,jdbcType=VARCHAR},
+      </if>
+      <if test="retViolationRegulation != null and retViolationRegulation != ''" >
+        #{retViolationRegulation,jdbcType=VARCHAR},
+      </if>
+      <if test="retShouldFine != null and retShouldFine != ''" >
+        #{retShouldFine,jdbcType=DOUBLE},
+      </if>
+      <if test="retActuallyFine != null and retActuallyFine != ''" >
+        #{retActuallyFine,jdbcType=DOUBLE},
+      </if>
+      <if test="rteRemark != null and rteRemark != ''" >
+        #{rteRemark,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="department != null and department !=''" >
+     #{department,jdbcType=INTEGER},
+    </if>
+    <if test="storefront != null and storefront !=''" >
+     #{storefront,jdbcType=INTEGER},
+    </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalRepairReturningExpand" >
+    update jour_oddjobs_interview
+    <set >
+      <if test="retRepairId != null and retRepairId != ''" >
+        ret_repair_id = #{retRepairId,jdbcType=INTEGER},
+      </if>
+      <if test="retUserId != null and retUserId != ''" >
+        ret_user_id = #{retUserId,jdbcType=INTEGER},
+      </if>
+      <if test="retViolationPeople != null and retViolationPeople != ''" >
+        ret_violation_people = #{retViolationPeople,jdbcType=INTEGER},
+      </if>
+      <if test="retTime != null and retTime != ''" >
+        ret_time = #{retTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="retResult != null and retResult != ''" >
+        ret_result = #{retResult,jdbcType=VARCHAR},
+      </if>
+      <if test="retServiceAttitude != null and retServiceAttitude != ''" >
+        ret_service_attitude = #{retServiceAttitude,jdbcType=VARCHAR},
+      </if>
+      <if test="retCompleteQuality != null and retCompleteQuality != ''" >
+        ret_complete_quality = #{retCompleteQuality,jdbcType=VARCHAR},
+      </if>
+      <if test="retViolationShopping != null and retViolationShopping != ''" >
+        ret_violation_shopping = #{retViolationShopping,jdbcType=VARCHAR},
+      </if>
+      <if test="retViolationGetpay != null and retViolationGetpay != ''" >
+        ret_violation_getpay = #{retViolationGetpay,jdbcType=VARCHAR},
+      </if>
+      <if test="retViolationRegulation != null and retViolationRegulation != ''" >
+        ret_violation_regulation = #{retViolationRegulation,jdbcType=VARCHAR},
+      </if>
+      <if test="retShouldFine != null and retShouldFine != ''" >
+        ret_should_fine = #{retShouldFine,jdbcType=DOUBLE},
+      </if>
+      <if test="retActuallyFine != null and retActuallyFine != ''" >
+        ret_actually_fine = #{retActuallyFine,jdbcType=DOUBLE},
+      </if>
+      <if test="rteRemark != null and rteRemark != ''" >
+        rte_remark = #{rteRemark,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="department != null and department !=''" >
+    department = #{department,jdbcType=INTEGER},
+   </if>
+   <if test="storefront != null and storefront !=''" >
+    storefront = #{storefront,jdbcType=INTEGER},
+   </if>
+    </set>
+    where ret_id = #{retId,jdbcType=INTEGER}
+  </update>
+</mapper>

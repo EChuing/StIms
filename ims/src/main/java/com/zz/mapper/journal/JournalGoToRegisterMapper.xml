@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalGoToRegisterMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalGoToRegister" >
+    <id column="goto_id" property="gotoId" jdbcType="INTEGER" />
+    <result column="goto_rent_id" property="gotoRentId" jdbcType="INTEGER" />
+    <result column="goto_store_id" property="gotoStoreId" jdbcType="INTEGER" />
+    <result column="goto_house_id" property="gotoHouseId" jdbcType="INTEGER" />
+    <result column="goto_user_id" property="gotoUserId" jdbcType="INTEGER" />
+    <result column="goto_department_id" property="gotoDepartmentId" jdbcType="INTEGER" />
+    <result column="goto_storefront_id" property="gotoStorefrontId" jdbcType="INTEGER" />
+    <result column="goto_item_type" property="gotoItemType" jdbcType="VARCHAR" />
+    <result column="goto_address_type" property="gotoAddressType" jdbcType="VARCHAR" />
+    <result column="goto_out_of_time" property="gotoOutOfTime" jdbcType="TIMESTAMP" />
+    <result column="goto_come_back_time" property="gotoComeBackTime" jdbcType="TIMESTAMP" />
+  	<result column="goto_note" property="gotoNote" jdbcType="LONGVARCHAR" />
+  	<result column="goto_password" property="gotoPassword" jdbcType="VARCHAR" />
+  	
+  	<result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+  	<result column="su_staff_name" property="username" jdbcType="VARCHAR" />
+  	<result column="su_whether_go_out" property="suWhetherGoOut" jdbcType="VARCHAR" />
+  	<result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+  	<result column="storefront_name" property="storefrontName" jdbcType="VARCHAR" />
+  	
+  	<result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="key_administrator" property="keyAdministrator" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 外出登记查询 -->
+  <select id="queryWorkOutsideByUserId" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalGoToRegister" >
+  	select * from jour_work_outside_records where goto_user_id = #{gotoUserId} order by goto_id desc
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalGoToRegister" >
+    select a.*, b.totalNum from
+	(select gt.*, h.add_province, h.add_city, h.add_district, h.add_zone, h.add_street, 
+		h.add_community, h.add_building, h.add_doorplateno,h.key_administrator, 
+		hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, 
+		hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno, 
+		hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone, hr.hr_add_street, 
+		hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno, 
+		st.storefront_name, de.department_name, 
+		u.su_staff_name, u.su_whether_go_out 
+	from jour_work_outside_records gt 
+	left outer join sys_users u on gt.goto_user_id = u.user_coding 
+	left outer join sys_department de on gt.goto_department_id = de.department_id 
+	left outer join sys_storefront st on gt.goto_storefront_id = st.storefront_id 
+	left outer join info_house_4rent hr on gt.goto_rent_id = hr.hr_id 
+	left outer join info_house_4store hs on gt.goto_store_id = hs.hs_id 
+	left outer join info_house_paper h on gt.goto_house_id = h.house_coding
+	<where>
+		<if test="addProvince != null and addProvince!= ''">
+			and (hr_add_province like '%${addProvince}%' or hs_add_province like '%${addProvince}%'
+				or add_province like '%${addProvince}%')
+		</if>
+		<if test="addCity != null and addCity !=''">
+			and (hr_add_city like '%${addCity}%' or hs_add_city like '%${addCity}%'
+				or add_add_city like '%${addCity}%')
+		</if>
+		<if test="addDistrict != null and addDistrict !=''">
+			and (hr_add_district like '%${addDistrict}%' or hs_add_district like '%${addDistrict}%'
+				or add_district like '%${addDistrict}%')
+		</if>
+		<if test="addZone != null and addZone !=''">
+			and (hr_add_zone like '%${addZone}%' or hs_add_zone like '%${addZone}%'
+				or add_zone like '%${addZone}%')
+		</if>
+		<if test="addStreet != null and addStreet !=''">
+			and (hr_add_street like '%${addStreet}%' or hs_add_street like '%${addStreet}%'
+				or add_street like '%${addStreet}%')
+		</if>
+		<if test="addCommunity != null and addCommunity !=''">
+			and (hr_add_community like '%${addCommunity}%' or hs_add_community like '%${addCommunity}%'
+				or add_community like '%${addCommunity}%')
+		</if>
+		<if test="addBuilding != null and addBuilding !=''">
+			and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+				or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+				or add_building like '${addBuilding}%' or add_building like '0${addBuilding}%'
+				)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno !=''">
+			and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%' 
+				or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				or add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%'
+				)
+		</if>
+		<if test="username != null and username != ''">
+			and su_staff_name like '%${username}%'
+		</if>
+		<if test="gotoItemType != null and gotoItemType != ''">
+			and goto_item_type = #{gotoItemType}
+		</if>
+		<if test="gotoAddressType != null and gotoAddressType != ''">
+			and goto_address_type = #{gotoItemType}
+		</if>
+		<if test="gotoRentId != null and gotoRentId != ''">
+			and goto_rent_id = #{gotoRentId}
+		</if>
+		<if test="gotoStoreId != null and gotoStoreId != ''">
+			and goto_store_id = #{gotoStoreId}
+		</if>
+		<if test="gotoHouseId != null and gotoHouseId != ''">
+			and goto_house_id = #{gotoHouseId}
+		</if>
+		<if test="gotoId != null and gotoId != ''">
+			and goto_id = #{gotoId}
+		</if>
+		<if test="gotoUserId != null and gotoUserId != ''">
+			and goto_user_id = #{gotoUserId}
+		</if>
+		<if test="gotoDepartmentId != null and gotoDepartmentId != ''">
+			and goto_department_id = #{gotoDepartmentId}
+		</if>
+		<if test="gotoStorefrontId != null and gotoStorefrontId != ''">
+			and goto_storefront_id = #{gotoStorefrontId}
+		</if>
+	</where>
+	) a,
+	(select count(goto_id) totalNum 
+	from jour_work_outside_records gt 
+	left outer join sys_users u on gt.goto_user_id = u.user_coding 
+	left outer join sys_department de on gt.goto_department_id = de.department_id 
+	left outer join sys_storefront st on gt.goto_storefront_id = st.storefront_id 
+	left outer join info_house_4rent hr on gt.goto_rent_id = hr.hr_id 
+	left outer join info_house_4store hs on gt.goto_store_id = hs.hs_id 
+	left outer join info_house_paper h on gt.goto_house_id = h.house_coding
+		<where>
+			<if test="addProvince != null and addProvince != ''">
+				and (hr_add_province like '%${addProvince}%' or hs_add_province like '%${addProvince}%'
+					or add_province like '%${addProvince}%')
+			</if>
+			<if test="addCity != null and addCity !=''">
+				and (hr_add_city like '%${addCity}%' or hs_add_city like '%${addCity}%'
+					or add_add_city like '%${addCity}%')
+			</if>
+			<if test="addDistrict != null and addDistrict !=''">
+				and (hr_add_district like '%${addDistrict}%' or hs_add_district like '%${addDistrict}%'
+					or add_district like '%${addDistrict}%')
+			</if>
+			<if test="addZone != null and addZone !=''">
+				and (hr_add_zone like '%${addZone}%' or hs_add_zone like '%${addZone}%'
+					or add_zone like '%${addZone}%')
+			</if>
+			<if test="addStreet != null and addStreet !=''">
+				and (hr_add_street like '%${addStreet}%' or hs_add_street like '%${addStreet}%'
+					or add_street like '%${addStreet}%')
+			</if>
+			<if test="addCommunity != null and addCommunity !=''">
+				and (hr_add_community like '%${addCommunity}%' or hs_add_community like '%${addCommunity}%'
+					or add_community like '%${addCommunity}%')
+			</if>
+			<if test="addBuilding != null and addBuilding !=''">
+				and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					or add_building like '${addBuilding}%' or add_building like '0${addBuilding}%'
+					)
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno !=''">
+				and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno
+					or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					or add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%'
+					)
+			</if>
+			<if test="username != null and username !=''">
+				and su_staff_name like '%${username}%'
+			</if>
+			<if test="gotoItemType != null and gotoItemType != ''">
+				and goto_item_type = #{gotoItemType}
+			</if>
+			<if test="gotoAddressType != null and gotoAddressType != ''">
+				and goto_address_type = #{gotoItemType}
+			</if>
+			<if test="gotoRentId != null and gotoRentId != ''">
+				and goto_rent_id = #{gotoRentId}
+			</if>
+			<if test="gotoStoreId != null and gotoStoreId != ''">
+				and goto_store_id = #{gotoStoreId}
+			</if>
+			<if test="gotoHouseId != null and gotoHouseId != ''">
+				and goto_house_id = #{gotoHouseId}
+			</if>
+			<if test="gotoId != null and gotoId != ''">
+				and goto_id = #{gotoId}
+			</if>
+			<if test="gotoUserId != null and gotoUserId != ''">
+				and goto_user_id = #{gotoUserId}
+			</if>
+			<if test="gotoDepartmentId != null and gotoDepartmentId != ''">
+				and goto_department_id = #{gotoDepartmentId}
+			</if>
+			<if test="gotoStorefrontId != null and gotoStorefrontId != ''">
+				and goto_storefront_id = #{gotoStorefrontId}
+			</if>
+		</where>
+	) b
+	ORDER BY goto_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <update id="updateComeBackTime" parameterType="com.zz.po.journal.JournalGoToRegister" >
+  	update jour_work_outside_records set goto_come_back_time = #{gotoComeBackTime} 
+  	where goto_user_id = #{gotoUserId} and goto_come_back_time is null
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_work_outside_records
+    where goto_id = #{gotoId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalGoToRegister" useGeneratedKeys="true" keyProperty="gotoId">
+    insert into jour_work_outside_records
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gotoId != null" >
+        goto_id,
+      </if>
+      <if test="gotoRentId != null and gotoRentId != ''" >
+        goto_rent_id,
+      </if>
+      <if test="gotoStoreId != null and gotoStoreId != ''" >
+        goto_store_id,
+      </if>
+      <if test="gotoHouseId != null and gotoHouseId != ''" >
+        goto_house_id,
+      </if>
+      <if test="gotoUserId != null" >
+        goto_user_id,
+      </if>
+      <if test="gotoDepartmentId != null" >
+        goto_department_id,
+      </if>
+      <if test="gotoStorefrontId != null" >
+        goto_storefront_id,
+      </if>
+      <if test="gotoItemType != null" >
+        goto_item_type,
+      </if>
+      <if test="gotoAddressType != null">
+		goto_address_type,
+	  </if>
+      <if test="gotoOutOfTime != null" >
+        goto_out_of_time,
+      </if>
+      <if test="gotoComeBackTime != null" >
+        goto_come_back_time,
+      </if>
+      <if test="gotoNote != null" >
+        goto_note,
+      </if>
+      <if test="gotoPassword != null" >
+        goto_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gotoId != null" >
+        #{gotoId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoRentId != null" >
+        #{gotoRentId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoStoreId != null" >
+        #{gotoStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoHouseId != null" >
+        #{gotoHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoUserId != null" >
+        #{gotoUserId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoDepartmentId != null" >
+        #{gotoDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoStorefrontId != null" >
+        #{gotoStorefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoItemType != null" >
+        #{gotoItemType,jdbcType=VARCHAR},
+      </if>
+      <if test="gotoAddressType != null">
+		#{gotoAddressType,jdbcType=VARCHAR},
+	  </if>
+      <if test="gotoOutOfTime != null" >
+        #{gotoOutOfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gotoComeBackTime != null" >
+        #{gotoComeBackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gotoNote != null" >
+        #{gotoNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="gotoPassword != null" >
+        #{gotoPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalGoToRegister" >
+    update jour_work_outside_records
+    <set >
+      <if test="gotoRentId != null" >
+        goto_rent_id = #{gotoRentId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoStoreId != null" >
+        goto_store_id = #{gotoStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoHouseId != null" >
+        goto_house_id = #{gotoHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoUserId != null" >
+        goto_user_id = #{gotoUserId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoDepartmentId != null" >
+        goto_department_id = #{gotoDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoStorefrontId != null" >
+        goto_storefront_id = #{gotoStorefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="gotoItemType != null" >
+        goto_item_type = #{gotoItemType,jdbcType=VARCHAR},
+      </if>
+      <if test="gotoAddressType != null" >
+        goto_address_type = #{gotoAddressType,jdbcType=VARCHAR},
+      </if>
+      <if test="gotoOutOfTime != null" >
+        goto_out_of_time = #{gotoOutOfTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gotoComeBackTime != null" >
+        goto_come_back_time = #{gotoComeBackTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gotoNote != null" >
+        goto_note = #{gotoNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="gotoPassword != null" >
+        goto_password = #{gotoPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where goto_id = #{gotoId,jdbcType=INTEGER}
+  </update>
+</mapper>

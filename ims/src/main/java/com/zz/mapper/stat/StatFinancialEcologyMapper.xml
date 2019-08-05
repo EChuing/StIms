@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.stat.StatFinancialEcologyMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.stat.StatFinancialEcology" >
+    <id column="fe_id" property="feId" jdbcType="INTEGER" />
+    <result column="fe_date" property="feDate" jdbcType="DATE" />
+    <result column="fe_hs_id" property="feHsId" jdbcType="INTEGER" />
+    <result column="fe_ecology" property="feEcology" jdbcType="LONGVARCHAR" />
+    <result column="fe_hs_add_city" property="feHsAddCity" jdbcType="VARCHAR" />
+    <result column="fe_hs_add_district" property="feHsAddDistrict" jdbcType="VARCHAR" />
+    <result column="fe_hs_add_zone" property="feHsAddZone" jdbcType="VARCHAR" />
+    <result column="fe_hs_add_street" property="feHsAddStreet" jdbcType="VARCHAR" />
+    <result column="fe_hs_add_community" property="feHsAddCommunity" jdbcType="VARCHAR" />
+    <result column="fe_hs_add_building" property="feHsAddBuilding" jdbcType="VARCHAR" />
+    <result column="fe_hs_add_doorplateno" property="feHsAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="fe_is_vacancy" property="feIsVacancy" jdbcType="INTEGER" />
+    <result column="fe_hs_vacancy_cost" property="feHsVacancyCost" jdbcType="DOUBLE" />
+    <result column="fe_hs_transaction_price" property="feHsTransactionPrice" jdbcType="DOUBLE" />
+    <result column="fe_hs_in_price" property="feHsInPrice" jdbcType="DOUBLE" />
+    <result column="fe_hs_out_price" property="feHsOutPrice" jdbcType="DOUBLE" />
+    <result column="fe_landlord_deposit" property="feLandlordDeposit" jdbcType="DOUBLE" />
+    <result column="fe_renter_deposit" property="feRenterDeposit" jdbcType="DOUBLE" />
+    <result column="fe_income" property="feIncome" jdbcType="DOUBLE" />
+    <result column="fe_expenditure" property="feExpenditure" jdbcType="DOUBLE" />
+    <result column="fe_difference" property="feDifference" jdbcType="DOUBLE" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="total_vacancy_day" property="totalVacancyDay" jdbcType="INTEGER" />
+    <result column="total_vacancy_cost" property="totalVacancyCost" jdbcType="DOUBLE" />
+    <result column="total_income" property="totalIncome" jdbcType="DOUBLE" />
+    <result column="total_expenditure" property="totalExpenditure" jdbcType="DOUBLE" />
+    <result column="total_difference" property="totalDifference" jdbcType="DOUBLE" />
+    <result column="total_house_num" property="totalHouseNum" jdbcType="INTEGER" />
+    <result column="avg_in_price" property="avgInPrice" jdbcType="DOUBLE" />
+    <result column="avg_out_price" property="avgOutPrice" jdbcType="DOUBLE" />
+    <result column="avg_vacancy_day" property="avgVacancyDay" jdbcType="INTEGER" />
+    <result column="min_vacancy_day" property="minVacancyDay" jdbcType="INTEGER" />
+    <result column="max_vacancy_day" property="maxVacancyDay" jdbcType="INTEGER" />
+    <result column="avg_vacancy_cost" property="avgVacancyCost" jdbcType="DOUBLE" />
+    <result column="min_vacancy_cost" property="minVacancyCost" jdbcType="DOUBLE" />
+    <result column="max_vacancy_cost" property="maxVacancyCost" jdbcType="DOUBLE" />
+    <result column="total_landlord_deposit" property="totalLandlordDeposit" jdbcType="DOUBLE" />
+    <result column="total_renter_deposit" property="totalRenterDeposit" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.stat.StatFinancialEcology" >
+  	select a.*, b.total_num from 
+  	(select * from stat_financial_ecology
+  	<where>
+  		<if test="feHsId != null" >
+  			and  fe_hs_id = #{feHsId}
+  		</if>
+  		<if test="feHsAddCity != null and feHsAddCity != ''" >
+  			and  fe_hs_add_city = #{feHsAddCity}
+  		</if>
+  		<if test="feHsAddDistrict != null and feHsAddDistrict != ''" >
+  			and fe_hs_add_district = #{feHsAddDistrict}
+  		</if>
+  		<if test="feHsAddZone != null and feHsAddZone != ''" >
+  			and fe_hs_add_zone = #{feHsAddZone}
+  		</if>
+  		<if test="feHsAddCommunity != null and feHsAddCommunity != ''" >
+  			and fe_hs_add_community like '%${feHsAddCommunity}%'
+  		</if>
+  		<if test="feHsAddBuilding != null and feHsAddBuilding != ''" >
+  			and fe_hs_add_building like '%${feHsAddBuilding}%'
+  		</if>
+  		<if test="feHsAddDoorplateno != null and feHsAddDoorplateno != ''" >
+  			and (fe_hs_add_doorplateno like '${feHsAddDoorplateno}%' or fe_hs_add_doorplateno like '0${feHsAddDoorplateno}%')
+  		</if>
+  		<if test="startTime != null and startTime != ''" >
+  			and fe_date &gt;= #{startTime}
+  		</if>
+  		<if test="endTime != null and endTime != ''" >
+  			and fe_date &lt;= #{endTime}
+  		</if>
+  	</where>
+  	) a,
+  	(select count(fe_id) total_num from stat_financial_ecology
+  	<where>
+  		<if test="feHsId != null" >
+  			and  fe_hs_id = #{feHsId}
+  		</if>
+  		<if test="feHsAddCity != null and feHsAddCity != ''" >
+  			and  fe_hs_add_city = #{feHsAddCity}
+  		</if>
+  		<if test="feHsAddDistrict != null and feHsAddDistrict != ''" >
+  			and fe_hs_add_district = #{feHsAddDistrict}
+  		</if>
+  		<if test="feHsAddZone != null and feHsAddZone != ''" >
+  			and fe_hs_add_zone = #{feHsAddZone}
+  		</if>
+  		<if test="feHsAddCommunity != null and feHsAddCommunity != ''" >
+  			and fe_hs_add_community like '%${feHsAddCommunity}%'
+  		</if>
+  		<if test="feHsAddBuilding != null and feHsAddBuilding != ''" >
+  			and fe_hs_add_building like '%${feHsAddBuilding}%'
+  		</if>
+  		<if test="feHsAddDoorplateno != null and feHsAddDoorplateno != ''" >
+  			and (fe_hs_add_doorplateno like '${feHsAddDoorplateno}%' or fe_hs_add_doorplateno like '0${feHsAddDoorplateno}%')
+  		</if>
+  		<if test="startTime != null and startTime != ''" >
+  			and fe_date &gt;= #{startTime}
+  		</if>
+  		<if test="endTime != null and endTime != ''" >
+  			and fe_date &lt;= #{endTime}
+  		</if>
+  	</where>
+  	) b
+  	order by fe_id desc
+  	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <select id="selectFeByDate" resultMap="BaseResultMap" parameterType="com.zz.po.stat.StatFinancialEcology" >
+    select a.*, b.total_num from
+	(select sum(fe.fe_is_vacancy) as total_vacancy_day,
+	sum(fe.fe_hs_vacancy_cost) as total_vacancy_cost,
+	sum(fe.fe_income) as total_income,
+	sum(fe.fe_expenditure) as total_expenditure,
+	sum(fe.fe_difference) as total_difference,
+	fe.* from (select * from stat_financial_ecology 
+	<where>
+  		<if test="feHsId != null" >
+  			and  fe_hs_id = #{feHsId}
+  		</if>
+  		<if test="feHsAddCity != null and feHsAddCity != ''" >
+  			and  fe_hs_add_city = #{feHsAddCity}
+  		</if>
+  		<if test="feHsAddDistrict != null and feHsAddDistrict != ''" >
+  			and fe_hs_add_district = #{feHsAddDistrict}
+  		</if>
+  		<if test="feHsAddZone != null and feHsAddZone != ''" >
+  			and fe_hs_add_zone = #{feHsAddZone}
+  		</if>
+  		<if test="feHsAddCommunity != null and feHsAddCommunity != ''" >
+  			and fe_hs_add_community like '%${feHsAddCommunity}%'
+  		</if>
+  		<if test="feHsAddBuilding != null and feHsAddBuilding != ''" >
+  			and fe_hs_add_building like '%${feHsAddBuilding}%'
+  		</if>
+  		<if test="feHsAddDoorplateno != null and feHsAddDoorplateno != ''" >
+  			and (fe_hs_add_doorplateno like '${feHsAddDoorplateno}%' or fe_hs_add_doorplateno like '0${feHsAddDoorplateno}%')
+  		</if>
+  		<if test="startTime != null and startTime != ''" >
+  			and fe_date &gt;= #{startTime}
+  		</if>
+  		<if test="endTime != null and endTime != ''" >
+  			and fe_date &lt;= #{endTime}
+  		</if>
+	</where>
+	order by fe_date desc limit 10000000000) fe
+	group by fe.fe_hs_id) a,
+	(select count(*) total_num from (select * from stat_financial_ecology
+	<where>
+		<if test="feHsId != null" >
+  			and  fe_hs_id = #{feHsId}
+  		</if>
+  		<if test="feHsAddCity != null and feHsAddCity != ''" >
+  			and  fe_hs_add_city = #{feHsAddCity}
+  		</if>
+  		<if test="feHsAddDistrict != null and feHsAddDistrict != ''" >
+  			and fe_hs_add_district = #{feHsAddDistrict}
+  		</if>
+  		<if test="feHsAddZone != null and feHsAddZone != ''" >
+  			and fe_hs_add_zone = #{feHsAddZone}
+  		</if>
+  		<if test="feHsAddCommunity != null and feHsAddCommunity != ''" >
+  			and fe_hs_add_community like '%${feHsAddCommunity}%'
+  		</if>
+  		<if test="feHsAddBuilding != null and feHsAddBuilding != ''" >
+  			and fe_hs_add_building like '%${feHsAddBuilding}%'
+  		</if>
+  		<if test="feHsAddDoorplateno != null and feHsAddDoorplateno != ''" >
+  			and (fe_hs_add_doorplateno like '${feHsAddDoorplateno}%' or fe_hs_add_doorplateno like '0${feHsAddDoorplateno}%')
+  		</if>
+  		<if test="startTime != null and startTime != ''" >
+  			and fe_date &gt;= #{startTime}
+  		</if>
+  		<if test="endTime != null and endTime != ''" >
+  			and fe_date &lt;= #{endTime}
+  		</if>
+	</where>
+	group by fe_hs_id) c) b
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <select id="selectTotalFeByDate" resultMap="BaseResultMap" parameterType="com.zz.po.stat.StatFinancialEcology" >
+  	select count(a.fe_hs_id) as total_house_num, 
+	round(avg(a.fe_hs_in_price), 2) as avg_in_price, 
+	round(avg(a.fe_hs_out_price), 2) as avg_out_price, 
+	sum(a.total_vacancy_day) as total_vacancy_day, 
+	round(avg(a.total_vacancy_day), 2) as avg_vacancy_day, 
+	min(a.total_vacancy_day) as min_vacancy_day, 
+	max(a.total_vacancy_day) as max_vacancy_day, 
+	sum(a.total_vacancy_cost) as total_vacancy_cost, 
+	round(avg(a.total_vacancy_cost), 2) as avg_vacancy_cost, 
+	min(a.total_vacancy_cost) as min_vacancy_cost, 
+	max(a.total_vacancy_cost) as max_vacancy_cost, 
+	sum(a.fe_landlord_deposit) as total_landlord_deposit, 
+	sum(a.fe_renter_deposit) as total_renter_deposit, 
+	sum(a.fe_income) as total_income, 
+	sum(a.fe_expenditure) as total_expenditure, 
+	sum(a.fe_difference) as total_difference 
+	from 
+	(select sum(fe.fe_is_vacancy) as total_vacancy_day,
+	sum(fe.fe_hs_vacancy_cost) as total_vacancy_cost,
+	sum(fe.fe_income) as total_income,
+	sum(fe.fe_expenditure) as total_expenditure,
+	sum(fe.fe_difference) as total_difference,
+	fe.* from (select * from stat_financial_ecology 
+	<where>
+		<if test="feHsId != null" >
+  			and  fe_hs_id = #{feHsId}
+  		</if>
+  		<if test="feHsAddCity != null and feHsAddCity != ''" >
+  			and  fe_hs_add_city = #{feHsAddCity}
+  		</if>
+  		<if test="feHsAddDistrict != null and feHsAddDistrict != ''" >
+  			and fe_hs_add_district = #{feHsAddDistrict}
+  		</if>
+  		<if test="feHsAddZone != null and feHsAddZone != ''" >
+  			and fe_hs_add_zone = #{feHsAddZone}
+  		</if>
+  		<if test="feHsAddCommunity != null and feHsAddCommunity != ''" >
+  			and fe_hs_add_community like '%${feHsAddCommunity}%'
+  		</if>
+  		<if test="feHsAddBuilding != null and feHsAddBuilding != ''" >
+  			and fe_hs_add_building like '%${feHsAddBuilding}%'
+  		</if>
+  		<if test="feHsAddDoorplateno != null and feHsAddDoorplateno != ''" >
+  			and (fe_hs_add_doorplateno like '${feHsAddDoorplateno}%' or fe_hs_add_doorplateno like '0${feHsAddDoorplateno}%')
+  		</if>
+  		<if test="startTime != null and startTime != ''" >
+  			and fe_date &gt;= #{startTime}
+  		</if>
+  		<if test="endTime != null and endTime != ''" >
+  			and fe_date &lt;= #{endTime}
+  		</if>
+	</where>
+	order by fe_date desc limit 10000000000) fe 
+	group by fe.fe_hs_id
+	) a
+  </select>
+</mapper>

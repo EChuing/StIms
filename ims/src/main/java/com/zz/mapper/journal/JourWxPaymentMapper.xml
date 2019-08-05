@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourWxPaymentMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourWxPayment" >
+    <id column="wxp_id" property="wxpId" jdbcType="INTEGER" />
+    <result column="wxp_jci_id" property="wxpJciId" jdbcType="INTEGER" />
+    <result column="wxp_hs_id" property="wxpHsId" jdbcType="INTEGER" />
+    <result column="wxp_hr_id" property="wxpHrId" jdbcType="INTEGER" />
+    <result column="wxp_pop_id" property="wxpPopId" jdbcType="INTEGER" />
+    <result column="wxp_trade_no" property="wxpTradeNo" jdbcType="VARCHAR" />
+    <result column="wxp_describe" property="wxpDescribe" jdbcType="VARCHAR" />
+    <result column="wxp_openid" property="wxpOpenid" jdbcType="VARCHAR" />
+    <result column="wxp_total_fee" property="wxpTotalFee" jdbcType="INTEGER" />
+    <result column="wxp_state" property="wxpState" jdbcType="VARCHAR" />
+    <result column="wxp_gmt_pay" property="wxpGmtPay" jdbcType="TIMESTAMP" />
+    <result column="wxp_gmt_create" property="wxpGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="wxp_gmt_modified" property="wxpGmtModified" jdbcType="TIMESTAMP" />
+    <result column="wxp_expense_record" property="wxpExpenseRecord" jdbcType="VARCHAR" />
+    <!-- 分期账单 -->
+    <result column="jci_periods" property="jciPeriods" jdbcType="INTEGER" />
+    <!-- 人口 -->
+    <result column="popName" property="popName" jdbcType="VARCHAR" />
+    <result column="popTelephone" property="popTelephone" jdbcType="VARCHAR" />
+    <!-- 房源地址 -->
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+	<result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+	<result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+	<result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+	<result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+	<result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+	<result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+	<result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+	<result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+	<result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+	<!-- 其他 --> 
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+      wxp_id,wxp_jci_id,wxp_hs_id,wxp_hr_id,wxp_pop_id,
+	  wxp_trade_no,wxp_describe,wxp_openid,wxp_total_fee,
+	  wxp_state,wxp_gmt_pay,wxp_gmt_create,wxp_gmt_modified,
+	  wxp_expense_record
+  </sql>
+  <!-- (数据与统计分开)查询所有-->
+  <select id="selectAllWxPayment" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourWxPayment" >
+	  select 
+	  	<if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			count(wxp.wxp_id) total_num
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			wxp.*,jci.jci_periods,ip.pop_name popName,ip.pop_telephone popTelephone,
+			hr.hr_add_community,hr.hr_add_district,hr.hr_add_zone,hr.hr_add_building,hr.hr_add_doorplateno, 
+			hs.hs_add_community,hs.hs_add_district,hs.hs_add_zone,hs.hs_add_building,hs.hs_add_doorplateno
+		</if>
+		from jour_wx_payment wxp
+		left outer join info_contract_divider jci  on wxp.wxp_jci_id = jci.jci_id
+		left outer join info_pop_tmp ip  on wxp.wxp_pop_id = ip.pop_id
+		left outer join info_house_4rent hr on wxp.wxp_hr_id = hr.hr_id
+		left outer join info_house_4store hs on wxp.wxp_hs_id = hs.hs_id
+		<where>
+			<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+				and (wxp_gmt_pay between #{startTime} and date_add(#{endTime},interval 1 day))
+			</if>
+			<if test="startTime1 != null and startTime1 != '' and endTime != null and endTime != ''">
+				and (wxp_gmt_create between #{startTime1} and date_add(#{endTime}1,interval 1 day))
+			</if>
+			<if test="startTime2 != null and startTime2 != '' and endTime2 != null and endTime2 != ''">
+				and (wxp_gmt_modified between #{startTime2} and date_add(#{endTime2},interval 1 day))
+			</if>
+			<if test="wxpTradeNo != null and wxpTradeNo != '' ">
+				and  wxp_trade_no = #{wxpTradeNo}
+			</if>
+			<if test="popName != null and popName != '' ">
+				and  pop_name = #{popName}
+			</if>
+			<if test="popTelephone != null and popTelephone != '' ">
+				and  pop_telephone = #{popTelephone}
+			</if>
+			<if test="addCommunity != null and addCommunity != '' ">
+				and (hr_add_community like '%${addCommunity}%' or  hs_add_community like '%${addCommunity}%')
+			</if>
+			<if test="addZone != null and addZone != '' ">
+				and (hr_add_zone like '%${addZone}%' or  hs_add_zone like '%${addZone}%')
+			</if>
+			<if test="addBuilding != null and addBuilding != '' ">
+				and (hr_add_building like '%${addBuilding}%' or  hs_add_building like '%${addBuilding}%'
+				)
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != '' ">
+				and (hr_add_doorplateno like '%${addDoorplateno}%'or hs_add_doorplateno like '%${addDoorplateno}%'
+				)
+			</if>
+			<if test="wxpJciId != null and wxpJciId != '' ">
+				and  wxp_jci_id = #{wxpJciId}
+			</if>
+		</where>
+		<if test="splitFlag ==1">
+			ORDER BY wxp_id DESC 
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+  </select>
+</mapper>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysDepartmentMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.sys.SysDepartment" >
+    <id column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_storefront_id" property="departmentStorefrontId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_note" property="departmentNote" jdbcType="LONGVARCHAR" />
+    <result column="department_state" property="departmentState" jdbcType="VARCHAR" />
+    <result column="department_distinguish_id" property="departmentDistinguishId" jdbcType="INTEGER" />
+    <result column="department_class_id" property="departmentClassId" jdbcType="INTEGER" />
+
+  </resultMap>
+  <resultMap id="MyBaseResultMap" type="com.zz.po.sys.SysDepartmentExpand" >
+    <id column="department_id" property="departmentId" jdbcType="INTEGER" />
+    <result column="department_storefront_id" property="departmentStorefrontId" jdbcType="INTEGER" />
+    <result column="department_distinguish_id" property="departmentDistinguishId" jdbcType="INTEGER" />
+    <result column="department_class_id" property="departmentClassId" jdbcType="INTEGER" />
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <result column="department_note" property="departmentNote" jdbcType="LONGVARCHAR" />
+    <result column="department_state" property="departmentState" jdbcType="VARCHAR" />
+    <result column="department_distinguish_id" property="departmentDistinguishId" jdbcType="INTEGER" />
+    <result column="department_class_id" property="departmentClassId" jdbcType="INTEGER" />
+    <!-- 其它 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select
+		aa.*, bb.total_num
+	from 
+		(select *
+	    from sys_department) aa ,
+	(select count(department_id) total_num from sys_department 
+	<where>
+		<if test="departmentStorefrontId != null and departmentStorefrontId != ''" >
+        	and department_storefront_id = #{departmentStorefrontId,jdbcType=INTEGER}
+      	</if>
+      	<if test="departmentState != null and departmentState != ''" >
+        	and department_state = #{departmentState,jdbcType=VARCHAR}
+      	</if>
+        <if test="departmentDistinguishId != null and departmentDistinguishId != ''" >
+            and department_distinguish_id = #{departmentDistinguishId,jdbcType=INTEGER}
+        </if>
+        <if test="departmentClassId != null and departmentClassId != ''" >
+            and department_class_id = #{departmentClassId,jdbcType=INTEGER}
+        </if>
+	</where>
+	) bb	
+    <where>
+		<if test="departmentStorefrontId != null and departmentStorefrontId != ''" >
+        	and department_storefront_id = #{departmentStorefrontId,jdbcType=INTEGER}
+      	</if>
+      	<if test="departmentState != null and departmentState != ''" >
+        	and department_state = #{departmentState,jdbcType=VARCHAR}
+      	</if>
+        <if test="departmentDistinguishId != null and departmentDistinguishId != ''" >
+            and department_distinguish_id = #{departmentDistinguishId,jdbcType=INTEGER}
+        </if>
+        <if test="departmentClassId != null and departmentClassId != ''" >
+            and department_class_id = #{departmentClassId,jdbcType=INTEGER}
+        </if>
+	</where>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_department
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.zz.po.sys.SysDepartment"
+  		useGeneratedKeys="true" keyProperty="department_id"> 
+    insert into sys_department (department_id, department_storefront_id, 
+      department_name, department_note ,department_state)
+    values (#{departmentId,jdbcType=INTEGER}, #{departmentStorefrontId,jdbcType=INTEGER}, 
+      #{departmentName,jdbcType=VARCHAR}, #{departmentNote,jdbcType=LONGVARCHAR}, #{departmentState,jdbcType=VARCHAR})
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.sys.SysDepartment" 
+  		 useGeneratedKeys="true" keyProperty="departmentId">
+    insert into sys_department
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="departmentId != null" >
+        department_id,
+      </if>
+      <if test="departmentStorefrontId != null" >
+        department_storefront_id,
+      </if>
+      <if test="departmentName != null" >
+        department_name,
+      </if>
+      <if test="departmentNote != null" >
+        department_note,
+      </if>
+      <if test="departmentState != null " >
+        department_state,
+      </if>
+        <if test="departmentDistinguishId != null " >
+            department_distinguish_id,
+        </if>
+      <if test="departmentClassId != null " >
+        department_class_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="departmentId != null" >
+        #{departmentId,jdbcType=INTEGER},
+      </if>
+
+      <if test="departmentStorefrontId != null" >
+        #{departmentStorefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null" >
+        #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNote != null" >
+        #{departmentNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="departmentState != null" >
+        #{departmentState,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentDistinguishId != null" >
+        #{departmentDistinguishId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentClassId != null" >
+        #{departmentClassId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.sys.SysDepartment" >
+    update sys_department
+    <set >
+      <if test="departmentStorefrontId != null" >
+        department_storefront_id = #{departmentStorefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="departmentName != null" >
+        department_name = #{departmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentNote != null" >
+        department_note = #{departmentNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="departmentState != null" >
+        department_state = #{departmentState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zz.po.sys.SysDepartment" >
+    update sys_department
+    set department_storefront_id = #{departmentStorefrontId,jdbcType=INTEGER},
+      department_name = #{departmentName,jdbcType=VARCHAR},
+      department_note = #{departmentNote,jdbcType=LONGVARCHAR},
+      department_state = #{departmentState,jdbcType=VARCHAR}
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.sys.SysDepartment" >
+    update sys_department
+    set department_storefront_id = #{departmentStorefrontId,jdbcType=INTEGER},
+      department_name = #{departmentName,jdbcType=VARCHAR},
+      department_state = #{departmentState,jdbcType=VARCHAR}
+    where department_id = #{departmentId,jdbcType=INTEGER}
+  </update>
+</mapper>

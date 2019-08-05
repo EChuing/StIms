@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.deviceevents.WaterElectricMeterMapper">
+	<resultMap id="MyWaterMeterEvents" type="com.zz.deviceevents.WaterMeterEvents" >
+		<id column="wm_id" property="wmId" jdbcType="INTEGER"/>
+		<result column="wm_brand_id" property="wmBrandId" jdbcType="INTEGER"/>
+		<result column="wm_brand" property="wmBrand" jdbcType="VARCHAR"/>
+		<result column="wm_device_SN" property="wmDeviceSn" jdbcType="VARCHAR"/>
+		<result column="wm_event_type" property="wmEventType" jdbcType="VARCHAR"/>
+		<result column="wm_warning_content" property="wmWarningContent" jdbcType="VARCHAR"/>
+		<result column="wm_num" property="wmNum" jdbcType="VARCHAR"/>
+		<result column="wm_time" property="wmTime" jdbcType="VARCHAR"/>
+		<result column="wm_online" property="wmOnline" jdbcType="VARCHAR"/>
+	</resultMap>
+	<resultMap id="MyElectricMeterEvents" type="com.zz.deviceevents.ElectricMeterEvents" >
+		<id column="em_id" property="emId" jdbcType="INTEGER"/>
+		<result column="em_brand_id" property="emBrandId" jdbcType="INTEGER"/>
+		<result column="em_brand" property="emBrand" jdbcType="VARCHAR"/>
+		<result column="em_device_SN" property="emDeviceSn" jdbcType="VARCHAR"/>
+		<result column="em_event_type" property="emEventType" jdbcType="VARCHAR"/>
+		<result column="em_warning_content" property="emWarningContent" jdbcType="VARCHAR"/>
+		<result column="em_num" property="emNum" jdbcType="VARCHAR"/>
+		<result column="em_time" property="emTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	<select id="queryDeviceMessage" resultMap="MyWaterMeterEvents" parameterType="com.zz.deviceevents.WaterMeterEvents" >
+		select * from water_meter_events
+		where wm_device_SN =#{wmDeviceSn}
+		order by wm_id DESC
+		limit 0,1
+  </select>
+	<!-- 获取最新水表的读数-->
+	<select id="queryWaterMeterDetails" resultMap="MyWaterMeterEvents" parameterType="com.zz.deviceevents.WaterMeterEvents">
+		select wm_num,wm_time from water_meter_events
+		where wm_device_SN = #{wmDeviceSn,jdbcType=VARCHAR} and wm_online = '在线'
+		order by wm_time desc limit 0,1
+	</select>
+	<!-- 获取上月水表最后的读数-->
+	<select id="queryLastMonthWaterMeter" resultType="String" parameterType="com.zz.deviceevents.WaterMeterEvents">
+		select wm_num from water_meter_events 
+		where wm_time &lt; #{wmTime,jdbcType=VARCHAR} and wm_device_SN = #{wmDeviceSn,jdbcType=VARCHAR} 
+		and wm_online = '在线' and wm_num != '0.00' order by wm_time desc limit 0,1
+	</select>
+	
+	<!-- 获取最新电表的读数 -->
+	<select id="queryElectricMeterDetails" resultMap="MyElectricMeterEvents" parameterType="com.zz.deviceevents.ElectricMeterEvents">
+		select em_num,em_time from electric_meter_events
+		<where>
+			<if test="emDeviceSn != null and emDeviceSn != ''">
+				and em_device_SN = #{emDeviceSn,jdbcType=VARCHAR}
+			</if>
+			<if test="emSubDeviceNumber != null and emSubDeviceNumber != ''">
+				and em_sub_device_number = #{emSubDeviceNumber,jdbcType=INTEGER}
+			</if>
+			and em_online = '在线'
+		</where>
+		order by em_time desc limit 0,1
+	</select>
+	<!-- 获取上月电表最后的读数-->
+	<select id="queryLastMonthElectricMeter" resultType="String" parameterType="com.zz.deviceevents.ElectricMeterEvents">
+		select em_num from electric_meter_events
+		<where>
+			<if test="emTime != null and emTime != ''">
+				and em_time &lt; #{emTime,jdbcType=VARCHAR}
+			</if>
+			<if test="emDeviceSn != null and emDeviceSn != ''">
+				and em_device_SN = #{emDeviceSn,jdbcType=VARCHAR}
+			</if>
+			<if test="emSubDeviceNumber != null and emSubDeviceNumber != ''">
+				and em_sub_device_number = #{emSubDeviceNumber,jdbcType=INTEGER}
+			</if>
+		</where>
+		and em_online = '在线' and em_num != '0.00' order by em_time desc limit 0,1
+	</select>
+
+	<!-- 获取水表的读数-->
+	<select id="selectWaterMeterNum" resultMap="MyWaterMeterEvents" parameterType="com.zz.deviceevents.WaterMeterEvents">
+		select * from water_meter_events
+		<where>
+			<if test="wmBrandId != null and wmBrandId != ''">
+				and wm_brand_id = #{wmBrandId}
+			</if>
+			<if test="wmDeviceSn != null and wmDeviceSn != ''">
+				and wm_device_SN = #{wmDeviceSn}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				and wm_time &gt; #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				and wm_time &lt; #{endTime}
+			</if>
+			and wm_online = '在线' and wm_num != '0.00'
+		</where>
+		order by wm_time desc
+	</select>
+	<!-- 获取电表的读数-->
+	<select id="selectElectricMeterNum" resultMap="MyElectricMeterEvents" parameterType="com.zz.deviceevents.ElectricMeterEvents">
+		select * from electric_meter_events
+		<where>
+			<if test="emBrandId != null and emBrandId != ''">
+				and em_brand_id = #{emBrandId}
+			</if>
+			<if test="emDeviceSn != null and emDeviceSn != ''">
+				and em_device_SN = #{emDeviceSn}
+			</if>
+			<if test="startTime != null and startTime != ''">
+				and em_time &gt; #{startTime}
+			</if>
+			<if test="endTime != null and endTime != ''">
+				and em_time &lt; #{endTime}
+			</if>
+			and em_online = '在线' and em_num != '0.00'
+		</where>
+		order by em_time desc
+	</select>
+</mapper>

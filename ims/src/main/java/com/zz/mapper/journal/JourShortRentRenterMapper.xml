@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourShortRentRenterMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourShortRentRenter" >
+    <id column="jsrr_id" property="jsrrId" jdbcType="INTEGER" />
+    <result column="jsrr_pop_id" property="jsrrPopId" jdbcType="INTEGER" />
+    <result column="jsrr_name" property="jsrrName" jdbcType="VARCHAR" />
+    <result column="jsrr_phone" property="jsrrPhone" jdbcType="VARCHAR" />
+    <result column="jsrr_openid" property="jsrrOpenid" jdbcType="VARCHAR" />
+    <result column="jsrr_idcard" property="jsrrIdcard" jdbcType="VARCHAR" />
+    <result column="jsrr_type" property="jsrrType" jdbcType="VARCHAR" />
+    <result column="jsrr_check_in_num" property="jsrrCheckInNum" jdbcType="INTEGER" />
+    <result column="jsrr_idcard_img" property="jsrrIdcardImg" jdbcType="LONGVARCHAR"/>
+    <result column="jsrr_register_time" property="jsrrRegisterTime" jdbcType="VARCHAR" />
+    <result column="jsrr_customer_type" property="jsrrCustomerType" jdbcType="VARCHAR" />
+    <result column="jsrr_vip_level" property="jsrrVipLevel" jdbcType="INTEGER" />
+    <result column="jsrr_channel_id" property="jsrrChannelId" jdbcType="INTEGER"/>
+    
+    <result column="jsrc_state" property="jsrcState" jdbcType="VARCHAR" />
+    <result column="jsrc_actual_occupancy_time" property="jsrcActualOccupancyTime" jdbcType="VARCHAR" />
+    
+    <result column="jcu_id" property="jcuId" jdbcType="INTEGER" />
+    <result column="jcu_group_type" property="jcuGroupType" jdbcType="VARCHAR" />
+    <result column="jcu_type" property="jcuType" jdbcType="VARCHAR" />
+    
+    <!--user  -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+    
+    <association property="infoPopulation" javaType="com.zz.po.info.InfoPopulation">
+    	<id column="pop_id" property="popId" jdbcType="INTEGER"/>
+	    <result column="pop_inner_credit_level" property="popInnerCreditLevel" jdbcType="INTEGER" />
+	    <result column="pop_outer_credit_level" property="popOuterCreditLevel" jdbcType="INTEGER" />
+	    <result column="pop_landlord" property="popLandlord" jdbcType="INTEGER" />
+	    <result column="pop_renter" property="popRenter" jdbcType="INTEGER" />
+	    <result column="pop_resident" property="popResident" jdbcType="INTEGER" />
+	    <result column="pop_short_rent" property="popShortRent" jdbcType="INTEGER" />
+	    <result column="pop_name" property="popName" jdbcType="VARCHAR" />
+	    <result column="pop_password" property="popPassword" jdbcType="VARCHAR" />
+	    <result column="pop_telephone" property="popTelephone" jdbcType="VARCHAR" />
+	    <result column="pop_idcard" property="popIdcard" jdbcType="VARCHAR" />
+	    <result column="pop_idcard_address" property="popIdcardAddress" jdbcType="VARCHAR" />
+	    <result column="pop_user" property="popUser" jdbcType="INTEGER" />
+	    <result column="pop_registration_time" property="popRegistrationTime" jdbcType="VARCHAR" />
+	    <result column="pop_gmt_modified" property="popGmtModified" jdbcType="VARCHAR" />
+	    <result column="pop_user_code" property="userCode" jdbcType="VARCHAR" />
+	    <result column="pop_name_remark" property="popNameRemark" jdbcType="VARCHAR" />
+	    <result column="pop_idcard_json" property="popIdcardJson" jdbcType="VARCHAR" />
+	    <result column="pop_idcard_type" property="popIdcardType" jdbcType="VARCHAR" />
+	    <result column="pop_birth" property="popBirth" jdbcType="VARCHAR" />
+	    <result column="pop_nation" property="popNation" jdbcType="VARCHAR" />
+        <result column="pop_member_type" property="popMemberType" jdbcType="VARCHAR"/>
+        <result column="pop_member_card" property="popMemberCard" jdbcType="INTEGER"/>
+        <result column="pop_member_balance" property="popMemberBalance" jdbcType="DOUBLE"/>
+        <result column="pop_car_number" property="popCarNumber" jdbcType="VARCHAR"/>
+        <result column="pop_bonus_points" property="popBonusPoints" jdbcType="INTEGER"/>
+        <result column="pop_wxbind" property="popWxBind" jdbcType="VARCHAR"/>
+        <result column="pop_blacklist" property="popBlackList" jdbcType="VARCHAR"/>
+        <result column="pop_initial_source" property="popInitialSource" jdbcType="VARCHAR"/>
+    </association>
+    
+  </resultMap>
+  
+   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentRenter" >
+    select 
+    *
+    from jour_short_rent_renter
+    <where>
+	    <if test="jsrrId !=null">
+	    	jsrr_id = #{jsrrId,jdbcType=INTEGER}
+	    </if>
+    </where>
+  </select>
+  
+   <!-- 用顾客id链接人口表 -->
+  <select id="selectByJsrrId" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentRenter">
+  	select
+  	<if test="splitFlag == 0"><!-- 统计查询 -->
+  		count(jsrr_id) total_num
+	</if>
+	<if test="splitFlag == 1"><!-- 数据查询 -->
+	  	 *,u.su_staff_name username
+	</if>
+	from jour_short_rent_renter jsrr
+	left outer join	info_pop_tmp pop on pop.pop_id = jsrr.jsrr_pop_id
+	left outer join sys_users u on u.user_coding = pop.pop_user
+	left outer join jour_short_rent_nexus jsrn on jsrn.jsrn_jsrr_id = jsrr.jsrr_id
+	left outer join jour_channel_unit jcu on jsrr.jsrr_channel_id = jcu.jcu_id
+	INNER JOIN jour_short_rent_contract jsrc on jsrc.jsrc_id=jsrn.jsrn_jsrc_id
+	<where> 
+		jsrc.jsrc_id = (select max(jsrc.jsrc_id) from jour_short_rent_renter jsrr2
+			left outer join jour_short_rent_nexus jsrn on jsrn.jsrn_jsrr_id = jsrr2.jsrr_id
+			INNER JOIN jour_short_rent_contract jsrc on jsrc.jsrc_id=jsrn.jsrn_jsrc_id
+			where jsrr.jsrr_id = jsrr2.jsrr_id
+			GROUP BY jsrr.jsrr_id
+		)
+		<if test="jsrrId != null and jsrrId != '' ">
+    		and jsrr_id = #{jsrrId}
+    	</if>
+    	<if test="jsrrPopId !='' and jsrrPopId !=null">
+    		and jsrr_pop_id = #{jsrrPopId}
+    	</if>
+    	<if test="jsrrCustomerType !='' and jsrrCustomerType !=null">
+    		and jsrr_customer_type = #{jsrrCustomerType}
+    	</if>
+    	<if test="popName != null and popName != '' ">
+    		and pop_name like '%${popName}%'
+    	</if>
+    	<if test="popTelephone != null and popTelephone != '' ">
+    		and pop_telephone like '%${popTelephone}%'
+    	</if>
+    	<if test="popIdcard != null and popIdcard != '' ">
+    		and pop_idcard like '%${popIdcard}%'
+    	</if>
+    	<if test="popIdcard == null or popIdcard == '' ">
+    		and pop_idcard is not null and pop_idcard !=""
+    	</if>
+    	<if test="popUser != null and popUser != '' ">
+    		and pop_user = #{popUser,jdbcType=INTEGER}
+    	</if>
+		<if test="jsrcState !='' and jsrcState !=null">
+    		<if test="jsrcState == '已住'">
+    			and jsrc_state = #{jsrcState}
+    		</if>
+    		<if test="jsrcState == '离开'">
+    			and jsrc_state != "已住"
+    		</if>
+    	</if>
+    	<if test="startTime !='' and endTime !='' and startTime !=null and endTime !=null">
+    		and (jsrc_actual_occupancy_time between #{startTime} and #{endTime})
+    	</if>
+   	</where>
+   	<if test="splitFlag ==1">
+   		ORDER BY jsrr_register_time DESC
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+  </select>
+  
+  <select id="selectByJsrrPopId" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentRenter" >
+    select 
+    *
+    from jour_short_rent_renter
+    where jsrr_pop_id = #{jsrrPopId,jdbcType=INTEGER}
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourShortRentRenter"  useGeneratedKeys="true" keyProperty="jsrrId">
+    insert into jour_short_rent_renter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jsrrId != null" >
+        jsrr_id,
+      </if>
+      <if test="jsrrPopId != null" >
+        jsrr_pop_id,
+      </if>
+      <if test="jsrrName != null" >
+        jsrr_name,
+      </if>
+      <if test="jsrrPhone != null" >
+        jsrr_phone,
+      </if>
+      <if test="jsrrOpenid != null" >
+        jsrr_openid,
+      </if>
+      <if test="jsrrIdcard != null" >
+        jsrr_idcard,
+      </if>
+      <if test="jsrrRegisterTime != null" >
+        jsrr_register_time,
+      </if>
+      <if test="jsrrIdcardImg != null" >
+        jsrr_idcard_img,
+      </if>
+      
+      <if test="jsrrCheckInNum != null" >
+        jsrr_check_in_num,
+      </if>
+      <if test="jsrrType != null" >
+        jsrr_type,
+      </if>
+      <if test="jsrrCustomerType != null" >
+        jsrr_customer_type,
+      </if>
+      <if test="jsrrVipLevel != null" >
+        jsrr_vip_level,
+      </if>
+      <if test="jsrrChannelId != null" >
+        jsrr_channel_id
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jsrrId != null" >
+        #{jsrrId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrrPopId != null" >
+        #{jsrrPopId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrrName != null" >
+        #{jsrrName,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrPhone != null" >
+        #{jsrrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrOpenid != null" >
+        #{jsrrOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrIdcard != null" >
+        #{jsrrIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrRegisterTime != null" >
+        #{jsrrRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrrIdcardImg != null" >
+        #{jsrrIdcardImg,jdbcType=LONGVARCHAR},
+      </if>
+      
+      <if test="jsrrCheckInNum != null" >
+        #{jsrrCheckInNum,jdbcType=INTEGER},
+      </if>
+      <if test="jsrrType != null" >
+        #{jsrrType,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrCustomerType != null" >
+        #{jsrrCustomerType,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrVipLevel != null" >
+        #{jsrrVipLevel,jdbcType=INTEGER},
+      </if>
+      <if test="jsrrChannelId != null" >
+        #{jsrrChannelId,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourShortRentRenter" >
+    update jour_short_rent_renter
+    <set >
+      <if test="jsrrPopId != null" >
+        jsrr_pop_id = #{jsrrPopId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrrName != null" >
+        jsrr_name = #{jsrrName,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrPhone != null" >
+        jsrr_phone = #{jsrrPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrOpenid != null" >
+        jsrr_openid = #{jsrrOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrIdcard != null" >
+        jsrr_idcard = #{jsrrIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrRegisterTime != null" >
+        jsrr_register_time = #{jsrrRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrrIdcardImg != null" >
+        jsrr_idcard_img = #{jsrrIdcardImg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jsrrCheckInNum != null" >
+        jsrr_check_in_num = #{jsrrCheckInNum,jdbcType=INTEGER},
+      </if>
+      <if test="jsrrType != null" >
+        jsrr_type = #{jsrrType,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrrVipLevel != null" >
+        jsrr_vip_level = #{jsrrVipLevel,jdbcType=INTEGER},
+      </if>
+      <if test="jsrrChannelId != null" >
+        jsrr_channel_id = #{jsrrChannelId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where jsrr_id = #{jsrrId,jdbcType=INTEGER}
+  </update>
+</mapper>

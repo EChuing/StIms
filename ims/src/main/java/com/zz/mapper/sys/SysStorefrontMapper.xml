@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysStorefrontMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.sys.SysStorefront" >
+    <id column="storefront_id" property="storefrontId" jdbcType="INTEGER" />
+    <result column="storefront_name" property="storefrontName" jdbcType="VARCHAR" />
+    <result column="storefront_address" property="storefrontAddress" jdbcType="VARCHAR" />
+    <result column="storefront_note" property="storefrontNote" jdbcType="LONGVARCHAR" />
+    <result column="storefront_state" property="storefrontState" jdbcType="VARCHAR" />
+    <result column="storefront_account_id" property="storefrontAccountId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="StudentResultMap" type="com.zz.po.sys.SysStudent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="student_native_place" property="studentNativePlace" jdbcType="VARCHAR" />
+    <result column="student_id" property="studentId" jdbcType="INTEGER" />
+    <result column="student_name" property="studentName" jdbcType="VARCHAR" />
+    <result column="student_phone" property="studentPhone" jdbcType="VARCHAR" />
+    <result column="student_emergencycontact" property="studentEmergencycontact" jdbcType="VARCHAR" />
+    <result column="student_relationship" property="studentRelationship" jdbcType="VARCHAR" />
+    <result column="student_state" property="studentState" jdbcType="VARCHAR" />
+    <result column="student_class" property="studentClass" jdbcType="VARCHAR" />
+    <result column="student_idcard" property="studentIdcard" jdbcType="VARCHAR" />
+    <result column="student_idcard_address" property="studentIdcardAddress" jdbcType="VARCHAR" />
+    <result column="student_now_address" property="studentNowAddress" jdbcType="VARCHAR" />
+    <result column="student_class_id" property="studentClassId" jdbcType="INTEGER" />
+    <result column="student_user_nation" property="studentUserNation" jdbcType="VARCHAR" />
+    <result column="school_id" property="schoolId" jdbcType="INTEGER" />
+    <result column="school_name" property="schoolName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    * from sys_storefront
+    <where>
+		<if test="storefrontState != null and storefrontState != ''" >
+      and storefront_state = #{storefrontState,jdbcType=VARCHAR}
+    </if>
+      <if test="storefrontId!= null and storefrontId != ''" >
+        and storefront_id = #{storefrontId,jdbcType=INTEGER}
+      </if>
+
+
+	</where>
+  </select>
+
+  <select id="selectSchool" resultMap="StudentResultMap">
+    select * from sys_student
+    <where>
+      <if test="schoolName != null and schoolName != ''" >
+        and school_name = #{schoolName,jdbcType=VARCHAR}
+      </if>
+      <if test="schoolId != null and schoolId != ''" >
+        and school_id = #{schoolId,jdbcType=INTEGER}
+      </if>
+      <if test="studentClass != null and studentClass != ''" >
+        and student_class = #{studentClass,jdbcType=VARCHAR}
+      </if>
+      <if test="studentClassId != null and studentClassId != ''" >
+        and student_class_id = #{studentClassId,jdbcType=INTEGER}
+      </if>
+      <if test="studentId != null and studentId != ''" >
+        and student_id = #{studentId,jdbcType=INTEGER}
+      </if>
+        <if test="studentNativePlace != null and studentNativePlace != ''" >
+            and student_native_place = #{studentNativePlace,jdbcType=VARCHAR}
+        </if>
+        <if test="studentEmergencycontact != null and studentEmergencycontact != ''" >
+            and student_emergencycontact = #{studentEmergencycontact,jdbcType=VARCHAR}
+        </if>
+        <if test="studentRelationship != null and studentRelationship != ''" >
+            and student_relationship = #{studentRelationship,jdbcType=VARCHAR}
+        </if>
+        <if test="studentIdcard != null and studentIdcard != ''" >
+            and student_idcard = #{studentIdcard,jdbcType=VARCHAR}
+        </if>
+        <if test="studentIdcardAddress != null and studentIdcardAddress != ''" >
+            and student_idcard_address = #{studentIdcardAddress,jdbcType=VARCHAR}
+        </if>
+        <if test="studentNowAddress != null and studentNowAddress != ''" >
+            and student_now_address = #{studentNowAddress,jdbcType=VARCHAR}
+        </if>
+        <if test="studentUserNation != null and studentUserNation != ''" >
+            and student_user_nation = #{studentUserNation,jdbcType=VARCHAR}
+        </if>
+      <if test="studentState != null and studentState != ''" >
+        and student_state = #{studentState,jdbcType=VARCHAR}
+      </if>
+      <if test="studentName != null and studentName != ''" >
+        and student_name like '%${studentName}%'
+      </if>
+    </where>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_storefront
+    where storefront_id = #{storefrontId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.sys.SysStorefront" 
+  		 useGeneratedKeys="true" keyProperty="storefrontId"> 
+    insert into sys_storefront
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="storefrontId != null" >
+        storefront_id,
+      </if>
+      <if test="storefrontName != null" >
+        storefront_name,
+      </if>
+      <if test="storefrontAddress != null" >
+        storefront_address,
+      </if>
+      <if test="storefrontNote != null" >
+        storefront_note,
+      </if>
+      <if test="storefrontState != null" >
+        storefront_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="storefrontId != null" >
+        #{storefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="storefrontName != null" >
+        #{storefrontName,jdbcType=VARCHAR},
+      </if>
+      <if test="storefrontAddress != null" >
+        #{storefrontAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storefrontNote != null" >
+        #{storefrontNote,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.sys.SysStorefront" >
+    update sys_storefront
+    <set >
+      <if test="storefrontName != null" >
+        storefront_name = #{storefrontName,jdbcType=VARCHAR},
+      </if>
+      <if test="storefrontAddress != null" >
+        storefront_address = #{storefrontAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storefrontNote != null" >
+        storefront_note = #{storefrontNote,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="storefrontState != null" >
+      storefront_state = #{storefrontState,jdbcType=VARCHAR},
+      </if>
+      <if test="storefrontAccountId != null" >
+      storefront_account_id = #{storefrontAccountId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where storefront_id = #{storefrontId,jdbcType=INTEGER}
+  </update>
+
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zz.po.sys.SysStorefront" >
+    update sys_storefront
+    set storefront_name = #{storefrontName,jdbcType=VARCHAR},
+      storefront_address = #{storefrontAddress,jdbcType=VARCHAR},
+      storefront_note = #{storefrontNote,jdbcType=LONGVARCHAR},
+      storefront_state = #{storefrontState,jdbcType=VARCHAR}
+    where storefront_id = #{storefrontId,jdbcType=INTEGER}
+  </update>
+</mapper>

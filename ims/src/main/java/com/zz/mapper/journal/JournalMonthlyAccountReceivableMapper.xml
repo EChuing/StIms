@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalMonthlyAccountReceivableMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalMonthlyAccountReceivable" >
+    <id column="jmar_id" property="jmarId" jdbcType="INTEGER" />
+    <result column="jmar_cont_id" property="jmarContId" jdbcType="INTEGER" />
+    <result column="jmar_water_diff" property="jmarWaterDiff" jdbcType="DOUBLE" />
+    <result column="jmar_water_money" property="jmarWaterMoney" jdbcType="DOUBLE" />
+    <result column="jmar_electric_diff" property="jmarElectricDiff" jdbcType="DOUBLE" />
+    <result column="jmar_electric_money" property="jmarElectricMoney" jdbcType="DOUBLE" />
+    <result column="jmar_gas_diff" property="jmarGasDiff" jdbcType="DOUBLE" />
+    <result column="jmar_gas_money" property="jmarGasMoney" jdbcType="DOUBLE" />
+    <result column="jmar_liquidated_damages" property="jmarLiquidatedDamages" jdbcType="DOUBLE" />
+    <result column="jmar_cumulative_arrears" property="jmarCumulativeArrears" jdbcType="DOUBLE" />
+    <result column="jmar_begin_time" property="jmarBeginTime" jdbcType="DATE" />
+    <result column="jmar_end_time" property="jmarEndTime" jdbcType="DATE" />
+    <result column="jmar_regsiter_time" property="jmarRegsiterTime" jdbcType="TIMESTAMP" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" /> 
+    <result column="jmar_manage_charge" property="jmarManageCharge" jdbcType="DOUBLE" />
+    <result column="jmar_server_charge" property="jmarServerCharge" jdbcType="DOUBLE" />
+    <result column="jmar_wifi_charge" property="jmarWifiCharge" jdbcType="DOUBLE" />
+    <result column="jmar_tv_charge" property="jmarTvCharge" jdbcType="DOUBLE" />
+    <result column="jmar_this_arrears" property="jmarThisArrears" jdbcType="DOUBLE" />
+    <result column="jmar_rent_id" property="jmarRentId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jmar_id, jmar_cont_id, jmar_water_diff, jmar_manage_charge, jmar_server_charge, jmar_wifi_charge, jmar_tv_charge
+    jmar_water_money, jmar_electric_diff, jmar_electric_money, jmar_gas_diff, jmar_gas_money, 
+    jmar_liquidated_damages, jmar_cumulative_arrears, jmar_begin_time, jmar_end_time, jmar_this_arrears, jmar_rent_id,
+    jmar_regsiter_time
+  </sql>
+  <select id="selectByHrId" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalMonthlyAccountReceivable" >
+	select * from jour_attched_bills where jmar_rent_id = #{jmarRentId}
+	ORDER BY jmar_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jour_attched_bills
+    where jmar_id = #{jmarId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_attched_bills
+    where jmar_id = #{jmarId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalMonthlyAccountReceivable" >
+    insert into jour_attched_bills
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jmarId != null" >
+        jmar_id,
+      </if>
+      <if test="jmarContId != null" >
+        jmar_cont_id,
+      </if>
+      <if test="jmarRentId != null" >
+        jmar_rent_id,
+      </if>
+      <if test="jmarWaterDiff != null" >
+        jmar_water_diff,
+      </if>
+      <if test="jmarWaterMoney != null" >
+        jmar_water_money,
+      </if>
+      <if test="jmarElectricDiff != null" >
+        jmar_electric_diff,
+      </if>
+      <if test="jmarElectricMoney != null" >
+        jmar_electric_money,
+      </if>
+      <if test="jmarGasDiff != null" >
+        jmar_gas_diff,
+      </if>
+      <if test="jmarGasMoney != null" >
+        jmar_gas_money,
+      </if>
+      <if test="jmarLiquidatedDamages != null" >
+        jmar_liquidated_damages,
+      </if>
+      <if test="jmarCumulativeArrears != null" >
+        jmar_cumulative_arrears,
+      </if>
+      <if test="jmarBeginTime != null" >
+        jmar_begin_time,
+      </if>
+      <if test="jmarEndTime != null" >
+        jmar_end_time,
+      </if>
+      <if test="jmarRegsiterTime != null" >
+        jmar_regsiter_time,
+      </if>
+      
+      <if test="jmarManageCharge != null" >
+        jmar_manage_charge,
+      </if>
+      <if test="jmarServerCharge != null" >
+        jmar_server_charge,
+      </if>
+      <if test="jmarWifiCharge != null" >
+        jmar_wifi_charge,
+      </if>
+      <if test="jmarTvCharge != null" >
+        jmar_tv_charge,
+      </if>
+      <if test="jmarThisArrears != null" >
+        jmar_this_arrears,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jmarId != null" >
+        #{jmarId,jdbcType=INTEGER},
+      </if>
+      <if test="jmarContId != null" >
+        #{jmarContId,jdbcType=INTEGER},
+      </if>
+      <if test="jmarRentId != null" >
+        #{jmarRentId},
+      </if>
+      <if test="jmarWaterDiff != null" >
+        #{jmarWaterDiff,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarWaterMoney != null" >
+        #{jmarWaterMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarElectricDiff != null" >
+        #{jmarElectricDiff,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarElectricMoney != null" >
+        #{jmarElectricMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarGasDiff != null" >
+        #{jmarGasDiff,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarGasMoney != null" >
+        #{jmarGasMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarLiquidatedDamages != null" >
+        #{jmarLiquidatedDamages,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarCumulativeArrears != null" >
+        #{jmarCumulativeArrears,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarBeginTime != null" >
+        #{jmarBeginTime,jdbcType=DATE},
+      </if>
+      <if test="jmarEndTime != null" >
+        #{jmarEndTime,jdbcType=DATE},
+      </if>
+      <if test="jmarRegsiterTime != null" >
+        #{jmarRegsiterTime,jdbcType=TIMESTAMP},
+      </if>
+      
+      <if test="jmarManageCharge != null" >
+        #{jmarManageCharge},
+      </if>
+      <if test="jmarServerCharge != null" >
+        #{jmarServerCharge},
+      </if>
+      <if test="jmarWifiCharge != null" >
+        #{jmarWifiCharge},
+      </if>
+      <if test="jmarTvCharge != null" >
+        #{jmarTvCharge},
+      </if>
+      <if test="jmarThisArrears != null" >
+        #{jmarThisArrears},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalMonthlyAccountReceivable" >
+    update jour_attched_bills
+    <set >
+      <if test="jmarContId != null" >
+        jmar_cont_id = #{jmarContId,jdbcType=INTEGER},
+      </if>
+      <if test="jmarRentId != null" >
+        jmar_rent_id = #{jmarRentId},
+      </if>
+      <if test="jmarWaterDiff != null" >
+        jmar_water_diff = #{jmarWaterDiff,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarWaterMoney != null" >
+        jmar_water_money = #{jmarWaterMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarElectricDiff != null" >
+        jmar_electric_diff = #{jmarElectricDiff,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarElectricMoney != null" >
+        jmar_electric_money = #{jmarElectricMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarGasDiff != null" >
+        jmar_gas_diff = #{jmarGasDiff,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarGasMoney != null" >
+        jmar_gas_money = #{jmarGasMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarLiquidatedDamages != null" >
+        jmar_liquidated_damages = #{jmarLiquidatedDamages,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarCumulativeArrears != null" >
+        jmar_cumulative_arrears = #{jmarCumulativeArrears,jdbcType=DOUBLE},
+      </if>
+      <if test="jmarBeginTime != null" >
+        jmar_begin_time = #{jmarBeginTime,jdbcType=DATE},
+      </if>
+      <if test="jmarEndTime != null" >
+        jmar_end_time = #{jmarEndTime,jdbcType=DATE},
+      </if>
+      <if test="jmarRegsiterTime != null" >
+        jmar_regsiter_time = #{jmarRegsiterTime,jdbcType=TIMESTAMP},
+      </if>
+      
+      <if test="jmarManageCharge != null" >
+        jmar_manage_charge = #{jmarManageCharge},
+      </if>
+      <if test="jmarServerCharge != null" >
+        jmar_server_charge = #{jmarServerCharge},
+      </if>
+      <if test="jmarWifiCharge != null" >
+        jmar_wifi_charge = #{jmarWifiCharge},
+      </if>
+      <if test="jmarTvCharge != null" >
+        jmar_tv_charge = #{jmarTvCharge},
+      </if>
+      <if test="jmarThisArrears != null" >
+        jmar_this_arrears = #{jmarThisArrears},
+      </if>
+    </set>
+    where jmar_id = #{jmarId,jdbcType=INTEGER}
+  </update>
+</mapper>

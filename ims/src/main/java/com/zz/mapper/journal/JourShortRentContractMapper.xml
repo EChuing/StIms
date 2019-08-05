@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourShortRentContractMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourShortRentContract" >
+    <id column="jsrc_id" property="jsrcId" jdbcType="INTEGER" />
+    <result column="jsrc_hs_id" property="jsrcHsId" jdbcType="INTEGER" />
+    <result column="jsrc_renter_id" property="jsrcRenterId" jdbcType="INTEGER" />
+    <result column="jsrc_user_id" property="jsrcUserId" jdbcType="INTEGER" />
+    <result column="jsrc_total_days" property="jsrcTotalDays" jdbcType="INTEGER" />
+    <result column="jsrc_daily_price" property="jsrcDailyPrice" jdbcType="DOUBLE" />
+    <result column="jsrc_total_price" property="jsrcTotalPrice" jdbcType="DOUBLE" />
+    <result column="jsrc_amount_payable" property="jsrcAmountPayable" jdbcType="DOUBLE" />
+    <result column="jsrc_deposit" property="jsrcDeposit" jdbcType="DOUBLE" />
+    <result column="jsrc_begin_time" property="jsrcBeginTime" jdbcType="TIMESTAMP" />
+    <result column="jsrc_end_time" property="jsrcEndTime" jdbcType="TIMESTAMP" />
+    <result column="jsrc_state" property="jsrcState" jdbcType="VARCHAR" />
+    <result column="jsrc_people" property="jsrcPeople" jdbcType="VARCHAR" />
+    <result column="jsrc_partner_id" property="jsrcPartnerId" jdbcType="VARCHAR" />
+    <result column="jsrc_follow" property="jsrcFollow" jdbcType="VARCHAR" />
+    <result column="jsrc_registration_time" property="jsrcRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="jsrc_remarks" property="jsrcRemarks" jdbcType="VARCHAR" />
+    <result column="jsrc_payment_method" property="jsrcPaymentMethod" jdbcType="VARCHAR" />
+    <result column="jsrc_actual_occupancy_time" property="jsrcActualOccupancyTime" jdbcType="TIMESTAMP" />
+    <result column="jsrc_actual_departure_time" property="jsrcActualDepartureTime" jdbcType="TIMESTAMP" />
+    <result column="jsrc_order_source" property="jsrcOrderSource" jdbcType="VARCHAR" />
+    <result column="jsrc_additional_cost" property="jsrcAdditionalCost" jdbcType="DOUBLE" />
+    <result column="jsrc_additional_description" property="jsrcAdditionalDescription" jdbcType="VARCHAR" />
+    <result column="jsrc_type_occupancy" property="jsrcTypeOccupancy" jdbcType="VARCHAR" />
+    <result column="jsrc_arrears" property="jsrcArrears" jdbcType="DOUBLE" />
+    <result column="jsrc_order_num" property="jsrcOrderNum" jdbcType="VARCHAR" />
+    <result column="jsrc_refund_num" property="jsrcRefundNum" jdbcType="VARCHAR" />
+    <result column="jsrc_deposit_pay_type" property="jsrcDepositPayType" jdbcType="INTEGER" />
+    <result column="jsrc_first_pay" property="jsrcFirstPay" jdbcType="DOUBLE" />
+    <result column="jsrc_room_charge_percent" property="jsrcRoomChargePercent" jdbcType="INTEGER" />
+    <result column="jsrc_order_state" property="jsrcOrderState" jdbcType="INTEGER" />
+    <result column="jsrc_saleno" property="jsrcSaleNo" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="hs_add_district" property="hsAddDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_province" property="hsAddProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="hsAddCity" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_add_floor" property="hsAddFloor" jdbcType="VARCHAR" />
+    <result column="hs_daily_rent" property="hsDailyRent" jdbcType="VARCHAR" />
+    <result column="hs_hot_daily_rent" property="hsHotDailyRent" jdbcType="VARCHAR" />
+    <result column="hs_room_type" property="hsRoomType" jdbcType="VARCHAR" />
+    <result column="hs_lease_type" property="hsLeaseType" jdbcType="INTEGER" />
+    <result column="renterName" property="renterName" jdbcType="VARCHAR" />
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jsrc_id, jsrc_hs_id, jsrc_renter_id, jsrc_user_id, jsrc_total_days, jsrc_daily_price, jsrc_amount_payable, jsrc_actual_occupancy_time, jsrc_actual_departure_time,
+    jsrc_payment_method, jsrc_total_price, jsrc_deposit, jsrc_begin_time, jsrc_end_time, jsrc_state, jsrc_registration_time, jsrc_additional_cost,jsrc_additional_description
+  </sql>
+
+
+   <select id="selectByJsrcHsId" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentContract">
+    select * from jour_short_rent_contract
+    where jsrc_hs_id = #{jsrcHsId} and jsrc_begin_time &lt; #{jsrcBeginTime} and jsrc_state = '已住'
+   </select>
+
+    <select id="listJourShortRentContractByHsIdList" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentContract" >
+    select 
+    *
+    from jour_short_rent_contract 
+    <where>
+    	<if test="jsrcBeginTime != '' and jsrcBeginTime != null and jsrcEndTime != '' and jsrcEndTime != null">
+			and (
+			(jsrc_begin_time 
+		 	between  
+	 			#{jsrcBeginTime}
+	 			 and
+	 			 #{jsrcEndTime})
+	 		or (jsrc_end_time 
+		 	between  
+	 			#{jsrcBeginTime}
+	 			 and
+	 			 #{jsrcEndTime})
+	 			 )
+		</if>
+		<if test="contractState != null and contractState != ''">
+			and (jsrc_state = '已住' or jsrc_state = '预定' or jsrc_state = '保留'  or jsrc_state = '退定中')
+		</if>
+    	and jsrc_hs_id in
+	    <foreach item="item" index="index" collection="hsIdList"  open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+  		
+  	</where>
+    ORDER BY jsrc_actual_occupancy_time DESC
+  </select>
+ 
+  <select id="selectByJsrcId" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentContract" >
+    select 
+    jsrc.*, ihs.*
+    from jour_short_rent_contract jsrc
+    left outer join info_house_4store ihs on ihs.hs_id = jsrc.jsrc_hs_id
+    where jsrc_id in
+   <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    ORDER BY jsrc_actual_occupancy_time DESC
+  </select>
+  
+  
+  <select id="selectJourShortRentContract" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentContract" >
+	select a.*, b.total_num from
+	(select jsrc.*,ihs.hs_add_community,ihs.hs_add_building,ihs.hs_add_doorplateno,ihs.hs_add_floor,ihs.hs_daily_rent,ihs.hs_hot_daily_rent,ihs.hs_room_type,
+		ihs.hs_add_district,ihs.hs_add_province,ihs.hs_add_city,ipt.pop_name renterName,su.su_staff_name
+  	from jour_short_rent_contract jsrc
+  	left outer join info_house_4store ihs on ihs.hs_id = jsrc.jsrc_hs_id
+  	left outer join info_renter ir on ir.renter_id = jsrc.jsrc_renter_id
+  	left outer join info_pop_tmp ipt on ipt.pop_id = ir.renter_population_id
+  	left outer join sys_users su on su.user_coding = jsrc.jsrc_user_id
+  	
+  	<where>
+  	    <if test="renterName != '' and renterName != null">
+  			and pop_name like '%${renterName}%'
+  		</if>
+  		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'
+		</if>
+        <if test="jarStartTime != null and jarStartTime !='' and jarEndTime != null and jarEndTime !=''">
+            and date_format(#{jarStartTime},'%Y-%m-%d %H:%i:%s')   &lt;= date_format(jsrc_begin_time,'%Y-%m-%d %H:%i:%s') and date_format(jsrc_end_time,'%Y-%m-%d %H:%i:%s') &lt;= date_format(#{jarEndTime},'%Y-%m-%d %H:%i:%s')
+        </if>
+		<if test="jsrcSaleNo != '' and jsrcSaleNo != null" >
+			and jsrc_saleno like '%${jsrcSaleNo}%'
+		</if>
+  		<if test="hsAddBuilding != '' and hsAddBuilding != null">
+  			and hs_add_building like '%${hsAddBuilding}%'
+  		</if>
+  		<if test="hsAddDoorplateno != '' and hsAddDoorplateno != null">
+  			and hs_add_doorplateno like '%${hsAddDoorplateno}%'
+  		</if>
+  		<if test="hsAddFloor != '' and hsAddFloor != null">
+  			and hs_add_floor =#{hsAddFloor}
+  		</if>
+  		<if test="hsAddFloor != '' and hsAddFloor != null">
+  			and hs_add_floor =#{hsAddFloor}
+  		</if>
+  		<if test="hsLeaseState =='短租房'" >
+			and (hs_lease_type = 1 or hs_lease_type = 3)
+		</if>
+  		<if test="jsrcId != '' and jsrcId != null">
+  			and jsrc_id =#{jsrcId}
+  		</if>
+        <if test="suStaffName != '' and suStaffName!= null">
+            and su_staff_name = #{suStaffName}
+        </if>
+  		<if test="jsrcState != '' and jsrcState != null">
+			and jsrc_state = #{jsrcState}
+		</if>
+		<if test="jsrcBeginTime != '' and jsrcBeginTime != null and jsrcEndTime != '' and jsrcEndTime != null">
+			and (jsrc_begin_time 
+		 	between  
+	 			#{jsrcBeginTime}
+	 			 and
+	 			 #{jsrcEndTime})
+	 		and (jsrc_end_time 
+		 	between  
+	 			#{jsrcBeginTime}
+	 			 and
+	 			 #{jsrcEndTime})
+		</if>
+		<if test="jsrcHsId != '' and jsrcHsId != null">
+			and jsrc_hs_id = #{jsrcHsId}
+		</if>
+		<if test="jsrcTypeOccupancy != '' and jsrcTypeOccupancy != null">
+			<if test="jsrcTypeOccupancy == '已入住' ">
+				and jsrc_state = '已住'
+			</if>
+			<if test="jsrcTypeOccupancy == '未入住' ">
+				and (jsrc_state = '预定' or jsrc_state = '保留' or jsrc_state = '退定中')
+			</if>
+		</if>
+		<if test="jsrcAdditionalCost != '' and jsrcAdditionalCost != null">
+			and jsrc_additional_cost = #{jsrcAdditionalCost}
+		</if>
+        <if test="jarStartTime != null and jarEndTime != null">
+            and  #{jarStartTime} &lt;=  jsrc_begin_time and #{jarEndTime} &gt;= jsrc_end_time
+        </if>
+		<if test="jsrcAdditionalDescription != '' and jsrcAdditionalDescription != null">
+			and jsrc_additional_description = #{jsrcAdditionalDescription}
+		</if>
+		<if test="contractState != null and contractState != ''">
+			and (jsrc_state = '已住' or jsrc_state = '预定' or jsrc_state = '保留'  or jsrc_state = '退定中')
+		</if>
+  	</where>
+  	)a,
+  	(select count(jsrc.jsrc_id) total_num
+  	from jour_short_rent_contract jsrc
+  	left outer join info_house_4store ihs on ihs.hs_id = jsrc.jsrc_hs_id
+  	left outer join info_renter ir on ir.renter_id = jsrc.jsrc_renter_id
+  	left outer join info_pop_tmp ipt on ipt.pop_id = ir.renter_population_id
+  	left outer join sys_users su on su.user_coding = jsrc.jsrc_user_id
+  	<where>
+		<if test="renterName != '' and renterName != null">
+  			and pop_name like '%${renterName}%'
+  		</if>
+  		<if test="hsAddCommunity != '' and hsAddCommunity != null">
+  			and hs_add_community like '%${hsAddCommunity}%'
+  		</if>
+        <if test="jarStartTime != null and jarStartTime !='' and jarEndTime != null and jarEndTime !=''">
+            and date_format(#{jarStartTime},'%Y-%m-%d %H:%i:%s')   &lt;= date_format(jsrc_begin_time,'%Y-%m-%d %H:%i:%s') and date_format(jsrc_end_time,'%Y-%m-%d %H:%i:%s') &lt;= date_format(#{jarEndTime},'%Y-%m-%d %H:%i:%s')
+        </if>
+  		<if test="hsAddBuilding != '' and hsAddBuilding != null">
+  			and hs_add_building like '%${hsAddBuilding}%'
+  		</if>
+  		<if test="hsLeaseState =='短租房'" >
+			and (hs_lease_type = 1 or hs_lease_type = 3)
+		</if>
+  		<if test="jsrcSaleNo != '' and jsrcSaleNo != null" >
+			and jsrc_saleno like '%${jsrcSaleNo}%'
+		</if>
+  		<if test="hsAddDoorplateno != '' and hsAddDoorplateno != null">
+  			and hs_add_doorplateno like '%${hsAddDoorplateno}%'
+  		</if>
+
+        <if test="suStaffName != '' and suStaffName!= null">
+            and su_staff_name = #{suStaffName}
+        </if>
+
+  		<if test="hsAddFloor != '' and hsAddFloor != null">
+  			and hs_add_floor =#{hsAddFloor}
+  		</if>
+
+  		<if test="jsrcId != '' and jsrcId != null">
+  			and jsrc_user_id =#{jsrcId}
+  		</if>
+  		<if test="jsrcState != '' and jsrcState != null">
+			and jsrc_state = #{jsrcState}
+		</if>
+		<if test="jsrcBeginTime != '' and jsrcBeginTime != null and jsrcEndTime != '' and jsrcEndTime != null">
+			and (jsrc_begin_time 
+		 	between  
+	 			#{jsrcBeginTime}
+	 			 and
+	 			 #{jsrcEndTime})
+	 		and (jsrc_end_time 
+		 	between  
+	 			#{jsrcBeginTime}
+	 			 and
+	 			 #{jsrcEndTime})
+		</if>
+		<if test="jsrcHsId != '' and jsrcHsId != null">
+			and jsrc_hs_id = #{jsrcHsId}
+		</if>
+        <if test="jsrcTypeOccupancy != '' and jsrcTypeOccupancy != null">
+            <if test="jsrcTypeOccupancy == '已入住' ">
+                and jsrc_state = '已住'
+            </if>
+            <if test="jsrcTypeOccupancy == '未入住' ">
+                and (jsrc_state = '预定' or jsrc_state = '保留' or jsrc_state = '退定中')
+            </if>
+        </if>
+		<if test="jsrcAdditionalCost != '' and jsrcAdditionalCost != null">
+			and jsrc_additional_cost = #{jsrcAdditionalCost}
+		</if>
+		<if test="jsrcAdditionalDescription != '' and jsrcAdditionalDescription != null">
+			and jsrc_additional_description = #{jsrcAdditionalDescription}
+		</if>
+		<if test="contractState != null and contractState != ''">
+			and (jsrc_state = '已住' or jsrc_state = '预定' or jsrc_state = '保留'  or jsrc_state = '退定中')
+		</if>
+  	</where>
+  	)b
+  	ORDER BY jsrc_registration_time DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+
+    <insert id="insertSelective" parameterType="com.zz.po.journal.JourShortRentContract"
+  useGeneratedKeys="true" keyProperty="jsrcId">
+    insert into jour_short_rent_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jsrcId != null" >
+        jsrc_id,
+      </if>
+      <if test="jsrcHsId != null" >
+        jsrc_hs_id,
+      </if>
+      <if test="jsrcRenterId != null" >
+        jsrc_renter_id,
+      </if>
+      <if test="jsrcUserId != null" >
+        jsrc_user_id,
+      </if>
+      <if test="jsrcTotalDays != null" >
+        jsrc_total_days,
+      </if>
+      <if test="jsrcDailyPrice != null" >
+        jsrc_daily_price,
+      </if>
+      <if test="jsrcTotalPrice != null" >
+        jsrc_total_price,
+      </if>
+      <if test="jsrcDeposit != null" >
+        jsrc_deposit,
+      </if>
+      <if test="jsrcBeginTime != null" >
+        jsrc_begin_time,
+      </if>
+      <if test="jsrcEndTime != null" >
+        jsrc_end_time,
+      </if>
+      <if test="jsrcState != null" >
+        jsrc_state,
+      </if>
+      <if test="jsrcPeople != null and jsrcPeople != ''" >
+        jsrc_people,
+      </if>
+      <if test="jsrcRegistrationTime != null" >
+        jsrc_registration_time,
+      </if>
+      <if test="jsrcPartnerId != null" >
+        jsrc_partner_id,
+      </if>
+      <if test="jsrcFollow != null" >
+        jsrc_follow,
+      </if>
+       <if test="jsrcAmountPayable != null" >
+        jsrc_amount_payable,
+      </if>
+       <if test="jsrcPaymentMethod != null" >
+        jsrc_payment_method,
+      </if>
+       <if test="jsrcRemarks != null" >
+        jsrc_remarks,
+      </if>
+       <if test="jsrcActualOccupancyTime != null" >
+        jsrc_actual_occupancy_time,
+      </if>
+      <if test="jsrcTypeOccupancy != null" >
+        jsrc_type_occupancy,
+      </if>
+      <if test="jsrcOrderSource != null" >
+        jsrc_order_source,
+      </if>
+      <if test="jsrcOrderNum != null" >
+        jsrc_order_num,
+      </if>
+      <if test="jsrcFirstPay != null" >
+        jsrc_first_pay,
+      </if>
+      <if test="jsrcOrderState != null" >
+        jsrc_order_state,
+      </if>
+       <if test="jsrcSaleNo != null" >
+        jsrc_saleno,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jsrcId != null" >
+        #{jsrcId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcHsId != null" >
+        #{jsrcHsId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcRenterId != null" >
+        #{jsrcRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcUserId != null" >
+        #{jsrcUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcTotalDays != null" >
+        #{jsrcTotalDays,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcDailyPrice != null" >
+        #{jsrcDailyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrcTotalPrice != null" >
+        #{jsrcTotalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrcDeposit != null" >
+        #{jsrcDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrcBeginTime != null" >
+        #{jsrcBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrcEndTime != null" >
+        #{jsrcEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrcState != null" >
+        #{jsrcState,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrcPeople != null and jsrcPeople != ''" >
+        #{jsrcPeople},
+      </if>
+      <if test="jsrcRegistrationTime != null" >
+        #{jsrcRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrcPartnerId != null" >
+        #{jsrcPartnerId},
+      </if>
+      <if test="jsrcFollow != null" >
+        #{jsrcFollow},
+      </if>
+      <if test="jsrcAmountPayable != null" >
+        #{jsrcAmountPayable},
+      </if>
+      <if test="jsrcPaymentMethod != null" >
+        #{jsrcPaymentMethod},
+      </if>
+      <if test="jsrcRemarks != null" >
+        #{jsrcRemarks},
+      </if>
+      <if test="jsrcActualOccupancyTime!= null" >
+        #{jsrcActualOccupancyTime},
+      </if>
+      <if test="jsrcTypeOccupancy!= null" >
+        #{jsrcTypeOccupancy},
+      </if>
+      <if test="jsrcOrderSource!= null" >
+        #{jsrcOrderSource},
+      </if>
+      <if test="jsrcOrderNum != null" >
+        #{jsrcOrderNum},
+      </if>
+      <if test="jsrcFirstPay != null" >
+        #{jsrcFirstPay},
+      </if>
+      <if test="jsrcOrderState != null" >
+        #{jsrcOrderState},
+      </if>
+        <if test="jsrcSaleNo != null" >
+        #{jsrcSaleNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourShortRentContract" >
+    update jour_short_rent_contract
+    <set >
+      <if test="jsrcHsId != null" >
+        jsrc_hs_id = #{jsrcHsId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcRenterId != null" >
+        jsrc_renter_id = #{jsrcRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcUserId != null" >
+        jsrc_user_id = #{jsrcUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcTotalDays != null" >
+        jsrc_total_days = #{jsrcTotalDays,jdbcType=INTEGER},
+      </if>
+      <if test="jsrcDailyPrice != null" >
+        jsrc_daily_price = #{jsrcDailyPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrcTotalPrice != null" >
+        jsrc_total_price = #{jsrcTotalPrice,jdbcType=DOUBLE},
+      </if>
+       <if test="jsrcAmountPayable != null" >
+        jsrc_amount_payable = #{jsrcAmountPayable,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrcDeposit != null" >
+        jsrc_deposit = #{jsrcDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="jsrcBeginTime != null" >
+        jsrc_begin_time = #{jsrcBeginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrcEndTime != null" >
+        jsrc_end_time = #{jsrcEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrcPartnerId != null and jsrcPartnerId != ''" >
+        jsrc_partner_id = #{jsrcPartnerId},
+      </if>
+      <if test="jsrcFollow != null and jsrcFollow != ''" >
+        jsrc_follow = #{jsrcFollow},
+      </if>
+       <if test="jsrcRemarks != null and jsrcRemarks != ''" >
+        jsrc_remarks = #{jsrcRemarks},
+      </if>
+      <if test="jsrcState != null" >
+        jsrc_state = #{jsrcState,jdbcType=VARCHAR},
+      </if>
+      <if test="jsrcRegistrationTime != null" >
+        jsrc_registration_time = #{jsrcRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrcActualDepartureTime != null" >
+        jsrc_actual_departure_time = #{jsrcActualDepartureTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jsrcAdditionalCost != null and jsrcAdditionalCost != ''" >
+        jsrc_additional_cost = #{jsrcAdditionalCost},
+      </if>
+       <if test="jsrcAdditionalDescription != null and jsrcAdditionalDescription != ''" >
+        jsrc_additional_description = #{jsrcAdditionalDescription},
+      </if>
+      <if test="jsrcTypeOccupancy != null and jsrcTypeOccupancy != ''" >
+        jsrc_type_occupancy = #{jsrcTypeOccupancy},
+      </if>
+ 	  <if test="jsrcOrderNum != null and jsrcOrderNum != ''" >
+        jsrc_order_num = #{jsrcOrderNum},
+      </if>
+      <if test="jsrcArrears != null and jsrcArrears != ''" >
+        jsrc_arrears = #{jsrcArrears},
+      </if>
+      <if test="jsrcOrderState != null and jsrcOrderState != ''" >
+        jsrc_order_state = #{jsrcOrderState},
+      </if>
+      <if test="jsrcActualOccupancyTime != null and jsrcActualOccupancyTime != ''" >
+        jsrc_actual_occupancy_time = #{jsrcActualOccupancyTime},
+      </if>
+      <if test="jsrcPaymentMethod != null and jsrcPaymentMethod != ''" >
+        jsrc_payment_method = #{jsrcPaymentMethod},
+      </if>
+      <if test="jsrcOrderSource != null and jsrcOrderSource != ''" >
+        jsrc_order_source = #{jsrcOrderSource},
+      </if>
+          <if test="jsrcSaleNo != null and jsrcSaleNo != ''" >
+        jsrc_saleno = #{jsrcSaleNo},
+      </if>
+    </set>
+    where jsrc_id = #{jsrcId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 批量换房 -->
+  <update id="updateShortRoom" parameterType="java.util.List">
+  		update jour_short_rent_contract
+		<trim prefix="set" suffixOverrides=",">
+	      <trim prefix="jsrc_hs_id =case" suffix="end,">
+	          <foreach collection="list" item="i" index="index">
+                 <if test="i.jsrcHsId!=null">
+                  when jsrc_id=#{i.jsrcId} then #{i.jsrcHsId}
+                 </if>
+	          </foreach>
+	      </trim>
+	     </trim>
+	    where jsrc_id in
+	   <foreach collection="list" index="index" item="i" separator="," open="(" close=")">
+	       #{i.jsrcId}
+	   </foreach>
+  </update>
+  
+  <insert id="insertList" parameterType="java.util.List">
+  	insert into jour_short_rent_contract
+  	(   
+  		jsrc_hs_id,
+        jsrc_user_id,
+        jsrc_total_days,
+        jsrc_daily_price,
+        jsrc_total_price,
+        jsrc_amount_payable,
+        jsrc_begin_time,
+        jsrc_end_time,
+        jsrc_people,
+        jsrc_state,
+        jsrc_follow,
+        jsrc_remarks,
+        jsrc_registration_time,
+        jsrc_order_state,
+        jsrc_deposit
+    )
+    values
+    <foreach collection="list" item="item" index= "index" separator =",">
+    (
+    	#{item.jsrcHsId},
+		#{item.jsrcUserId},
+		#{item.jsrcTotalDays},
+		#{item.jsrcDailyPrice},
+		#{item.jsrcTotalPrice},
+		#{item.jsrcAmountPayable},
+		#{item.jsrcBeginTime},
+		#{item.jsrcEndTime},
+		#{item.jsrcPeople},
+		#{item.jsrcState},
+		#{item.jsrcFollow},
+		#{item.jsrcRemarks},
+		#{item.jsrcRegistrationTime},
+		#{item.jsrcOrderState},
+		#{item.jsrcDeposit}
+    )
+    </foreach>
+  </insert>
+  <!-- 查住户数量 -->
+  <select id="selectRenter" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentContract">
+  	select jsrc.*,jsrn.* from jour_short_rent_contract jsrc
+	left outer join info_house_4store hs on hs.hs_id = jsrc.jsrc_hs_id
+	left outer join jour_short_rent_nexus jsrn on jsrn.jsrn_jsrc_id = jsrc.jsrc_id
+	<where>
+		<if test="jsrcHsId != null and jsrcHsId != ''">
+			and jsrc_hs_id = #{jsrcHsId}
+		</if>
+		<if test="jsrcState != null and jsrcState != ''">
+			and jsrc_state = #{jsrcState}
+		</if>
+	</where>
+  </select>
+  
+  <select id="queryNewOrder" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourShortRentContract">
+  	select jsrc.*,ihs.hs_add_community,ihs.hs_add_building,ihs.hs_add_doorplateno,ihs.hs_add_floor,ihs.hs_daily_rent,ihs.hs_hot_daily_rent,ihs.hs_room_type,
+		ipt.pop_name renterName,su.su_staff_name 
+  	from jour_short_rent_contract jsrc
+  	left outer join info_house_4store ihs on ihs.hs_id = jsrc.jsrc_hs_id
+  	left outer join info_renter ir on ir.renter_id = jsrc.jsrc_renter_id
+  	left outer join info_pop_tmp ipt on ipt.pop_id = ir.renter_population_id
+  	left outer join sys_users su on su.user_coding = jsrc.jsrc_user_id
+  	<where>
+  			jsrc_order_state = #{jsrcOrderState}
+  	</where>
+  </select>
+
+
+</mapper>

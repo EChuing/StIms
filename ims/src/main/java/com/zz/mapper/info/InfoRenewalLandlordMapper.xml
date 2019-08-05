@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoRenewalLandlordMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoRenewalLandlordExpand">
+    <id column="jrl_id" property="jrlId" jdbcType="INTEGER" />
+    <result column="jrl_renewal_coding" property="jrlRenewalCoding" jdbcType="VARCHAR" />
+    <result column="jrl_house_4store_id" property="jrlHouse4storeId" jdbcType="INTEGER" />
+    <result column="jrl_landlord_id" property="jrlLandlordId" jdbcType="INTEGER" />
+    <result column="jrl_user_id" property="jrlUserId" jdbcType="INTEGER" />
+    <result column="jrl_department" property="jrlDepartment" jdbcType="INTEGER" />
+    <result column="jrl_storefront" property="jrlStorefront" jdbcType="INTEGER" />
+    <result column="jrl_contract_type" property="jrlContractType" jdbcType="VARCHAR" />
+    <result column="jrl_rental_type" property="jrlRentalType" jdbcType="VARCHAR" />
+    <result column="jrl_begin_time" property="jrlBeginTime" jdbcType="DATE" />
+    <result column="jrl_end_time" property="jrlEndTime" jdbcType="DATE" />
+    <result column="jrl_signed_time" property="jrlSignedTime" jdbcType="DATE" />
+    <result column="jrl_registration_time" property="jrlRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="jrl_the_term" property="jrlTheTerm" jdbcType="VARCHAR" />
+    <result column="jrl_in_advance_pay" property="jrlInAdvancePay" jdbcType="INTEGER" />
+    <result column="jrl_price_ladder" property="jrlPriceLadder" jdbcType="VARCHAR" />
+    <result column="jrl_rent_free_days" property="jrlRentFreeDays" jdbcType="INTEGER" />
+    <result column="jrl_rent_free_segment" property="jrlRentFreeSegment" jdbcType="VARCHAR" />
+    <result column="jrl_payment_method" property="jrlPaymentMethod" jdbcType="VARCHAR" />
+    <result column="jrl_remark" property="jrlRemark" jdbcType="VARCHAR" />
+    <result column="jrl_img_path" property="jrlImgPath" jdbcType="LONGVARCHAR" />
+    <result column="jrl_img_num" property="jrlImgNum" jdbcType="VARCHAR" />
+    <result column="jrl_free_days_decoration" property="jrlFreeDaysDecoration" jdbcType="INTEGER" />
+    <result column="jrl_free_days_header" property="jrlFreeDaysHeader" jdbcType="INTEGER" />
+    <!-- user -->
+    <result column="register_people" property="registerPeople" jdbcType="VARCHAR" />
+    <!-- renter -->
+    <result column="renter_name" property="renterName" jdbcType="VARCHAR" />
+    <!-- landlord -->
+    <result column="landlord_name" property="landlordName" jdbcType="VARCHAR" />
+     <result column="landlord_phone" property="landlordPhone" jdbcType="VARCHAR" />
+    <!-- house -->
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_state" property="hsState" jdbcType="VARCHAR" />
+    <!-- department -->
+    <result column="department_name" property="departmentName" jdbcType="VARCHAR" />
+    <!-- storefront -->
+    <result column="storefront_name" property="storefrontName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="dateType" property="dateType" jdbcType="INTEGER" />
+
+    <result column="maxtime" property="maxtime" jdbcType="DATE" />
+    <result column="flag" property="flag" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- (数据与统计分开)查询所有-->
+  <select id="selectAllRenewalLandlord" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenewalLandlordExpand" >
+	 select 
+	 	<if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			count(jrl.jrl_id) total_num
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			jrl.*,u.su_staff_name register_people, 
+			hs.hs_add_district, hs.hs_add_community, hs.hs_state,hs.hs_add_building, hs.hs_add_doorplateno, 
+			ip.pop_name landlord_name, ip.pop_telephone landlord_phone 
+		</if>
+		from info_landlord_contract jrl
+		left outer join sys_users u on jrl.jrl_user_id = u.user_coding
+		left outer join info_house_4store hs on jrl.jrl_house_4store_id = hs.hs_id
+		left outer join info_landlord la on jrl.jrl_landlord_id = la.la_id
+		left outer join info_pop_tmp ip on la.la_population_id = ip.pop_id
+		<where>
+			<if test="jrlId != null and jrlId != '' " >
+	        	and jrl_id=#{jrlId,jdbcType=INTEGER}
+	      	</if>
+			<if test="jrlLandlordId != null and jrlLandlordId != '' " >
+	        	and jrl_landlord_id=#{jrlLandlordId,jdbcType=INTEGER}
+	      	</if>
+			<if test="landlordName != null and landlordName != ''">
+				and ip.pop_name like '%${landlordName}%'
+			</if>
+			<if test="jrlHouse4storeId != null and jrlHouse4storeId != '' " >
+	        	and jrl_house_4store_id=#{jrlHouse4storeId,jdbcType=INTEGER}
+	      	</if>
+	      	<if test="jrlUserId != null and jrlUserId != '' ">
+	      		and jrl_user_id = #{jrlUserId,jdbcType=INTEGER}
+	      	</if>
+	      	<if test="jrlDepartment != null and jrlDepartment != '' ">
+	      		and jrl_department = #{jrlDepartment,jdbcType=INTEGER}
+	      	</if>
+	      	<if test="jrlStorefront != null and jrlStorefront != '' ">
+	      		and jrl_storefront = #{jrlStorefront,jdbcType=INTEGER}
+	      	</if>
+	      	<if test="addDistrict != null and addDistrict != '' ">
+				and hs_add_district = #{addDistrict}
+			</if>
+			<if test="addCommunity != null and addCommunity != '' ">
+				and hs_add_community like '%${addCommunity}%'
+			</if>
+			<if test="addBuilding != null and addBuilding != '' ">
+				and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != '' ">
+				and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+			</if>
+			<if test="hsState == '正常'">
+				and hs_state = '正常'
+			</if>
+			<if test="hsState == '退房'">
+				and hs_state in ('正办理退房','退房待审核','退房待复核','退房待出账','退房完成')
+			</if>
+		</where>
+		<if test="splitFlag ==1">
+			ORDER BY jrl_id DESC 
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+  </select>
+  
+  <!-- 查询当期业主合约的到期日期 -->
+  <select id="queryCurJrlEndTime" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenewalLandlordExpand" >
+  	select * from info_landlord_contract 
+  	where jrl_house_4store_id = #{jrlHouse4storeId} and jrl_begin_time &lt;= curdate() and jrl_end_time &gt;= curdate()
+  </select>
+  <!-- 未租房托管时间修改查询 -->
+  <!-- <select id="noRentInquiryTime" resultMap="MyBaseResultMap" parameterType="java.lang.Integer">
+    select * from info_landlord_contract
+    where jrl_house_4store_id = #{jrlHouse4storeId}
+                and jrl_rental_type = '正常'
+    ORDER BY jrl_end_time DESC
+  </select> -->
+  
+  <!-- 房东签约统计 -->
+  <select id="querySignedNum" resultType="java.lang.Integer" parameterType="com.zz.po.info.InfoRenewalLandlordExpand" >
+  	select count(*) from info_landlord_contract
+  	<where>
+		<if test="flag == 'monthy' ">
+			date_format(jrl_signed_time,'%Y-%m')=date_format(curdate(),'%Y-%m')
+		</if>
+		<if test="flag == 'quarter' ">
+			YEAR(jrl_signed_time)=YEAR(curdate()) and QUARTER(jrl_signed_time)=QUARTER(curdate())
+		</if>
+		<if test="flag == 'year' ">
+			YEAR(jrl_signed_time)=YEAR(curdate())
+		</if>
+  	</where> 
+  </select>
+  
+  <!-- 公司人员，转移部门查询 -->
+  <select id="alljrlContractDepartment" resultMap="MyBaseResultMap" parameterType="java.lang.Integer">
+  	select * from info_landlord_contract where jrl_user_id = #{jrlUserId}
+  </select>
+  
+  <!-- ********************* -->
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenewalLandlordExpand" >
+   select a.*, b.total_num from	
+	(select jrl.*,u.su_staff_name register_people, hs.hs_add_district, hs.hs_add_community, hs.hs_state,
+		hs.hs_add_building, hs.hs_add_doorplateno, ip.pop_name landlord_name, ip.pop_telephone landlord_phone 
+	from info_landlord_contract jrl
+	left outer join sys_users u on jrl.jrl_user_id = u.user_coding
+	left outer join info_house_4store hs on jrl.jrl_house_4store_id = hs.hs_id
+	left outer join info_landlord la on jrl.jrl_landlord_id = la.la_id
+	left outer join info_pop_tmp ip on la.la_population_id = ip.pop_id
+	<where>
+		<if test="jrlId != null and jrlId != '' " >
+        	and jrl_id=#{jrlId,jdbcType=INTEGER}
+      	</if>
+		<if test="jrlLandlordId != null and jrlLandlordId != '' " >
+        	and jrl_landlord_id=#{jrlLandlordId,jdbcType=INTEGER}
+      	</if>
+		<if test="landlordName != null and landlordName != ''">
+			and ip.pop_name like '%${landlordName}%'
+		</if>
+		<if test="jrlHouse4storeId != null and jrlHouse4storeId != '' " >
+        	and jrl_house_4store_id=#{jrlHouse4storeId,jdbcType=INTEGER}
+      	</if>
+      	<if test="jrlUserId != null and jrlUserId != '' ">
+      		and jrl_user_id = #{jrlUserId,jdbcType=INTEGER}
+      	</if>
+      	<if test="jrlDepartment != null and jrlDepartment != '' ">
+      		and jrl_department = #{jrlDepartment,jdbcType=INTEGER}
+      	</if>
+      	<if test="jrlStorefront != null and jrlStorefront != '' ">
+      		and jrl_storefront = #{jrlStorefront,jdbcType=INTEGER}
+      	</if>
+      	<if test="addDistrict != null and addDistrict != '' ">
+			and hs_add_district = #{addDistrict}
+		</if>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and hs_add_community like '%${addCommunity}%'
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="hsState == '正常'">
+			and hs_state = '正常'
+		</if>
+		<if test="hsState == '退房'">
+			and hs_state in ('正办理退房','退房待审核','退房待复核','退房待出账','退房完成')
+		</if>
+	</where>
+	) a,
+	(select count(jrl.jrl_id) total_num
+	from info_landlord_contract jrl
+	left outer join sys_users u on jrl.jrl_user_id = u.user_coding
+	left outer join info_house_4store hs on jrl.jrl_house_4store_id = hs.hs_id
+	left outer join info_landlord la on jrl.jrl_landlord_id = la.la_id
+	left outer join info_pop_tmp ip on la.la_population_id = ip.pop_id
+	<where>
+		<if test="jrlId != null and jrlId != '' " >
+        	and jrl_id=#{jrlId,jdbcType=INTEGER}
+      	</if>
+		<if test="jrlLandlordId != null and jrlLandlordId != '' " >
+        	and jrl_landlord_id=#{jrlLandlordId,jdbcType=INTEGER}
+      	</if>
+		<if test="landlordName != null and landlordName != ''">
+			and ip.pop_name like '%${landlordName}%'
+		</if>
+		<if test="jrlHouse4storeId != null and jrlHouse4storeId != '' " >
+        	and jrl_house_4store_id=#{jrlHouse4storeId,jdbcType=INTEGER}
+      	</if>
+      	<if test="jrlUserId != null and jrlUserId != '' ">
+      		and jrl_user_id = #{jrlUserId,jdbcType=INTEGER}
+      	</if>
+      	<if test="jrlDepartment != null and jrlDepartment != '' ">
+      		and jrl_department = #{jrlDepartment,jdbcType=INTEGER}
+      	</if>
+      	<if test="jrlStorefront != null and jrlStorefront != '' ">
+      		and jrl_storefront = #{jrlStorefront,jdbcType=INTEGER}
+      	</if>
+      	<if test="addDistrict != null and addDistrict != '' ">
+			and hs_add_district = #{addDistrict}
+		</if>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and hs_add_community like '%${addCommunity}%'
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="hsState == '正常'">
+			and hs_state = '正常'
+		</if>
+		<if test="hsState == '退房'">
+			and hs_state in ('正办理退房','退房待审核','退房待复核','退房待出账','退房完成')
+		</if>
+	</where>
+	) b
+	ORDER BY jrl_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <!-- **********房东即将到期合同*********** -->
+  <select id="adSelect" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenewalLandlordExpand" >
+    select aa.*,bb.total_num from 
+	(select hs_add_community, hs_add_building, hs_add_doorplateno, hs_state, ip.pop_name landlord_name, ip.pop_telephone landlord_phone, max(jrl_end_time) as maxtime 
+		from info_landlord_contract jrl
+		left outer join info_house_4store hs on jrl.jrl_house_4store_id = hs.hs_id
+		left outer join info_landlord l on jrl.jrl_landlord_id = l.la_id
+		left outer join info_pop_tmp ip on l.la_population_id = ip.pop_id
+		group by jrl_house_4store_id
+		having 
+		<if test="dateType == 15 ">
+			maxtime between curdate() and date_add(curdate(),interval 15 day)
+		</if>
+		<if test="dateType == 30 ">
+			maxtime between curdate() and date_add(curdate(),interval 30 day)
+		</if>
+		<if test="dateType == 60 ">
+			maxtime between curdate() and date_add(curdate(),interval 60 day)
+		</if>
+		and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+	)aa,	
+	(select count(*) total_num from 
+		(select hs_state, max(jrl_end_time) as maxtime 
+		from info_landlord_contract jrl
+		left outer join info_house_4store hs on jrl.jrl_house_4store_id = hs.hs_id
+		group by jrl_house_4store_id
+		having
+		<if test="dateType == 15 ">
+			maxtime between curdate() and date_add(curdate(),interval 15 day)
+		</if>
+		<if test="dateType == 30 ">
+			maxtime between curdate() and date_add(curdate(),interval 30 day)
+		</if>
+		<if test="dateType == 60 ">
+			maxtime between curdate() and date_add(curdate(),interval 60 day)
+		</if>
+		and (hs_state = '正常' or hs_state = '正办理退房' or hs_state = '退房待审核' or hs_state = '退房待复核' or hs_state = '退房待出账')
+		) cc
+	)bb
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 查询未租房托管到期时间 -->
+  <select id="selectEndTime" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenewalLandlordExpand" >
+    select max(jrl_end_time) jrl_end_time from info_landlord_contract where jrl_house_4store_id = #{jrlHouse4storeId} and jrl_rental_type = "正常"
+  </select>
+
+  <!-- ********** -->
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoRenewalLandlordExpand" >
+    select * from info_landlord_contract
+    <where> 
+    	<if test="jrlId != null and jrlId != '' ">
+    		and jrl_id = #{jrlId,jdbcType=INTEGER}
+    	</if>
+    	<if test="jrlHouse4storeId != null and jrlHouse4storeId != '' ">
+    		and jrl_house_4store_id = #{jrlHouse4storeId}
+    	</if>
+    	<if test="jrlLandlordId != null and jrlLandlordId != '' ">
+    		and jrl_landlord_id = #{jrlLandlordId}
+    	</if>
+    	<if test="jrlRentalType != null and jrlRentalType != '' ">
+    		and jrl_rental_type = #{jrlRentalType}
+    	</if>
+    </where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_landlord_contract
+    where jrl_id = #{jrlId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoRenewalLandlord" 
+  	useGeneratedKeys="true" keyProperty="jrlId">
+    insert into info_landlord_contract
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jrlRenewalCoding != null" >
+        jrl_renewal_coding,
+      </if>
+      <if test="jrlHouse4storeId != null" >
+        jrl_house_4store_id,
+      </if>
+      <if test="jrlLandlordId != null" >
+        jrl_landlord_id,
+      </if>
+      <if test="jrlUserId != null" >
+        jrl_user_id,
+      </if>
+      <if test="jrlDepartment != null" >
+        jrl_department,
+      </if>
+      <if test="jrlStorefront != null" >
+        jrl_storefront,
+      </if>
+      <if test="jrlContractType != null" >
+        jrl_contract_type,
+      </if>
+      <if test="jrlRentalType != null" >
+        jrl_rental_type,
+      </if>
+      <if test="jrlBeginTime != null" >
+        jrl_begin_time,
+      </if>
+      <if test="jrlEndTime != null" >
+        jrl_end_time,
+      </if>
+      <if test="jrlSignedTime != null" >
+        jrl_signed_time,
+      </if>
+      <if test="jrlRegistrationTime != null" >
+        jrl_registration_time,
+      </if>
+      <if test="jrlTheTerm != null" >
+        jrl_the_term,
+      </if>
+      <if test="jrlInAdvancePay != null" >
+        jrl_in_advance_pay,
+      </if>
+      <if test="jrlPriceLadder != null" >
+        jrl_price_ladder,
+      </if>
+      <if test="jrlRentFreeDays != null" >
+        jrl_rent_free_days,
+      </if>
+      <if test="jrlRentFreeSegment != null" >
+        jrl_rent_free_segment,
+      </if>
+      <if test="jrlPaymentMethod != null" >
+        jrl_payment_method,
+      </if>
+      <if test="jrlRemark != null" >
+        jrl_remark,
+      </if>
+      <if test="jrlImgPath != null" >
+        jrl_img_path,
+      </if>
+      <if test="jrlImgNum != null" >
+        jrl_img_num,
+      </if>
+      <if test="jrlFreeDaysDecoration != null" >
+        jrl_free_days_decoration,
+      </if>
+      <if test="jrlFreeDaysHeader != null" >
+        jrl_free_days_header,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jrlRenewalCoding != null" >
+        #{jrlRenewalCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlHouse4storeId != null" >
+        #{jrlHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlLandlordId != null" >
+        #{jrlLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlUserId != null" >
+        #{jrlUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlDepartment != null" >
+        #{jrlDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="jrlStorefront != null" >
+        #{jrlStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="jrlContractType != null" >
+        #{jrlContractType,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRentalType != null" >
+        #{jrlRentalType,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlBeginTime != null" >
+        #{jrlBeginTime,jdbcType=DATE},
+      </if>
+      <if test="jrlEndTime != null" >
+        #{jrlEndTime,jdbcType=DATE},
+      </if>
+      <if test="jrlSignedTime != null" >
+        #{jrlSignedTime,jdbcType=DATE},
+      </if>
+      <if test="jrlRegistrationTime != null" >
+        #{jrlRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jrlTheTerm != null" >
+        #{jrlTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlInAdvancePay != null" >
+        #{jrlInAdvancePay},
+      </if>
+      <if test="jrlPriceLadder != null" >
+        #{jrlPriceLadder,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRentFreeDays != null" >
+        #{jrlRentFreeDays,jdbcType=INTEGER},
+      </if>
+      <if test="jrlRentFreeSegment != null" >
+        #{jrlRentFreeSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlPaymentMethod != null" >
+        #{jrlPaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRemark != null" >
+        #{jrlRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlImgPath != null" >
+        #{jrlImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jrlImgNum != null" >
+        #{jrlImgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlFreeDaysDecoration != null" >
+        #{jrlFreeDaysDecoration},
+      </if>
+      <if test="jrlFreeDaysHeader != null" >
+        #{jrlFreeDaysHeader},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoRenewalLandlordExpand" >
+    update info_landlord_contract
+    <set >
+      <if test="jrlRenewalCoding != null" >
+        jrl_renewal_coding = #{jrlRenewalCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlHouse4storeId != null" >
+        jrl_house_4store_id = #{jrlHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlLandlordId != null" >
+        jrl_landlord_id = #{jrlLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlUserId != null" >
+        jrl_user_id = #{jrlUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jrlDepartment != null" >
+        jrl_department = #{jrlDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="jrlStorefront != null" >
+        jrl_storefront = #{jrlStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="jrlContractType != null" >
+        jrl_contract_type = #{jrlContractType,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRentalType != null" >
+        jrl_rental_type = #{jrlRentalType,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlBeginTime != null" >
+        jrl_begin_time = #{jrlBeginTime,jdbcType=DATE},
+      </if>
+      <if test="jrlEndTime != null" >
+        jrl_end_time = #{jrlEndTime,jdbcType=DATE},
+      </if>
+      <if test="jrlSignedTime != null" >
+        jrl_signed_time = #{jrlSignedTime,jdbcType=DATE},
+      </if>
+      <if test="jrlRegistrationTime != null" >
+        jrl_registration_time = #{jrlRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jrlTheTerm != null" >
+        jrl_the_term = #{jrlTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlInAdvancePay != null" >
+        jrl_in_advance_pay = #{jrlInAdvancePay},
+      </if>
+      <if test="jrlPriceLadder != null" >
+        jrl_price_ladder = #{jrlPriceLadder,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRentFreeDays != null" >
+        jrl_rent_free_days = #{jrlRentFreeDays,jdbcType=INTEGER},
+      </if>
+      <if test="jrlRentFreeSegment != null" >
+        jrl_rent_free_segment = #{jrlRentFreeSegment,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlPaymentMethod != null" >
+        jrl_payment_method = #{jrlPaymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlRemark != null" >
+        jrl_remark = #{jrlRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlImgPath != null" >
+        jrl_img_path = #{jrlImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jrlImgNum != null" >
+        jrl_img_num = #{jrlImgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="jrlFreeDaysDecoration != null" >
+        jrl_free_days_decoration = #{jrlFreeDaysDecoration},
+      </if>
+      <if test="jrlFreeDaysHeader != null" >
+        jrl_free_days_header = #{jrlFreeDaysHeader},
+      </if>
+    </set>
+    where jrl_id = #{jrlId,jdbcType=INTEGER}
+  </update>
+</mapper>

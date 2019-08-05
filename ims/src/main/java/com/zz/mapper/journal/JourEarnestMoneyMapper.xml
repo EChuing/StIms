@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourEarnestMoneyMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourEarnestMoneyExpand" >
+	  <id column="jem_id" property="jemId" jdbcType="INTEGER" />
+	  <id column="jem_customer_id" property="jemCustomerId" jdbcType="INTEGER" />
+	  <result column="jem_hs_id" property="jemHsId" jdbcType="INTEGER" />
+	  <result column="jem_address" property="jemAddress" jdbcType="VARCHAR" />
+	  <result column="jem_intermediator" property="jemIntermediator" jdbcType="VARCHAR" />
+	  <result column="jem_customer" property="jemCustomer" jdbcType="VARCHAR" />
+	  <result column="jem_customer_phone" property="jemCustomerPhone" jdbcType="VARCHAR" />
+	  <result column="jem_register_time" property="jemRegisterTime" jdbcType="VARCHAR" />
+	  <result column="jem_start_time" property="jemStartTime" jdbcType="VARCHAR" />
+	  <result column="jem_end_time" property="jemEndTime" jdbcType="VARCHAR" />
+      <result column="jem_sum" property="jemSum" jdbcType="DOUBLE" />
+      <result column="jem_deposit" property="jemDeposit" jdbcType="DOUBLE" />
+      <result column="jem_rent" property="jemRent" jdbcType="DOUBLE" />
+      <result column="jem_other_fee" property="jemOtherFee" jdbcType="DOUBLE" />
+      <result column="jem_property_fee" property="jemPropertyFee" jdbcType="DOUBLE" />
+      <result column="jem_net_fee" property="jemNetFee" jdbcType="DOUBLE" />
+      <result column="jem_tv_fee" property="jemTvFee" jdbcType="DOUBLE" />
+      <result column="jem_service_fee" property="jemServiceFee" jdbcType="DOUBLE" />
+      <result column="jem_housing_deposit" property="jemHousingDeposit" jdbcType="DOUBLE" />
+      <result column="jem_doorcard_deposit" property="jemDoorcardDeposit" jdbcType="DOUBLE" />
+	  <result column="jem_other_deposit" property="jemOtherDeposit" jdbcType="DOUBLE" />
+      <result column="jem_hydropower_deposit" property="jemHydropowerHeposit" jdbcType="DOUBLE" />
+	  <result column="jem_deposit_type" property="jemDepositType" jdbcType="VARCHAR" />
+	  <result column="jem_contract_begin" property="jemContractBegin" jdbcType="VARCHAR" />
+	  <result column="jem_contract_end" property="jemContractEnd" jdbcType="VARCHAR" />
+	  <result column="jem_deposit_bill_number" property="jemDepositBillNumber" jdbcType="VARCHAR" />
+	  <result column="jem_deposit_remark" property="jemDepositRemark" jdbcType="VARCHAR" />
+	  <result column="jem_pay_way" property="jemPayWay" jdbcType="VARCHAR" />
+      <result column="jem_pay_Type" property="jemPayType" jdbcType="VARCHAR" />
+      <result column="jem_account_name" property="jemAccountName" jdbcType="VARCHAR" />
+      <result column="jem_account_belong" property="jemAccountBelong" jdbcType="VARCHAR" />
+      <result column="jem_account_number" property="jemAccountNumber" jdbcType="VARCHAR" />
+	  <result column="jem_state" property="jemState" jdbcType="VARCHAR" />
+      <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+
+	 <!-- &lt;!&ndash;hs&ndash;&gt;
+	  <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+	  <result column="hs_down_deposit" property="hsDownDeposit" jdbcType="VARCHAR" />
+	  <result column="hs_deposit_amount" property="hsDepositAmount" jdbcType="DOUBLE" />
+	  <result column="hs_intentional_id" property="hsIntentionalId" jdbcType="INTEGER" />
+	  <result column="hs_pop_id" property="hsPopId" jdbcType="INTEGER" />
+	  <result column="hs_salesman_id" property="hsSalesmanId" jdbcType="INTEGER" />
+	  <result column="hs_start_date" property="hsStartDate" jdbcType="DATE" />
+	  <result column="hs_end_date" property="hsEndDate" jdbcType="DATE" />
+	  <result column="hs_desposit_account" property="hsDespositAccount" jdbcType="INTEGER" />-->
+
+  </resultMap>
+
+
+
+	<insert id="insertRecord" useGeneratedKeys="true" keyProperty="jemId" keyColumn="jem_id" parameterType="com.zz.po.journal.JourEarnestMoneyExpand" >
+		insert into jour_earnest_money
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="jemCustomerId != null and jemCustomerId != ''">
+				jem_customer_id,
+			</if>
+			<if test="jemHsId != null and jemHsId != ''">
+				jem_hs_id,
+			</if>
+			<if test="jemAddress != null and jemAddress != ''">
+				jem_address,
+			</if>
+			<if test="jemIntermediator != null and jemIntermediator != ''">
+				jem_intermediator,
+			</if>
+			<if test="jemCustomer != null and jemCustomer != ''">
+				jem_customer,
+			</if>
+			<if test="jemCustomerPhone != null and jemCustomerPhone != ''">
+				jem_customer_phone,
+			</if>
+			<if test="jemRegisterTime != null and jemRegisterTime != ''">
+				jem_register_time,
+			</if>
+			<if test="jemStartTime != null and jemStartTime != ''">
+				jem_start_time,
+			</if>
+			<if test="jemEndTime != null and jemEndTime != ''">
+				jem_end_time,
+			</if>
+			<if test="jemSum != null and jemSum != ''">
+				jem_sum,
+			</if>
+			<if test="jemDeposit != null and jemDeposit != ''">
+				jem_deposit,
+			</if>
+			<if test="jemRent != null and jemRent != ''">
+				jem_rent,
+			</if>
+			<if test="jemOtherFee != null and jemOtherFee != ''">
+				jem_other_fee,
+			</if>
+			<if test="jemPropertyFee != null and jemPropertyFee != ''">
+				jem_property_fee,
+			</if>
+			<if test="jemNetFee != null and jemNetFee != ''">
+				jem_net_fee,
+			</if>
+			<if test="jemTvFee != null and jemTvFee != ''">
+				jem_tv_fee,
+			</if>
+			<if test="jemServiceFee != null and jemServiceFee != ''">
+				jem_service_fee,
+			</if>
+			<if test="jemHousingDeposit != null and jemHousingDeposit != ''">
+				jem_housing_deposit,
+			</if>
+			<if test="jemDoorcardDeposit != null and jemDoorcardDeposit != ''">
+				jem_doorcard_deposit,
+			</if>
+			<if test="jemOtherDeposit != null and jemOtherDeposit != ''">
+				jem_other_deposit,
+			</if>
+			<if test="jemHydropowerHeposit != null and jemHydropowerHeposit != ''">
+				jem_hydropower_deposit,
+			</if>
+			<if test="jemDepositType != null and jemDepositType != ''">
+				jem_deposit_type,
+			</if>
+			<if test="jemContractBegin != null and jemContractBegin != ''">
+				jem_contract_begin,
+			</if>
+			<if test="jemContractEnd != null and jemContractEnd != ''">
+				jem_contract_end,
+			</if>
+			<if test="jemDepositBillNumber != null and jemDepositBillNumber != ''">
+				jem_deposit_bill_number,
+			</if>
+			<if test="jemDepositRemark != null and jemDepositRemark != ''">
+				jem_deposit_remark,
+			</if>
+			<if test="jemPayWay != null and jemPayWay != ''">
+				jem_pay_way,
+			</if>
+            <if test="jemPayType != null and jemPayType != ''">
+                jem_pay_Type,
+            </if>
+            <if test="jemAccountName != null and jemAccountName != ''">
+                jem_account_name,
+            </if>
+            <if test="jemAccountBelong != null and jemAccountBelong != ''">
+                jem_account_belong,
+            </if>
+            <if test="jemAccountNumber != null and jemAccountNumber != ''">
+                jem_account_number,
+            </if>
+			<if test="jemState != null and jemState != ''">
+				jem_state
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="jemCustomerId != null and jemCustomerId != ''">
+				#{jemCustomerId},
+			</if>
+			<if test="jemHsId != null and jemHsId != ''">
+				#{jemHsId},
+			</if>
+			<if test="jemAddress != null and jemAddress != ''">
+				#{jemAddress},
+			</if>
+			<if test="jemIntermediator != null and jemIntermediator != ''">
+				#{jemIntermediator},
+			</if>
+			<if test="jemCustomer != null and jemCustomer != ''">
+				#{jemCustomer},
+			</if>
+			<if test="jemCustomerPhone != null and jemCustomerPhone != ''">
+				#{jemCustomerPhone},
+			</if>
+			<if test="jemRegisterTime != null and jemRegisterTime != ''">
+				#{jemRegisterTime},
+			</if>
+			<if test="jemStartTime != null and jemStartTime != ''">
+				#{jemStartTime},
+			</if>
+			<if test="jemEndTime != null and jemEndTime != ''">
+				#{jemEndTime},
+			</if>
+			<if test="jemSum != null and jemSum != ''">
+				#{jemSum},
+			</if>
+			<if test="jemDeposit != null and jemDeposit != ''">
+				#{jemDeposit},
+			</if>
+			<if test="jemRent != null and jemRent != ''">
+				#{jemRent},
+			</if>
+			<if test="jemOtherFee != null and jemOtherFee != ''">
+				#{jemOtherFee},
+			</if>
+			<if test="jemPropertyFee != null and jemPropertyFee != ''">
+				#{jemPropertyFee},
+			</if>
+			<if test="jemNetFee != null and jemNetFee != ''">
+				#{jemNetFee},
+			</if>
+			<if test="jemTvFee != null and jemTvFee != ''">
+				#{jemTvFee},
+			</if>
+			<if test="jemServiceFee != null and jemServiceFee != ''">
+				#{jemServiceFee},
+			</if>
+			<if test="jemHousingDeposit != null and jemHousingDeposit != ''">
+				#{jemHousingDeposit},
+			</if>
+			<if test="jemDoorcardDeposit != null and jemDoorcardDeposit != ''">
+				#{jemDoorcardDeposit},
+			</if>
+			<if test="jemOtherDeposit != null and jemOtherDeposit != ''">
+				#{jemOtherDeposit},
+			</if>
+			<if test="jemHydropowerHeposit != null and jemHydropowerHeposit != ''">
+				#{jemHydropowerHeposit},
+			</if>
+			<if test="jemDepositType != null and jemDepositType != ''">
+				#{jemDepositType},
+			</if>
+			<if test="jemContractBegin != null and jemContractBegin != ''">
+				#{jemContractBegin},
+			</if>
+			<if test="jemContractEnd != null and jemContractEnd != ''">
+				#{jemContractEnd},
+			</if>
+			<if test="jemDepositBillNumber != null and jemDepositBillNumber != ''">
+				#{jemDepositBillNumber},
+			</if>
+			<if test="jemDepositRemark != null and jemDepositRemark != ''">
+				#{jemDepositRemark},
+			</if>
+			<if test="jemPayWay != null and jemPayWay != ''">
+				#{jemPayWay},
+			</if>
+            <if test="jemPayType != null and jemPayType != ''">
+                #{jemPayType},
+            </if>
+            <if test="jemAccountName != null and jemAccountName != ''">
+                #{jemAccountName},
+            </if>
+            <if test="jemAccountBelong != null and jemAccountBelong != ''">
+                #{jemAccountBelong},
+            </if>
+            <if test="jemAccountNumber != null and jemAccountNumber != ''">
+                #{jemAccountNumber},
+            </if>
+			<if test="jemState != null and jemState != ''">
+				#{jemState}
+			</if>
+		</trim>
+	</insert>
+
+
+	<select id="selectJourEarnestMoneyExpandList" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourEarnestMoneyExpand">
+		select
+		<if test="splitFlag==0">
+			count(jem_id) total_num
+		</if>
+		<if test="splitFlag==1">
+			jem.*
+		</if>
+		from jour_earnest_money jem
+		<where>
+			<if test="jemDepositType!=null and jemDepositType!=''">
+				jem_deposit_type=#{jemDepositType,jdbcType=VARCHAR}
+			</if>
+			<if test="jemState!=null and jemState!=''">
+				and jem_state=#{jemState,jdbcType=VARCHAR}
+			</if>
+			<if test="jemHsId!=null and jemHsId!=''">
+				and jem_hs_id=#{jemHsId,jdbcType=INTEGER}
+			</if>
+		</where>
+        <if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+            <if test="theSortTerm == 1 ">
+                ORDER BY jem_id
+            </if>
+            <if test="theSortTerm == 2 ">
+                ORDER BY jem_register_time
+            </if>
+            <if test="theSortTerm == 3">
+                ORDER BY jem_start_time
+            </if>
+            <if test="theSortContrary ==1 ">
+                ASC
+            </if>
+            <if test="theSortContrary ==2 ">
+                DESC
+            </if>
+        </if>
+        <if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+            ORDER BY jem_id DESC
+        </if>
+        <if test="startNum != null">
+            limit ${startNum}
+            <if test="endNum != null">
+                ,${endNum}
+            </if>
+        </if>
+	</select>
+
+	<update id="updateSateByHsId" parameterType="com.zz.po.journal.JourEarnestMoneyExpand">
+		update jour_earnest_money
+		set
+		jem_state=#{jemState,jdbcType=VARCHAR}
+		where
+		jem_hs_id=#{jemHsId,jdbcType=INTEGER}
+	</update>
+
+	<update id="updatEffectiveToCancleByHsId" parameterType="com.zz.po.journal.JourEarnestMoneyExpand">
+		update jour_earnest_money
+		set
+			jem_state=#{jemState,jdbcType=VARCHAR}
+		where
+			jem_hs_id=#{jemHsId,jdbcType=INTEGER}
+			and
+			jem_state="有效"
+	</update>
+
+
+	<select id="queryDeposit" parameterType="com.zz.po.journal.JourEarnestMoneyExpand" resultMap="BaseResultMap">
+		select
+		  *
+		from
+			jour_earnest_money
+		<where>
+			<if test="jemHsId != null and jemHsId != ''">
+				and jem_hs_id=#{jemHsId,jdbcType=INTEGER}
+			</if>
+			<if test="jemState != null and jemState != ''">
+				and jem_state=#{jemState,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+    <update id="updateJemStateByList" parameterType="java.util.List" >
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            update
+              jour_earnest_money
+            set
+              jem_state=#{item.jemState,jdbcType=VARCHAR}
+            where
+              jem_id=#{item.jemId,jdbcType=INTEGER}
+        </foreach>
+    </update>
+
+
+</mapper>

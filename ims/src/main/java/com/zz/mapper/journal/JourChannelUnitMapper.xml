@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourChannelUnitMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourChannelUnit" >
+    <id column="jcu_id" property="jcuId" jdbcType="INTEGER" />
+    <result column="jcu_type" property="jcuType" jdbcType="VARCHAR" />
+    <result column="jcu_group_type" property="jcuGroupType" jdbcType="VARCHAR" />
+    <result column="jcu_group_describe" property="jcuGroupDescribe" jdbcType="VARCHAR" />
+    <result column="jcu_contacts_people" property="jcuContactsPeople" jdbcType="VARCHAR" />
+    <result column="jcu_telephone" property="jcuTelephone" jdbcType="VARCHAR" />
+    <result column="jcu_allow_credit" property="jcuAllowCredit" jdbcType="INTEGER" />
+    <result column="jcu_is_support_price_plan" property="jcuIsSupportPricePlan" jdbcType="INTEGER" />
+    <result column="jcu_max_credit" property="jcuMaxCredit" jdbcType="DOUBLE" />
+    <result column="jcu_account_balance" property="jcuAccountBalance" jdbcType="DOUBLE" />
+    <result column="jcu_price_plan_id" property="jcuPricePlanId" jdbcType="INTEGER" />
+    <result column="jcu_credit_signing_people" property="jcuCreditSigningPeople" jdbcType="VARCHAR" />
+    <result column="jcu_state" property="jcuState" jdbcType="VARCHAR" />
+    <result column="jcu_wx_reserve" property="jcuWxReserve" jdbcType="INTEGER" />
+    <result column="jcu_member_level" property="jcuMemberLevel" jdbcType="INTEGER" />
+    
+    <result column="jpp_plan_name" property="jppPlanName" jdbcType="VARCHAR" />
+    <result column="jpp_plan_package" property="jppPlanPackage" jdbcType="VARCHAR" />
+    <result column="jpp_priority_level" property="jppPriorityLevel" jdbcType="INTEGER" />
+    
+    <result column="jsp_id" property="jspId" jdbcType="INTEGER" />
+    <result column="jsp_agreement_unit" property="jspAgreementUnit" jdbcType="INTEGER" />
+    <result column="jsp_name" property="jspName" jdbcType="VARCHAR" />
+    <result column="jsp_telephone" property="jspTelephone" jdbcType="VARCHAR" />
+    <result column="jsp_password" property="jspPassword" jdbcType="VARCHAR" />
+    <result column="jsp_credit" property="jspCredit" jdbcType="DOUBLE" />
+    <result column="jsp_state" property="jspState" jdbcType="VARCHAR" />
+    
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="queryJourChannelUnit" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourChannelUnit" >
+  	select a.*, bb.total_num from
+	(select *
+  	from jour_channel_unit jcu
+  	left outer join jour_price_plan jpp on jcu.jcu_price_plan_id=jpp.jpp_id
+  	<where>
+		<if test="jcuType != '' and jcuType != null">
+  			and jcu_type = #{jcuType}
+  		</if>
+		<if test="jcuGroupType != '' and jcuGroupType != null" >
+			and jcu_group_type like '%${jcuGroupType}%'
+		</if>
+  		<if test="jcuState != '' and jcuState != null" >
+			and jcu_state = #{jcuState}
+		</if>
+  	</where>
+  	)a,
+  	(select count(jcu.jcu_id) total_num 
+  	from jour_channel_unit jcu
+  	left outer join jour_price_plan jpp on jcu.jcu_price_plan_id=jpp.jpp_id
+  	<where>
+		<if test="jcuType != '' and jcuType != null">
+  			and jcu_type = #{jcuType}
+  		</if>
+		<if test="jcuGroupType != '' and jcuGroupType != null" >
+			and jcu_group_type like '%${jcuGroupType}%'
+		</if>
+  		<if test="jcuState != '' and jcuState != null" >
+			and jcu_state = #{jcuState}
+		</if>
+  	</where>)bb
+  	ORDER BY jcu_id DESC
+  	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if> 
+  </select>
+  
+  <!-- 查询对应优先级最高的渠道单位 -->
+  <select id="queryHighestLevelPlan" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourChannelUnit" >
+  	select *
+  	from jour_channel_unit jcu
+  		left outer join jour_price_plan jpp on jcu.jcu_price_plan_id=jpp.jpp_id
+  	<where>
+  		<if test="jcuType != '' and jcuType != null">
+  			and jcu_type = #{jcuType}
+  		</if>
+  		<if test="jcuGroupType != '' and jcuGroupType != null">
+  			and jcu_group_type = #{jcuGroupType}
+  		</if>
+  		and jpp.jpp_priority_level = (select max(jpp.jpp_priority_level) from jour_price_plan) 
+	</where> 
+	ORDER BY jcu_id DESC
+  </select>
+  
+  <!-- 查询签单人表 -->
+  <select id="queryJourSigningPeople" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourChannelUnit" >
+  	select jsp.*,jcu.jcu_group_type
+  	from jour_signing_people jsp
+  		left outer join jour_channel_unit jcu on jcu.jcu_id=jsp.jsp_agreement_unit
+  </select>
+  
+  <!-- 添加渠道单位 -->
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourChannelUnit" useGeneratedKeys="true" keyProperty="jcuId">
+  	insert into jour_channel_unit
+  	<trim prefix="(" suffix=")" suffixOverrides="," >
+      	<if test="jcuType != null and jcuType !='' ">
+  			jcu_type,
+  		</if>
+  		<if test="jcuGroupType != null and jcuGroupType !='' ">
+  			jcu_group_type,
+  		</if>
+  		<if test="jcuGroupDescribe != null and jcuGroupDescribe !='' ">
+  			jcu_group_describe,
+  		</if>
+  		<if test="jcuContactsPeople != null and jcuContactsPeople !='' ">
+  			jcu_contacts_people,
+  		</if>
+  		<if test="jcuTelephone != null and jcuTelephone !='' ">
+  			jcu_telephone,
+  		</if>
+  		<if test="jcuAllowCredit != null and jcuAllowCredit !='' ">
+  			jcu_allow_credit,
+  		</if>
+  		<if test="jcuIsSupportPricePlan != null and jcuIsSupportPricePlan !='' ">
+  			jcu_is_support_price_plan,
+  		</if>
+  		<if test="jcuMaxCredit != null and jcuMaxCredit !='' ">
+  			jcu_max_credit,
+  		</if>
+  		<if test="jcuAccountBalance != null and jcuAccountBalance !='' ">
+  			jcu_account_balance,
+  		</if>
+  		<if test="jcuPricePlanId != null and jcuPricePlanId !='' ">
+  			jcu_price_plan_id,
+  		</if>
+  		<if test="jcuCreditSigningPeople != null and jcuCreditSigningPeople !='' ">
+  			jcu_credit_signing_people,
+  		</if>
+  		<if test="jcuState != null and jcuState !='' ">
+  			jcu_state,
+  		</if>
+  		<if test="jcuWxReserve != null and jcuWxReserve !='' ">
+  			jcu_wx_reserve,
+  		</if>
+  		<if test="jcuMemberLevel != null and jcuMemberLevel !='' ">
+  			jcu_member_level
+  		</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      	<if test="jcuType != null and jcuType !='' ">
+  			#{jcuType},
+  		</if>
+  		<if test="jcuGroupType != null and jcuGroupType !='' ">
+  			#{jcuGroupType},
+  		</if>
+  		<if test="jcuGroupDescribe != null and jcuGroupDescribe !='' ">
+  			#{jcuGroupDescribe},
+  		</if>
+  		<if test="jcuContactsPeople != null and jcuContactsPeople !='' ">
+  			#{jcuContactsPeople},
+  		</if>
+  		<if test="jcuTelephone != null and jcuTelephone !='' ">
+  			#{jcuTelephone},
+  		</if>
+  		<if test="jcuAllowCredit != null and jcuAllowCredit !='' ">
+  			#{jcuAllowCredit},
+  		</if>
+  		<if test="jcuIsSupportPricePlan != null and jcuIsSupportPricePlan !='' ">
+  			#{jcuIsSupportPricePlan},
+  		</if>
+  		<if test="jcuMaxCredit != null and jcuMaxCredit !='' ">
+  			#{jcuMaxCredit},
+  		</if>
+  		<if test="jcuAccountBalance != null and jcuAccountBalance !='' ">
+  			#{jcuAccountBalance},
+  		</if>
+  		<if test="jcuPricePlanId != null and jcuPricePlanId !='' ">
+  			#{jcuPricePlanId},
+  		</if>
+  		<if test="jcuCreditSigningPeople != null and jcuCreditSigningPeople !='' ">
+  			#{jcuCreditSigningPeople},
+  		</if>
+  		<if test="jcuState != null and jcuState !='' ">
+  			#{jcuState},
+  		</if>
+  		<if test="jcuWxReserve != null and jcuWxReserve !='' ">
+  			#{jcuWxReserve},
+  		</if>
+  		<if test="jcuMemberLevel != null and jcuMemberLevel !='' ">
+  			#{jcuMemberLevel}
+  		</if>
+    </trim>
+  </insert>
+  
+  <!-- 添加签单人 -->
+  <insert id="insertJourSigningPeople" parameterType="com.zz.po.journal.JourChannelUnit" useGeneratedKeys="true" keyProperty="jspId">
+  	insert into jour_signing_people
+  	<trim prefix="(" suffix=")" suffixOverrides="," >
+      	<if test="jspAgreementUnit != null and jspAgreementUnit !='' ">
+  			jsp_agreement_unit,
+  		</if>
+  		<if test="jspName != null and jspName !='' ">
+  			jsp_name,
+  		</if>
+  		<if test="jspTelephone != null and jspTelephone !='' ">
+  			jsp_telephone,
+  		</if>
+  		<if test="jspPassword != null and jspPassword !='' ">
+  			jsp_password,
+  		</if>
+  		<if test="jspCredit != null and jspCredit !='' ">
+  			jsp_credit,
+  		</if>
+  		<if test="jspState != null and jspState !='' ">
+  			jsp_state
+  		</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      	<if test="jspAgreementUnit != null and jspAgreementUnit !='' ">
+  			#{jspAgreementUnit},
+  		</if>
+  		<if test="jspName != null and jspName !='' ">
+  			#{jspName},
+  		</if>
+  		<if test="jspTelephone != null and jspTelephone !='' ">
+  			#{jspTelephone},
+  		</if>
+  		<if test="jspPassword != null and jspPassword !='' ">
+  			#{jspPassword},
+  		</if>
+  		<if test="jspCredit != null and jspCredit !='' ">
+  			#{jspCredit},
+  		</if>
+  		<if test="jspState != null and jspState !='' ">
+  			#{jspState}
+  		</if>
+    </trim>
+  </insert>
+  
+  <!-- 修改渠道单位信息 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourChannelUnit" >
+    update jour_channel_unit
+    <set>
+  		<if test="jcuType != null and jcuType !='' ">
+  			jcu_type = #{jcuType},
+  		</if>
+  		<if test="jcuGroupType != null and jcuGroupType !='' ">
+  			jcu_group_type = #{jcuGroupType},
+  		</if>
+  		<if test="jcuGroupDescribe != null and jcuGroupDescribe !='' ">
+  			jcu_group_describe = #{jcuGroupDescribe},
+  		</if>
+  		<if test="jcuContactsPeople != null and jcuContactsPeople !='' ">
+  			jcu_contacts_people = #{jcuContactsPeople},
+  		</if>
+  		<if test="jcuTelephone != null and jcuTelephone !='' ">
+  			jcu_telephone = #{jcuTelephone},
+  		</if>
+  		<if test="jcuAllowCredit != null and jcuAllowCredit !='' ">
+  			jcu_allow_credit = #{jcuAllowCredit},
+  		</if>
+  		<if test="jcuIsSupportPricePlan != null and jcuIsSupportPricePlan !='' ">
+  			jcu_is_support_price_plan = #{jcuIsSupportPricePlan},
+  		</if>
+  		<if test="jcuMaxCredit != null and jcuMaxCredit !='' ">
+  			jcu_max_credit = #{jcuMaxCredit},
+  		</if>
+  		<if test="jcuAccountBalance != null and jcuAccountBalance !='' ">
+  			jcu_account_balance = #{jcuAccountBalance},
+  		</if>
+  		<if test="jcuPricePlanId != null and jcuPricePlanId !='' ">
+  			jcu_price_plan_id = #{jcuPricePlanId},
+  		</if>
+  		<if test="jcuCreditSigningPeople != null and jcuCreditSigningPeople !='' ">
+  			jcu_credit_signing_people  = #{jcuCreditSigningPeople},
+  		</if>
+  		<if test="jcuState != null and jcuState !='' ">
+  			jcu_state = #{jcuState},
+  		</if>
+  		<if test="jcuWxReserve != null and jcuWxReserve !='' ">
+  			jcu_wx_reserve = #{jcuWxReserve},
+  		</if>
+  		<if test="jcuMemberLevel != null and jcuMemberLevel !='' ">
+  			jcu_member_level = #{jcuMemberLevel}
+  		</if>
+    </set>
+    where jcu_id = #{jcuId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 修改签单人信息 -->
+  <update id="updateByJspId" parameterType="com.zz.po.journal.JourChannelUnit" >
+    update jour_signing_people
+    <set>
+    	<if test="jspAgreementUnit != null and jspAgreementUnit !='' ">
+  			jsp_agreement_unit = #{jspAgreementUnit},
+  		</if>
+  		<if test="jspName != null and jspName !='' ">
+  			jsp_name = #{jspName},
+  		</if>
+  		<if test="jspTelephone != null and jspTelephone !='' ">
+  			jsp_telephone = #{jspTelephone},
+  		</if>
+  		<if test="jspPassword != null and jspPassword !='' ">
+  			jsp_password = #{jspPassword},
+  		</if>
+  		<if test="jspCredit != null and jspCredit !='' ">
+  			jsp_credit = #{jspCredit},
+  		</if>
+  		<if test="jspState != null and jspState !='' ">
+  			jsp_state = #{jspState}
+  		</if>
+    </set>
+    where jsp_id = #{jspId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

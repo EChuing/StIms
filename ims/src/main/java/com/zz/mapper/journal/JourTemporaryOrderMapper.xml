@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zz.mapper.journal.JourTemporaryOrderMapper">
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourTemporaryOrder">
+    <id column="jto_id" jdbcType="INTEGER" property="jtoId" />
+    <result column="jto_order_id" jdbcType="INTEGER" property="jtoOrderId" />
+    <result column="jto_applicant" jdbcType="VARCHAR" property="jtoApplicant" />
+    <result column="jto_address" jdbcType="VARCHAR" property="jtoAddress" />
+    <result column="jto_room_type" jdbcType="VARCHAR" property="jtoRoomType" />
+    <result column="jto_total_housing_price" jdbcType="DOUBLE" property="jtoTotalHousingPrice" />
+    <result column="jto_day_price" jdbcType="DOUBLE" property="jtoDayPrice" />
+    <result column="jto_discount" jdbcType="DOUBLE" property="jtoDiscount" />
+    <result column="jto_discount_price" jdbcType="DOUBLE" property="jtoDiscountPrice" />
+    <result column="jto_average_price" jdbcType="DOUBLE" property="jtoAveragePrice" />
+    <result column="jto_remark" jdbcType="VARCHAR" property="jtoRemark" />
+    <result column="jto_status" jdbcType="VARCHAR" property="jtoStatus" />
+    <result column="jto_taking_status" jdbcType="VARCHAR" property="jtoTakingStatus" />
+    <result column="jto_short_info" jdbcType="VARCHAR" property="jtoShortInfo" />
+    <result column="jto_time" jdbcType="VARCHAR" property="jtoTime" />
+    <result column="jto_authorized_person" jdbcType="VARCHAR" property="jtoAuthorizedPerson" />
+    <result column="jto_auth_time" jdbcType="VARCHAR" property="jtoAuthTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    jto_id, jto_order_id, jto_applicant, jto_address, jto_room_type, jto_total_housing_price, 
+    jto_day_price, jto_discount, jto_discount_price, jto_average_price, jto_remark, jto_status, 
+    jto_taking_status,jto_short_info,jto_time,jto_authorized_person,jto_auth_time
+  </sql>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from jour_temporary_order
+    WHERE
+    jto_taking_status =#{jtoTakingStatus}
+  </select>
+
+  <select id="selectBySelective" parameterType="com.zz.po.journal.JourTemporaryOrder" resultMap="BaseResultMap">
+
+    select
+    <include refid="Base_Column_List" />
+    from jour_temporary_order
+    <where>
+    <if test="jtoId != null">
+      AND jto_id = #{jtoId,jdbcType=INTEGER}
+    </if>
+    <if test="jtoOrderId != null">
+      AND jto_order_id = #{jtoOrderId,jdbcType=INTEGER}
+    </if>
+    <if test="jtoApplicant != null">
+     AND jto_applicant =#{jtoApplicant,jdbcType=VARCHAR}
+    </if>
+    <if test="jtoAddress != null">
+      AND jto_address = #{jtoAddress,jdbcType=VARCHAR}
+    </if>
+    <if test="jtoRoomType != null">
+      AND jto_room_type =#{jtoRoomType,jdbcType=VARCHAR}
+    </if>
+    <if test="jtoTotalHousingPrice != null">
+      AND jto_total_housing_price =#{jtoTotalHousingPrice,jdbcType=DOUBLE}
+    </if>
+    <if test="jtoDayPrice != null">
+      AND jto_day_price = #{jtoDayPrice,jdbcType=DOUBLE}
+    </if>
+    <if test="jtoDiscount != null">
+      AND jto_discount =#{jtoDiscount,jdbcType=DOUBLE}
+    </if>
+    <if test="jtoDiscountPrice != null">
+      AND jto_discount_price =#{jtoDiscountPrice,jdbcType=DOUBLE}
+    </if>
+    <if test="jtoAveragePrice != null">
+      AND jto_average_price =#{jtoAveragePrice,jdbcType=DOUBLE}
+    </if>
+    <if test="jtoRemark != null">
+      AND jto_remark =#{jtoRemark,jdbcType=VARCHAR}
+    </if>
+    <if test="jtoStatus != null">
+      AND jto_status != #{jtoStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="jtoTakingStatus != null">
+      AND  jto_taking_status =#{jtoTakingStatus,jdbcType=VARCHAR}
+    </if>
+    <if test="jtoShortInfo != null">
+      AND  jto_short_info = #{jtoShortInfo}
+    </if>
+    <if test="jtoTime != null">
+      AND  jto_time = #{jtoTime}
+    </if>
+    <if test="jtoAuthorizedPerson != null">
+      AND  jto_authorized_person = #{jtoAuthorizedPerson}
+    </if>
+      <if test="jtoAuthTime != null">
+        AND  jto_auth_time = #{jtoAuthTime}
+      </if>
+    </where>
+
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from jour_temporary_order
+    where jto_id = #{jtoId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from jour_temporary_order
+    where jto_id = #{jtoId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zz.po.journal.JourTemporaryOrder">
+    insert into jour_temporary_order (jto_id, jto_order_id, jto_applicant, 
+      jto_address, jto_room_type, jto_total_housing_price, 
+      jto_day_price, jto_discount, jto_discount_price, 
+      jto_average_price, jto_remark, jto_status, 
+      jto_taking_status)
+    values (#{jtoId,jdbcType=INTEGER}, #{jtoOrderId,jdbcType=INTEGER}, #{jtoApplicant,jdbcType=VARCHAR}, 
+      #{jtoAddress,jdbcType=VARCHAR}, #{jtoRoomType,jdbcType=VARCHAR}, #{jtoTotalHousingPrice,jdbcType=DOUBLE}, 
+      #{jtoDayPrice,jdbcType=DOUBLE}, #{jtoDiscount,jdbcType=DOUBLE}, #{jtoDiscountPrice,jdbcType=DOUBLE}, 
+      #{jtoAveragePrice,jdbcType=DOUBLE}, #{jtoRemark,jdbcType=VARCHAR}, #{jtoStatus,jdbcType=VARCHAR},
+      #{jtoTakingStatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourTemporaryOrder">
+    insert into jour_temporary_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="jtoId != null">
+        jto_id,
+      </if>
+      <if test="jtoOrderId != null">
+        jto_order_id,
+      </if>
+      <if test="jtoApplicant != null">
+        jto_applicant,
+      </if>
+      <if test="jtoAddress != null">
+        jto_address,
+      </if>
+      <if test="jtoRoomType != null">
+        jto_room_type,
+      </if>
+      <if test="jtoTotalHousingPrice != null">
+        jto_total_housing_price,
+      </if>
+      <if test="jtoDayPrice != null">
+        jto_day_price,
+      </if>
+      <if test="jtoDiscount != null">
+        jto_discount,
+      </if>
+      <if test="jtoDiscountPrice != null">
+        jto_discount_price,
+      </if>
+      <if test="jtoAveragePrice != null">
+        jto_average_price,
+      </if>
+      <if test="jtoRemark != null">
+        jto_remark,
+      </if>
+      <if test="jtoStatus != null">
+        jto_status,
+      </if>
+      <if test="jtoTakingStatus != null">
+        jto_taking_status,
+      </if>
+      <if test="jtoShortInfo != null">
+        jto_short_info,
+      </if>
+      <if test="jtoTime != null">
+       jto_time,
+      </if>
+      <if test="jtoAuthorizedPerson != null">
+        jto_authorized_person,
+      </if>
+      <if test="jtoAuthTime != null">
+       jto_auth_time
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="jtoId != null">
+        #{jtoId,jdbcType=INTEGER},
+      </if>
+      <if test="jtoOrderId != null">
+        #{jtoOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="jtoApplicant != null">
+        #{jtoApplicant,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoAddress != null">
+        #{jtoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoRoomType != null">
+        #{jtoRoomType,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoTotalHousingPrice != null">
+        #{jtoTotalHousingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoDayPrice != null">
+        #{jtoDayPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoDiscount != null">
+        #{jtoDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoDiscountPrice != null">
+        #{jtoDiscountPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoAveragePrice != null">
+        #{jtoAveragePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoRemark != null">
+        #{jtoRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoStatus != null">
+        #{jtoStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoTakingStatus != null">
+        #{jtoTakingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoShortInfo != null">
+        #{jtoShortInfo},
+      </if>
+      <if test="jtoTime != null">
+         #{jtoTime},
+      </if>
+      <if test="jtoAuthorizedPerson != null">
+        #{jtoAuthorizedPerson}
+      </if>
+      <if test="jtoAuthTime != null">
+         #{jtoAuthTime}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourTemporaryOrder">
+    update jour_temporary_order
+    <set>
+      <if test="jtoOrderId != null">
+        jto_order_id = #{jtoOrderId,jdbcType=INTEGER},
+      </if>
+      <if test="jtoApplicant != null">
+        jto_applicant = #{jtoApplicant,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoAddress != null">
+        jto_address = #{jtoAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoRoomType != null">
+        jto_room_type = #{jtoRoomType,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoTotalHousingPrice != null">
+        jto_total_housing_price = #{jtoTotalHousingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoDayPrice != null">
+        jto_day_price = #{jtoDayPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoDiscount != null">
+        jto_discount = #{jtoDiscount,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoDiscountPrice != null">
+        jto_discount_price = #{jtoDiscountPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoAveragePrice != null">
+        jto_average_price = #{jtoAveragePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="jtoRemark != null">
+        jto_remark = #{jtoRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoStatus != null">
+        jto_status = #{jtoStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoTakingStatus != null">
+        jto_taking_status = #{jtoTakingStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="jtoTime != null">
+        jto_time = #{jtoTime},
+      </if>
+      <if test="jtoAuthorizedPerson != null">
+       jto_authorized_person = #{jtoAuthorizedPerson},
+      </if>
+      <if test="jtoAuthTime != null">
+        jto_auth_time = #{jtoAuthTime}
+      </if>
+    </set>
+    where jto_id = #{jtoId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.journal.JourTemporaryOrder">
+    update jour_temporary_order
+    set jto_order_id = #{jtoOrderId,jdbcType=INTEGER},
+      jto_applicant = #{jtoApplicant,jdbcType=VARCHAR},
+      jto_address = #{jtoAddress,jdbcType=VARCHAR},
+      jto_room_type = #{jtoRoomType,jdbcType=VARCHAR},
+      jto_total_housing_price = #{jtoTotalHousingPrice,jdbcType=DOUBLE},
+      jto_day_price = #{jtoDayPrice,jdbcType=DOUBLE},
+      jto_discount = #{jtoDiscount,jdbcType=DOUBLE},
+      jto_discount_price = #{jtoDiscountPrice,jdbcType=DOUBLE},
+      jto_average_price = #{jtoAveragePrice,jdbcType=DOUBLE},
+      jto_remark = #{jtoRemark,jdbcType=VARCHAR},
+      jto_status = #{jtoStatus,jdbcType=VARCHAR},
+      jto_taking_status = #{jtoTakingStatus,jdbcType=VARCHAR}
+    where jto_id = #{jtoId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoSandboxieMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoSandboxie" >
+    <id column="is_id" property="isId" jdbcType="INTEGER" />
+    <result column="is_landlord_contract" property="isLandlordContract" jdbcType="VARCHAR" />
+    <result column="is_company_basic_data" property="isCompanyBasicData" jdbcType="VARCHAR" />
+    <result column="is_time" property="isTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    is_id, is_landlord_contract, is_company_basic_data, is_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from stat_sandbox
+    where is_id = #{isId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from stat_sandbox
+    where is_id = #{isId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zz.po.info.InfoSandboxie" >
+    insert into stat_sandbox (is_id, is_landlord_contract, 
+      is_company_basic_data, is_time)
+    values (#{isId,jdbcType=INTEGER}, #{isLandlordContract,jdbcType=VARCHAR}, 
+      #{isCompanyBasicData,jdbcType=VARCHAR}, #{isTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoSandboxie" >
+    insert into stat_sandbox
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="isId != null" >
+        is_id,
+      </if>
+      <if test="isLandlordContract != null" >
+        is_landlord_contract,
+      </if>
+      <if test="isCompanyBasicData != null" >
+        is_company_basic_data,
+      </if>
+      <if test="isTime != null" >
+        is_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="isId != null" >
+        #{isId,jdbcType=INTEGER},
+      </if>
+      <if test="isLandlordContract != null" >
+        #{isLandlordContract,jdbcType=VARCHAR},
+      </if>
+      <if test="isCompanyBasicData != null" >
+        #{isCompanyBasicData,jdbcType=VARCHAR},
+      </if>
+      <if test="isTime != null" >
+        #{isTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoSandboxie" >
+    update stat_sandbox
+    <set >
+      <if test="isLandlordContract != null" >
+        is_landlord_contract = #{isLandlordContract,jdbcType=VARCHAR},
+      </if>
+      <if test="isCompanyBasicData != null" >
+        is_company_basic_data = #{isCompanyBasicData,jdbcType=VARCHAR},
+      </if>
+      <if test="isTime != null" >
+        is_time = #{isTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where is_id = #{isId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.info.InfoSandboxie" >
+    update stat_sandbox
+    set is_landlord_contract = #{isLandlordContract,jdbcType=VARCHAR},
+      is_company_basic_data = #{isCompanyBasicData,jdbcType=VARCHAR},
+      is_time = #{isTime,jdbcType=TIMESTAMP}
+    where is_id = #{isId,jdbcType=INTEGER}
+  </update>
+</mapper>

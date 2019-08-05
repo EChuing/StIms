@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalShortMessageAdministrativeMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalShortMessageAdministrative" >
+    <id column="sm_id" property="smId" jdbcType="INTEGER" />
+    <result column="sm_user_id" property="smUserId" jdbcType="INTEGER" />
+    <result column="sm_user_contacts" property="smUserContacts" jdbcType="VARCHAR" />
+    <result column="sm_rent_id" property="smRentId" jdbcType="INTEGER" />
+    <result column="sm_not_rent_id" property="smNotRentId" jdbcType="INTEGER" />
+    <result column="sm_content" property="smContent" jdbcType="VARCHAR" />
+    <result column="sm_state" property="smState" jdbcType="VARCHAR" />
+    <result column="sm_type" property="smType" jdbcType="VARCHAR" />
+    <result column="sm_data_time" property="smDataTime" jdbcType="TIMESTAMP" />
+    <result column="sm_money" property="smMoney" jdbcType="DOUBLE" />
+    <result column="sm_count" property="smCount" jdbcType="INTEGER" />
+    
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />  
+    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />   
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />  
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+
+    <result column="smrentId" property="smrentId" jdbcType="INTEGER" />
+    <result column="hr_id" property="hrid" jdbcType="INTEGER" />
+    <result column="hs_id" property="hsid" jdbcType="INTEGER" />
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+    <result column="sm_field" property="smField" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    sm_id, sm_user_id, sm_user_contacts, sm_rent_id, sm_not_rent_id, sm_content, sm_state, sm_type,
+    sm_data_time,sm_money, sm_count,sm_field
+  </sql>
+  
+  <!-- (数据与统计分开)查询所有-->
+ <select id="selectAllShortMessage" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessageAdministrative" >
+  select 
+  	<if test="splitFlag ==0">
+		<!-- 统计查询 -->
+		count(sm.sm_id) totalNum
+	</if>
+	<if test="splitFlag ==1">
+		<!-- 数据查询 -->
+		sm.*,user.*, hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone,
+		hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno, hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone,
+		hs.hs_add_street, hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno
+	</if>
+	from jour_sms_inside sm
+	left outer join sys_users user on user.user_coding = sm.sm_user_id
+	left outer join info_house_4rent hr on hr.hr_id = sm.sm_rent_id
+	left outer join info_house_4store hs on hs.hs_id = sm.sm_not_rent_id
+	<where>
+		<if test="smType != null and smType != '' ">
+	    	and sm_type = #{smType}
+	    </if>
+		<if test="suStaffName != null and suStaffName != '' ">
+    		and su_staff_name like '%${suStaffName}%'
+    	</if>
+    	<if test="smUserContacts != null and smUserContacts != '' ">
+    		and sm_user_contacts like '%${smUserContacts}%'
+    	</if>
+    	<if test="addCommunity != null and addCommunity != ''" >
+			and (hr_add_community like '%${addCommunity}%' 
+				or hs_add_community like '%${addCommunity}%'
+				)
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+				or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+				)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+				or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				)
+		</if>
+		<if test="smContent != null and smContent != ''">
+				and sm_content like '%${smContent}%'
+		</if>
+	</where>
+	<if test="splitFlag ==1">
+		 ORDER BY sm_id DESC
+	 	<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		 </if>
+	</if>
+ </select>
+  <!-- 获取姓名，手机号码 -->
+  <select id="getUser" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessageAdministrative"  >
+	  select user_coding smUserId,su_contact smUserContacts 
+	  from  sys_users 
+		where user_coding =  #{smUserId}
+  </select>
+  
+    
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalShortMessageAdministrative" >
+    select a.*, b.totalNum from
+		(select sm.*,user.*, hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone,
+		 hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno, hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone,
+		 hs.hs_add_street, hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno
+		from jour_sms_inside sm
+		left outer join sys_users user on user.user_coding = sm.sm_user_id
+		left outer join info_house_4rent hr on hr.hr_id = sm.sm_rent_id
+		left outer join info_house_4store hs on hs.hs_id = sm.sm_not_rent_id
+		<where>
+		<if test="smType != null and smType != '' ">
+	    	and sm_type = #{smType}
+	    </if>
+		<if test="suStaffName != null and suStaffName != '' ">
+    		and su_staff_name like '%${suStaffName}%'
+    	</if>
+    	<if test="smUserContacts != null and smUserContacts != '' ">
+    		and sm_user_contacts like '%${smUserContacts}%'
+    	</if>
+    	<if test="addCommunity != null and addCommunity != ''" >
+			and (hr_add_community like '%${addCommunity}%' 
+				or hs_add_community like '%${addCommunity}%'
+				)
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+				and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					)
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != ''">
+				and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					)
+			</if>
+    </where>
+		) a,
+		(select count(sm.sm_id) totalNum
+		from jour_sms_inside sm
+		left outer join sys_users user on user.user_coding = sm.sm_user_id
+		left outer join info_house_4rent hr on hr.hr_id = sm.sm_rent_id
+		left outer join info_house_4store hs on hs.hs_id = sm.sm_not_rent_id
+		<where>
+			<if test="smType != null and smType != '' ">
+	    		and sm_type = #{smType}
+	    	</if>
+			<if test="suStaffName != null and suStaffName != '' ">
+	    		and su_staff_name like '%${suStaffName}%'
+	    	</if>
+	    	<if test="smUserContacts != null and smUserContacts != '' ">
+	    		and sm_user_contacts like '%${smUserContacts}%'
+	    	</if>
+	    	<if test="addCommunity != null and addCommunity != ''" >
+				and (hr_add_community like '%${addCommunity}%' 
+					or hs_add_community like '%${addCommunity}%'
+					)
+			</if>
+			<if test="addBuilding != null and addBuilding != '' ">
+				and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					)
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != ''">
+				and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					)
+			</if>
+    	</where>
+		) b
+    ORDER BY sm_id DESC
+ 	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	 </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_sms_inside
+    where sm_id = #{smId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalShortMessageAdministrative" useGeneratedKeys="true" keyProperty="smId">
+    insert into jour_sms_inside
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="smId != null" >
+        sm_id,
+      </if>
+      <if test="smUserId != null" >
+        sm_user_id,
+      </if>
+      <if test="smUserContacts != null" >
+        sm_user_contacts,
+      </if>
+      <if test="smRentId != null" >
+        sm_rent_id,
+      </if>
+      <if test="smNotRentId != null" >
+        sm_not_rent_id,
+      </if>
+      <if test="smContent != null" >
+        sm_content,
+      </if>
+      <if test="smState != null" >
+        sm_state,
+      </if>
+      <if test="smType != null" >
+        sm_type,
+      </if>
+      <if test="smDataTime != null" >
+        sm_data_time,
+      </if>
+      <if test="smMoney != null">
+      	sm_money,
+      </if>
+      <if test="smCount != null">
+      	sm_count,
+      </if>
+      <if test="smField != null">
+      	sm_field,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="smId != null" >
+        #{smId,jdbcType=INTEGER},
+      </if>
+      <if test="smUserId != null" >
+        #{smUserId,jdbcType=INTEGER},
+      </if>
+      <if test="smUserContacts != null" >
+        #{smUserContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="smRentId != null" >
+        #{smRentId,jdbcType=INTEGER},
+      </if>
+      <if test="smNotRentId != null" >
+        #{smNotRentId,jdbcType=INTEGER},
+      </if>
+      <if test="smContent != null" >
+        #{smContent,jdbcType=VARCHAR},
+      </if>
+      <if test="smState != null" >
+        #{smState,jdbcType=VARCHAR},
+      </if>
+      <if test="smType != null" >
+        #{smType,jdbcType=VARCHAR},
+      </if>
+      <if test="smDataTime != null" >
+        #{smDataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smMoney != null">
+      	#{smMoney},
+      </if>
+      <if test="smCount != null">
+      	#{smCount},
+      </if>
+      <if test="smField != null">
+      	#{smField},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalShortMessageAdministrative" >
+    update jour_sms_inside
+    <set >
+      <if test="smUserId != null" >
+        sm_user_id = #{smUserId,jdbcType=INTEGER},
+      </if>
+      <if test="smUserContacts != null" >
+        sm_user_contacts = #{smUserContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="smRentId != null" >
+        sm_rent_id = #{smRentId,jdbcType=INTEGER},
+      </if>
+      <if test="smNotRentId != null" >
+        sm_not_rent_id = #{smNotRentId,jdbcType=INTEGER},
+      </if>
+      <if test="smContent != null" >
+        sm_content = #{smContent,jdbcType=VARCHAR},
+      </if>
+      <if test="smState != null" >
+        sm_state = #{smState,jdbcType=VARCHAR},
+      </if>
+      <if test="smType != null" >
+        sm_type = #{smType,jdbcType=VARCHAR},
+      </if>
+      <if test="smDataTime != null" >
+        sm_data_time = #{smDataTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="smMoney != null">
+      	sm_money = #{smMoney},
+      </if>
+      <if test="smCount != null">
+      	sm_count = #{smCount},
+      </if>
+      <if test="smField != null">
+      	sm_field = #{smField},
+      </if>
+    </set>
+    where sm_id = #{smId,jdbcType=INTEGER}
+  </update>
+</mapper>

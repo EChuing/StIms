@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourUnlockRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourUnlockRecord" >
+    <id column="jur_id" property="jurId" jdbcType="INTEGER" />
+    <result column="jur_open_people" property="jurOpenPeople" jdbcType="VARCHAR" />
+    <result column="jur_device_id" property="jurDeviceId" jdbcType="INTEGER" />
+    <result column="jur_open_type" property="jurOpenType" jdbcType="VARCHAR" />
+    <result column="jur_result" property="jurResult" jdbcType="VARCHAR" />
+    <result column="jur_open_time" property="jurOpenTime" jdbcType="TIMESTAMP" />
+    <result column="dev_nickname" property="devNickname" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourUnlockRecord" >
+    select * from
+    (select jur.*,jd.dev_nickname,jhd.jhd_hs_id,ih4.hs_add_community,ih4.hs_add_building,ih4.hs_add_doorplateno from jour_unlock_record jur
+    LEFT OUTER JOIN jour_device jd ON jur.jur_device_id = jd.id
+    LEFT OUTER JOIN jour_hs_device jhd ON jhd.jhd_device_id = jur.jur_device_id
+    LEFT OUTER JOIN info_house_4store ih4 ON ih4.hs_id = jhd.jhd_hs_id
+    where jur_device_id = #{jurDeviceId,jdbcType=INTEGER})a,
+    (select count(*) as totalNum from jour_unlock_record
+    where jur_device_id = #{jurDeviceId,jdbcType=INTEGER})b
+    <if test="startNum != '' and startNum != null">
+      limit ${startNum}
+      <if test="endNum != '' and endNum != null">
+        ,${endNum}
+      </if>
+    </if>
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourUnlockRecord" >
+    insert into jour_unlock_record
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jurId != null" >
+        jur_id,
+      </if>
+      <if test="jurOpenPeople != null" >
+        jur_open_people,
+      </if>
+      <if test="jurDeviceId != null" >
+        jur_device_id,
+      </if>
+      <if test="jurOpenType != null" >
+        jur_open_type,
+      </if>
+      <if test="jurResult != null" >
+        jur_result,
+      </if>
+      <if test="jurOpenTime != null" >
+        jur_open_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jurId != null" >
+        #{jurId,jdbcType=INTEGER},
+      </if>
+      <if test="jurOpenPeople != null" >
+        #{jurOpenPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="jurDeviceId != null" >
+        #{jurDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="jurOpenType != null" >
+        #{jurOpenType,jdbcType=VARCHAR},
+      </if>
+      <if test="jurResult != null" >
+        #{jurResult,jdbcType=VARCHAR},
+      </if>
+      <if test="jurOpenTime != null" >
+        #{jurOpenTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

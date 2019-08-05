@@ -1,0 +1,629 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoPopulationMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoPopulation" >
+    <id column="pop_id" property="popId" jdbcType="INTEGER" />
+    <result column="pop_inner_credit_level" property="popInnerCreditLevel" jdbcType="INTEGER" />
+    <result column="pop_outer_credit_level" property="popOuterCreditLevel" jdbcType="INTEGER" />
+    <result column="pop_landlord" property="popLandlord" jdbcType="INTEGER" />
+    <result column="pop_renter" property="popRenter" jdbcType="INTEGER" />
+    <result column="pop_resident" property="popResident" jdbcType="INTEGER" />
+    <result column="pop_short_rent" property="popShortRent" jdbcType="INTEGER" />
+    <result column="pop_name" property="popName" jdbcType="VARCHAR" />
+    <result column="pop_password" property="popPassword" jdbcType="VARCHAR" />
+    <result column="pop_telephone" property="popTelephone" jdbcType="VARCHAR" />
+    <result column="pop_idcard" property="popIdcard" jdbcType="VARCHAR" />
+    <result column="pop_user" property="popUser" jdbcType="INTEGER" />
+    <result column="pop_registration_time" property="popRegistrationTime" jdbcType="VARCHAR" />
+    <result column="pop_gmt_modified" property="popGmtModified" jdbcType="VARCHAR" />
+    <result column="pop_user_code" property="userCode" jdbcType="VARCHAR" />
+    
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+    
+    <result column="wx_openid" property="wxOpenid" jdbcType="VARCHAR" />
+    <result column="pop_nation" property="popNation" jdbcType="VARCHAR" />
+    <result column="pop_marriage_state" property="popMarriageState" jdbcType="VARCHAR" />
+    <result column="pop_from_area" property="popFromArea" jdbcType="VARCHAR" />
+    <result column="pop_present_address" property="popPresentAddress" jdbcType="VARCHAR" />
+    <result column="pop_idcard_type" property="popIdcardType" jdbcType="VARCHAR" />
+    <result column="pop_idcard_address" property="popIdcardAddress" jdbcType="VARCHAR" />
+    <result column="pop_birth" property="popBirth" jdbcType="VARCHAR" />
+    <result column="pop_sex" property="popSex" jdbcType="VARCHAR" />
+    <result column="pop_degree_education" property="popDegreeEducation" jdbcType="VARCHAR" />
+    <result column="pop_occupation" property="popOccupation" jdbcType="VARCHAR" />
+    <result column="pop_unit_service" property="popUnitService" jdbcType="VARCHAR" />
+    <result column="pop_checkin_time" property="popCheckinTime" jdbcType="DATE" />
+    <result column="pop_residence_type" property="popResidenceType" jdbcType="VARCHAR" />
+    <result column="pop_residence_cause" property="popResidenceCause" jdbcType="VARCHAR" />
+    <result column="pop_relation" property="popRelation" jdbcType="VARCHAR" />
+    <result column="pop_modify_the_record" property="popModifyTheRecord" jdbcType="VARCHAR" />
+    <result column="pop_name_remark" property="popNameRemark" jdbcType="VARCHAR" />
+    <result column="pop_coc_id" property="popCocId" jdbcType="INTEGER"/>
+      <result column="pop_user_type" property="popUserType" jdbcType="INTEGER"/>
+    
+    <result column="hsId" property="hsId" jdbcType="VARCHAR" />
+    <result column="addCommunity" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="addBuilding" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="addDoorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="contStatus" property="contStatus" jdbcType="VARCHAR" />
+    <result column="registrationTime" property="registrationTime" jdbcType="VARCHAR" />
+    <result column="pop_img_path" property="popImgPath" jdbcType="VARCHAR" />
+    <result column="pop_img_num" property="popImgNum" jdbcType="VARCHAR" />
+    <result column="pop_idcard_json" property="popIdcardJson" jdbcType="VARCHAR" />
+    <result column="jsrr_customer_type" property="jsrrCustomerType" jdbcType="VARCHAR"/>
+    <result column="jsrr_check_in_num" property="jsrrCheckInNum" jdbcType="INTEGER"/>
+    <result column="jsrr_id" property="jsrrId" jdbcType="INTEGER"/>
+    <result column="jsrr_channel_id" property="jsrrChannelId" jdbcType="INTEGER"/>
+    
+    <result column="jpp_plan_package" property="jppPlanPackage" jdbcType="VARCHAR"/>
+    <result column="jpp_priority_level" property="jppPriorityLevel" jdbcType="INTEGER"/>
+      <result column="numberAll" property="numberAll" jdbcType="INTEGER"/>
+  </resultMap>
+  <!--查询所有租户-->
+  <select id="selectPopulationAllUsers" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation">
+    SELECT c.d + c.b + c.e AS numberAll FROM
+	(SELECT COUNT(*) AS d,(SELECT COUNT(*) FROM jour_short_rent_nexus jsrn
+    LEFT OUTER JOIN jour_short_rent_contract jsrc
+    ON jsrn.jsrn_jsrc_id = jsrc.jsrc_id
+    WHERE jsrc_state="已住") AS b ,(SELECT COUNT(*) FROM info_living_men WHERE rt_type="在住") AS e
+	  FROM (select * from info_house_4rent WHERE hr_lease_state="在租")a
+	  )c
+  </select>
+  <!-- 用未租ID查住户 -->
+  <select id="getHouseLivingMen" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select pop.pop_id, pop.pop_name, pop.pop_gmt_modified, lv.rt_type contStatus, pop.pop_relation from info_house_4rent hr
+	left outer join info_house_4store hs on hr.hr_house_4store_id = hs.hs_id
+	left outer join info_living_men lv on hr.hr_id = lv.rt_hr_id
+	left outer join info_pop_tmp pop on lv.rt_pl_id = pop.pop_id
+	where hs_id = #{hsId} and rt_id is not null
+  </select>
+
+  <!-- 用未租ID查住户（仅查询在住住户） -->
+  <select id="getHousehold" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select pop.pop_id, pop.pop_name, pop.pop_gmt_modified, pop.pop_telephone, lv.rt_type contStatus, pop.pop_relation from info_house_4rent hr
+	left outer join info_house_4store hs on hr.hr_house_4store_id = hs.hs_id
+	left outer join info_living_men lv on hr.hr_id = lv.rt_hr_id
+	left outer join info_pop_tmp pop on lv.rt_pl_id = pop.pop_id
+	where hs_id = #{hsId} and rt_id is not null and rt_type = '在住'
+  </select>
+
+  <!-- 用未租ID查租客 -->
+  <select id="getHouseRenter" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select pop.pop_id, pop.pop_name, pop.pop_gmt_modified, pop.pop_telephone, hr.hr_state contStatus from info_house_4rent hr
+	left outer join info_house_4store hs on hr.hr_house_4store_id = hs.hs_id
+	left outer join info_renter rt on hr.hr_renter_id = rt.renter_id
+	left outer join info_pop_tmp pop on rt.renter_population_id = pop.pop_id
+	where hs_id = #{hsId}
+  </select>
+  
+  <!-- 用未租ID查业主 -->
+  <select id="getHouseLandlord" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select pop.pop_id, pop.pop_name, pop.pop_gmt_modified, pop.pop_telephone, hs.hs_state contStatus from info_house_4store hs
+	left outer join info_landlord la on hs.hs_landlord_id = la.la_id
+	left outer join info_pop_tmp pop on la.la_population_id = pop.pop_id
+	where hs_id = #{hsId}
+  </select>
+  
+  <!-- 用已租ID查业主 -->
+  <select id="getRentHouseLandlord" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select ipt.*,ihr.hr_state contStatus
+	from info_house_4rent ihr
+	left outer join info_landlord il on il.la_id = ihr.hr_landlord_id
+	left outer join info_pop_tmp ipt on ipt.pop_id = il.la_population_id
+	where ihr.hr_id = #{hrId}
+  </select>
+  
+  <!-- 用已租ID查租客 -->
+  <select id="getRentHouseRenter" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select ipt.*,ihr.hr_state contStatus
+	from info_house_4rent ihr
+	left outer join info_renter ir on ir.renter_id = ihr.hr_renter_id
+	left outer join info_pop_tmp ipt on ipt.pop_id = ir.renter_population_id
+	where ihr.hr_id = #{hrId}
+  </select>
+  
+  <!-- 用已租ID查住户 -->
+  <select id="getRentHouseLivingMen" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select ipt.*,ilm.rt_type contStatus
+	from info_house_4rent ihr
+	left outer join info_living_men ilm on ilm.rt_hr_id = ihr.hr_id
+	left outer join info_pop_tmp ipt on ipt.pop_id = ilm.rt_pl_id
+	where ilm.rt_hr_id = #{hrId}
+  </select>
+  
+  <!-- 查住户的房 -->
+  <select id="getLivingMenHouse" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select hr_house_4store_id hsId, hr_add_community addCommunity, hr_add_building addBuilding, hr_add_doorplateno addDoorplateno, 
+  	rt_type contStatus, rt_date registrationTime 
+	from info_living_men lm
+	left outer join info_house_4rent hr on lm.rt_hr_id = hr.hr_id
+	where rt_pl_id = #{popId}
+  </select>
+  
+  <!-- 查租客的房 -->
+  <select id="getRenterHouse" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select hr_house_4store_id hsId, hr_add_community addCommunity, hr_add_building addBuilding, hr_add_doorplateno addDoorplateno, 
+  	hr_state contStatus, hr_register_time registrationTime
+  	from info_house_4rent where hr_renter_id in (select renter_id from info_renter where renter_population_id = #{popId}) 
+  </select>
+  
+  <!-- 查业主的房 -->
+  <select id="getLandlordHouse" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select hs_id hsId, hs_add_community addCommunity, hs_add_building addBuilding, hs_add_doorplateno addDoorplateno, 
+  	hs_state contStatus, hs_register_time registrationTime
+  	from info_house_4store where hs_landlord_id in (select la_id from info_landlord where la_population_id = #{popId}) 
+  	and hs_not_rent_split = 0
+  </select>
+  
+  <!-- 转移查询 -->
+  <select id="getPopUserId" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select * from info_pop_tmp
+  	where pop_user = #{popUser}
+  </select>
+  
+  <!-- 批量导入查询 -->
+  <select id="selectIdcardKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select pop.*, u.su_staff_name userName
+    from info_pop_tmp pop left outer join sys_users u on pop.pop_user = u.user_coding
+    where pop_idcard = #{popIdcard}
+  </select>
+  
+  <select id="newModifiedJudgmentQuery" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select pop.*, u.su_staff_name userName
+    from info_pop_tmp pop left outer join sys_users u on pop.pop_user = u.user_coding
+    <where>
+    	<if test="popCocId != null">
+    		and pop_coc_id = #{popCocId,jdbcType=INTEGER}
+    	</if>
+    	<if test="popId != null and popId != '' ">
+    		and pop_id = #{popId,jdbcType=INTEGER}
+    	</if>
+    	<if test="popName != null and popName != '' ">
+    		and pop_name = #{popName}
+    	</if>
+    	<if test="popTelephone != null and popTelephone != '' ">
+    		and pop_telephone = #{popTelephone}
+    	</if>
+    	<if test="popIdcard != null and popIdcard != '' ">
+    		and pop_idcard = #{popIdcard}
+    	</if>
+    	<if test="popLandlord != null">
+    		and pop_landlord = #{popLandlord,jdbcType=INTEGER}
+    	</if>
+    	<if test="popRenter!= null ">
+    		and pop_renter = #{popRenter,jdbcType=INTEGER}
+    	</if>
+    	<if test="popResident != null">
+			and pop_resident = #{popResident,jdbcType=INTEGER}
+		</if>
+    </where>
+  </select>
+  
+  <select id="listPopByList" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+  	select ipt.*, jsrr.*, jpp.jpp_plan_package
+    from jour_short_rent_renter jsrr
+    left outer join info_pop_tmp ipt on ipt.pop_id = jsrr.jsrr_pop_id
+    left outer join jour_channel_unit jcu on jcu.jcu_id = jsrr.jsrr_channel_id
+    left outer join jour_price_plan jpp on jcu.jcu_price_plan_id = jpp.jpp_id
+     where jsrr.jsrr_id in
+    <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        #{item}
+    </foreach>
+    ORDER BY jpp.jpp_priority_level DESC
+  </select>
+  
+  <!-- 查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoPopulation" >
+    select a.*,b.totalNum from
+    (select pop.*, u.su_staff_name userName
+    from info_pop_tmp pop left outer join sys_users u on pop.pop_user = u.user_coding
+    left outer join jour_short_rent_renter jsrr on jsrr.jsrr_pop_id=pop.pop_id
+    <where>
+		<if test="popResident != null">
+			and pop_resident = #{popResident,jdbcType=INTEGER}
+		</if>
+    	<if test="popId != null and popId != '' ">
+    		and pop_id = #{popId,jdbcType=INTEGER}
+    	</if>
+    	<if test="popName != null and popName != '' ">
+    		and pop_name like '%${popName}%'
+    	</if>
+    	<if test="popTelephone != null and popTelephone != '' ">
+    		and pop_telephone like '%${popTelephone}%'
+    	</if>
+    	<if test="popIdcard != null and popIdcard != '' ">
+    		and pop_idcard like '%${popIdcard}%'
+    	</if>
+    	<if test="popIdcard == null or popIdcard == '' ">
+    		and pop_idcard is not null and pop_idcard !=""
+    	</if>
+    	<if test="popLandlord != null">
+    		and pop_landlord = #{popLandlord,jdbcType=INTEGER}
+    	</if>
+    	<if test="popRenter!= null ">
+    		and pop_renter = #{popRenter,jdbcType=INTEGER}
+    	</if>
+    	<if test="popUser != null and popUser != '' ">
+    		and pop_user = #{popUser,jdbcType=INTEGER}
+    	</if>
+    	<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (pop_registration_time between #{startTime} and #{endTime})
+		</if>
+    </where>
+    ) a,
+    (select count(pop_id) totalNum from info_pop_tmp
+	<where>
+		<if test="popResident != null ">
+			and pop_resident = #{popResident,jdbcType=INTEGER}
+		</if>
+    	<if test="popId != null and popId != '' ">
+    		and pop_id = #{popId,jdbcType=INTEGER}
+    	</if>
+    	<if test="popName != null and popName != '' ">
+    		and pop_name like '%${popName}%'
+    	</if>
+    	<if test="popTelephone != null and popTelephone != '' ">
+    		and pop_telephone like '%${popTelephone}%'
+    	</if>
+    	<if test="popIdcard != null and popIdcard != '' ">
+    		and pop_idcard like '%${popIdcard}%'
+    	</if>
+    	<if test="popIdcard == null or popIdcard == '' ">
+    		and pop_idcard is not null and pop_idcard !=""
+    	</if>
+    	<if test="popLandlord != null ">
+    		and pop_landlord = #{popLandlord,jdbcType=INTEGER}
+    	</if>
+    	<if test="popRenter!= null ">
+    		and pop_renter = #{popRenter,jdbcType=INTEGER}
+    	</if>
+    	<if test="popUser != null and popUser != '' ">
+    		and pop_user = #{popUser,jdbcType=INTEGER}
+    	</if>
+    	<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (pop_registration_time between #{startTime} and #{endTime})
+		</if>
+    </where>
+    ) b
+	ORDER BY pop_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if> 
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_pop_tmp
+    where pop_id = #{popId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 新增 -->
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoPopulation"
+  		useGeneratedKeys="true" keyProperty="popId" >
+    insert into info_pop_tmp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="popRegistrationTime != null and popRegistrationTime != ''">
+      	pop_registration_time,
+      </if>
+      <if test="popUser != null and popUser != ''">
+      	pop_user,
+      </if>
+      <if test="popId != null" >
+        pop_id,
+      </if>
+      <if test="popInnerCreditLevel != null" >
+        pop_inner_credit_level,
+      </if>
+      <if test="popOuterCreditLevel != null" >
+        pop_outer_credit_level,
+      </if>
+      <if test="popLandlord != null" >
+        pop_landlord,
+      </if>
+      <if test="popRenter != null" >
+        pop_renter,
+      </if>
+      <if test="popResident != null" >
+        pop_resident,
+      </if>
+      <if test="popName != null" >
+        pop_name,
+      </if>
+      <if test="popTelephone != null" >
+        pop_telephone,
+      </if>
+      <if test="popIdcard != null" >
+        pop_idcard,
+      </if>
+      
+      <if test="wxOpenid != null" >
+        wx_openid,
+      </if>
+      <if test="popNation != null and popNation != ''" >
+        pop_nation,
+      </if>
+      <if test="popMarriageState != null" >
+        pop_marriage_state,
+      </if>
+      <if test="popFromArea != null" >
+        pop_from_area,
+      </if>
+      <if test="popPresentAddress != null" >
+        pop_present_address,
+      </if>
+      <if test="popIdcardType != null" >
+        pop_idcard_type,
+      </if>
+      <if test="popBirth != null and popBirth != ''" >
+        pop_birth,
+      </if>
+      <if test="popSex != null and popSex != ''" >
+        pop_sex,
+      </if>
+      <if test="popDegreeEducation != null" >
+        pop_degree_education,
+      </if>
+      <if test="popOccupation != null" >
+        pop_occupation,
+      </if>
+      <if test="popUnitService != null" >
+        pop_unit_service,
+      </if>
+      <if test="popCheckinTime != null" >
+        pop_checkin_time,
+      </if>
+      <if test="popResidenceType != null" >
+        pop_residence_type,
+      </if>
+      <if test="popResidenceCause != null" >
+        pop_residence_cause,
+      </if>
+      <if test="popRelation != null" >
+        pop_relation,
+      </if>
+      <if test="popModifyTheRecord != null" >
+        pop_modify_the_record,
+      </if>
+      <if test="popNameRemark != null" >
+        pop_name_remark,
+      </if>
+      <if test="popPassword != null" >
+        pop_password,
+      </if>
+      <if test="popIdcardAddress != null and popIdcardAddress != ''" >
+        pop_idcard_address,
+      </if>
+      <if test="popImgPath != null and popImgPath != ''" >
+        pop_img_path,
+      </if>
+      <if test="popImgNum != null" >
+        pop_img_num,
+      </if>
+      <if test="popShortRent != null" >
+        pop_short_rent,
+      </if>
+      <if test="popIdcardJson != null" >
+        pop_idcard_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="popRegistrationTime != null and popRegistrationTime != ''">
+      	#{popRegistrationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="popUser != null and popUser != ''">
+      	#{popUser,jdbcType=INTEGER},
+      </if>
+      <if test="popId != null" >
+        #{popId,jdbcType=INTEGER},
+      </if>
+      <if test="popInnerCreditLevel != null" >
+        #{popInnerCreditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="popOuterCreditLevel != null" >
+        #{popOuterCreditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="popLandlord != null" >
+        #{popLandlord,jdbcType=INTEGER},
+      </if>
+      <if test="popRenter != null" >
+        #{popRenter,jdbcType=INTEGER},
+      </if>
+      <if test="popResident != null" >
+        #{popResident,jdbcType=INTEGER},
+      </if>
+      <if test="popName != null" >
+        #{popName,jdbcType=VARCHAR},
+      </if>
+      <if test="popTelephone != null" >
+        #{popTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="popIdcard != null" >
+        #{popIdcard,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="wxOpenid != null" >
+        #{wxOpenid},
+      </if>
+      <if test="popNation != null and popNation != ''" >
+        #{popNation},
+      </if>
+      <if test="popMarriageState != null" >
+        #{popMarriageState},
+      </if>
+      <if test="popFromArea != null" >
+        #{popFromArea},
+      </if>
+      <if test="popPresentAddress != null" >
+        #{popPresentAddress},
+      </if>
+      <if test="popIdcardType != null" >
+        #{popIdcardType},
+      </if>
+      <if test="popBirth != null and popBirth != ''" >
+        #{popBirth},
+      </if>
+      <if test="popSex != null and popSex != ''" >
+        #{popSex},
+      </if>
+      <if test="popDegreeEducation != null" >
+        #{popDegreeEducation},
+      </if>
+      <if test="popOccupation != null" >
+        #{popOccupation},
+      </if>
+      <if test="popUnitService != null" >
+        #{popUnitService},
+      </if>
+      <if test="popCheckinTime != null" >
+        #{popCheckinTime},
+      </if>
+      <if test="popResidenceType != null" >
+        #{popResidenceType},
+      </if>
+      <if test="popResidenceCause != null" >
+        #{popResidenceCause},
+      </if>
+      <if test="popRelation != null" >
+        #{popRelation},
+      </if>
+      <if test="popModifyTheRecord != null" >
+        #{popModifyTheRecord},
+      </if>
+      <if test="popNameRemark != null" >
+        #{popNameRemark},
+      </if>
+      <if test="popPassword != null" >
+        #{popPassword},
+      </if>
+      <if test="popIdcardAddress != null and popIdcardAddress != ''" >
+        #{popIdcardAddress},
+      </if>
+      <if test="popImgPath != null and popImgPath != ''" >
+        #{popImgPath},
+      </if>
+      <if test="popImgNum != null" >
+        #{popImgNum},
+      </if>
+       <if test="popShortRent != null" >
+        #{popShortRent},
+      </if>
+      <if test="popIdcardJson != null" >
+       	#{popIdcardJson},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoPopulation" >
+    update info_pop_tmp
+    <set >
+      <if test="popRegistrationTime != null and popRegistrationTime != ''">
+      	pop_registration_time = #{popRegistrationTime,jdbcType=VARCHAR},
+      </if>
+      <if test="popUser != null and popUser != ''">
+      	pop_user = #{popUser,jdbcType=INTEGER},
+      </if>
+      <if test="popInnerCreditLevel != null" >
+        pop_inner_credit_level = #{popInnerCreditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="popOuterCreditLevel != null" >
+        pop_outer_credit_level = #{popOuterCreditLevel,jdbcType=INTEGER},
+      </if>
+      <if test="popLandlord != null" >
+        pop_landlord = #{popLandlord,jdbcType=INTEGER},
+      </if>
+      <if test="popRenter != null" >
+        pop_renter = #{popRenter,jdbcType=INTEGER},
+      </if>
+      <if test="popResident != null" >
+        pop_resident = #{popResident,jdbcType=INTEGER},
+      </if>
+      <if test="popName != null" >
+        pop_name = #{popName,jdbcType=VARCHAR},
+      </if>
+      <if test="popTelephone != null" >
+        pop_telephone = #{popTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="popIdcard != null" >
+        pop_idcard = #{popIdcard,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="wxOpenid != null" >
+        wx_openid = #{wxOpenid},
+      </if>
+      <if test="popNation != null" >
+        pop_nation = #{popNation},
+      </if>
+      <if test="popMarriageState != null" >
+        pop_marriage_state = #{popMarriageState},
+      </if>
+      <if test="popFromArea != null" >
+        pop_from_area = #{popFromArea},
+      </if>
+      <if test="popPresentAddress != null" >
+        pop_present_address = #{popPresentAddress},
+      </if>
+      <if test="popIdcardType != null" >
+        pop_idcard_type = #{popIdcardType},
+      </if>
+      <if test="popBirth != null" >
+        pop_birth = #{popBirth},
+      </if>
+      <if test="popSex != null" >
+        pop_sex = #{popSex},
+      </if>
+      <if test="popDegreeEducation != null" >
+        pop_degree_education = #{popDegreeEducation},
+      </if>
+      <if test="popOccupation != null" >
+        pop_occupation = #{popOccupation},
+      </if>
+      <if test="popUnitService != null" >
+        pop_unit_service = #{popUnitService},
+      </if>
+      <if test="popCheckinTime != null and popCheckinTime != ''" >
+        pop_checkin_time = #{popCheckinTime},
+      </if>
+      <if test="popResidenceType != null" >
+        pop_residence_type = #{popResidenceType},
+      </if>
+      <if test="popResidenceCause != null" >
+        pop_residence_cause = #{popResidenceCause},
+      </if>
+      <if test="popRelation != null" >
+        pop_relation = #{popRelation},
+      </if>
+      <if test="popModifyTheRecord != null" >
+        pop_modify_the_record = #{popModifyTheRecord},
+      </if>
+      <if test="popNameRemark != null" >
+        pop_name_remark = #{popNameRemark},
+      </if>
+      <if test="popPassword != null" >
+        pop_password = #{popPassword},
+      </if>
+      <if test="popIdcardAddress != null" >
+        pop_idcard_address = #{popIdcardAddress},
+      </if>
+      <if test="popImgPath != null" >
+        pop_img_path = #{popImgPath},
+      </if>
+      <if test="popImgNum != null" >
+        pop_img_num = #{popImgNum},
+      </if>
+      <if test="userCode != null" >
+        pop_user_code = #{userCode},
+      </if>
+      <if test="popIdcardJson != null" >
+        pop_idcard_json = #{popIdcardJson},
+      </if>
+    </set>
+    where pop_id = #{popId,jdbcType=INTEGER}
+  </update>
+</mapper>

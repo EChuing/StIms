@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourDeviceMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourDevice" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="dev_id" property="devId" jdbcType="VARCHAR" />
+	<result column="dev_sn" property="devSn" jdbcType="VARCHAR" />
+    <result column="dev_brand_id" property="devBrandId" jdbcType="INTEGER" />
+    <result column="dev_nickname" property="devNickname" jdbcType="VARCHAR" />
+    <result column="dev_username" property="devUsername" jdbcType="VARCHAR" />
+    
+    <result column="dev_type" property="devType" jdbcType="VARCHAR" />
+    <result column="dev_difference" property="devDifference" jdbcType="VARCHAR" />
+    
+    <result column="dev_password" property="devPassword" jdbcType="VARCHAR" />
+    <result column="dev_auth_id" property="devAuthId" jdbcType="VARCHAR" />
+    <result column="dev_auth_secret" property="devAuthSecret" jdbcType="VARCHAR" />
+    <result column="dev_state" property="devState" jdbcType="VARCHAR" />
+    <result column="dev_auth_num" property="devAuthNum" jdbcType="VARCHAR" />
+    <result column="dev_spare1" property="devSpare1" jdbcType="VARCHAR" />
+    <result column="dev_spare2" property="devSpare2" jdbcType="VARCHAR" />
+	<result column="dev_first_type" property="devFirstType" jdbcType="INTEGER" />
+	<result column="dev_second_type" property="devSecondType" jdbcType="INTEGER" />
+	<result column="dev_road" property="devRoad" jdbcType="INTEGER" />
+
+	<result column="dev_passwd" property="devPasswd" jdbcType="VARCHAR" />
+	<result column="idst_name" property="idstName" jdbcType="VARCHAR" />
+	<result column="dev_ant_device_id" property="devAntDeviceId" jdbcType="VARCHAR" />
+
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="hs_state" property="hsState" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="hsAddDistrict" jdbcType="VARCHAR" />
+    <result column="hs_lease_state" property="hsLeaseState" jdbcType="VARCHAR" />
+    
+    <result column="jhd_hs_id" property="jhdHsId" jdbcType="INTEGER" />
+    <result column="jhd_device_id" property="jhdDeviceId" jdbcType="INTEGER" />
+    <result column="jhd_id" property="jhdId" jdbcType="INTEGER" />
+    <result column="dev_idft_id" property="devIdftId" jdbcType="INTEGER" />
+    <result column="dev_idst_id" property="devIdstId" jdbcType="INTEGER" />
+
+  </resultMap>
+
+	<insert id="insertDeviceList" parameterType="java.util.List" >
+		insert into jour_device
+		(
+		dev_id,dev_brand_id,
+		dev_nickname, dev_ant_device_id, dev_sn, dev_first_type, dev_second_type
+		)
+		values
+		<foreach collection="list" index="index" item="item" separator=",">
+			(
+			#{item.devId,jdbcType=VARCHAR},
+			#{item.devBrandId,jdbcType=INTEGER},
+			#{item.devNickname,jdbcType=VARCHAR},
+			#{item.devAntDeviceId,jdbcType=VARCHAR},
+			#{item.devSn,jdbcType=VARCHAR},
+			#{item.devFirstType,jdbcType=INTEGER},
+			#{item.devSecondType,jdbcType=INTEGER}
+			)
+		</foreach>
+	</insert>
+
+	<!--用设备ID，查询设备与未租关系表是否存在数据-->
+	<select id="selectDeviceIdData" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice" >
+		select * from jour_hs_device
+		where jhd_device_id= #{jhdDeviceId,jdbcType=INTEGER}
+	</select>
+
+	<select id="getAllDevice" resultMap="BaseResultMap" >
+		select * from jour_device where dev_brand_id = 25
+	</select>
+
+  <!-- 查询单个 -->
+  <select id="selectSingle" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice" >
+  	select * from jour_device device
+	where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- 删除人脸设备-->
+  <delete id="deleteDevice"  parameterType="com.zz.po.journal.JourDevice">
+	delete  from jour_device
+	where dev_sn = #{devSn,jdbcType=VARCHAR}
+  </delete>
+  <!-- (数据与统计分开)查询所有-->
+  <select id="selectAllDevice" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice" >
+	  select 
+	  	<if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			bb.total_num
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			a.*
+		</if>
+		<if test="splitFlag == null">
+			<!-- 数据查询 -->
+			a.*
+		</if>
+		from (select hs.*,jd.*,jhd.* ,idst.*
+		from jour_device jd
+		left outer join jour_hs_device jhd on jd.id = jhd.jhd_device_id
+		left outer join info_house_4store hs on jhd.jhd_hs_id = hs.hs_id and hs.hs_state !='注销'
+	  	left outer join info_device_second_type idst on idst.idst_id =jd.dev_idst_id
+	  <where>
+		  <if test="devBrandId != null and devBrandId != '' ">
+			  and dev_brand_id = #{devBrandId}
+		  </if>
+		  <if test="devFirstType != null and devFirstType != '' ">
+				and dev_first_type = #{devFirstType}
+		  </if>
+		  <if test="devSecondType != null and devSecondType != '' ">
+			  and dev_second_type = #{devSecondType}
+		  </if>
+		  <if test="hsState != null and hsState != '' ">
+			  and hs_state !=#{hsState}
+		  </if>
+		  <if test="devNickname != null and devNickname != '' ">
+			  and dev_nickname like '%${devNickname}%'
+		  </if>
+		  <if test="devSn != null and devSn != '' ">
+			  and dev_sn like '%${devSn}%'
+		  </if>
+		  <if test="devAddress != null and devAddress != '' ">
+			  and (hs_add_community like '%${devAddress}%' or hs_add_building like '%${devAddress}%' or hs_add_doorplateno like '%${devAddress}%')
+		  </if>
+	  </where>
+	  )a,
+		(select count(jd.id) total_num 
+		from jour_device jd
+		left outer join jour_hs_device jhd on jd.id = jhd.jhd_device_id
+		left outer join info_house_4store hs on jhd.jhd_hs_id = hs.hs_id and hs.hs_state !='注销'
+	  	left outer join info_device_second_type idst on idst.idst_id =jd.dev_idst_id
+		<where>
+			<if test="devBrandId != null and devBrandId != '' ">
+				and dev_brand_id = #{devBrandId}
+			</if>
+			<if test="devFirstType != null and devFirstType != '' ">
+				and dev_first_type = #{devFirstType}
+			</if>
+			<if test="devSecondType != null and devSecondType != '' ">
+				and dev_second_type = #{devSecondType}
+			</if>
+			<if test="hsState != null and hsState != '' ">
+				and hs_state != #{hsState}
+			</if>
+			<if test="devNickname != null and devNickname != '' ">
+				and dev_nickname like '%${devNickname}%'
+			</if>
+			<if test="devSn != null and devSn != '' ">
+				and dev_sn like '%${devSn}%'
+			</if>
+			<if test="hsAddCommunity != null and hsAddCommunity !='' ">
+				and hs_add_community like '%${hsAddCommunity}%'
+			</if>
+			<if test="hsAddBuilding != null and hsAddBuilding !='' ">
+				and hs_add_building like '%${hsAddBuilding}%'
+			</if>
+			<if test="hsAddDoorplateno != null and hsAddDoorplateno !=''">
+				and hs_add_doorplateno like '%${hsAddDoorplateno}%'
+			</if>
+		</where>)bb
+	    <if test="splitFlag ==1">
+			ORDER BY id DESC
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+  </select>
+  <select id="selectDoorDevice" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice" >
+		select * from jour_device jd
+		left outer join jour_hs_device jhd on jd.id = jhd.jhd_device_id
+		left outer join info_house_4store hs on jhd.jhd_hs_id = hs.hs_id
+	  <where>
+		  dev_first_type IN (24)
+	  </where>
+  </select>
+  
+  <!-- 单独查询设备 -->
+  <select id="queryDevice" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice">
+	select 
+		<if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			count(*) total_num
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			a.*
+		</if>
+		<if test="splitFlag == null">
+			<!-- 数据查询 -->
+			a.*
+		</if>
+	 	from jour_device a
+		<where>
+			<if test="devBrandId != null and devBrandId != '' ">
+				and dev_brand_id = #{devBrandId}
+			</if>
+			<if test="devId != null and devId != '' ">
+				and dev_id = #{devId}
+			</if>
+			<if test="devAuthId != null and devAuthId != '' ">
+				and dev_auth_id = #{devAuthId,jdbcType=VARCHAR}
+			</if>
+			<if test="devAuthSecret != null and devAuthSecret != '' ">
+				and dev_auth_secret = #{devAuthSecret,jdbcType=VARCHAR}
+			</if>
+			<if test="devNickname != null and devNickname != '' ">
+				and dev_nickname like '%${devNickname}%'
+			</if>
+		</where>
+			<if test="splitFlag ==1">
+			ORDER BY id DESC 
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+  </select>
+  
+  <!-- 单独查询本房源设备 -->
+  <select id="selectThisHouseDevice" resultMap="BaseResultMap" parameterType="java.util.List">
+	select * from jour_device where id in
+	<foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+        #{item}
+    </foreach>
+  </select>
+  
+  <select id="selectDeviceSN" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice">
+		select id,dev_auth_id,dev_first_type,dev_second_type from jour_device
+		where dev_brand_id = #{devBrandId,jdbcType=INTEGER} 
+		<!-- <if test="devId != null and devId != ''" >
+			and  dev_id = #{devId,jdbcType=VARCHAR}
+		</if>
+		<if test="devId == null or devId == ''" >
+			and  dev_id in (22)
+		</if> -->
+		<if test="devFirstType == null  or devFirstType ==''">
+			and dev_first_type in (9,21)
+		</if>
+		<if test="devSecondType == null or devSecondType ==''">
+			and dev_second_type in (9,21)
+		</if>
+		<if test="devFirstType != null and devFirstType ==''">
+			and dev_first_type = #{devFirstType,jdbcType=INTEGER}
+		</if>
+		<if test="devSecondType != null and devSecondType !=''">
+			and dev_second_type = #{devSecondType,jdbcType=INTEGER}
+		</if>
+  </select>
+	<!-- 根据品牌ID和设备type查询水电表设备和关联的未租房 -->
+  <select id="selectDeviceHouseStore" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice">
+		select a.*,bb.total_num from 
+		(select hs.*,jd.*
+		from jour_device jd
+		left outer join jour_hs_device jhd on jd.id = jhd.jhd_device_id
+		left outer join info_house_4store hs on jhd.jhd_hs_id = hs.hs_id
+		<where>
+			<if test="devBrandId == null and devBrandId == ''" >
+				and dev_brand_id in (20,21,23,25)
+			</if>
+			<if test="devFirstType == null or devFirstType ==''">
+				and dev_first_type in (15,14,16)
+			</if>
+			<if test="devSecondType == null or devSecondType ==''">
+				and dev_second_type in (15,14,16)
+			</if>
+			<if test="devFirstType != null and devFirstType !=''">
+				and dev_first_type = #{devFirstType,jdbcType=INTEGER}
+			</if>
+			<if test="devSecondType != null and devSecondType !=''">
+				and dev_second_type = #{devSecondType,jdbcType=INTEGER}
+			</if>
+			<if test="hsAddCity != null and hsAddCity != ''" >
+				and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+			<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+				and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+			<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+				and hs_add_community like '%${hsAddCommunity}%'</if>
+			<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+				and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+			<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+				and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+						or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		</where>
+		)a,
+		(select count(jd.id) total_num 
+		from jour_device jd
+		left outer join jour_hs_device jhd on jd.id = jhd.jhd_device_id
+		left outer join info_house_4store hs on jhd.jhd_hs_id = hs.hs_id
+		<where>
+			<if test="devBrandId != null and devBrandId != ''" >
+				and dev_brand_id in (20,21,23,25)
+			</if>
+			<if test="devFirstType == null or devFirstType ==''">
+				and dev_first_type in (15,14,16)
+			</if>
+			<if test="devSecondType == null or devSecondType ==''">
+				and dev_second_type in (15,14,16)
+			</if>
+			<if test="devFirstType != null and devFirstType !=''">
+				and dev_first_type = #{devFirstType,jdbcType=INTEGER}
+			</if>
+			<if test="devSecondType != null and devSecondType !=''">
+				and dev_second_type = #{devSecondType,jdbcType=INTEGER}
+			</if>
+			<if test="hsAddCity != null and hsAddCity != ''" >
+				and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+			<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+				and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+			<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+				and hs_add_community like '%${hsAddCommunity}%'</if>
+			<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+				and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+			<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+				and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+						or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+		</where>
+		)bb
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+  </select>
+	<!-- 获取云海和电易水表 -->
+  <select id="waterEarlyWarning" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice">
+		select * from jour_device where dev_first_type = 14 and dev_first_type = 14 and dev_brand_id = 20 or dev_brand_id = 13
+  </select>
+	
+	<!-- 用未租ID查询设备信息-->
+  <select id="selectDeviceStatus" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select jd.*,jhs.* from jour_device jd
+		left outer join jour_hs_device jhs on jhs.jhd_device_id=jd.id
+		<where>
+			<if test="jhdHsId != null and jhdHsId != ''" >
+				and jhd_hs_id = #{jhdHsId,jdbcType=INTEGER}
+			</if>
+		</where>
+  </select>
+  <select id="selectCommon" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT jd.* FROM jour_hs_device jhd
+        RIGHT OUTER JOIN jour_hs_office jho ON jhd.jhd_hs_id = jho.jho_hs_id
+		LEFT OUTER JOIN jour_device jd ON jho.jho_device_id = jd.id
+		<where>
+			<if test="jhdHsId != null and jhdHsId != ''" >
+				and jhd_hs_id = #{jhdHsId,jdbcType=INTEGER}
+			</if>
+		</where>
+		group by jho.jho_id
+  </select>
+	
+	<!-- 根据设备id批量获取设备信息 -->
+  <select id="selectDeviceByDevIds"  resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from jour_device where id in 
+		<foreach collection="list" item="item" index="no" open="("
+			separator="," close=")">
+				(#{item,jdbcType=INTEGER})
+		</foreach>
+  </select>
+	
+	<!-- 根据id批量获取设备信息 -->
+  <select id="selectDeviceByIds"  resultMap="BaseResultMap" parameterType="java.util.List">
+		select * from jour_device where id in 
+		<foreach collection="list" item="item" index="no" open="("
+			separator="," close=")">
+				(#{item,jdbcType=INTEGER})
+		</foreach>
+  </select>
+
+	<!-- 查询设备 -->
+	<select id="queryOfficeAreadevice" resultMap="BaseResultMap" parameterType="java.util.List">
+		select jd.*,idft.idft_name,idst.idst_name from jour_device jd
+		left outer join info_device_first_type idft on idft.idft_id=jd.dev_idft_id
+		left outer join info_device_second_type idst on idst.idst_id=jd.dev_idst_id
+		<where>
+			<!-- <if test="devType !=null and devType !=''">
+				and dev_type like '${devType}%'
+			</if> -->
+			<if test="devNickname !=null and devNickname !=''">
+				and dev_nickname like '${devNickname}'
+			</if>
+			and (dev_id=3 or dev_id=10 or dev_id=16 or dev_id=35)
+		</where>
+	</select>
+	
+		<!-- 修改资产 -->
+    <update id="updateById" parameterType="com.zz.po.journal.JourDevice" >
+		update jour_device
+		  <set >
+			<if test="devSpare2 != null" >
+				dev_spare2 = #{devSpare2,jdbcType=VARCHAR},
+			</if>
+			<if test="devFirstType != null ">
+				dev_first_type = #{devFirstType,jdbcType=INTEGER},
+			</if>
+			<if test="devSecondType != null ">
+				dev_second_type = #{devSecondType,jdbcType=INTEGER},
+			</if>
+			<if test="devNickname != null ">
+				dev_nickname = #{devNickname,jdbcType=VARCHAR},
+			</if>
+			<if test="devRoad != null ">
+				dev_road = #{devRoad,jdbcType=INTEGER}
+			</if>
+		  </set>
+		where id = #{id,jdbcType=INTEGER}
+    </update>
+
+	<insert id="insertDevice" parameterType="com.zz.po.journal.JourDevice" useGeneratedKeys="true" keyProperty="id">
+		insert into jour_device
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="devId != null" >
+				dev_id,
+			</if>
+			<if test="devBrandId != null" >
+				dev_brand_id,
+			</if>
+			<if test="devNickname != null" >
+				dev_nickname,
+			</if>
+			<if test="devUsername != null" >
+				dev_username,
+			</if>
+			<if test="devType != null" >
+				dev_type,
+			</if>
+			<if test="devAuthId != null" >
+				dev_auth_id,
+			</if>
+			<if test="devSn != null" >
+				dev_sn,
+			</if>
+			<if test="devAuthSecret != null" >
+				dev_auth_secret,
+			</if>
+			<if test="devFirstType != null ">
+				dev_first_type,
+			</if>
+			<if test="devSecondType != null ">
+				dev_second_type,
+			</if>
+			<if test="devRoad != null ">
+				dev_road
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="devId != null" >
+				#{devId,jdbcType=VARCHAR},
+			</if>
+			<if test="devBrandId != null" >
+				#{devBrandId,jdbcType=INTEGER},
+			</if>
+			<if test="devNickname != null" >
+				#{devNickname,jdbcType=VARCHAR},
+			</if>
+			<if test="devUsername != null" >
+				#{devUsername,jdbcType=VARCHAR},
+			</if>
+			<if test="devType != null" >
+				#{devType,jdbcType=VARCHAR},
+			</if>
+			<if test="devAuthId != null" >
+				#{devAuthId,jdbcType=VARCHAR},
+			</if>
+			<if test="devSn != null" >
+				#{devSn,jdbcType=VARCHAR},
+			</if>
+			<if test="devAuthSecret != null" >
+				#{devAuthSecret,jdbcType=VARCHAR},
+			</if>
+			<if test="devFirstType != null ">
+				#{devFirstType,jdbcType=INTEGER},
+			</if>
+			<if test="devSecondType != null ">
+				#{devSecondType,jdbcType=INTEGER},
+			</if>
+			<if test="devRoad != null ">
+				#{devRoad,jdbcType=INTEGER}
+			</if>
+		</trim>
+	</insert>
+  <select id="selectPolice" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice" >
+		select *,count(*) as count  from jour_device device
+		where dev_first_type = #{devFirstType,jdbcType=INTEGER}
+  </select>
+  <select id="selectDeviceSn" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDevice" >
+		select * from jour_device device
+		where dev_sn = #{devSn,jdbcType=VARCHAR}
+  </select>
+  </mapper>

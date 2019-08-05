@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourSubjectMapper">
+	<resultMap id="BaseResultMap" type="com.zz.po.journal.JourSubject">
+		<id property="subId" column="sub_id" jdbcType="INTEGER"/>
+		<result property="subTitle" column="sub_title" jdbcType="VARCHAR"/>
+		<result property="subDateStart" column="sub_date_start" jdbcType="VARCHAR"/>
+		<result property="subDateEnd" column="sub_date_end" jdbcType="VARCHAR"/>
+		<result property="subPlace" column="sub_place" jdbcType="VARCHAR"/>
+		<result property="subContent" column="sub_content" jdbcType="VARCHAR"/>
+		<result property="totalNum" column="total_num" jdbcType="INTEGER" />
+		<result property="fileImgPath" column="file_img_path" jdbcType="VARCHAR"/>
+		<result property="fileImgNum" column="file_img_num" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<insert id="insertSubject" parameterType="com.zz.po.journal.JourSubject">
+		insert into jour_subject
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			<if test="subTitle != null" >
+				sub_title,
+			</if>
+			<if test="subDateStart != null" >
+				sub_date_start,
+			</if>
+			<if test="subDateEnd != null" >
+				sub_date_end,
+			</if>
+			<if test="subPlace != null" >
+				sub_place,
+			</if>
+			<if test="subContent != null" >
+				sub_content,
+			</if>
+			<if test="fileImgPath != null" >
+				file_img_path,
+			</if>
+			<if test="fileImgNum != null" >
+				file_img_num,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides="," >
+			<if test="subTitle != null" >
+				#{subTitle,jdbcType=VARCHAR},
+			</if>
+			<if test="subDateStart != null" >
+				#{subDateStart,jdbcType=VARCHAR},
+			</if>
+			<if test="subDateEnd != null" >
+				#{subDateEnd,jdbcType=VARCHAR},
+			</if>
+			<if test="subPlace != null" >
+				#{subPlace,jdbcType=VARCHAR},
+			</if>
+			<if test="subContent != null" >
+				#{subContent,jdbcType=VARCHAR},
+			</if>
+			<if test="fileImgPath != null" >
+				#{fileImgPath,jdbcType=VARCHAR},
+			</if>
+			<if test="fileImgNum != null" >
+				#{fileImgNum,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="selectAllSubject" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourSubject">
+		select a.*, b.total_num from(
+			select * from jour_subject
+			<where>
+				  <if test="subId !=null">
+					  and sub_id=#{subId}
+				  </if>
+			</where>
+		) a,(
+			select count(*) total_num from jour_subject
+			<where>
+				<if test="subId !=null">
+					and sub_id=#{subId}
+				</if>
+			</where>
+		) b
+		ORDER BY sub_id DESC
+		<if test="startNum!=''and startNum !=null">
+				limit ${startNum}
+			<if test="endNum!=''and endNum !=null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+
+	<update id="updateSubject" parameterType="com.zz.po.journal.JourSubject">
+		update jour_subject
+		<set>
+			<if test="subTitle !=null">
+				sub_title=#{subTitle},
+			</if>
+			<if test="subDateStart !=null">
+				sub_date_start=#{subDateStart},
+			</if>
+			<if test="subDateEnd !=null">
+				sub_date_end=#{subDateEnd},
+			</if>
+			<if test="subPlace !=null">
+				sub_place=#{subPlace},
+			</if>
+			<if test="subContent !=null">
+				sub_content=#{subContent},
+			</if>
+			<if test="fileImgPath !=null">
+				file_img_path=#{fileImgPath},
+			</if>
+			<if test="fileImgNum !=null">
+				file_img_num=#{fileImgNum},
+			</if>
+		</set>
+			where sub_id=#{subId}
+	</update>
+
+</mapper>

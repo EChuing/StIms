@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cg_category_id" property="cgCategoryId" jdbcType="INTEGER" />
+    <result column="cg_name" property="cgName" jdbcType="VARCHAR" />
+    <result column="cg_num" property="cgNum" jdbcType="INTEGER" />
+    <result column="cg_current_price" property="cgCurrentPrice" jdbcType="DOUBLE" />
+    <result column="cg_original_price" property="cgOriginalPrice" jdbcType="DOUBLE" />
+    <result column="cg_cost_price" property="cgCostPrice" jdbcType="DOUBLE" />
+    <result column="cg_img_path" property="cgImgPath" jdbcType="VARCHAR" />
+    <result column="cg_parameter" property="cgParameter" jdbcType="VARCHAR" />
+    <result column="cg_code" property="cgCode" jdbcType="VARCHAR" />
+    <result column="cg_state" property="cgState" jdbcType="INTEGER" />
+    <result column="cg_preferential" property="cgPreferential" jdbcType="INTEGER" />
+    <result column="cg_sell_well" property="cgSellWell" jdbcType="INTEGER" />
+    <result column="cg_registration_time" property="cgRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="cg_delete_state" property="cgDeleteState" jdbcType="INTEGER" />
+    <result column="cg_SN" property="cgSn" jdbcType="INTEGER" />
+    <result column="cg_introduce" property="cgIntroduce" jdbcType="LONGVARCHAR" />
+    
+    <result column="cgcId" property="cgcId" jdbcType="INTEGER" />
+    <result column="cgc_category_name" property="cgcCategoryName" jdbcType="VARCHAR" />
+    <result column="cgc_num" property="cgcNum" jdbcType="INTEGER" />
+    <result column="cgc_registration_time" property="cgcRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="cgdr_sn" property="cgdrSn" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, cg_category_id, cg_name, cg_num, cg_current_price, cg_original_price, cg_cost_price, 
+    cg_img_path, cg_parameter, cg_preferential, cg_sell_well, cg_registration_time
+  </sql>
+  
+  <update id="updateList" parameterType="java.util.List">
+        update cs_goods
+        <trim prefix="set" suffixOverrides=",">
+          <trim prefix="cg_num =case" suffix="end,">
+              <foreach collection="list" item="i" index="index">
+                     <if test="i.cgNum!=null">
+                      when id=#{i.id} then (cg_num + #{i.cgNum})
+                     </if>
+              </foreach>
+          </trim>
+          <trim prefix="cg_cost_price =case" suffix="end,">
+              <foreach collection="list" item="i" index="index">
+                     <if test="i.cgCostPrice!=null">
+                      when id=#{i.id} then #{i.cgCostPrice}
+                     </if>
+              </foreach>
+          </trim>
+         </trim>
+        where id in
+       <foreach collection="list" index="index" item="i" separator="," open="(" close=")">
+           #{i.id,jdbcType=BIGINT}
+       </foreach>
+  </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from cs_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+   <select id="listCsGoods" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoods" >
+    select 
+  	<if test="splitFlag ==0">
+		<!-- 统计查询 -->
+		count(cg.id) totalNum
+	</if>
+	<if test="splitFlag ==1 or splitFlag ==2 or splitFlag == null">
+		<!-- 数据查询 -->
+		cg.*,cgc.id as cgcId,cgc.cgc_category_name,cgc.cgc_num,cgc.cgc_registration_time
+	</if>
+  	from cs_goods cg
+  	left outer join cs_goods_category cgc on cgc.id = cg.cg_category_id
+  	<where>
+  		<if test="cgName != '' and cgName != null">
+			and cg_name like '%${cgName}%'
+		</if>
+		<if test="cgState != null">
+			and cg_state = #{cgState}
+		</if>
+		<if test="cgPreferential != null">
+			and cg_preferential = #{cgPreferential}
+		</if>
+		<if test="cgSellWell != null">
+			and cg_sell_well = #{cgSellWell}
+		</if>
+		<if test="cgcCategoryName != '' and cgcCategoryName != null">
+			and cgc_category_name = #{cgcCategoryName}
+		</if>
+        <if test="cgCategoryId != '' and cgCategoryId != null">
+          and cg_category_id = #{cgCategoryId}
+        </if>
+		<if test="id != null">
+			and cg.id = #{id}
+		</if>
+		<if test="cgCurrentPrice != null and cgCurrentPrice != '' ">
+          and cg_current_price = #{cgCurrentPrice}
+        </if>
+        <if test="cgOriginalPrice != null and cgOriginalPrice != '' ">
+          and cg_original_price = #{cgOriginalPrice}
+        </if>
+  		and cg_delete_state = 0
+  	</where>
+	<if test="splitFlag ==1">
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+	
+  </select>
+  
+   <select id="SNListCsGoods" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoods" >
+    select 
+	cg.*,cgc.id as cgcId,cgc.cgc_category_name,cgc.cgc_num,cgc.cgc_registration_time,cgd.cgdr_sn
+  	from cs_goods_device_relation cgd
+  	left outer join cs_goods cg on cg.id = cgd.cgdr_goods_id
+  	left outer join cs_goods_category cgc on cgc.id = cg.cg_category_id
+  	where cg.cg_SN=1 and cgd.cgdr_state = 0
+	
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoods" >
+    insert into cs_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cgCategoryId != null" >
+        cg_category_id,
+      </if>
+      <if test="cgName != null" >
+        cg_name,
+      </if>
+      <if test="cgNum != null" >
+        cg_num,
+      </if>
+      <if test="cgCurrentPrice != null" >
+        cg_current_price,
+      </if>
+      <if test="cgOriginalPrice != null" >
+        cg_original_price,
+      </if>
+      <if test="cgCostPrice != null" >
+        cg_cost_price,
+      </if>
+      <if test="cgImgPath != null" >
+        cg_img_path,
+      </if>
+      <if test="cgParameter != null" >
+        cg_parameter,
+      </if>
+      <if test="cgPreferential != null" >
+        cg_preferential,
+      </if>
+      <if test="cgSellWell != null" >
+        cg_sell_well,
+      </if>
+      <if test="cgRegistrationTime != null" >
+        cg_registration_time,
+      </if>
+      <if test="cgCode != null and cgCode != ''" >
+        cg_code,
+      </if>
+      <if test="cgSn != null and cgSn != ''" >
+        cg_SN,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cgCategoryId != null" >
+        #{cgCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="cgName != null" >
+        #{cgName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgNum != null" >
+        #{cgNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgCurrentPrice != null" >
+        #{cgCurrentPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgOriginalPrice != null" >
+        #{cgOriginalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgCostPrice != null" >
+        #{cgCostPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgImgPath != null" >
+        #{cgImgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="cgParameter != null" >
+        #{cgParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="cgPreferential != null" >
+        #{cgPreferential,jdbcType=INTEGER},
+      </if>
+      <if test="cgSellWell != null" >
+        #{cgSellWell,jdbcType=INTEGER},
+      </if>
+      <if test="cgRegistrationTime != null" >
+        #{cgRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgCode != null and cgCode != ''" >
+         #{cgCode},
+      </if>
+      <if test="cgSn != null and cgSn != ''" >
+         #{cgSn},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoods" >
+    update cs_goods
+    <set >
+      <if test="cgCategoryId != null" >
+        cg_category_id = #{cgCategoryId,jdbcType=INTEGER},
+      </if>
+      <if test="cgName != null" >
+        cg_name = #{cgName,jdbcType=VARCHAR},
+      </if>
+      <if test="cgNum != null" >
+        cg_num = #{cgNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgCurrentPrice != null" >
+        cg_current_price = #{cgCurrentPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgOriginalPrice != null" >
+        cg_original_price = #{cgOriginalPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgCostPrice != null" >
+        cg_cost_price = #{cgCostPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="cgImgPath != null" >
+        cg_img_path = #{cgImgPath,jdbcType=VARCHAR},
+      </if>
+       <if test="cgState != null" >
+        cg_state = #{cgState},
+      </if>
+      <if test="cgParameter != null" >
+        cg_parameter = #{cgParameter,jdbcType=VARCHAR},
+      </if>
+      <if test="cgPreferential != null" >
+        cg_preferential = #{cgPreferential,jdbcType=INTEGER},
+      </if>
+      <if test="cgSellWell != null" >
+        cg_sell_well = #{cgSellWell,jdbcType=INTEGER},
+      </if>
+      <if test="cgRegistrationTime != null" >
+        cg_registration_time = #{cgRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgDeleteState != null" >
+        cg_delete_state = #{cgDeleteState},
+      </if>
+      <if test="cgCode != null" >
+        cg_code = #{cgCode},
+      </if>
+      <if test="cgIntroduce != null" >
+        cg_introduce = #{cgIntroduce},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

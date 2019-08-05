@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourShiftScheduleMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.journal.JourShiftSchedule" >
+    <id column="jss_id" property="jssId" jdbcType="INTEGER" />
+    <result column="jss_work1" property="jssWork1" jdbcType="TIMESTAMP" />
+    <result column="jss_offwork1" property="jssOffwork1" jdbcType="TIMESTAMP" />
+    <result column="jss_status1" property="jssStatus1" jdbcType="VARCHAR" />
+    <result column="jss_work2" property="jssWork2" jdbcType="TIMESTAMP" />
+    <result column="jss_offwork2" property="jssOffwork2" jdbcType="TIMESTAMP" />
+    <result column="jss_status2" property="jssStatus2" jdbcType="VARCHAR" />
+    <result column="jss_work3" property="jssWork3" jdbcType="TIMESTAMP" />
+    <result column="jss_offwork3" property="jssOffwork3" jdbcType="TIMESTAMP" />
+    <result column="jss_status3" property="jssStatus3" jdbcType="VARCHAR" />
+    <result column="jss_work4" property="jssWork4" jdbcType="TIMESTAMP" />
+    <result column="jss_offwork4" property="jssOffwork4" jdbcType="TIMESTAMP" />
+    <result column="jss_status4" property="jssStatus4" jdbcType="VARCHAR" />
+    <result column="jss_space" property="jssSpace" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectJourShiftSchedule" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JourShiftSchedule" >
+    select 
+    *
+    from jour_shift_schedule
+   <where>
+    <if test="jssId != null" >
+       and jss_id = #{jssId},
+      </if>
+      <if test="jssWork1 != null" >
+       and jss_work1 = #{jss_work1},
+      </if>
+      <if test="jssOffwork1 != null" >
+       and jss_offwork1 = #{jss_offwork1},
+      </if>
+      <if test="jssStatus1 != null" >
+       and jss_status1 = #{jss_status1},
+      </if>
+      <if test="jssWork2 != null" >
+       and jss_work2 = #{jss_work2},
+      </if>
+      <if test="jssOffwork2 != null" >
+       and jss_offwork2 = #{jss_offwork2},
+      </if>
+      <if test="jssStatus2 != null" >
+       and jss_status2 = #{jss_status2},
+      </if>
+      <if test="jssWork3 != null" >
+       and jss_work3 = #{jss_work3},
+      </if>
+      <if test="jssOffwork3 != null" >
+       and jss_offwork3 = #{jss_offwork3},
+      </if>
+      <if test="jssStatus3 != null" >
+       and jss_status3 = #{jss_status3},
+      </if>
+      <if test="jssWork4 != null" >
+       and jss_work4 = #{jss_work4},
+      </if>
+      <if test="jssOffwork4 != null" >
+       and jss_offwork4 = #{jss_offwork4},
+      </if>
+      <if test="jssStatus4 != null" >
+       and jss_status4 = #{jss_status4},
+      </if>
+      <if test="jssSpace != null" >
+       and jss_space = #{jss_space},
+      </if>
+     </where> 
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourShiftSchedule" >
+    insert into jour_shift_schedule
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jssId != null" >
+        jss_id,
+      </if>
+      <if test="jssWork1 != null" >
+        jss_work1,
+      </if>
+      <if test="jssOffwork1 != null" >
+        jss_offwork1,
+      </if>
+      <if test="jssStatus1 != null" >
+        jss_status1,
+      </if>
+      <if test="jssWork2 != null" >
+        jss_work2,
+      </if>
+      <if test="jssOffwork2 != null" >
+        jss_offwork2,
+      </if>
+      <if test="jssStatus2 != null" >
+        jss_status2,
+      </if>
+      <if test="jssWork3 != null" >
+        jss_work3,
+      </if>
+      <if test="jssOffwork3 != null" >
+        jss_offwork3,
+      </if>
+      <if test="jssStatus3 != null" >
+        jss_status3,
+      </if>
+      <if test="jssWork4 != null" >
+        jss_work4,
+      </if>
+      <if test="jssOffwork4 != null" >
+        jss_offwork4,
+      </if>
+      <if test="jssStatus4 != null" >
+        jss_status4,
+      </if>
+      <if test="jssSpace != null" >
+        jss_space,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jssId != null" >
+        #{jssId,jdbcType=INTEGER},
+      </if>
+      <if test="jssWork1 != null" >
+        #{jssWork1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jssOffwork1 != null" >
+        #{jssOffwork1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jssStatus1 != null" >
+        #{jssStatus1,jdbcType=VARCHAR},
+      </if>
+      <if test="jssWork2 != null" >
+        #{jssWork2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jssOffwork2 != null" >
+        #{jssOffwork2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jssStatus2 != null" >
+        #{jssStatus2,jdbcType=VARCHAR},
+      </if>
+      <if test="jssWork3 != null" >
+        #{jssWork3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jssOffwork3 != null" >
+        #{jssOffwork3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jssStatus3 != null" >
+        #{jssStatus3,jdbcType=VARCHAR},
+      </if>
+      <if test="jssWork4 != null" >
+        #{jssWork4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jssOffwork4 != null" >
+        #{jssOffwork4,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jssStatus4 != null" >
+        #{jssStatus4,jdbcType=VARCHAR},
+      </if>
+      <if test="jssSpace != null" >
+        #{jssSpace,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourShiftSchedule" >
+    update jour_shift_schedule
+    <set >
+      <if test="jssWork1 != null" >
+        jss_work1 = #{jssWork1},
+      </if>
+      <if test="jssOffwork1 != null" >
+        jss_offwork1 = #{jssOffwork1},
+      </if>
+      <if test="jssStatus1 != null" >
+        jss_status1 = #{jssStatus1},
+      </if>
+      <if test="jssWork2 != null" >
+        jss_work2 = #{jssWork2},
+      </if>
+      <if test="jssOffwork2 != null" >
+        jss_offwork2 = #{jssOffwork2},
+      </if>
+      <if test="jssStatus2 != null" >
+        jss_status2 = #{jssStatus2},
+      </if>
+      <if test="jssWork3 != null" >
+        jss_work3 = #{jssWork3},
+      </if>
+      <if test="jssOffwork3 != null" >
+        jss_offwork3 = #{jssOffwork3},
+      </if>
+      <if test="jssStatus3 != null" >
+        jss_status3 = #{jssStatus3},
+      </if>
+      <if test="jssWork4 != null" >
+        jss_work4 = #{jssWork4},
+      </if>
+      <if test="jssOffwork4 != null" >
+        jss_offwork4 = #{jssOffwork4},
+      </if>
+      <if test="jssStatus4 != null" >
+        jss_status4 = #{jssStatus4},
+      </if>
+      <if test="jssSpace != null" >
+        jss_space = #{jssSpace},
+      </if>
+    </set>
+   	<where>
+   	  jss_id = #{jssId}
+   	</where>
+  </update>
+</mapper>

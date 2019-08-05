@@ -1,0 +1,3245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN" "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<constant name="struts.multipart.maxSize" value="1000000000" />
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+
+	<!-- ***************************用户与班级关系管理********************************* -->
+	<package name="SysUserClassAction"  extends="json-default" namespace="/">
+		<!-- 添加班级管理权限 -->
+		<action name="insertUserClass" class="sysUserClassAction" method="insertUserClass">
+			<result type="json"></result>
+		</action>
+		<action name="queryAllStudent" class="sysUserClassAction" method="queryAllStudent">
+			<result type="json"></result>
+		</action>
+		<action name="queryClassRoom" class="sysUserClassAction" method="queryClassRoom">
+			<result type="json"></result>
+		</action>
+		<action name="deleteByPrimaryKey" class="sysUserClassAction" method="deleteByPrimaryKey">
+			<result type="json"></result>
+		</action>
+	</package>
+	<!-- ***************************添加情景********************************* -->
+	<package name="jourPublicScenarioAction"  extends="json-default" namespace="/">
+		<!-- 查询情景名称 -->
+		<action name="selectScenarioName" class="jourPublicScenarioAction" method="selectScenarioName">
+			<result type="json"></result>
+		</action>
+
+	</package>
+	<!-- ***************************定时任务********************************* -->
+	<package name="jourTimingTasksAction"  extends="json-default" namespace="/">
+		<!-- 查询定时任务信息 -->
+		<action name="queryTimingTasks" class="jourTimingTasksAction" method="queryTimingTasks">
+			<result type="json"></result>
+		</action>
+		<!-- 新增定时任务信息 -->
+		<action name="addTitionalTasks" class="jourTimingTasksAction" method="addTitionalTasks">
+			<result type="json"></result>
+		</action>
+		<action name="uppTitionalTasks" class="jourTimingTasksAction" method="uppTitionalTasks">
+			<result type="json"></result>
+		</action>
+	</package>
+	<!-- ***************************开锁记录********************************* -->
+	<package name="jourGateLockRecord"  extends="json-default" namespace="/">
+		<!-- 查询模版信息 -->
+		<action name="queryDeviceRecord" class="jourGateLockRecordAction" method="queryDeviceRecord">
+			<result type="json"></result>
+		</action>
+	</package>
+	<!-- ***************************客户关怀********************************* -->
+	<package name="jourSmsTemplate"  extends="json-default" namespace="/">
+		<!-- 查询模版信息 -->
+		<action name="queryShortMessageTemplate" class="jourSmsTemplateAction" method="queryShortMessageTemplate">
+			<result type="json"></result>
+		</action>
+	</package>
+	<!-- ***************************客户关怀********************************* -->
+	<package name="jourCare"  extends="json-default" namespace="/">
+		<!-- 添加关怀 -->
+		<action name="insertCare" class="jourCareAction" method="insertCare">
+			<result type="json"></result>
+		</action>
+		<!-- 查询关怀信息 -->
+		<action name="queryCare" class="jourCareAction" method="queryCare">
+			<result type="json"></result>
+		</action>
+		<!-- 修改关怀信息 -->
+		<action name="updateCare" class="jourCareAction" method="updateCare">
+			<result type="json"></result>
+		</action>
+	</package>
+	<!-- ***************************集控设置********************************* -->
+	<package name="deviceMenu"  extends="json-default" namespace="/">
+		<!-- 查询设备菜单 -->
+		<action name="queryDeviceMenu" class="deviceMenuAction" method="queryDeviceMenu">
+			<result type="json"></result>
+		</action>
+		<!-- 查询设备一二级类型菜单 -->
+		<action name="queryDevTypeMenu" class="deviceMenuAction" method="queryDevTypeMenu">
+			<result type="json"></result>
+		</action>
+		<!--查询有设备房间的信息-->
+		<action name="queryDeviceRooms" class="deviceMenuAction" method="queryDeviceRooms">
+			<result type="json"></result>
+		</action>
+		<!--查询情景模式-->
+		<action name="querySceneMode" class="deviceMenuAction" method="querySceneMode">
+			<result type="json"></result>
+		</action>
+		<!--查询房间信息-->
+		<action name="queryRooms" class="deviceMenuAction" method="queryRooms">
+			<result type="json"></result>
+		</action>
+		<!--查询情景模式以及设备安装地址-->
+		<action name="querySituationalPatterns" class="deviceMenuAction" method="querySituationalPatterns">
+			<result type="json"></result>
+		</action>
+		<!--查询情景模式以及详情-->
+		<action name="querySituationalDetails" class="deviceMenuAction" method="querySituationalDetails">
+			<result type="json"></result>
+		</action>
+		<!--保存情景设置面板-->
+		<action name="insertScene" class="deviceMenuAction" method="insertScene">
+			<result type="json"></result>
+		</action>
+		<!--保存集控设置面板-->
+		<action name="addPanel" class="deviceMenuAction" method="addPanel">
+			<result type="json"></result>
+		</action>
+		<!--查找安装位置-->
+		<action name="queryDevPlace" class="deviceMenuAction" method="queryDevPlace">
+			<result type="json"></result>
+		</action>
+		<!--查找一级情境设备分类-->
+		<action name="queryFtSceneType" class="deviceMenuAction" method="queryFtSceneType">
+			<result type="json"></result>
+		</action>
+		<!--插入二级设情景备类型-->
+		<action name="updateSceneType" class="deviceMenuAction" method="updateSceneType">
+			<result type="json"></result>
+		</action>
+		<!--根据安装位置查询设备类型-->
+		<action name="queryDeviceType" class="deviceMenuAction" method="queryDeviceType">
+			<result type="json"></result>
+		</action>
+		<!--批量添加情景类型-->
+		<action name="insertSituationalTypes" class="deviceMenuAction" method="insertSituationalTypes">
+			<result type="json"></result>
+		</action>
+		<!--批量修改情景类型-->
+		<action name="updateSituationalTypes" class="deviceMenuAction" method="updateSituationalTypes">
+			<result type="json"></result>
+		</action>
+	</package>
+    <!-- ***************************销售客户********************************* -->
+    <package name="csOutsideCustomer"  extends="json-default" namespace="/">
+     	<!-- 添加客户 -->
+   	   <action name="insertSelectiveCustomer" class="csOutsideCustomerAction" method="insertSelectiveCustomer">
+   	   	<result type="json"></result>
+   	   </action>
+     	<!-- 查询客户 -->
+   	   <action name="queryCustomer" class="csOutsideCustomerAction" method="queryCustomer">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 添加跟进 -->
+   	   <action name="addProgressCustomer" class="csOutsideCustomerAction" method="addProgressCustomer">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改客户信息 -->
+   	   <action name="updateByPrimaryKeySelective" class="csOutsideCustomerAction" method="updateByPrimaryKeySelective">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    <!-- ***************************银行账号********************************* -->
+    <package name="csAccountReceipt" extends="json-default" namespace="/">
+    	<!-- 添加银行账号 -->
+     	<action name="insertCsAccountReceipt" class="CsAccountReceiptAction" method="insertCsAccountReceipt">
+  	   		<result type="json"></result>
+  	   	</action>
+  		 <!-- 修改银行账号 -->
+     	<action name="queryCsAccountReceipt" class="CsAccountReceiptAction" method="queryCsAccountReceipt">
+  	   		<result type="json"></result>
+  	    </action>
+ 	</package>
+ 	<!-- ***************************人脸识别信息********************************* -->
+	<package name="jourFaceRecognitionInformation" extends="json-default" namespace="/">
+		<!--根据设备id查询人脸识别记录-->
+		<action name="selectJourFaceRecognitionInformation" class="jourFaceRecognitionInformationAction" method="selectJourFaceRecognitionInformation">
+			<result type="json"></result>
+		</action>
+		<!-- 跟据用户id查询人脸识别记录-->
+		<action name="selectUsersIdInformation" class="jourFaceRecognitionInformationAction" method="selectUsersIdInformation">
+			<result type="json"></result>
+		</action>
+		<!-- 一键开锁生成记录 -->
+		<action name="insertJourFaceInformation" class="jourFaceRecognitionInformationAction" method="insertJourFaceInformation">
+			<result type="json"></result>
+		</action>
+	</package>
+ 	<!-- ***************************销售合同表********************************* -->
+ 	<package name="csSalesClientContract" extends="json-default" namespace="/">
+	 	 <!-- 添加合同表 -->
+	     <action name="insertCsSalesClientContract" class="CsSalesClientContractAction" method="insertCsSalesClientContract">
+	  	   	<result type="json"></result>
+	  	 </action>
+	  	 <!-- 申请创建合同 -->
+	  	 <action name="signContract1" class="csOutsideCustomerExpansionAction" method="signContract1">
+	  	   	<result type="json"></result>
+	  	 </action>
+	  	 <!-- 合同签署页面展示 -->
+	  	 <action name="signShowTwo" class="csOutsideCustomerExpansionAction" method="signShowTwo">
+	  	   	<result name="sign">/sign.jsp</result> 
+	  	 </action>
+	  	 <!-- 查询合同 -->
+	     <action name="queryCsSalesClientContract" class="CsSalesClientContractAction" method="queryCsSalesClientContract">
+	  	   	<result type="json"></result>
+	  	 </action>
+	  	 <!-- 查询合同 -->
+	  	 <action name="queryCsSalesClientContract2" class="CsSalesClientContractAction" method="queryCsSalesClientContract2">
+	  	   	<result type="json"></result>
+	  	 </action>
+	  	  <!-- 同步回调 -->
+	   	 <action name="syncCallBackTwo" class="csOutsideCustomerExpansionAction" method="syncCallBackTwo">
+	   	   <result name="success">success.jsp</result>
+	   	 </action>
+	   	  <!-- 异步回调 -->
+	   	 <action name="asynCallBackTwo" class="csOutsideCustomerExpansionAction" method="asynCallBackTwo">
+	   	   	<result type="json"></result>
+	   	 </action>
+	   	    <!-- 获取合同图片-->
+	   	 <action name="getCustomerImg" class="csOutsideCustomerExpansionAction" method="getCustomerImg">
+	   	   	<result type="json"></result>
+	   	 </action>
+	   	   <!-- 删除合同照片 -->
+	   	 <action name="deleteCsSalesClientContract" class="CsSalesClientContractAction" method="deleteCsSalesClientContract">
+	  	   <result type="json"></result>
+	  	 </action>
+ 	 </package>
+    <!-- ***************************用戶和设备关联更新********************************* -->
+    <package name="jourUserDevice" extends="json-default" namespace="/">
+    	<action name="updateUserDevice" class="jourUserDeviceAction" method="updateUserDevice">
+	   	   	<result type="json"></result>
+	   	 </action>
+    	<action name="updateUnrelateddevices" class="jourUserDeviceAction" method="updateUnrelateddevices">
+	   	   	<result type="json"></result>
+	   	 </action>
+    	
+    	<action name="selectUserPicDig" class="jourUserDeviceAction" method="selectUserPicDig">
+	   	   	<result type="json"></result>
+	   	 </action>
+    	<action name="selectNoRelationdevice" class="jourUserDeviceAction" method="selectNoRelationdevice">
+	   	   	<result type="json"></result>
+	   	</action>
+	   	<!-- 查询已关联用户 -->
+    	<action name="selectRelatedUser" class="jourUserDeviceAction" method="selectRelatedUser">
+	   	   	<result type="json"></result>
+	   	</action>
+	   	<!-- 查询已关联设备 -->
+    	<action name="selectRelateddevice" class="jourUserDeviceAction" method="selectRelatedDevice">
+	   	   	<result type="json"></result>
+	   	</action>
+    </package>
+    <!-- ***************************集中设置********************************* -->
+    <package name="jourCaTemporary"  extends="json-default" namespace="/">
+     	<!-- 添加临时集中房 -->
+   	   <action name="insertCentralized" class="jourCaTemporaryAction" method="insertCentralized">
+   	   	<result type="json"></result>
+   	   </action>
+     	<!-- 查询临时集中房 -->
+   	   <action name="selectCentralized" class="jourCaTemporaryAction" method="selectCentralized">
+   	   	<result type="json"></result>
+   	   </action>
+     	<!-- 更新临时集中房 -->
+   	   <action name="updateCentralized" class="jourCaTemporaryAction" method="updateCentralized">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    <!-- ***************************租客换房********************************* -->
+    <package name="exchangeHouses"  extends="json-default" namespace="/">
+     <!-- 房屋和合同信息 -->
+   	   <action name="queryExchangeHouses" class="exchangeHousesAction" method="queryExchangeHouses">
+   	   	<result type="json"></result>
+   	   </action>
+     <!-- 能源信息 -->
+   	   <action name="queryMeterReadingScheme" class="exchangeHousesAction" method="queryMeterReadingScheme">
+   	   	<result type="json"></result>
+   	   </action>
+     <!-- 换房 -->
+   	   <action name="doExchangeHouses" class="exchangeHousesAction" method="doExchangeHouses">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    <!-- ***************************灯********************************* -->
+    <package name="codeStorage"  extends="json-default" namespace="/">
+     <!-- 获取设备信息 -->
+	<action name="queryCodeStorage" class="codeStoragAction" method="queryCodeStorage">
+		<result type="json"></result>
+	</action>
+	</package>
+    <!-- ***************************合同管理********************************* -->
+      <package name="contractAction"  extends="json-default" namespace="/">
+    	<!-- 获取租客合约信息 -->
+   	    <action name="queryTenant" class="contractAction" method="queryTenant">
+   	   	<result type="json"></result>
+   	   </action> 
+   	   <!-- 获取业主合约 -->
+    	<action name="queryOwner" class="contractAction" method="queryOwner">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    <!-- ***************************能源信息********************************* -->
+    <package name="waterElectricMeter"  extends="json-default" namespace="/">
+    	<!-- 获取设备与房的信息 -->
+   	   <action name="queryWEDeviceHouseStore" class="waterElectricMeterAction" method="queryWEDeviceHouseStore">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 获取设备信息 -->
+   	   <action name="queryDeviceDetails" class="waterElectricMeterAction" method="queryDeviceDetails">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 获取设备一个月的用量变化 -->
+   	   <action name="getDeviceChange" class="waterElectricMeterAction" method="getDeviceChange">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 获取设备24小时的用量变化 -->
+   	   <action name="getDeviceChangeHour" class="waterElectricMeterAction" method="getDeviceChangeHour">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 获取设备12个月的用量变化 -->
+   	   <action name="getDeviceChangeMonth" class="waterElectricMeterAction" method="getDeviceChangeMonth">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    <!-- ***************************安防********************************* -->
+    <package name="SmokeAlertEvents"  extends="json-default" namespace="/">
+    	<!-- 获取安防设备的警情记录 -->
+   	   <action name="queryAlarmRecord" class="smokeAlertEventsAction" method="queryAlarmRecord">
+   	   	<result type="json"></result>
+   	   </action>
+		<!-- 查询报警情况-->
+		<action name="queryAlarmFrequency" class="smokeAlertEventsAction" method="queryAlarmFrequency">
+			<result type="json"></result>
+		</action>
+		<!-- 查询设备情况-->
+		<action name="equipmentCondition" class="smokeAlertEventsAction" method="equipmentCondition">
+			<result type="json"></result>
+		</action>
+		<!-- 查询报警出现的次数-->
+		<action name="queryAlarmRecordCount" class="smokeAlertEventsAction" method="queryAlarmRecordCount">
+			<result type="json"></result>
+		</action>
+    	<!-- 获取当前安防设备的警情 -->
+   	   <action name="unprocessedAlarm" class="smokeAlertEventsAction" method="unprocessedAlarm">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 更新安防设备的警情 -->
+   	   <action name="handleAlarm" class="smokeAlertEventsAction" method="handleAlarm">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 获取安防设备的状态 -->
+   	   <action name="getDeviceWarning" class="smokeAlertEventsAction" method="getDeviceWarning">
+   	   	<result type="json"></result>
+   	   </action>
+		<!-- 获取安防设备的状态2 -->
+		<action name="getDeviceWarning2" class="smokeAlertEventsAction" method="getDeviceWarning2">
+			<result type="json"></result>
+		</action>
+   	   <!-- 添加进展 -->
+   	   <action name="addProgress" class="smokeAlertEventsAction" method="addProgress">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询进展 -->
+   	   <action name="selectProgress" class="smokeAlertEventsAction" method="selectProgress">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询进展 -->
+   	   <action name="acsQueryAlarmRecord" class="smokeAlertEventsAction" method="acsQueryAlarmRecord">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    <!-- ***************************短租设置表********************************* -->
+    <package name="jourShortRentSetUpAction"  extends="json-default" namespace="/">
+       <!-- 修改设置表 -->
+   	   <action name="updateSetUp" class="jourShortRentSetUpAction" method="updateSetUp">
+   	   	<result type="json"></result>
+   	   </action>
+       <!-- 获取短租设置信息-->
+   	   <action name="getSetUpInfo" class="jourShortRentSetUpAction" method="getSetUpInfo">
+   	   	<result type="json"></result>
+   	   </action>
+       <!-- 删除广告图片 -->
+   	   <action name="deleteShortRentAdImg" class="jourShortRentSetUpAction" method="deleteShortRentAdImg">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+
+	<!--********************************折扣挂单表***************************-->
+	<package name="jourTemporaryOrderAction" extends="json-default" namespace="/">
+
+		<!--插入挂单信息-->
+		<action name="insertTemporaryOrder" class="jourTemporaryOrderAction" method="insertTemporaryOrder">
+			<result type="json"></result>
+		</action>
+
+
+		<!--通过短租房id查询挂单信息-->
+		<action name="selectTemporaryOrderByOrderId" class="jourTemporaryOrderAction" method="selectTemporaryOrderByOrderId">
+			<result type="json"></result>
+		</action>
+
+
+		<!--更新挂单表数据-->
+		<action name="updateTemporaryOrderById" class="jourTemporaryOrderAction" method="updateTemporaryOrderById">
+			<result type="json"></result>
+		</action>
+
+
+		<!--查询所有挂单信息-->
+		<action name="selectAllTemporaryOrder" class="jourTemporaryOrderAction" method="selectAllTemporaryOrder">
+			<result type="json"></result>
+		</action>
+
+
+		<!--删除-->
+		<action name="deleteTemporaryOrderById" class="jourTemporaryOrderAction" method="deleteTemporaryOrderById">
+			<result type="json"></result>
+		</action>
+
+
+		<!--通过条件查询-->
+		<action name="selectBySelective" class="jourTemporaryOrderAction" method="selectBySelective">
+			<result type="json"></result>
+		</action>
+
+	</package>
+
+
+    <!-- ***************************短租房********************************* -->
+    <package name="jourShortRentHouseAction"  extends="json-default" namespace="/">
+       <!-- 添加短租 -->
+   	   <action name="shortRentHouse" class="jourShortRentHouseAction" method="shortRentHouse">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 批量添加短租-->
+   	   <action name="insertHouseList" class="jourShortRentHouseAction" method="insertHouseList">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 取消短租-->
+   	   <action name="updateshortRent1" class="jourShortRentHouseAction" method="updateshortRent1">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 设置脏房 -->
+   	   <action name="updateDirtyHouse" class="jourShortRentHouseAction" method="updateDirtyHouse">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 设置脏房 -->
+   	   <action name="selectShortRentHouse" class="jourShortRentHouseAction" method="selectShortRentHouse">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 批量添加短租房(新) -->
+   	   <action name="batchAddition" class="jourShortRentHouseAction" method="batchAddition">
+   	   	<result type="json"></result>
+   	   </action>
+   	</package>
+    <!-- ***************************短租合约********************************* -->
+    <package name="jourShortRentContractAction"  extends="json-default" namespace="/">
+    	<!-- 根据批量的未租id查询所有短租房的所有订单  -->
+   	   <action name="listShortRentContract" class="jourShortRentContractAction" method="listShortRentContract">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 查询所有顾客对应订单  -->
+   	   <action name="selectJourShortRentContract" class="jourShortRentContractAction" method="selectJourShortRentContract">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertShortRent" class="jourShortRentContractAction" method="insertShortRent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 用未租Id查询设备 -->
+   	   <action name="selectDeviceStatus" class="jourShortRentContractAction" method="selectDeviceStatus">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 退房 -->
+   	   <action name="checkOutShortRent" class="jourShortRentContractAction" method="checkOutShortRent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 入住办理 -->
+   	   <action name="checkInShortRent" class="jourShortRentContractAction" method="checkInShortRent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateShortRent" class="jourShortRentContractAction" method="updateShortRent">
+   	   	<result type="json"></result>
+   	   </action>
+   	  <!--  批量换房 -->
+   	   <action name="updateRoom" class="jourShortRentContractAction" method="updateRoom">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 现场直接入住 -->
+   	   <action name="sceneCheckIn" class="jourShortRentContractAction" method="sceneCheckIn">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 保留单子入住 -->
+   	   <action name="retainCheckIn" class="jourShortRentContractAction" method="retainCheckIn">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 批量保留单子入住 -->
+   	   <action name="inserRetainHandle" class="jourShortRentContractAction" method="inserRetainHandle">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 换房 -->
+   	   <action name="changeShortRentHouse" class="jourShortRentContractAction" method="changeShortRentHouse">
+		   <result type="json"></result>
+	   </action>
+   	   <!-- 查询微信新订单-->
+   	   <action name="queryNewOrder" class="jourShortRentContractAction" method="queryNewOrder">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改微信订单状态-->
+   	   <action name="orderTakingShortRent" class="jourShortRentContractAction" method="orderTakingShortRent">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    <!-- ***************************短租顾客表********************************* -->
+    <package name="jourShortRentRenterAction"  extends="json-default" namespace="/">
+   	   	<!-- 查询短租所有住户 -->
+   	   <action name="listLivingCustomer" class="jourShortRentRenterAction" method="listLivingCustomer">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询对应顾客的短租合约单 -->
+   	   <action name="customerOrder" class="jourShortRentRenterAction" method="customerOrder">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询对应的合约相同的人 -->
+   	   <action name="customerContractOrder" class="jourShortRentRenterAction" method="customerContractOrder">
+   	   	<result type="json"></result>
+   	   </action>
+   	</package>
+   	<!-- ***************************价格方案表********************************* -->
+   	<package name="jourPricePlanAction"  extends="json-default" namespace="/">
+   	   <!-- 查询价格方案表 -->
+   	   <action name="queryJourPricePlan" class="jourPricePlanAction" method="queryJourPricePlan">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增或修改方案表 -->
+   	   <action name="savePricePlan" class="jourPricePlanAction" method="savePricePlan">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 批量修改方案表 -->
+   	   <action name="batchUpdateJppState" class="jourPricePlanAction" method="batchUpdateJppState">
+   	   	<result type="json"></result>
+   	   </action>
+   	</package>
+   	<!-- ***************************渠道单位表********************************* -->
+   	<package name="jourChannelUnitAction"  extends="json-default" namespace="/">
+   	   <!-- 查询渠道单位表 -->
+   	   <action name="queryJourChannelUnit" class="jourChannelUnitAction" method="queryJourChannelUnit">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询对应方案优秀级最高的渠道单位 -->
+   	   <action name="queryHighestLevelPlan" class="jourChannelUnitAction" method="queryHighestLevelPlan">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增或修改渠道单位表 -->
+   	   <action name="saveChannelUnit" class="jourChannelUnitAction" method="saveChannelUnit">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询签单人表 -->
+   	   <action name="queryJourSigningPeople" class="jourChannelUnitAction" method="queryJourSigningPeople">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增或修改签单人表 -->
+   	   <action name="saveSigningPeople" class="jourChannelUnitAction" method="saveSigningPeople">
+   	   	<result type="json"></result>
+   	   </action>
+   	</package>
+    <!-- ***************************进货流水表********************************* -->
+    <package name="csGoodsPurchaseAction"  extends="json-default" namespace="/">
+    	<!-- 查询所有进货流水 -->
+   	   <action name="listPurchaseOrder" class="csGoodsPurchaseAction" method="listPurchaseOrder">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有进货费用-->
+   	   <action name="getPurchaseMoney" class="csGoodsPurchaseAction" method="getPurchaseMoney">
+   	   	<result type="json"></result>
+   	   </action>
+    </package> 
+    <!-- ***************************商超优惠方案表********************************* -->
+    <package name="csGoodsDiscountAction"  extends="json-default" namespace="/">
+    	<!-- 插入新方案-->
+   	   <action name="insertCsGoodsDiscount" class="csGoodsDiscountAction" method="insertCsGoodsDiscount">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询方案-->
+   	   <action name="listCsGoodsDiscount" class="csGoodsDiscountAction" method="listCsGoodsDiscount">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 修改方案-->
+   	   <action name="updateDiscount" class="csGoodsDiscountAction" method="updateDiscount">
+   	   	<result type="json"></result>
+   	   </action>
+    </package> 
+    <!-- ***************************盘点记录表********************************* -->
+    <package name="csGoodsInventoryAction"  extends="json-default" namespace="/">
+    	<!-- 查询所有盘点记录-->
+   	   <action name="listCsGoodsInventory" class="csGoodsInventoryAction" method="listCsGoodsInventory">
+   	   	<result type="json"></result>
+   	   </action>
+    </package> 
+    <!-- ***************************商超出货表********************************* -->
+    <package name="csGoodsSellAction"  extends="json-default" namespace="/">
+    	<!-- 查询所有商超出货 -->
+   	   <action name="listCsGoodsSell" class="csGoodsSellAction" method="listCsGoodsSell">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <action name="getPieNum" class="csGoodsSellAction" method="getPieNum">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <action name="getCategoryNum" class="csGoodsSellAction" method="getCategoryNum">
+   	   	<result type="json"></result>
+   	   </action>
+   	     <action name="getGoodsProfitNum" class="csGoodsSellAction" method="getGoodsProfitNum">
+   	   	<result type="json"></result>
+   	   </action>
+    </package> 
+    <!-- ***************************商超订单表********************************* -->
+    <package name="csGoodsBillingAction"  extends="json-default" namespace="/">
+    	<!-- 查询所有商超订单 -->
+   	   <action name="listOrder" class="csGoodsBillingAction" method="listOrder">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 接单 -->
+   	   <action name="operatingOrder" class="csGoodsBillingAction" method="operatingOrder">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 现金结款创建订单-->
+   	   <action name="createBill" class="csGoodsBillingAction" method="createBill">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 获取订单的统计数据-->
+   	   <action name="getOrderCount" class="csGoodsBillingAction" method="getOrderCount">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 获取订单金额的统计数据-->
+   	   <action name="getShopMoney" class="csGoodsBillingAction" method="getShopMoney">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 获取利润-->
+   	   <action name="getProfit" class="csGoodsBillingAction" method="getProfit">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 现金结款创建产品采购订单-->
+   	   <action name="createPurchaseBill" class="csGoodsBillingAction" method="createPurchaseBill">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改产品采购订单-->
+   	   <action name="updatePurchaseBill" class="csGoodsBillingAction" method="updatePurchaseBill">
+   	   	<result type="json"></result>
+   	   </action>
+		<!--换货-->
+		<action name="exchangeGoods" class="csGoodsBillingAction" method="exchangeGoods">
+			<result type="json"></result>
+		</action>
+    </package>  
+	<!-- ***************************货物类目表********************************* -->
+    <package name="csGoodsCategoryAction"  extends="json-default" namespace="/">
+    	<!-- 查询所有货物类目 -->
+   	   <action name="listCsGoodsCategory" class="csGoodsCategoryAction" method="listCsGoodsCategory">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增货物类目 -->
+   	   <action name="insertCsGoodsCategory" class="csGoodsCategoryAction" method="insertCsGoodsCategory">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改货物类目 -->
+   	   <action name="updateCsGoodsCategory" class="csGoodsCategoryAction" method="updateCsGoodsCategory">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>    
+    
+    <!-- ***************************货物表********************************* -->
+    <package name="csGoodsAction"  extends="json-default" namespace="/">
+    	<!-- 查询所有货物 -->
+   	   <action name="listGoods" class="csGoodsAction" method="listGoods">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 查询SN货物 -->
+   	   <action name="snListGoods" class="csGoodsAction" method="snListGoods">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增货物 -->
+   	   <action name="insertGoods" class="csGoodsAction" method="insertGoods">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改货物 -->
+   	   <action name="updateGoods" class="csGoodsAction" method="updateGoods">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 进货 -->
+   	   <action name="purchaseGoods" class="csGoodsAction" method="purchaseGoods">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 盘点 -->
+   	   <action name="inventoryGoods" class="csGoodsAction" method="inventoryGoods">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 删除图片 -->
+   	   <action name="deleteImg" class="csGoodsAction" method="deleteImg">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    <!-- ***************************商超设置表********************************* -->
+    <package name="csGoodsSetUpAction"  extends="json-default" namespace="/">
+    	<!-- 查询商店设置 -->
+   	   <action name="selectShopSetUp" class="csGoodsSetUpAction" method="selectShopSetUp">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改商店设置 -->
+   	   <action name="updateShopSetUp" class="csGoodsSetUpAction" method="updateShopSetUp">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 修改商店设置 -->
+   	   <action name="deleteShopAdImg" class="csGoodsSetUpAction" method="deleteShopAdImg">
+   	   	<result type="json"></result>
+   	   </action>
+    </package> 
+    <!-- ***************************智能门锁表********************************* -->
+    <package name="jourDoorCardAction"  extends="json-default" namespace="/">
+    	<!-- 批量发卡卡 -->
+   	   <action name="pushingCard" class="jourDoorCardAction" method="pushingCard">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 新增门卡 -->
+   	   <action name="inseartDoorCard" class="jourDoorCardAction" method="inseartDoorCard">
+   	   	<result type="json"></result>
+   	   </action>
+		<!-- 新增人脸授权 -->
+		<action name="insertFacePower" class="jourDoorCardAction" method="insertFacePower">
+			<result type="json"></result>
+		</action>
+    	<!-- 新增密码卡 -->
+   	   <action name="insertJustDoorCard" class="jourDoorCardAction" method="insertJustDoorCard">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询 -->
+   	   <action name="listDoorCard" class="jourDoorCardAction" method="listDoorCard">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateDoorCard" class="jourDoorCardAction" method="updateDoorCard">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 离职 -->
+   	   <action name="deleteDoorCard" class="jourDoorCardAction" method="deleteDoorCard">
+   	   	<result type="json"></result>
+   	   </action>
+		<!-- 删除权限 -->
+		<action name="deletePower" class="jourDoorCardAction" method="deletePower">
+			<result type="json"></result>
+		</action>
+   	   <!-- 查询锁 -->
+   	   <action name="selectLock" class="jourDoorCardAction" method="selectLock">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 验证密码 -->
+   	   <action name="checkLockPassword" class="jourDoorCardAction" method="checkLockPassword">
+   	   	<result type="json"></result>
+   	   </action>
+    </package> 
+    <!-- ***************************电子合同********************************* -->
+    <package name="electronicContract"  extends="json-default" namespace="/">
+    	<!-- 修改合同 -->
+   	   <action name="updateContract" class="electronicContractAction" method="updateContract">
+   	   	<result type="json"></result>
+   	   </action>
+    	<!-- 检查合同状态 -->
+   	   <action name="checkResult" class="electronicContractAction" method="checkResult">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 申请创建合同 -->
+   	   <action name="signContract" class="electronicContractAction" method="signContract">
+   	   	<result type="json"></result>
+   	   </action>
+		<!-- 添加出租合同 -->
+		<action name="rentalContract" class="electronicContractAction" method="rentalContract">
+			<result type="json"></result>
+		</action>
+		<action name="signContractUnleased" class="electronicContractAction" method="signContractUnleased">
+			<result type="json"></result>
+		</action>
+   	   <!-- 合同签署页面展示 -->
+   	   <action name="signShow" class="electronicContractAction" method="signShow">
+   	   	<result name="sign">/sign.jsp</result>  
+   	   </action>
+   	   <!-- 同步回调 -->
+   	   <action name="syncCallBack" class="electronicContractAction" method="syncCallBack">
+   	   	<result name="success">success.jsp</result>
+   	   </action>
+   	   <!-- 异步回调 -->
+   	   <action name="asynCallBack" class="electronicContractAction" method="asynCallBack">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询合同-->
+   	   <action name="listContract" class="electronicContractAction" method="listContract">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 获取合同图片-->
+   	   <action name="getContractImg" class="electronicContractAction" method="getContractImg">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    	
+    <!-- ***************************楼盘字典******************************* -->
+    <package name="houseDict"  extends="json-default" namespace="/">
+    	<!-- 查询房屋字典（有权限） -->
+   	   <action name="queryHouseDict" class="houseDictAction" method="queryHouseDict">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 查询房屋字典（无权限） -->
+   	   <action name="queryAllHouseDict" class="houseDictAction" method="queryAllHouseDict">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查城市、城区、小区 -->
+   	   <action name="queryForHouseDictAddress" class="houseDictAction" method="queryForHouseDictAddress">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 添加字典 -->
+   	   <action name="insertHouseDict" class="houseDictAction" method="insertHouseDict">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 修改字典 -->
+   	   <action name="updateHouseDict" class="houseDictAction" method="updateHouseDict">
+         <result type="json"></result>
+   	   </action>
+    </package>
+    <!-- **********************资料房***************************** -->
+    <package name="HousePaper"  extends="json-default" namespace="/">
+    	<!-- 查询房源资料 -->
+   	   <action name="queryHousePaper" class="houseAction" method="queryHousePaper">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 无权限通用查询房源资料 -->
+   	   <action name="queryHousePaperCommon" class="houseAction" method="queryHousePaperCommon">
+         <result type="json"></result>
+   	   </action>
+    	<!--设置私盘-->
+   	   <action name="updateStateOwned" class="houseAction" method="updateStateOwned">
+         <result type="json"></result>
+   	   </action>
+    	<!--设置私盘关注-->
+   	   <action name="firstFollowOfMine" class="houseAction" method="firstFollowOfMine">
+         <result type="json"></result>
+   	   </action>
+    	<!--财务收支，项目查询-->
+   	   <action name="queryVirtualFinancial" class="houseAction" method="queryVirtualFinancial">
+         <result type="json"></result>
+   	   </action>
+   	   <!--事务管理，项目查询-->
+   	   <action name="queryVirtualThings" class="houseAction" method="queryVirtualThings">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 项目修改-->
+   	   <action name="updateVirtual" class="houseAction" method="updateVirtual">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 查询项目源-->
+   	   <action name="virtualProperty" class="houseAction" method="virtualProperty">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询项目-->
+   	   <action name="queryProject" class="houseAction" method="queryProject">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 添加办公区-->
+   	   <action name="addOffice" class="houseAction" method="addOffice">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 修改办公区-->
+   	   <action name="updateOffice" class="houseAction" method="updateOffice">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询项目-->
+   	   <action name="queryProjectCommon" class="houseAction" method="queryProjectCommon">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询办公区-->
+   	   <action name="queryOffice" class="houseAction" method="queryOffice">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询办公区设备-->
+   	   <action name="queryOfficeAreaDevice" class="houseAction" method="queryOfficeAreaDevice">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 增加项目-->
+   	   <action name="AddingVirtual" class="houseAction" method="AddingVirtual">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 增加房屋信息记录 -->
+   	   <action name="insertHouse" class="houseAction" method="insertHouse">
+         <result type="json"></result>
+   	   </action>
+   	    <!-- 批量增加房屋信息记录 -->
+   	   <action name="insertMany" class="houseAction" method="insertMany">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新房屋信息记录 -->
+   	   <action name="updateHouse" class="houseAction" method="updateHouse">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 项目总收入、总支出、总冲账 -->
+   	   <action name="selectVirtualFinancialTotal" class="houseAction" method="selectVirtualFinancialTotal">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 单个计算项目余额 -->
+   	   <action name="calBalanceOfVirtual" class="houseAction" method="calBalanceOfVirtual">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 统计所有项目余额 -->
+   	   <action name="statisticsAllVirtualBalance" class="houseAction" method="statisticsAllVirtualBalance">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 公司成本统计 -->
+   	   <action name="getCompanyCost" class="houseAction" method="getCompanyCost">
+         <result type="json"></result>
+   	   </action>
+		<!-- 删除图片 -->
+		<action name="deleteHousePaperPic" class="houseAction" method="deleteHousePaperPic">
+		  <result type="json"></result>
+		</action>
+    </package>
+    
+    <!-- **********************已租房***************************** -->
+    <package name="House4rent"  extends="json-default" namespace="/">
+    	<!-- 查询所有房源 -->
+   	   <action name="changeRenter" class="houseForRentAction" method="changeRenter">
+         <result type="json"></result>   
+   	   </action>
+   	   <!-- 查询所有房源 -->
+   	   <action name="queryHouseRent" class="houseForRentAction" method="queryHouseRent">
+         <result type="json"></result>   
+   	   </action>
+   	   <!-- 查询所有房源 -->
+   	   <action name="queryHouseRentCommon" class="houseForRentAction" method="queryHouseRentCommon">
+         <result type="json"></result>   
+   	   </action>
+    	<!-- 已租房正在维保或者逾期房间 的条件查询 -->
+   	   <action name="selectRepairOrOverdueAll" class="houseForRentAction" method="selectRepairOrOverdueAll">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 已租房查询按钮数量 -->
+   	   <action name="selectButtonNumAll" class="houseForRentAction" method="selectButtonNumAll">
+         <result type="json"></result>
+   	   </action>
+       <!-- 当已租房退房时修改读数 -->
+   	   <action name="updateWegWhenCheckout" class="houseForRentAction" method="updateWegWhenCheckout">
+         <result type="json"></result>
+   	   </action>
+       <!-- 已租房设置房管员 -->
+   	   <action name="updateHouseManager" class="houseForRentAction" method="updateHouseManager">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 已租房源统计 -->
+   	   <action name="queryHouseRentNum" class="houseForRentAction" method="queryHouseRentNum">
+         <result type="json"></result>
+   	   </action>
+       <!-- 退房查询  -->
+       <action name="queryRenterCheckOut" class="houseForRentAction" method="queryRenterCheckOut">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 租客月度巡查查询 -总金额 -->
+    	<action name="getMonthTotalMoney" class="houseForRentAction" method="getMonthTotalMoney">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 租客月度巡查查询 -->
+    	<action name="queryRenterBill" class="houseForRentAction" method="queryRenterBill">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 水电气计费结算查询 -->
+    	<action name="selectMeterReadingScheme" class="houseForRentAction" method="selectMeterReadingScheme">
+         <result type="json"></result>
+   	   </action> 
+    	<!-- 增减基数修改 -->
+       <action name="arithmetic" class="houseForRentAction" method="arithmetic">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 根据ID查询单个房源 -->
+       <action name="queryHouseForRentById" class="houseForRentAction" method="queryHouseForRentById">
+         <result type="json"></result>
+   	   </action>
+   	    <!-- 查询openid用-->
+   	   <action name="selectopenid" class="houseForRentAction" method="selectopenid">
+         <result type="json"></result>   
+   	   </action>
+   	   <!-- 增加房源信息记录 -->
+   	   <action name="insertHouseForRent" class="houseForRentAction" method="insertHouseForRent">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新房源信息记录 -->
+   	   <action name="updateHouseForRent" class="houseForRentAction" method="updateHouseForRent">
+         <result type="json"></result>    
+   	   </action>
+   	   <!-- 联动查询地址 -->
+   	   <action name="queryHouseForRentAddress" class="houseForRentAction" method="queryHouseForRentAddress">
+         <result type="json"></result>       
+   	   </action>
+   	   <!-- 业绩受益人管理：查当前正在出租的房中还没添加业绩受益人的房 -->
+   	   <action name="queryNoAssistRent" class="houseForRentAction" method="queryNoAssistRent">
+         <result type="json"></result>       
+   	   </action>
+   	   <!-- 租客账单查询数量 -->
+   	   <action name="getRenterBillNum" class="houseForRentAction" method="getRenterBillNum">
+         <result type="json"></result>       
+   	   </action>
+   	   <!-- 临时账单生成，查询已租房源数据 -->
+   	   <action name="queryRentingSourceData" class="houseForRentAction" method="queryRentingSourceData">
+         <result type="json"></result>       
+   	   </action>
+		<!-- 条件查询已租房id -->
+	   <action name="selectRentByTJ" class="houseForRentAction" method="selectRentByTJ">
+		 <result type="json"></result>
+	   </action>
+	   <!--查询租客授权-->
+		<action name="selecttenantAuthorization" class="houseForRentAction" method="selecttenantAuthorization">
+			<result type="json"></result>
+		</action>
+    </package>
+    <!-- **********************未租房***************************** -->
+    <package name="HouseForStore"  extends="json-default" namespace="/">
+    	<!-- 查询未租房间 -->
+    	<action name="queryHouseStore" class="houseForStoreAction" method="queryHouseStore">
+        	<result type="json"></result>
+   	   	</action>
+   	   	<!-- 查询未租房间 -->
+    	<action name="queryHouseStoreCommon" class="houseForStoreAction" method="queryHouseStoreCommon">
+        	<result type="json"></result>
+   	   	</action>
+   	   <!-- 查询未租房间 -->
+    	<action name="queryHouseStoreState" class="houseForStoreAction" method="queryHouseStoreState">
+        	<result type="json"></result>
+   	   	</action>
+   	   <!-- 处理过期未租已定 -->
+    	<action name="dealExpiredOrders" class="houseForStoreAction" method="dealExpiredOrders">
+        	<result type="json"></result>
+   	   	</action>
+    	<!-- 房管员、默认联系人的姓名联系方式 -->
+    	<action name="publishAContact" class="houseForStoreAction" method="publishAContact">
+        	<result type="json"></result>
+   	   	</action>
+    	<!-- 合租房还原未租房 -->
+       <action name="reductionOfRent" class="houseForStoreAction" method="reductionOfRent">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 集散房还原未租房 -->
+       <action name="centralizedReduction" class="houseForStoreAction" method="centralizedReduction">
+         <result type="json"></result>
+   	   </action>
+    	<!--根据母房id查询子房 -->
+       <action name="flatShareRealQuery" class="houseForStoreAction" method="flatShareRealQuery">
+         <result type="json"></result>
+   	   </action>
+    	<!--未租房查询数量 -->
+       <action name="getInfoHouse4storeNum" class="houseForStoreAction" method="getInfoHouse4storeNum">
+         <result type="json"></result>
+   	   </action>
+       <!--合租房子房修改 -->
+       <action name="flatShareRealChange" class="houseForStoreAction" method="flatShareRealChange">
+         <result type="json"></result>
+   	   </action>
+       <!-- 集散房拆分，累加集散房 -->
+       <action name="centralizedSplitRent" class="houseForStoreAction" method="centralizedSplitRent">
+         <result type="json"></result>
+   	   </action>
+       <!-- 合租房拆分，累加合租房 -->
+       <action name="splitRent" class="houseForStoreAction" method="splitRent">
+         <result type="json"></result>
+   	   </action>
+       <!-- 未租房房源统计 -->
+       <action name="queryHouseStoreNum" class="houseForStoreAction" method="queryHouseStoreNum">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 未租退房查询 -->
+       <action name="queryLandlordCheckOut" class="houseForStoreAction" method="queryLandlordCheckOut">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 增加定金记录修改接口 -->
+       <action name="upDepositInterface" class="houseForStoreAction" method="upDepositInterface">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 设置房管员接口 -->
+       <action name="updateManagerUser" class="houseForStoreAction" method="updateManagerUser">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 清除定金 -->
+       <action name="clearDeposit" class="houseForStoreAction" method="clearDeposit">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 抄表查询未租房 -->
+       <action name="huosestoreWeg" class="houseForStoreAction" method="huosestoreWeg">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 抄表查询未租房 -->
+       <action name="remoteMeterReading" class="houseForStoreAction" method="remoteMeterReading">
+         <result type="json"></result>
+   	   </action>
+       <!-- 修改欠结款（底层接口，UI层不可调用） -->
+       <action name="modifyTheBase" class="houseForStoreAction" method="modifyTheBase">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 根据ID查询单个房屋信息 -->
+       <action name="queryHouseForStoreById" class="houseForStoreAction" method="queryHouseForStoreById">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 增加房屋信息记录 -->
+   	   <action name="insertHouseForStore" class="houseForStoreAction" method="insertHouseForStore">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 添加集中房 -->
+   	   <action name="insertSplitHouseForStore" class="houseForStoreAction" method="insertSplitHouseForStore">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新房屋信息记录 -->
+   	   <action name="updateHouseForStore" class="houseForStoreAction" method="updateHouseForStore">
+         <result type="json"></result>
+   	   </action>
+   	    <!--删除合租房-->
+   	   <action name="deleteFlatShareHouseForStoreById" class="houseForStoreAction" method="deleteFlatShareHouseForStoreById">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 业绩受益人管理：查当前正在托管的房中还没添加业绩受益人的房  -->
+   	   <action name="queryNoAssistStore" class="houseForStoreAction" method="queryNoAssistStore">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 日常账号管理查询未租房  -->
+   	   <action name="getAllHouseForStoreInCard" class="houseForStoreAction" method="getAllHouseForStoreInCard">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 日常账号管理查询未租房  -->
+   	   <action name="deleteHsPic" class="houseForStoreAction" method="deleteHsPic">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 未租房源发布设置 -->
+   	   <action name="publishListingsSet" class="houseForStoreAction" method="publishListingsSet">
+         <result type="json"></result>
+   	   </action>
+		<!-- 未租查询维保的 -->
+   	   <action name="selectMaintenance" class="houseForStoreAction" method="selectMaintenance">
+         <result type="json"></result>
+   	   </action>
+		<!-- 设置集散房 -->
+   	   <action name="updateCentralizedApartment" class="houseForStoreAction" method="updateCentralizedApartment">
+         <result type="json"></result>
+   	   </action>
+		<!-- 设置集散房 -->
+   	   <action name="insertBatchHouseForStore" class="houseForStoreAction" method="insertBatchHouseForStore">
+         <result type="json"></result>
+   	   </action>
+		<!-- 查房子能源读数 -->
+   	   <action name="queryEnergyReadings" class="houseForStoreAction" method="queryEnergyReadings">
+         <result type="json"></result>
+   	   </action>
+		<!-- 批量修改上下架房源 -->
+   	   <action name="updateBatchHouseForStore" class="houseForStoreAction" method="updateBatchHouseForStore">
+         <result type="json"></result>
+   	   </action>
+		<!-- 查询在住客房 -->
+   	   <action name="selectHotel" class="houseForStoreAction" method="selectHotel">
+         <result type="json"></result>
+   	   </action>
+		<!-- 一约多房添加未租 -->
+   	   <action name="oneToManyAddTrusteeship" class="houseForStoreAction" method="oneToManyAddTrusteeship">
+         <result type="json"></result>
+   	   </action>
+		<!--批量添加房间-->
+	   <action name="batchAddHouseRoom" class="houseForStoreAction" method="batchAddHouseRoom">
+		 <result type="json"></result>
+	   </action>
+		<!--子房ID查询子房成本价格-->
+		<action name="hsQueryHousr4store" class="houseForStoreAction" method="hsQueryHousr4store">
+			<result type="json"></result>
+		</action>
+
+    </package>
+    <!-- ***************************未租与设备对应关系******************************* -->
+    <package name="JourHsDevice" extends="json-default" namespace="/">
+    	<!-- 添加记录 -->
+		<action name="insertHsDevice" class="jourHsDeviceActions" method="insertHsDevice">
+			<result type="json"></result>
+		</action>
+		<!-- 删除未租与设备ID -->
+		<action name="deletetHsDevice" class="jourHsDeviceActions" method="deletetHsDevice">
+			<result type="json"></result>
+		</action>
+		<!-- 通过未租id查询租客的Guid -->
+		<action name="seleceGuidByHsId" class="jourHsDeviceActions" method="seleceGuidByHsId">
+			<result type="json"></result>
+		</action>
+   	   	<!-- 查询全部设备 -->
+   	   <action name="queryAllDevice" class="jourHsDeviceActions" method="queryAllDevice">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 查询单个房的设备ID -->
+   	   <action name="selectThisHouseDeviceID" class="jourHsDeviceActions" method="selectThisHouseDeviceID">
+         <result type="json"></result>
+   	   </action>
+		<!--查单个房间的公区设备-->
+		<action name="queryOfficeDevice" class="jourHsDeviceActions" method="queryOfficeDevice">
+			<result type="json"></result>
+		</action>
+    	<!-- 查设备信息 -->
+   	   <action name="queryDeviceStatus" class="jourHsDeviceActions" method="queryDeviceStatus">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 查设备房 -->
+   	   <action name="queryThisDeviceHouse" class="jourHsDeviceActions" method="queryThisDeviceHouse">
+         <result type="json"></result>
+   	   </action>
+    	<!-- 绑定设备 -->
+   	   <action name="insertHsdevice" class="jourHsDeviceActions" method="insertHsdevice">
+         <result type="json"></result>
+   	   </action>
+    </package>
+        <!-- ***************************未租与办公区对应关系******************************* -->
+    <package name="jourHsOffice" extends="json-default" namespace="/">
+    	<!-- 查询未关联房 -->
+   	   <action name="selectNoRelationHs" class="jourHsOfficeActions" method="selectNoRelationHs">
+         <result type="json"></result>
+   	   </action>
+          <!--更新-->
+  	    <action name="updateJourHsOffice" class="jourHsOfficeActions" method="updateJourHsOffice">
+         <result type="json"></result>
+   	   </action>
+          <!--查询关联房-->
+   	    <action name="selectRelatedHs" class="jourHsOfficeActions" method="selectRelatedHs">
+            <result type="json"></result>
+        </action>
+        <!-- 查询未关联设备 -->
+   	   <action name="selectNoRelationDevice" class="jourHsOfficeActions" method="selectNoRelationDevice">
+         	<result type="json"></result>
+   	   </action>
+        <!--查询关联设备-->
+   	   <action name="selectRelatedDevice" class="jourHsOfficeActions" method="selectRelatedDevice">
+         <result type="json"></result>
+   	   </action>
+   	   
+    </package>
+    <!-- ***************************租客******************************* -->
+    <package name="renter"  extends="json-default" namespace="/">
+       <!-- 专用查询租客姓名 -->
+   	   <action name="selectHouseRentName" class="renterAction" method="selectHouseRentName">
+         <result type="json"></result>
+   	   </action>
+       <!-- 根据房源ID查询相应租客 -->
+   	   <action name="queryByHouse4rentId" class="renterAction" method="queryByHouse4rentId">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有租客信息 -->
+   	   <action name="queryAllRenter" class="renterAction" method="queryAllRenter">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 增加租客信息记录 -->
+   	   <action name="insertRenter" class="renterAction" method="insertRenter">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 在添加已租的时候增加租客信息记录 -->
+   	   <action name="insertRenterInAddRent" class="renterAction" method="insertRenterInAddRent">
+         <result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- 更新租客信息记录 -->
+   	   <action name="updateRenter" class="renterAction" method="updateRenter">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 租客写跟进 -->
+   	   <action name="followRenter" class="renterAction" method="followRenter">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 根据房源ID更新租客信息记录 -->
+   	   <action name="updateRenterByHouse4rentId" class="renterAction" method="updateRenterByHouse4rentId">
+         <result type="json"></result>
+   	   </action>
+   	   
+    </package>
+    <!-- ***************************房东****************************** -->
+    <package name="landlord"  extends="json-default" namespace="/">
+      <!-- 房东分组查询 -->
+      <action name="landlordGroupingQuery" class="landlordAction" method="landlordGroupingQuery">
+	       <result type="json"></result>
+	   </action>
+	   <!-- 专用查询业主姓名与联系方式 -->
+	   <action name="selectlandlordName" class="landlordAction" method="selectlandlordName">
+	       <result type="json"></result>
+	   </action>
+       <!-- 根据-已租-房源-查找业主信息 -->
+   	   <action name="queryByHouse4rentOfLandlordId" class="landlordAction" method="queryByHouse4rentOfLandlordId">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 根据-未租-房源-查询业主信息 -->
+   	   <action name="queryHouseStoreOfLandlord" class="landlordAction" method="queryHouseStoreOfLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 根据-盘源-查询业主信息 -->
+   	   <action name="queryHouseOfLandlord" class="landlordAction" method="queryHouseOfLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 明细—查找全部 -->
+   	   <action name="queryAllLandlord" class="landlordAction" method="queryAllLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 增加房东信息记录 -->
+   	   <action name="insertLandlord" class="landlordAction" method="insertLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 在添加托管的时候增加房东信息记录 -->
+   	   <action name="insertLandlordInAddStore" class="landlordAction" method="insertLandlordInAddStore">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新房东信息记录 -->
+   	   <action name="updateLandlord" class="landlordAction" method="updateLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询房东信息以及房屋数量 -->
+   	   <action name="queryQuantityInformation" class="landlordAction" method="queryQuantityInformation">
+         <result type="json"></result>
+   	   </action>
+    </package>
+    
+    <!-- *****************************系统****************************** -->
+    <package name="sys"  extends="json-default" namespace="/">
+    <!-- ************************用户信息***************************** -->
+    	<!-- 公司人员，转移部门 -->
+   	   <action name="personnelTransfer" class="userAction" method="personnelTransfer">
+         <result type="json"></result>
+   	   </action>
+		<!-- 换班级 -->
+		<action name="studentTransfer" class="userAction" method="studentTransfer">
+			<result type="json"></result>
+		</action>
+		<!-- 更新学生信息 -->
+		<action name="updateStudentInformation" class="userAction" method="updateStudentInformation">
+			<result type="json"></result>
+		</action>
+	    <!-- 查询所有的用户姓名编号 -->
+	    <action name="queryUserByDepartmentID" class="userAction" method="queryUserByDepartmentID">
+	       <result type="json"></result>
+	   	</action>
+	    <!-- 部门查询 -->
+	    <action name="queryAllDepar" class="userAction" method="queryAllDepar">
+	       <result type="json"></result>
+	   	</action>
+	    <!-- 登录 -->
+	   	<action name="userLogin" class="userAction" method="userLogin">
+	       <result type="json"></result>
+	   	</action>
+	    <!-- 退出 -->
+	   	<action name="userLogout" class="userAction" method="userLogout">
+	       <result type="json"></result>
+	   	</action>
+	   	<!--查询所有用户信息，给出条件则为条件查询  -->
+	   	<action name="queryUserById" class="userAction" method="queryUserById">
+	       <result type="json"></result>
+	   	</action>
+	   	<!-- 用户工资设置 -->
+	   	<action name="salarySetting" class="userAction" method="salarySetting">
+	       <result type="json"></result>
+	   	</action>
+	   	<!--增加用户  -->
+	   	<action name="insertUser" class="userAction" method="insertUser">
+	       <result type="json"></result>
+	   	</action>
+		<!--增加用户  -->
+		<action name="insertStudent" class="userAction" method="insertStudent">
+			<result type="json"></result>
+		</action>
+	   	<!--  修改用户资料-->
+	   	<action name="updateUser" class="userAction" method="updateUser">
+	       <result type="json"></result>
+	   	</action>
+   	   <!--普通用户离职  -->
+   	   <action name="employeeQuit" class="userAction" method="employeeQuit">
+         <result type="json"></result>
+   	   </action>
+   	   <!--业务员离职资料交接  -->
+   	   <action name="employeeTurnover" class="userAction" method="employeeTurnover">
+         <result type="json"></result>
+   	   </action>
+   	   <!--查询用户名是否存在  -->
+   	   <action name="getUsername" class="userAction" method="getUsername">
+         <result type="json"></result>
+   	   </action>
+		<!--查询有折扣权限的全部用户-->
+		<action name="selectAllDiscountAuth" class="userAction" method="selectAllDiscountAuth">
+			<result type="json"></result>
+		</action>
+   	   <!--用户修改密码  -->
+   	   <action name="doUpdateUserSelf" class="userAction" method="doUpdateUserSelf">
+         <result type="json">
+         </result>
+   	   </action>
+		<!--修改用户折扣授权密码-->
+		<action name="doUpdateDiscountAuthPassword" class="userAction" method="doUpdateDiscountAuthPassword">
+         <result type="json">
+         </result>
+   	   </action>
+   	   <!--删除图片  -->
+   	   <action name="deleteUserPic" class="userAction" method="deleteUserPic">
+         <result type="json">
+         </result>
+   	   </action>
+
+
+
+		<!--修改强写权限-->
+		<action name="updateUserFollowupValue" class="userAction" method="updateUserFollowupValue">
+			<result type="json">
+			</result>
+		</action>
+		<action name="selectSuPermissionsId" class="userAction" method="selectSuPermissionsId">
+			<result type="json">
+			</result>
+		</action>
+
+
+
+
+		<!--查询用户是否冻结  -->
+		<action name="checkSuFrozenUser" class="userAction" method="checkSuFrozenUser">
+			<result type="json">
+			</result>
+		</action>
+		<!--修改用户冻结次数  -->
+		<action name="updateSuFollowupValueUser" class="userAction" method="updateSuFollowupValueUser">
+			<result type="json">
+			</result>
+		</action>
+		<!-- 修改用户冻结状态  -->
+		<action name="updateSubFrozenTrueOrFalse" class="userAction" method="updateSubFrozenTrueOrFalse">
+			<result type="json">
+			</result>
+		</action>
+
+
+   	   <!-- *******************************权限信息******************************** -->
+   	   <!-- 左侧自定义快捷菜单-->
+	   <action name="updateLeftMenuPurview" class="purviewAction" method="updateLeftMenuPurview">  
+         <result type="json"></result>
+	   </action>
+   	   <!-- 根据权限ID、用户ID查询用户权限, 或查询所有的 -->
+   	   <action name="selectPurvuceAll" class="purviewAction" method="selectPurvuceAll">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 用户权限判断查询 -->
+   	   <action name="authorityaction" class="purviewAction" method="authorityaction">
+         <result type = "json"></result>
+   	   </action>
+   	   <!--新增用户权限  -->
+   	   <action name="insertPurview" class="purviewAction" method="insertPurview">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 根据权限ID修改 -->
+   	   <action name="updatePurview" class="purviewAction" method="updatePurview">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 根据用户ID修改 -->
+   	   <action name="updatespUsreId" class="PurviewAction" method="updatespUsreId">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 删除 -->
+   	   <action name="deletePurview" class="purviewAction" method="deletePurview">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 不需要权限ID、用户ID查询用户权限, 或查询所有的 -->
+   	   <action name="selectAll" class="purviewAction" method="selectAll">
+         <result type="json"></result>
+   	   </action>
+    </package>
+    
+    <!-- **********************************记录信息******************************* -->
+    <package name="recording"  extends="json-default" namespace="/">
+   	   <!-- **********************************账单********************************** -->
+   	   <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="selectContractInstallment" class="contractInstallmentAction" method="selectContractInstallment">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 租客应收款发送短信时更新租客分期账单的短信通知时间和短信内容 -->
+   	   <action name="sendMessageAndUpdate" class="contractInstallmentAction" method="sendMessageAndUpdate">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 自动或手动发送短信 -->
+   	   	<action name="autoSendMsg" class="houseForStoreAction" method="autoSendMsg">
+        	<result type="json"></result>
+   	   	</action>
+   	   	<action name="manualSendMsg" class="houseForStoreAction" method="manualSendMsg">
+        	<result type="json"></result>
+   	   	</action>
+   	   
+   	   <!-- 查找ALL -->
+   	   <action name="queryAllContractInstallment" class="contractInstallmentAction" method="queryAllContractInstallment">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询新签租客合约信息 -->
+   	   <action name="queryNewTenantContractInformation" class="contractInstallmentAction" method="queryNewTenantContractInformation">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新记录 -->
+   	   <action name="updateContractInstallment" class="contractInstallmentAction" method="updateContractInstallment">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 删除记录 -->
+   	   <action name="deleteContractInstallment" class="contractInstallmentAction" method="deleteContractInstallment">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询房东银行账号与类型 -->
+   	   <action name="landlordCard" class="contractInstallmentAction" method="landlordCard">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 修改合约时查询最后一条已付、已支账单的结束周期 -->
+   	   <action name="selectEndPeriods" class="contractInstallmentAction" method="selectEndPeriods">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询业主账单 -->
+   	   <action name="selectPayableToLandlord" class="contractInstallmentAction" method="selectPayableToLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询业主账单 -->
+   	   <action name="queryLandlordBillCommon" class="contractInstallmentAction" method="queryLandlordBillCommon">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 已租中双击查看应收 -->
+   	   <action name="payableFromRenterInRentDb" class="contractInstallmentAction" method="payableFromRenterInRentDb">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 修改房东账单打印状态 -->
+   	   <action name="updateIfPrint" class="contractInstallmentAction" method="updateIfPrint">
+         <result type="json"></result>
+   	   </action>
+   	    <!-- 综合修改里查看账单 -->
+   	   <action name="queryPaymentInUpdateAll" class="contractInstallmentAction" method="queryPaymentInUpdateAll">
+         <result type="json"></result>
+   	   </action>
+   	    <!-- 综合修改里修改账单 -->
+   	   <action name="updatePaymentInUpdateAll" class="contractInstallmentAction" method="updatePaymentInUpdateAll">
+         <result type="json"></result>
+   	   </action>
+   	    <!-- 删除图片 -->
+   	   <action name="deleteInstallmentPic" class="contractInstallmentAction" method="deleteInstallmentPic">
+         <result type="json"></result>
+   	   </action>
+   	    <!-- 单个查询账单 -->
+   	   <action name="queryInstallmentById" class="contractInstallmentAction" method="queryInstallmentById">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 单个查询账单 -->
+   	   <action name="queryTheCurrentDataInformation" class="contractInstallmentAction" method="queryTheCurrentDataInformation">
+         <result type="json"></result>
+       </action>
+       <!-- 单条账单增加 -->
+   	   <action name="insertSelective" class="contractInstallmentAction" method="insertSelective">
+         <result type="json"></result>
+   	   </action>
+       <!-- 生成租客收支时检查有无已存在的短信内容，没有则添加 -->
+   	   <action name="querySendMessageAndUpdate" class="contractInstallmentAction" method="querySendMessageAndUpdate">
+         <result type="json"></result>
+   	   </action>
+   	 <!-- **********************************财务********************************** -->
+   	 <!--已租中双击查看收支 -->
+   	 <action name="financialInRentDb" class="financialAction" method="financialInRentDb">
+        <result type="json"></result> 
+   	 </action>
+   	  <!-- 查询用于打印的收支 -->
+   	 <action name="selectToDoPringt" class="financialAction" method="selectToDoPringt">
+        <result type="json"></result> 
+   	 </action>
+   	 <!-- 生成凭证号 -->
+   	 <action name="documentNumber" class="financialAction" method="documentNumber">
+        <result type="json"></result> 
+   	 </action>
+   	 <!-- 凭证号未生成的收支查询 -->
+   	 <action name="documentQuery" class="financialAction" method="documentQuery">
+        <result type="json"></result> 
+   	 </action>
+   	 <!--查询已生成凭证号的收支 -->
+   	 <action name="certificateDetails" class="financialAction" method="certificateDetails">
+        <result type="json"></result> 
+   	 </action>
+   	  <!-- 项目的财务收支查询 -->
+      <action name="allvirtualPayments" class="financialAction" method="allvirtualPayments">
+         <result type="json"></result> 
+   	  </action>
+   	 <!-- 项目冲帐 -->
+   	 <action name="virtualStrikeABalance" class="financialAction" method="virtualStrikeABalance">
+        <result type="json"></result> 
+   	 </action>
+   	 <!-- 项目数据录入 -->
+   	 <action name="virtualDataEntry" class="financialAction" method="virtualDataEntry">
+        <result type="json"></result>
+   	 </action>
+   	 <!-- 项目收支-复核 -->
+   	 <action name="virtualReview" class="financialAction" method="virtualReview">
+        <result type="json"></result> 
+   	 </action>
+   	 <!-- 项目收支-审核 -->
+   	 <action name="virtualAudit" class="financialAction" method="virtualAudit">
+        <result type="json"></result> 
+   	 </action> 
+   	 <!-- 冲帐接口 -->
+   	 <action name="strikeBalanceInterface" class="financialAction" method="strikeBalanceInterface">
+        <result type="json"></result> 
+   	 </action>
+   	 <!-- 根据房源ID查找财务记录 -->
+      <action name="queryFinancialByHouse4rentId" class="financialAction" method="queryFinancialByHouse4rentId">
+        <result type="json"></result> 
+   	  </action>
+   	  <!-- 查询收支，数据和统计分开查询 -->
+   	   <action name="queryFinancial" class="financialAction" method="queryFinancial">
+         <result type="json"></result>
+   	   </action>
+   	  <!-- 查询收支，数据和统计分开查询 -->
+   	   <action name="queryFinancialCommon" class="financialAction" method="queryFinancialCommon">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 1.登记财务记录,外部买卖房 ; 2.录入内部管理项目财务信息 ，房源编码绑定经理房屋ID， -->
+   	   <action name="insertFinancial" class="financialAction" method="insertFinancial">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 多条数据一起录入 -->
+   	   <action name="insertFinancialAll" class="financialAction" method="insertFinancialAll">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 下定金和退定金时生成收支 -->
+   	   <action name="insertFinancialDeposit" class="financialAction" method="insertFinancialDeposit">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--查询所有的财务信息、冲账和被冲账与分页,给条件则为条件查询 ,包含项目收支 -->
+   	   <action name="selectInformationAll" class="financialAction" method="selectInformationAll">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--查询所有的财务信息、冲账和被冲账与分页,给条件则为条件查询,包含项目收支  -->
+   	   <action name="allNormalAndVirtualPayments" class="financialAction" method="allNormalAndVirtualPayments">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--审核的接口，根据财务ID修改, -->
+   	   <action name="updateFinancial" class="financialAction" method="updateFinancial">
+         <result type="json"></result>
+   	   </action>
+   	   <!--复核接口，修改 -->
+   	   <action name="updateFinancialReview" class="financialAction" method="updateFinancialReview">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 根据房源ID更新财务记录 -->
+   	   <action name="updateFinancialByHouse4rentId" class="financialAction" method="updateFinancialByHouse4rentId">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 退房财务生成 -->
+   	   <action name="insertFinancialCheckOut" class="financialAction" method="insertFinancialCheckOut">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 新签租客收支生成 -->
+   	   <action name="newSigningIncome" class="financialAction" method="newSigningIncome">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 租客每期租金收支生成 -->
+   	   <action name="rentEachPayment" class="financialAction" method="rentEachPayment">
+         <result type="json"></result>
+       </action>
+       <!-- 维修记录生成收支 -->
+       <action name="balanceOfThings" class="financialAction" method="balanceOfThings">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 挂账结清 -->
+   	   <action name="clearCreditMoney" class="financialAction" method="clearCreditMoney">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 批量结清挂账 -->
+   	   <action name="batchClearCredit" class="financialAction" method="batchClearCredit">
+   	   	<result type="json"></result>
+   	   </action>
+   	 
+   	 <!-- **********************************跟进********************************** -->
+   	 	<!-- 已租中双击查看跟进-->
+   	   <action name="housingFollowInRentDb" class="housingFollowAction" method="housingFollowInRentDb">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="selectHouseFollow" class="housingFollowAction" method="selectHouseFollow">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 根据房源ID查找跟进记录 -->
+   	   <action name="queryHousingFollowByHouse4rentId" class="housingFollowAction" method="queryHousingFollowByHouse4rentId">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查找All -->
+   	   <action name="queryAllHousingFollow" class="housingFollowAction" method="queryAllHousingFollow">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 跟进图片查询 -->
+   	   <action name="followUpThePictureQuery" class="housingFollowAction" method="followUpThePictureQuery">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 新的跟进查询 -->
+   	   <action name="remindFollow" class="housingFollowAction" method="remindFollow">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 登记跟进记录 -->
+   	   <action name="insertHousingFollow" class="housingFollowAction" method="insertHousingFollow">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新跟进记录 -->
+   	   <action name="updateHousingFollow" class="housingFollowAction" method="updateHousingFollow">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 根据房源ID更新跟进记录 -->
+   	   <action name="updateHousingFollowByHouse4rentId" class="housingFollowAction" method="updateHousingFollowByHouse4rentId">
+         <result type="json"></result>
+   	   </action>
+   	
+   	   <!-- **********************************房东合约********************************** -->
+   	   <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="selectRenewalLandlord" class="renewalLandlordAction" method="selectRenewalLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 统计房东新签合约 -->
+   	   <action name="queryLandlordContractNum" class="renewalLandlordAction" method="queryLandlordContractNum">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 已租中双击查看房东合约 -->
+   	   <action name="renewalLandlordInRentDb" class="renewalLandlordAction" method="renewalLandlordInRentDb">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查找合约记录ALL -->
+   	   <action name="queryAllRenewalLandlord" class="renewalLandlordAction" method="queryAllRenewalLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 行政仪表盘查找合约记录ALL -->
+   	   <action name="queryExpiredLandlordCont" class="renewalLandlordAction" method="queryExpiredLandlordCont">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 登记合约记录 -->
+   	   <action name="insertRenewalLandlord" class="renewalLandlordAction" method="insertRenewalLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新合约记录 -->
+   	   <action name="updateRenewalLandlord" class="renewalLandlordAction" method="updateRenewalLandlord">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 删除图片 -->
+   	   <action name="deleteLandContPic" class="renewalLandlordAction" method="deleteLandContPic">
+         <result type="json"></result>
+   	   </action>
+       <!-- 废除合约 -->
+       <action name="abrogateLandlordContract" class="renewalLandlordAction" method="abrogateLandlordContract">
+         <result type="json"></result>
+       </action>
+       <!-- 预生成账单 -->
+       <action name="noRentedBillInformation" class="renewalLandlordAction" method="noRentedBillInformation">
+         <result type="json"></result>
+       </action>
+   	   <!-- **********************************租客合约********************************** -->
+   	   <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="selectRenewalRenter" class="renewalRenterAction" method="selectRenewalRenter">
+         <result type="json"></result>
+   	   </action>
+   	   <!--查询单个租客合约 -->
+   	   <action name="selectNewest" class="renewalRenterAction" method="selectNewest">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 统计租客合约 -->
+   	   <action name="queryRenterContractNum" class="renewalRenterAction" method="queryRenterContractNum">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 已租中双击查看租客合约 -->
+   	   <action name="renewalRenterInRentDb" class="renewalRenterAction" method="renewalRenterInRentDb">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查找合约记录ALL -->
+   	   <action name="queryAllRenewalRenter" class="renewalRenterAction" method="queryAllRenewalRenter">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 已租续签合约查询 -->
+   	   <action name="rentedRenewalInquiry" class="renewalRenterAction" method="rentedRenewalInquiry">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 行政仪表盘查找合约记录ALL -->
+   	   <action name="queryExpiredRenterCont" class="renewalRenterAction" method="queryExpiredRenterCont">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 登记合约记录 -->
+   	   <action name="insertRenewalRenter" class="renewalRenterAction" method="insertRenewalRenter">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新合约记录 -->
+   	   <action name="updateRenewalRenter" class="renewalRenterAction" method="updateRenewalRenter">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 删除图片 -->
+   	   <action name="deleteRentContPic" class="renewalRenterAction" method="deleteRentContPic">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 续签合约记录 -->
+   	   <action name="renewRenterContract" class="renewalRenterAction" method="renewRenterContract">
+         <result type="json"></result>
+   	   </action>
+       <!-- 废除合约 -->
+       <action name="abrogateRenterContract" class="renewalRenterAction" method="abrogateRenterContract">
+         <result type="json"></result>
+       </action>
+       <!-- 预生成账单 -->
+       <action name="preGeneratingBill" class="renewalRenterAction" method="preGeneratingBill">
+         <result type="json"></result>
+       </action>
+       <!-- 查询所有合约信息 -->
+       <action name="querycontract" class="renewalRenterAction" method="querycontract">
+         <result type="json"></result>
+       </action>
+       
+	   <!-- **********************************维修********************************** -->
+   	   <!-- 查询维保，数据和统计分开查询 -->
+   	   <action name="selectRepair" class="repairAction" method="selectRepair">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询维保，数据和统计分开查询 -->
+   	   <action name="selectRepairCommon" class="repairAction" method="selectRepairCommon">
+         <result type="json"></result>
+   	   </action>
+	   <!-- 查询任务-->
+   	   <action name="queryTask" class="repairAction" method="queryTask">
+         <result type="json"></result>
+   	   </action>
+	   <!-- 查询任务通用-->
+   	   <action name="queryTaskCommon" class="repairAction" method="queryTaskCommon">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 查询维保/任务 -->
+   	   <action name="queryRepairById" class="repairAction" method="queryRepairById">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 添加维保/任务 -->
+   	   <action name="insertRepair" class="repairAction" method="insertRepair">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 批量添加维保/任务 -->
+   	   <action name="insertListRepair" class="repairAction" method="insertListRepair">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新维保/任务 -->
+   	   <action name="updateRepair" class="repairAction" method="updateRepair">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 删除图片 -->
+   	   <action name="deleteRepairPic" class="repairAction" method="deleteRepairPic">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- **********************************维修进展********************************** -->
+   	   <!-- 查找维修记录ALL -->
+   	   <action name="queryAllRepairProgress" class="repairProgressAction" method="queryAllRepairProgress">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 登记维修记录 -->
+   	   <action name="insertRepairProgress" class="repairProgressAction" method="insertRepairProgress">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新维修记录 -->
+   	   <action name="updateRepairProgress" class="repairProgressAction" method="updateRepairProgress">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- **********************************维修回访********************************** -->
+   	   <!-- 查找维修记录ALL -->
+   	   <action name="queryAllRepairReturning" class="repairReturningAction" method="queryAllRepairReturning">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 登记维修记录 -->
+   	   <action name="insertRepairReturning" class="repairReturningAction" method="insertRepairReturning">
+         <result type="json"></result>
+   	   </action>
+   	   <!-- 更新维修记录 -->
+   	   <action name="updateRepairReturning" class="repairReturningAction" method="updateRepairReturning">
+         <result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************资产管理********************************** -->
+   	   <!-- 打印资产生成跟进-->
+   	   <action name="printAssetFollow" class="assetsAction" method="printAssetFollow">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 已租中双击查看资产 -->
+   	   <action name="assetsInRentDb" class="assetsAction" method="assetsInRentDb">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有资产 -->
+   	   <action name="queryAssets" class="assetsAction" method="queryAssets">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有资产 -->
+   	   <action name="queryAssetsCommon" class="assetsAction" method="queryAssetsCommon">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 添加资产 -->
+   	   <action name="insertAssets" class="assetsAction" method="insertAssets">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- 修改资产 -->
+   	   <action name="updateAssets" class="assetsAction" method="updateAssets">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- 迁移资产 -->
+   	   <action name="moveAssets" class="assetsAction" method="moveAssets">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- 维修迁移资产 -->
+   	   <action name="repairMoveAssets" class="assetsAction" method="repairMoveAssets">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- 删除图片 -->
+   	   <action name="deleteAssetsPic" class="assetsAction" method="deleteAssetsPic">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   
+   	   <!-- ***************************区域管理********************************** -->
+   	   <!-- 查询所有区域-->
+   	   <action name="queryStorefront" class="storefrontAction" method="queryStorefront">
+   	   	<result type="json" ></result>
+   	   </action>
+		<!-- 查询所有校区-->
+		<action name="querySchool" class="storefrontAction" method="querySchool">
+			<result type="json" ></result>
+		</action>
+   	   <!-- 新增区域-->
+   	    <action name="insertStorefront" class="storefrontAction" method="insertStorefront">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- 修改区域-->
+   	    <action name="updateStorefront" class="storefrontAction" method="updateStorefront">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- 删除区域-->
+   	    <action name="deleteStorefront" class="storefrontAction" method="deleteStorefront">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- ***************************部门管理********************************** -->
+   	   <!-- 查询所有部门-->
+   	   <action name="queryDepartment" class="departmentAction" method="queryDepartment">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- 新增部门-->
+   	    <action name="insertDepartment" class="departmentAction" method="insertDepartment">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- 修改部门-->
+   	    <action name="updateDepartment" class="departmentAction" method="updateDepartment">
+   	   	<result type="json" ></result>
+   	   </action>
+   	   <!-- ****************************交易协助************************************ -->
+   	  	<!-- 查询ALL -->
+   	   <action name="queryAssistor" class="infoTransactionAssistanceAction" method="queryAssistor">
+   	   	<result type="json"></result>
+   	   </action>
+   	  	<!-- 查询ALL -->
+   	   <action name="queryAllTransactionAssistance" class="infoTransactionAssistanceAction" method="queryAllTransactionAssistance">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 在已租未租里面查看业绩受益人 -->
+   	   <action name="queryAllTransactionAssistanceRentStore" class="infoTransactionAssistanceAction" method="queryAllTransactionAssistanceRentStore">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 先删除再新增 -->
+   	   <action name="updateAssist" class="infoTransactionAssistanceAction" method="updateAssist">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 业绩管理的修改业绩受益人 先删除再新增 -->
+   	   <action name="upAchievementAssist" class="infoTransactionAssistanceAction" method="upAchievementAssist">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 单个新增 -->
+   	   <action name="insertSelectiveAss" class="infoTransactionAssistanceAction" method="insertSelectiveAss">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 业绩业绩受益人批量新增 -->
+   	   <action name="insertAssistList" class="infoTransactionAssistanceAction" method="insertAssistList">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 批量新增 -->
+   	   <action name="insertTAList" class="infoTransactionAssistanceAction" method="insertTAList">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- ***************************通知公告表********************************* -->
+   	   <!-- 查询所有公告信息，给出条件则为条件查询 -->
+   	   <action name="noticeQueryAll" class="noticeAction" method="noticeQueryAll">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 老板仪表盘显示公告信息-->
+   	   <action name="bossNoticeQueryAll" class="noticeAction" method="bossNoticeQueryAll">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 业务仪表盘显示公告信息-->
+   	   <action name="employeesNoticeQueryAll" class="noticeAction" method="employeesNoticeQueryAll">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 财务仪表盘显示公告信息-->
+   	   <action name="financialNoticeQueryAll" class="noticeAction" method="financialNoticeQueryAll">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 行政仪表盘显示公告信息-->
+   	   <action name="administrativeNoticeQueryAll" class="noticeAction" method="administrativeNoticeQueryAll">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--添加公告-->
+   	   <action name="insertNotice" class="noticeAction" method="insertNotice">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--老板仪表盘添加公告-->
+   	   <action name="BossInsertNotice" class="noticeAction" method="BossInsertNotice">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--修改公告-->
+   	   <action name="updateNotice" class="noticeAction" method="updateNotice">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--老板仪表盘公告修改、更新-->
+   	   <action name="bossUpdateNotice" class="noticeAction" method="bossUpdateNotice">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--根据Id,删除公告-->
+   	   <action name="deleteNotice" class="noticeAction" method="deleteNotice">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- ***************************水电气抄表********************************* -->
+   	   <!-- 根据抄表读数查抄表日期 -->
+   	   <action name="selectWegDate" class="wegReadingAction" method="selectWegDate">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="selectAllWegReading" class="wegReadingAction" method="selectAllWegReading">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 条件查询所有 -->
+   	   <action name="conditionSelectWegReading" class="wegReadingAction" method="conditionSelectWegReading">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="queryLivingfeeRecordsCommon" class="wegReadingAction" method="queryLivingfeeRecordsCommon">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 抄表批量添加抄表-->
+   	   <action name="insertWegReadingBatch" class="wegReadingAction" method="insertWegReadingBatch">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增一条记录 -->
+   	   <action name="insertWegReading" class="wegReadingAction" method="insertWegReading">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 添加以租房时新增记录 -->
+   	   <action name="insertWegReadingInRent" class="wegReadingAction" method="insertWegReadingInRent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 根据ID查询 -->
+   	   <action name="selectWegrdId" class="wegReadingAction" method="selectWegrdId">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有，给条件则为条件查询 -->
+   	   <action name="selectWegReadingAll" class="wegReadingAction" method="selectWegReadingAll">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateWegReading" class="wegReadingAction" method="updateWegReading">
+   	   	<result type="json"></result>
+   	   </action>
+   	  <!--智能设备抄表-->
+   	   <!--<action name="queryDevice" class="wegReadingAction" method="queryDevice">
+   	   	<result type="json"></result>
+   	   </action>-->
+   	   <!-- ***************************用户工资表********************************* -->
+   	   <!-- 删除 -->
+   	   <action name="deleteStaffSalaries" class="staffSalariesAction" method="deleteStaffSalaries">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--新增一条工资信息 -->
+   	   <action name="insertStaffSalaries" class="staffSalariesAction" method="insertStaffSalaries">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 工资查询 -->
+   	   <action name="selectStaffSalaries" class="staffSalariesAction" method="selectStaffSalaries">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!--修改记录 -->
+   	   <action name="updateStaffSalaries" class="staffSalariesAction" method="updateStaffSalaries">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- ***************************财务账户表********************************* -->
+   	   <!-- 累加单个账户的收支金额 -->
+   	   <!-- <action name="updataAccountMoney" class="financialAccountAction" method="updataAccountMoney">
+   	   	<result type="json"></result>
+   	   </action> -->
+   	   <!-- 单个余额统计与计算 -->
+   	   <action name="uptheBalanceOf" class="financialAccountAction" method="uptheBalanceOf">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 全部账户余额统计与计算 -->
+   	   <action name="statisticsAllAccountBalance" class="financialAccountAction" method="statisticsAllAccountBalance">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询 -->
+   	   <action name="selectFinancialAccount" class="financialAccountAction" method="selectFinancialAccount">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertFinancialAccount" class="financialAccountAction" method="insertFinancialAccount">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updataFinancialAccount" class="financialAccountAction" method="updataFinancialAccount">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 在添加收支中查看账户信息 -->
+   	   <action name="selectFinancialAccountInFinancial" class="financialAccountAction" method="selectFinancialAccountInFinancial">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 项目账户查询 -->
+   	   <action name="allVirtualAccount" class="financialAccountAction" method="allVirtualAccount">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询收支总额 -->
+   	   <action name="selectFinancialSummary" class="financialAccountAction" method="selectFinancialSummary">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询总收入、总支出、总冲账 -->
+   	   <action name="selectFinancialTotal" class="financialAccountAction" method="selectFinancialTotal">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询全部账户 -->
+   	   <action name="selectAllName" class="financialAccountAction" method="selectAllName">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询全部账户的总余额 -->
+   	   <action name="selectAllCountBalance" class="financialAccountAction" method="selectAllCountBalance">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 公告接口查询账户部分信息 -->
+   	   <action name="selectNamePublic" class="financialAccountAction" method="selectNamePublic">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- ***************************退房表********************************* -->
+   	   <!-- 恢复为正办理退房-->
+   	   <action name="recoveryHaveRentCheckOut" class="haveRentCheckOutAction" method="recoveryHaveRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查退房总数量-->
+   	   <action name="queryHouseRentCheckoutNum" class="haveRentCheckOutAction" method="queryHouseRentCheckoutNum">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有与条件查询-->
+   	   <action name="selectInfoHaveRentCheckOut" class="haveRentCheckOutAction" method="selectInfoHaveRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertInfoHaveRentCheckOut" class="haveRentCheckOutAction" method="insertInfoHaveRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 申请退房、保存、提交修改 -->
+   	   <action name="updataInfoHaveRentCheckOut" class="haveRentCheckOutAction" method="updataInfoHaveRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 删除 -->
+   	   <action name="deleteInfoHaveRentCheckOut" class="haveRentCheckOutAction" method="deleteInfoHaveRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 合约待付资金 -->
+   	   <action name="basicData" class="haveRentCheckOutAction" method="basicData">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 审核退房 -->
+   	   <action name="updateChecOutAudit" class="haveRentCheckOutAction" method="updateChecOutAudit">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 复核退房 -->
+   	   <action name="updateReviewCheckOut" class="haveRentCheckOutAction" method="updateReviewCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 删除图片 -->
+   	   <action name="deleteRenterCheckoutPic" class="haveRentCheckOutAction" method="deleteRenterCheckoutPic">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 获取读数 -->
+   	   <action name="queryWegNum" class="haveRentCheckOutAction" method="queryWegNum">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	    <!-- ***************************未租房东退房********************************* -->
+   	   <!-- 查询-->
+   	   <action name="selectNotRentCheckOut" class="notRentCheckOutAction" method="selectNotRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查退房总数量-->
+   	   <action name="queryHouseStoreCheckoutNum" class="notRentCheckOutAction" method="queryHouseStoreCheckoutNum">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增-->
+   	   <action name="insertNotRentCheckOut" class="notRentCheckOutAction" method="insertNotRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改、保存、提交 -->
+   	   <action name="updateNotRentCheckOut" class="notRentCheckOutAction" method="updateNotRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 审核 -->
+   	   <action name="auditNotRentCheckOut" class="notRentCheckOutAction" method="auditNotRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 复核 -->
+   	   <action name="reviewNotRentCheckOut" class="notRentCheckOutAction" method="reviewNotRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 撤销房东退房-->
+   	   <action name="deleteNotRentCheckOut" class="notRentCheckOutAction" method="deleteNotRentCheckOut">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 删除图片-->
+   	   <action name="deleteLandlordCheckoutPic" class="notRentCheckOutAction" method="deleteLandlordCheckoutPic">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 业主退房计算退补租金-->
+   	   <action name="selectLandlordCheckoutRent" class="notRentCheckOutAction" method="selectLandlordCheckoutRent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************水电气方案********************************* -->
+   	   <!-- 查询 -->
+   	   <action name="selectPlanTable" class="planTableAction" method="selectPlanTable">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 在已租未租里查询计费方案 -->
+   	   <action name="selectPlanTableRentStore" class="planTableAction" method="selectPlanTableRentStore">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- 新增 -->
+   	   <action name="insertPlanTable" class="planTableAction" method="insertPlanTable">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updatePlanTable" class="planTableAction" method="updatePlanTable">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 删除 -->
+   	   <action name="deletePlanTable" class="planTableAction" method="deletePlanTable">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************租客意向人表********************************* -->
+   	   <!-- 查询 -->
+   	   <action name="selectIntendedPerson" class="intendedPersonAction" method="selectIntendedPerson">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertIntendedPerson" class="intendedPersonAction" method="insertIntendedPerson">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateIntendedPerson" class="intendedPersonAction" method="updateIntendedPerson">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 租客意向人写跟进 -->
+   	   <action name="intendedFollow" class="intendedPersonAction" method="intendedFollow">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改租客意向人状态 -->
+   	   <action name="intendedChangeRent" class="intendedPersonAction" method="intendedChangeRent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************人头表********************************* -->
+   	   <!-- 查询 -->
+   	   <action name="selectPopulation" class="populationAction" method="selectPopulation">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询 -->
+   	   <action name="selectPopulationCommon" class="populationAction" method="selectPopulationCommon">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertPopulation" class="populationAction" method="insertPopulation">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updatePopulation" class="populationAction" method="updatePopulation">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 查询人头下所有的房屋 -->
+   	   <action name="selectPopulationHouse" class="populationAction" method="selectPopulationHouse">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 查询房屋下所有的人头 -->
+   	   <action name="selectHousePopulation" class="populationAction" method="selectHousePopulation">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 查询已租房屋下所有的人头 -->
+   	   <action name="selectPopulationByHrId" class="populationAction" method="selectPopulationByHrId">
+   	   	<result type="json"></result>
+   	   </action>
+		<!-- 查询所有用户 -->
+		<action name="selectPopulationAllUsers" class="populationAction" method="selectPopulationAllUsers">
+			<result type="json"></result>
+		</action>
+   	   <!-- ***************************住户表********************************* -->
+   	   <!-- 已租中双击查看住户 -->
+   	   <action name="residentInRentDb" class="residentTableAction" method="residentInRentDb">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询 -->
+   	   <action name="selectResidentTable" class="residentTableAction" method="selectResidentTable">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertResidentTable" class="residentTableAction" method="insertResidentTable">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateResidentTable" class="residentTableAction" method="updateResidentTable">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateResident" class="residentTableAction" method="updateResident">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************房东意向人表********************************* -->
+   	   <!-- 盘源洗盘时查询业主信息 -->
+   	   <action name="queryLandlordIntentionPersonInHouse" class="landlordIntentionPersonAction" method="queryLandlordIntentionPersonInHouse">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询 -->
+   	   <action name="selectLandlordIntentionPerson" class="landlordIntentionPersonAction" method="selectLandlordIntentionPerson">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertLandlordIntentionPerson" class="landlordIntentionPersonAction" method="insertLandlordIntentionPerson">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updataLandlordIntentionPerson" class="landlordIntentionPersonAction" method="updataLandlordIntentionPerson">
+   	   	<result type="json"></result>
+   	   </action>
+   	    <!-- 删除 -->
+   	   <action name="deleteLandlordIntentionPerson" class="landlordIntentionPersonAction" method="deleteLandlordIntentionPerson">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************外出登记表********************************* -->
+   	   <!-- 查询 -->
+   	   <action name="selectGoToRegister" class="goToRegisterAction" method="selectGoToRegister">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertGoToRegister" class="goToRegisterAction" method="insertGoToRegister">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 意向人添加外出记录 -->
+   	   <action name="insertaddroomWindow" class="goToRegisterAction" method="insertaddroomWindow">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 意向人中查询外出记录 -->
+   	   <action name="selectRoomWindow" class="goToRegisterAction" method="selectRoomWindow">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateGoToRegister" class="goToRegisterAction" method="updateGoToRegister">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 回来签到 -->
+   	   <action name="comeBackSignIn" class="goToRegisterAction" method="comeBackSignIn">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <action name="selfServiceRoom" class="goToRegisterAction" method="selfServiceRoom">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************财务统计表********************************* -->
+   	   <!-- 老板仪表盘查询 -->
+   	   <action name="selectDashFinancialStatistics" class="dashFinancialStatisticsAction" method="selectDashFinancialStatistics">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************月度业绩统计表********************************* -->
+   	   <!-- 老板仪表盘-业绩统计 -->
+   	   <action name="performanceStatistics" class="monthlyPerformanceStatisticsAction" method="performanceStatistics">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 报表策略-用户考核表-业绩概况 -->
+   	   <action name="employeesSelectMonthlyPerformanceStatistics" class="monthlyPerformanceStatisticsAction" method="employeesSelectMonthlyPerformanceStatistics">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************事件审批表********************************* -->
+   	    <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="selectEvent" class="eventApprovalAction" method="selectEvent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 已租中双击查看事务 -->
+   	   <action name="eventApprovalInRentDb" class="eventApprovalAction" method="eventApprovalInRentDb">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有 -->
+   	   <action name="selectEventApproval" class="eventApprovalAction" method="selectEventApproval">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertEventApproval" class="eventApprovalAction" method="insertEventApproval">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateEventApproval" class="eventApprovalAction" method="updateEventApproval">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 处理事务 -->
+   	   <action name="handleEvent" class="eventApprovalAction" method="handleEvent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 删除 -->
+   	   <action name="deleteEventApproval" class="eventApprovalAction" method="deleteEventApproval">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 删除图片 -->
+   	   <action name="deleteEventApprovalPic" class="eventApprovalAction" method="deleteEventApprovalPic">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 根据id查询 -->
+   	   <action name="selectEventApprovalById" class="eventApprovalAction" method="selectEventApprovalById">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- ***************************综合查询与修改********************************* -->
+   	   <!-- 查询 -->
+   	   <action name="selectNotRenting" class="notRentingAction" method="selectNotRenting">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateNotRenting" class="notRentingAction" method="updateNotRenting">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 水电气读数修改 -->
+   	   <action name="upWaterElectricalModification" class="notRentingAction" method="upWaterElectricalModification">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************合约库********************************* -->
+   	   <!-- 查询 -->
+   	   <action name="selectContractDatabase" class="contractDatabaseAction" method="selectContractDatabase">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updataContractDatabase" class="contractDatabaseAction" method="updataContractDatabase">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertContractDatabase" class="contractDatabaseAction" method="insertContractDatabase">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 合约编号的检测 -->
+   	   <action name="contractNumberdetection" class="contractDatabaseAction" method="contractNumberdetection">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 领取合约编号 -->
+   	   <action name="getReceiveAContract" class="contractDatabaseAction" method="getReceiveAContract">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************日常账号管理********************************* -->
+   	   <!-- 查询 -->
+   	   <action name="selectDailyCardNumber" class="dailyCardNumberAction" method="selectDailyCardNumber">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insertDailyCardNumber" class="dailyCardNumberAction" method="insertDailyCardNumber">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateDailyCardNumber" class="dailyCardNumberAction" method="updateDailyCardNumber">
+   	   	<result type="json"></result>
+   	   </action>
+   	   
+   	   <!-- ***************************网站数据统计********************************* -->  	      
+   	    <!-- 罗湖58统计数据 -->
+        <!-- 湖58付费统计数据  -->
+        <action name="insertPay58" class="com.zz.action.statistics.Pay58Action" method="insertPay58">
+          	   <result type="json"></result>
+        </action>  
+    	 <action name="queryPay58" class="com.zz.action.statistics.Pay58Action" method="queryPay58">  
+          	   <result type="json"></result>
+        </action>  
+	   	 <!-- 罗湖58点击数量统计数据 --> 
+	    <action name="insertClick58" class="com.zz.action.statistics.Click58Action" method="insertClick58">
+          	   <result type="json"></result>
+        </action>  
+        <action name="queryClick58" class="com.zz.action.statistics.Click58Action" method="queryClick58">  
+		    <result type="json"></result>
+	   	</action>
+        <action name="queryClick58TypeFf" class="com.zz.action.statistics.Click58Action" method="queryClick58TypeFf">  
+		    <result type="json"></result>
+	   	</action>
+        <action name="queryClick58TypeCondition" class="com.zz.action.statistics.Click58Action" method="queryClick58TypeCondition">  
+		    <result type="json"></result>
+	   	</action>
+	   	<action name="queryClick58TypeDistrict" class="com.zz.action.statistics.Click58Action" method="queryClick58TypeDistrict">  
+		    <result type="json"></result>
+	   	</action>
+	   	<action name="queryClick58Note" class="com.zz.action.statistics.Click58Action" method="queryClick58Note">  
+		    <result type="json"></result>
+	   	</action>
+	   	<action name="queryClick58Type" class="com.zz.action.statistics.Click58Action" method="queryClick58Type">  
+		    <result type="json"></result>
+	   	</action>
+	   	<action name="queryClick58Year" class="com.zz.action.statistics.Click58Action" method="queryClick58Year">  
+		    <result type="json"></result>
+	   	</action>
+	   	<action name="queryClick58Quarter" class="com.zz.action.statistics.Click58Action" method="queryClick58Quarter">  
+		    <result type="json"></result>
+	   	</action>		
+	    <action name="queryClick58Month" class="com.zz.action.statistics.Click58Action" method="queryClick58Month">  
+		    <result type="json"></result>
+	   	</action>
+	   	<action name="queryClick58Date" class="com.zz.action.statistics.Click58Action" method="queryClick58Date">  
+		    <result type="json"></result>
+	   	</action>				   	
+	   	 <!-- 深圳58收益数量统计 --> 
+	    <action name="insertShenzhen58Shouyi" class="com.zz.action.statistics.Shenzhen58ShouyiAction" method="insertShenzhen58Shouyi">
+          	   <result type="json"></result>
+        </action>  
+        <action name="queryShenzhen58Shouyi" class="com.zz.action.statistics.Shenzhen58ShouyiAction" method="queryShenzhen58Shouyi">  
+          	   <result type="json"></result>
+	   	</action>
+	   	<!-- 深圳蘑菇数量统计 --> 
+	    <action name="insertMogoHouse" class="com.zz.action.statistics.MogoHouseAction" method="insertMogoHouse">
+          	   <result type="json"></result>
+        </action>  
+        <action name="queryMogoHouse" class="com.zz.action.statistics.MogoHouseAction" method="queryMogoHouse">  
+          	   <result type="json"></result>
+	   	</action>
+	   	<action name="queryMogoHouseCondition" class="com.zz.action.statistics.MogoHouseAction" method="queryMogoHouseCondition">  
+          	   <result type="json"></result>
+	   	</action>  
+	   	
+	   	<!-- ***************************查询系统配置表********************************* --> 
+	   	<!-- 查询配置 -->
+	   	<action name="querySystemSetting" class="sysSystemSettingAction" method="querySystemSetting">  
+          	   <result type="json"></result>
+	   	</action> 
+	   	<!-- 修改配置 -->
+	   	<action name="updateSystemSetting" class="sysSystemSettingAction" method="updateSystemSetting">  
+          	   <result type="json"></result>
+	   	</action> 
+	   	
+	   	<!-- ***************************退房潮预测********************************* --> 
+	   	<!-- 查询退房潮预测 -->
+	   	<action name="getDashRentCheckout" class="dashRentCheckoutAction" method="getDashRentCheckout">
+        	<result type="json"></result>
+	   	</action> 
+    </package>
+    
+    <package name="csv" extends="struts-default" namespace="/">
+        <action name="csvupload" class="com.zz.actions.commons.CsvUploadAction">
+            <result name="success">success.jsp</result>
+        </action>   
+    </package>
+    
+    <!-- ***************************短信表********************************* -->
+    <package name="massage" extends="json-default" namespace="/massage">
+	   <action name="callback" class="shortMessageAction" method="callback">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <action name="publicCallback" class="shortMessageAction" method="publicCallback">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <action name="myCallback" class="shortMessageAction" method="myCallback">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="selectShortMessageSplit" class="shortMessageAction" method="selectShortMessageSplit">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询 -->
+   	   <action name="selectShortMessage" class="shortMessageAction" method="selectShortMessage">
+   	   	<result type="json"></result>
+   	   </action>
+   	   	<!-- 在已租未租查询短信 -->
+   	   <action name="selectShortMessageInRent" class="shortMessageAction" method="selectShortMessageInRent">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 新增 -->
+   	   <action name="insrtShortMessage" class="shortMessageAction" method="insrtShortMessage">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 修改 -->
+   	   <action name="updateShortMessage" class="shortMessageAction" method="updateShortMessage">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 维修事务短信 -->
+   	   <action name="sRepair" class="shortMessageAdministrativeAction" method="sRepair">
+   	   	<result type="json"></result>
+   	   </action>
+   	     <!-- 维修事务短信 -->
+   	   <action name="sendRepairMsg" class="shortMessageAdministrativeAction" method="sendRepairMsg">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 事务审批短信 -->
+   	   <action name="sEvenApproval" class="shortMessageAdministrativeAction" method="sEvenApproval">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 事务审批短信 -->
+   	   <action name="sendEventApprovalMsg" class="shortMessageAdministrativeAction" method="sendEventApprovalMsg">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 查询所有，数据和统计分开查询 -->
+   	   <action name="selectShortMessageAdministrativeSplit" class="shortMessageAdministrativeAction" method="selectShortMessageAdministrativeSplit">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 事务审批短信、查询 -->
+   	   <action name="internalSelectShortMessage" class="shortMessageAdministrativeAction" method="internalSelectShortMessage">
+   	   	<result type="json"></result>
+   	   </action>
+   	   <!-- 事务审批短信、修改 -->
+   	   <action name="internalUpdateShortMessage" class="shortMessageAdministrativeAction" method="internalUpdateShortMessage">
+   	   	<result type="json"></result>
+   	   </action>
+       <!-- 综合短信发送 -->
+       <action name="integratedSmsSending" class="shortMessageAction" method="integratedSmsSending">
+        <result type="json"></result>
+       </action>
+       <!-- 群发短信发送 -->
+       <action name="sendShortToAll" class="shortMessageAction" method="sendShortToAll">
+        <result type="json"></result>
+       </action>
+       <!-- 发送外部短信（新版本） -->
+       <action name="sendOutsideMessage" class="shortMessageAction" method="sendOutsideMessage">
+        <result type="json"></result>
+       </action>
+    </package>
+    
+    <package name="massageRepairAndApproval" extends="json-default" namespace="/massageRepairAndApproval">
+    	<action name="callback" class="shortMessageAdministrativeAction" method="callback">
+   	   	<result type="json"></result>
+   	   </action>
+    </package>
+    
+    <!-- ***************************上传********************************* -->
+    <package name="upload" extends="json-default" namespace="/upload">
+   	  <!-- 获取上传凭证及公司名 -->
+   	  <action name="getUpTokenCallback" class="uploadAction" method="getUpTokenCallback">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 生成手机访问的url -->
+   	  <action name="getMobUploadUrl" class="uploadAction" method="getMobUploadUrl">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 验证qr及co,通过则跳转上传页，不通过则返回error -->
+   	  <action name="qrUpload" class="qrcodeAction" method="qrUpload">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 回调 -->
+      <action name="callback" class="uploadAction" method="callback">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 下载凭证 -->
+   	  <action name="getDownloadUrl" class="uploadAction" method="getDownloadUrl">
+   	   	<result type="json"></result>
+   	  </action>
+    </package>
+    
+    <!-- ******************************* 历史能源账单*********************************** -->
+    <package name="monthlyAccountReceivable" extends="json-default" namespace="/">
+      <!-- 查 -->
+   	  <action name="selectMonthlyAccountReceivable" class="monthlyAccountReceivableAction" method="selectMonthlyAccountReceivable">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 修改 -->
+   	  <action name="updateMonthlyAccountReceivable" class="monthlyAccountReceivableAction" method="updateMonthlyAccountReceivable">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 新增财务收支与历史能源账单、更新未租房能源字段 -->
+   	  <action name="newInsertFinancialEnergyBill" class="monthlyAccountReceivableAction" method="newInsertFinancialEnergyBill">
+   	   	<result type="json"></result>
+   	  </action>
+    </package>
+    
+    <!-- 事务审批附件预上传 -->
+    <package name="attachment" extends="json-default" namespace="/">
+   	  <action name="getAttachment" class="attachmentAction" method="getAttachment">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <action name="insertAttachment" class="attachmentAction" method="insertAttachment">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <action name="updateAttachment" class="attachmentAction" method="updateAttachment">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <action name="deleteAttachment" class="attachmentAction" method="deleteAttachment">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <action name="deleteAttachmentPic" class="attachmentAction" method="deleteAttachmentPic">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <action name="deleteAttachmentAndFile" class="attachmentAction" method="deleteAttachmentAndFile">
+   	   	<result type="json"></result>
+   	  </action> 
+   	  <action name="updateBkType" class="attachmentAction" method="updateBkType">
+   	   	<result type="json"></result>
+   	  </action> 	  
+    </package>
+    
+    <!-- ***************************文件管理********************************* -->  	 		   
+	<package name="file" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="queryFiles" class="fileAction" method="queryFiles">  
+        <result type="json"></result>
+	  </action>
+	 <!-- 修改文件 -->
+	 <action name="updateFile" class="fileAction" method="updateFile">  
+        <result type="json"></result>
+	  </action> 
+	 <!-- 删除文件 -->
+	 <action name="deleteFile" class="fileAction" method="deleteFile">  
+        <result type="json"></result>
+	  </action> 
+	</package>
+	<!-- ********************************免租期账单表************************************** -->
+	<package name="infoLandFreeBill" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="getLandFreeBill" class="infoLandFreeBillAction" method="getLandFreeBill">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************利润空间表************************************** -->
+	 <package name="profitSpace" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="getProfitSpace" class="profitSpaceAction" method="getProfitSpace">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************房源价格分布表************************************** -->
+	 <package name="dashHousePrice" extends="json-default" namespace="/">
+	  <!-- 查询 -->
+	  <action name="getHousePrice" class="dashHousePriceAction" method="getHousePrice">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************免租收益表************************************** -->
+	 <package name="dashLandFreeEarnings" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="getLandFreeEarnings" class="dashLandFreeEarningsAction" method="getLandFreeEarnings">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************客户来源统计表************************************** -->
+	 <package name="infoCustomerSourceStatistics" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="getCustomerSourceStatistics" class="infoCustomerSourceStatisticsAction" method="getCustomerSourceStatistics">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************用户考核表************************************** -->
+	 <package name="perfDetail" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="getPerfDetail" class="perfDetailAction" method="getPerfDetail">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************静态杠杆预测表************************************** -->
+	 <package name="infoStaticLever" extends="json-default" namespace="/">
+	  <!-- 查询 -->
+	  <action name="getStaticLever" class="infoStaticLeverAction" method="getStaticLever">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************沙盘演算************************************** -->
+	 <package name="infoSandboxie" extends="json-default" namespace="/">
+	  <!-- 查询 -->
+	  <action name="getSandboxieBasicData" class="infoSandboxieAction" method="getSandboxieBasicData">  
+        <result type="json"></result>
+	  </action> 
+	  <!-- 推算经营状况 -->
+	  <action name="deduction" class="infoSandboxieAction" method="deduction">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************空置成本表************************************** -->
+	 <package name="dailyBase" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="vacantCost" class="dailyBaseAction" method="vacantCost">  
+        <result type="json"></result>
+	  </action>
+	  <action name="selectCalendar" class="dailyBaseAction" method="selectCalendar">  
+        <result type="json"></result>
+	  </action>
+	 </package>
+	 <!-- ********************************变量表************************************** -->
+	 <package name="variables" extends="json-default" namespace="/">
+	  <!-- 查询变量 -->
+	  <action name="selectSysVariables" class="variablesAction" method="selectSysVariables">  
+        <result type="json"></result>
+	  </action>
+	   <!-- 修改变量 -->
+	  <action name="updateSysVariables" class="variablesAction" method="updateSysVariables">  
+        <result type="json"></result>
+	  </action>
+	  <!-- 恢复初始变量-->
+	  <action name="recoveryFirstVariables" class="variablesAction" method="recoveryFirstVariables">  
+        <result type="json"></result>
+	  </action>
+	  <!-- 删除公众号广告图片-->
+	  <action name="deleteVariablesPic" class="variablesAction" method="deleteVariablesPic">  
+        <result type="json"></result>
+	  </action>
+	   <!-- 变量设置微信公众号公司简称电话 -->
+	  <action name="updatecompany" class="variablesAction" method="updatecompany">
+			<result type="json"></result>
+	 </action>
+	 </package>
+	 
+	<!-- ********************************仪表盘/工作台/任务版************************************** -->
+	<package name="mainConsole" extends="json-default" namespace="/">
+		<!-- 查询是否有待办事务/未领取维修 -->
+		<action name="countEventRepairInConsole" class="mainConsoleAction" method="countEventRepairInConsole">  
+		     <result type="json"></result>
+		</action>
+		<!-- 查询一年业绩 -->
+		<action name="queryOneYearAchievement" class="mainConsoleAction" method="queryOneYearAchievement">  
+		     <result type="json"></result>
+		</action>
+		<!-- 查询公告 -->
+		<action name="queryNoticeInConsole" class="mainConsoleAction" method="queryNoticeInConsole">  
+		     <result type="json"></result>
+		</action>
+		<!-- 查询上一条 -->
+		<action name="queryona" class="historyannouncement" method="noticeona">  
+		     <result type="json"></result>
+		</action>
+		<!-- 下一条   -->
+		<action name="querynext" class="historyannouncement" method="noticenext">  
+		     <result type="json"></result>
+		</action>
+		<!-- 业务任务版获取数值 -->
+		<action name="countNumsInEmpConsole" class="mainConsoleAction" method="countNumsInEmpConsole">  
+		     <result type="json"></result>
+		</action>
+		<!-- 综合任务版获取数值 -->
+		<action name="countNumsInAdminConsole" class="mainConsoleAction" method="countNumsInAdminConsole">  
+		     <result type="json"></result>
+		</action>
+		<!-- 查询新签租客/业主合约数 -->
+		<action name="countNewContractInConsole" class="mainConsoleAction" method="countNewContractInConsole">  
+		     <result type="json"></result>
+		</action>
+        <!-- 查询即将到期合约数 -->
+        <action name="countContractDueExpired" class="mainConsoleAction" method="countContractDueExpired">  
+             <result type="json"></result>
+        </action>
+		<!-- 查询发起/待办事务数量 -->
+		<action name="countEventNumsInConsole" class="mainConsoleAction" method="countEventNumsInConsole">  
+		     <result type="json"></result>
+		</action>
+	</package>
+	<!-- ********************************历史打印票据 ************************************** -->
+	<package name="historyPrint" extends="json-default" namespace="/">
+		<!-- 查询所有，数据和统计分开查询 -->
+		<action name="selectHistoryPrint" class="historyPrintAction" method="selectHistoryPrint">  
+		     <result type="json"></result>
+		</action>
+		<!-- 查询所有，数据和统计分开查询 -->
+		<action name="selectHistoryPrintCommon" class="historyPrintAction" method="selectHistoryPrintCommon">  
+		     <result type="json"></result>
+		</action>
+		<!-- 新增历史打印票据 -->
+		<action name="insertHistoryPrint" class="historyPrintAction" method="insertHistoryPrint">  
+		     <result type="json"></result>
+		</action>
+	</package>
+	<!-- ********************************票据流水号************************************** -->
+	<package name="billNo" extends="json-default" namespace="/">
+		<!-- 生成票据流水号-->
+		<action name="getBillNoWhenPrint" class="billNoAction" method="getBillNoWhenPrint">  
+		     <result type="json"></result>
+		</action>
+	</package>
+	
+	<!-- ***************************上传到公开空间********************************* -->
+    <package name="pubupload" extends="json-default" namespace="/pubupload">
+   	  <!-- 获取上传凭证及公司名 -->
+   	  <action name="getUpTokenCallback" class="pubUploadAction" method="getUpTokenCallback">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 生成手机访问的url -->
+   	  <action name="getMobUploadUrl" class="pubUploadAction" method="getMobUploadUrl">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 回调 -->
+      <action name="callback" class="pubUploadAction" method="callback">
+   	   	<result type="json"></result>
+   	  </action>
+    </package>
+	
+	<!-- ***************************耗材********************************* -->
+    <package name="supplies" extends="json-default" namespace="/">
+   	  <!-- 查询耗材 -->
+   	  <action name="querySupplies" class="sysSuppliesAction" method="querySupplies">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 添加耗材 -->
+   	  <action name="insertSupplies" class="sysSuppliesAction" method="insertSupplies">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 修改耗材 -->
+   	  <action name="updateSupplies" class="sysSuppliesAction" method="updateSupplies">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 迁移耗材 -->
+   	  <action name="moveSupplies" class="sysSuppliesAction" method="moveSupplies">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 使用耗材 -->
+   	  <action name="useSupplies" class="sysSuppliesAction" method="useSupplies">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 维修使用耗材 -->
+   	  <action name="repairUseSupplies" class="sysSuppliesAction" method="repairUseSupplies">
+   	   	<result type="json"></result>
+   	  </action>
+   	  <!-- 删除图片 -->
+   	  <action name="deleteSuppliesPic" class="sysSuppliesAction" method="deleteSuppliesPic">
+   	   	<result type="json"></result>
+   	  </action>
+      <!-- 增减耗材数量 -->
+      <action name="purchaseSupplies" class="sysSuppliesAction" method="purchaseSupplies">
+        <result type="json"></result>
+      </action>
+    </package>
+	<!-- ***************************微信支付订单********************************* -->
+    <package name="wxPayment" extends="json-default" namespace="/">
+    	<!-- 查询所有，数据和统计分开查询 -->
+		<action name="selectWxPayment" class="wxPaymentAction" method="selectWxPayment">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- ***************************设备查询********************************* -->
+    <package name="device" extends="json-default" namespace="/">
+    	<!-- 查询所有，数据和统计分开查询 -->
+		<action name="selectAllDevice" class="deviceAction" method="selectAllDevice">  
+		     <result type="json"></result>
+		</action>
+		<!-- 查询所有，数据和统计分开查询 -->
+		<action name="deleteDevice" class="deviceAction" method="deleteDevice">
+			<result type="json"></result>
+		</action>
+		<!-- 查询所有设备 -->
+		<action name="queryDevice" class="deviceAction" method="queryDevice">  
+		     <result type="json"></result>
+		</action>
+		<!-- 查询所有门禁设备 -->
+		<action name="selectDoorDevice" class="deviceAction" method="selectDoorDevice">
+		     <result type="json"></result>
+		</action>
+    	<!-- 单独查询本房源设备 -->
+		<action name="selectThisHouseDevice" class="deviceAction" method="selectThisHouseDevice">  
+		     <result type="json"></result>
+		</action>
+		<!-- 修改设备 -->
+		<action name="updateDevice" class="deviceAction" method="updateDevice">  
+		     <result type="json"></result>
+		</action>
+		<action name="insertDevice" class="deviceAction" method="insertDevice">
+		     <result type="json"></result>
+		</action>
+		<!-- 拆分悠悠电箱 -->
+		<action name="dismantlingElectricBox" class="deviceAction" method="dismantlingElectricBox">
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- ***************************设备操作********************************* -->
+    <package name="deviceConsole" extends="json-default" namespace="/">
+    	<action name="doDevicConsoleAll" class="deviceConsole" method="doDevicConsoleAll">  
+		     <result type="json"></result>
+		</action>
+		<action name="doDevicWeg" class="deviceConsole" method="doDevicWeg">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- ***************************房屋生态********************************* -->
+    <package name="financialEcology" extends="json-default" namespace="/">
+		<action name="queryFinancialEcology" class="statFinancialEcologyAction" method="queryFinancialEcology">  
+		     <result type="json"></result>
+		</action>
+		<action name="queryFinancialEcologyByDate" class="statFinancialEcologyAction" method="queryFinancialEcologyByDate">  
+		     <result type="json"></result>
+		</action>
+		<action name="queryTotalFinancialEcologyByDate" class="statFinancialEcologyAction" method="queryTotalFinancialEcologyByDate">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- ***************************房屋财务数据统计********************************* -->
+    <package name="financialData" extends="json-default" namespace="/">
+		<action name="queryFinancialData" class="statFinancialDataAction" method="queryFinancialData">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- ***************************用户绩效数据统计********************************* -->
+    <package name="achievementData" extends="json-default" namespace="/">
+		<action name="queryAchievementData" class="statAchievementDataAction" method="queryAchievementData">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- ***************************财务数据快照表********************************* -->
+    <package name="financialDailyData" extends="json-default" namespace="/">
+		<action name="queryFinancialDailyData" class="statFinancialDailyDataAction" method="queryFinancialDailyData">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- 打卡的班次问题在这里处理的东西 ations -->
+     <package name="JourShiftSchedule" extends="json-default" namespace="/">
+		<action name="modifyTheShift" class="jourShiftScheduleActions" method="modifyTheShift">  
+		     <result type="json"></result>
+		</action>
+		<action name="selectJourShiftSchedule" class="jourShiftScheduleActions" method="selectJourShiftSchedule">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- 打卡的考勤问题在这里处理的东西 ations -->
+     <package name="JourAttendanceRecord" extends="json-default" namespace="/">
+		<action name="increaseAttendance" class="jourAttendanceRecordActions" method="increaseAttendance">  
+		     <result type="json"></result>
+		</action>
+		<action name="updateAttendance" class="jourAttendanceRecordActions" method="updateAttendance">  
+		     <result type="json"></result>
+		</action>
+		<action name="checkAttendance" class="jourAttendanceRecordActions" method="checkAttendance">
+		     <result type="json"></result>
+		</action>
+		<action name="obtainTime" class="jourAttendanceRecordActions" method="obtainTime">  
+		     <result type="json"></result>
+		</action>
+		<action name="addAttendanceNote" class="jourAttendanceRecordActions" method="addAttendanceNote">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- 打卡 -->
+    <package name="JourAttendanceinformationrecord" extends="json-default" namespace="/">
+		<action name="insertJourAttendanceInformationRecord" class="jourAttendanceinformationrecordActions" method="insertJourAttendanceInformationRecord">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- 58房源发布 -->
+    <package name="push58House" extends="json-default" namespace="/">
+		<action name="push58House" class="push58HouseAction" method="push58House">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58House" class="push58HouseAction" method="query58House">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58HouseStatus" class="push58HouseAction" method="query58HouseStatus">  
+		     <result type="json"></result>
+		</action>
+		<action name="update58HouseStatus" class="push58HouseAction" method="update58HouseStatus">  
+		     <result type="json"></result>
+		</action>
+		<action name="update58House" class="push58HouseAction" method="update58House">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58HouseOrderInfo" class="push58HouseAction" method="query58HouseOrderInfo">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58HouseBizInfo" class="push58HouseAction" method="query58HouseBizInfo">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58HouseBizStatistics" class="push58HouseAction" method="query58HouseBizStatistics">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58HouseBizCallList" class="push58HouseAction" method="query58HouseBizCallList">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58Dict" class="push58ApartmentAction" method="query58Dict">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58Apartment" class="push58ApartmentAction" method="query58Apartment">  
+		     <result type="json"></result>
+		</action>
+		<action name="add58Apartment" class="push58ApartmentAction" method="add58Apartment">  
+		     <result type="json"></result>
+		</action>
+		<action name="update58Apartment" class="push58ApartmentAction" method="update58Apartment">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58Layout" class="push58LayoutAction" method="query58Layout">  
+		     <result type="json"></result>
+		</action>
+		<action name="add58Layout" class="push58LayoutAction" method="add58Layout">  
+		     <result type="json"></result>
+		</action>
+		<action name="update58Layout" class="push58LayoutAction" method="update58Layout">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58Room" class="push58RoomAction" method="query58Room">  
+		     <result type="json"></result>
+		</action>
+		<action name="add58Room" class="push58RoomAction" method="add58Room">  
+		     <result type="json"></result>
+		</action>
+		<action name="update58Room" class="push58RoomAction" method="update58Room">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58RoomInfo" class="push58RoomAction" method="query58RoomInfo">  
+		     <result type="json"></result>
+		</action>
+		<action name="query58RoomCreditInfo" class="push58RoomAction" method="query58RoomCreditInfo">  
+		     <result type="json"></result>
+		</action>
+    </package>
+    <!-- 贝壳房源发布 -->
+    <package name="beike" extends="json-default" namespace="/">
+		<action name="bkapi" class="pushBkHouseAction" method="bkapi">  
+		     <result type="json"></result>
+		</action>
+		<action name="publishBkHouse" class="pushBkHouseAction" method="publishBkHouse">  
+		     <result type="json"></result>
+		</action>
+		<action name="selectBkHouse" class="pushBkHouseAction" method="selectBkHouse">  
+		     <result type="json"></result>
+		</action>
+		<action name="editBkHouse" class="pushBkHouseAction" method="editBkHouse">  
+		     <result type="json"></result>
+		</action>
+		<action name="publishBkRentUnit" class="pushBkRentUnitAction" method="publishBkRentUnit">  
+		     <result type="json"></result>
+		</action>
+		<action name="editBkRentUnit" class="pushBkRentUnitAction" method="editBkRentUnit">  
+		     <result type="json"></result>
+		</action>
+		<action name="editBkRentUnitPayment" class="pushBkRentUnitAction" method="editBkRentUnitPayment">  
+		     <result type="json"></result>
+		</action>
+		<action name="selectBkRentUnit" class="pushBkRentUnitAction" method="selectBkRentUnit">  
+		     <result type="json"></result>
+		</action>
+		<action name="selectBkHouseStatus" class="pushBkHouseStatusAction" method="selectBkHouseStatus">  
+		     <result type="json"></result>
+		</action>
+    </package>
+
+	<!-- 微信模板 -->
+	<package name="journalTemplateMessage" extends="json-default" namespace="/">
+		<action name="sendTemplateMessage" class="journalTemplateMessageActions" method="sendTemplateMessage">
+			<result type="json"></result>
+		</action>
+		<!--获取code的url-->
+		<action name="getCodeUrl" class="journalTemplateMessageActions" method="getCodeUrl">
+			<result type="json"></result>
+		</action>
+		<!--根据code获取openid-->
+		<action name="getOpenIdByCode" class="journalTemplateMessageActions" method="getOpenIdByCode">
+			<result type="json"></result>
+		</action>
+	</package>
+
+	<!-- 客户下定 -->
+	<package name="jourEarnestMoney" extends="json-default" namespace="/">
+		<!--添加下定-->
+		<action name="insertJourEarnestMoney" class="jourEarnestMoneyActions" method="insertJourEarnestMoney">
+			<result type="json"></result>
+		</action>
+		<!--查询下定-->
+		<action name="selectJourEarnestmoneyList" class="jourEarnestMoneyActions" method="selectJourEarnestmoneyList">
+			<result type="json"></result>
+		</action>
+		<!--更新下定状态-->
+		<action name="updateDepositState" class="jourEarnestMoneyActions" method="updateDepositState">
+			<result type="json"></result>
+		</action>
+		<action name="queryDeposit" class="jourEarnestMoneyActions" method="queryDeposit">
+			<result type="json"></result>
+		</action>
+	</package>
+
+	<!--交接班信息-->
+	<package name="jourShiftRecordAction" extends="json-default" namespace="/">
+		<!--查询所有交接班记录-->
+		<action name="getShiftRecordInfo" class="jourShiftRecordAction" method="getShiftRecordInfo">
+			<result type="json"></result>
+		</action>
+		<!--插入交接班记录-->
+		<action name="insertShiftRecord" class="jourShiftRecordAction" method="insertShiftRecord">
+			<result type="json"></result>
+		</action>
+		<!--根据传入的条件查询交班记录-->
+		<action name="selectShiftRecord" class="jourShiftRecordAction" method="selectShiftRecord">
+			<result type="json"/>
+		</action>
+
+	</package>
+	<!-- ********************************设备类型************************************** -->
+	 <package name="devTypeAction" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="devtypeDb" class="devTypeAction" method="devtypeDb">  
+        <result type="json"></result>
+	  </action> 
+	 </package>
+	 <!-- ********************************查詢guid************************************** -->
+	 <package name="infoFacePersonAction" extends="json-default" namespace="/">
+	  <!-- 查询所有 -->
+	  <action name="selectGuid" class="infoFacePersonAction" method="selectGuid">  
+        <result type="json"></result>
+	  </action>
+	  <action name="selectPersonPopId" class="infoFacePersonAction" method="selectPersonPopId">
+		 <result type="json"></result>
+	  </action>
+	 </package>
+	<!-- ********************************专题****************************************** -->
+	<package name="jourSubjectAction" extends="json-default" namespace="/">
+		<!-- 添加专题 -->
+		<action name="insertSubject" class="jourSubjectAction" method="insertSubject">
+			<result type="json"></result>
+		</action>
+		<action name="selectAllSubject" class="jourSubjectAction" method="selectAllSubject">
+			<result type="json"></result>
+		</action>
+		<action name="updateSubject" class="jourSubjectAction" method="updateSubject">
+			<result type="json"></result>
+		</action>
+		<action name="deleteSubjectPic" class="jourSubjectAction" method="deleteSubjectPic">
+			<result type="json"></result>
+		</action>
+	</package>
+	<!-- ********************************报警信息****************************************** -->
+	<package name="jourEmergencyCallAction" extends="json-default" namespace="/">
+		<!--查询报警信息-->
+		<action name="selectJourCall" class="jourEmergencyCallAction" method="selectJourCall">
+			<result type="json"></result>
+		</action>
+		<!--添加报警信息-->
+		<action name="insertJourCall" class="jourEmergencyCallAction" method="insertJourCall">
+			<result type="json"></result>
+		</action>
+		<!--修改报警信息-->
+		<action name="updataJourCall" class="jourEmergencyCallAction" method="updataJourCall">
+			<result type="json"></result>
+		</action>
+	</package>
+	<!-- ********************************报警信息****************************************** -->
+	<package name="jourContactTelephoneAction" extends="json-default" namespace="/">
+		<!--查询报警信息-->
+		<action name="selectJourCall2" class="jourContactTelephoneAction" method="selectJourCall2">
+			<result type="json"></result>
+		</action>
+		<!--添加报警信息-->
+		<action name="insertJourCall2" class="jourContactTelephoneAction" method="insertJourCall2">
+			<result type="json"></result>
+		</action>
+		<!--修改报警信息-->
+		<action name="updataJourCall2" class="jourContactTelephoneAction" method="updataJourCall2">
+			<result type="json"></result>
+		</action>
+        <!--删除报警-->
+        <action name="deleteJourTellphone" class="jourContactTelephoneAction" method="deleteJourTellphone">
+            <result type="json"></result>
+        </action>
+	</package>
+</struts>

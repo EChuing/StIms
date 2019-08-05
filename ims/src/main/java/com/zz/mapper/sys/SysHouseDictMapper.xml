@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.sys.SysHouseDictMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.sys.SysHouseDictExpand" >
+    <id column="hd_id" property="hdId" jdbcType="INTEGER" />
+    <result column="hd_province" property="hdProvince" jdbcType="VARCHAR" />
+    <result column="hd_city" property="hdCity" jdbcType="VARCHAR" />
+    <result column="hd_district" property="hdDistrict" jdbcType="VARCHAR" />
+    <result column="hd_zone" property="hdZone" jdbcType="VARCHAR" />
+    <result column="hd_road" property="hdRoad" jdbcType="VARCHAR" />
+    <result column="hd_community" property="hdCommunity" jdbcType="VARCHAR" />
+    <result column="hd_building" property="hdBuilding" jdbcType="VARCHAR" />
+    <result column="hd_doorplateno_relus" property="hdDoorplatenoRelus" jdbcType="VARCHAR" />
+    <result column="hd_pinyin" property="hdPinyin" jdbcType="VARCHAR" />
+    <result column="hd_baidu_longitude_x" property="hdBaiduLongitudeX" jdbcType="VARCHAR" />
+    <result column="hd_baidu_latitude_y" property="hdBaiduLatitudeY" jdbcType="VARCHAR" />
+    <result column="hd_building_form" property="hdBuildingForm" jdbcType="VARCHAR" />
+    <result column="hd_property_type" property="hdPropertyType" jdbcType="VARCHAR" />
+    <result column="hd_building_developers" property="hdBuildingDevelopers" jdbcType="VARCHAR" />
+    <result column="hd_be_completed_time" property="hdBeCompletedTime" jdbcType="DATE" />
+    <result column="hd_item_features" property="hdItemFeatures" jdbcType="VARCHAR" />
+    <result column="hd_loop_position" property="hdLoopPosition" jdbcType="VARCHAR" />
+    <result column="hd_plot_ratio" property="hdPlotRatio" jdbcType="DOUBLE" />
+    <result column="hd_afforestation_rate" property="hdAfforestationRate" jdbcType="DOUBLE" />
+    <result column="hd_property_fee" property="hdPropertyFee" jdbcType="VARCHAR" />
+    <result column="hd_property_company" property="hdPropertyCompany" jdbcType="VARCHAR" />
+    <result column="hd_additional_information" property="hdAdditionalInformation" jdbcType="VARCHAR" />
+    <result column="hd_covers_an_area_of" property="hdCoversAnAreaOf" jdbcType="DOUBLE" />
+    <result column="hd_floor_area" property="hdFloorArea" jdbcType="DOUBLE" />
+    <result column="hd_sum_households" property="hdSumHouseholds" jdbcType="VARCHAR" />
+    <result column="hd_the_current_number" property="hdTheCurrentNumber" jdbcType="INTEGER" />
+    <result column="hd_parking_space_top" property="hdParkingSpaceTop" jdbcType="INTEGER" />
+    <result column="hd_parking_space_nuder" property="hdParkingSpaceNuder" jdbcType="VARCHAR" />
+    <result column="hd_zone_bit_introduce" property="hdZoneBitIntroduce" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysHouseDictExpand">
+    select a.*, b.total_num from 
+    (select * from sys_house_dict  
+	<where>
+		<if test="hdId != null and hdId != ''" >
+        	and hd_id = #{hdId,jdbcType=INTEGER}
+      	</if>
+	  	<if test="hdProvince != null and hdProvince != ''" >
+	  		and hd_province = #{hdProvince,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="hdCity != null and hdCity != ''" >
+	  		and hd_city = #{hdCity,jdbcType=VARCHAR}
+	  	</if>
+		<if test="hdDistrict != null and hdDistrict != ''" >
+			and hd_district = #{hdDistrict,jdbcType=VARCHAR}
+		</if>
+		<if test="hdZone != null and hdZone != ''" >
+			and hd_zone like '%${hdZone}%'
+		</if>
+		<if test="hdRoad != null and hdRoad != ''" >
+			and hd_road like '%${hdRoad}%'
+		</if>
+		<if test="hdCommunity != null and hdCommunity != ''" >
+			and (hd_community like '%${hdCommunity}%' or hd_pinyin like '%${hdCommunity}%')
+		</if>
+	</where>
+    )a,
+    (select count(hd_id) total_num from sys_house_dict   
+   	<where>
+		<if test="hdId != null and hdId != ''" >
+        	and hd_id = #{hdId,jdbcType=INTEGER}
+      	</if>
+	  	<if test="hdProvince != null and hdProvince != ''" >
+	  		and hd_province = #{hdProvince,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="hdCity != null and hdCity != ''" >
+	  		and hd_city = #{hdCity,jdbcType=VARCHAR}
+	  	</if>
+		<if test="hdDistrict != null and hdDistrict != ''" >
+			and hd_district = #{hdDistrict,jdbcType=VARCHAR}
+		</if>
+		<if test="hdZone != null and hdZone != ''" >
+			and hd_zone like '%${hdZone}%'
+		</if>
+		<if test="hdRoad != null and hdRoad != ''" >
+			and hd_road like '%${hdRoad}%'
+		</if>
+		<if test="hdCommunity != null and hdCommunity != ''" >
+			and (hd_community like '%${hdCommunity}%' or hd_pinyin like '%${hdCommunity}%')
+		</if>
+	</where>
+    )b 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  
+  <!-- 集中式收房进房源字典使用 -->
+  <select id="selectAddDict" resultMap="MyBaseResultMap" parameterType="com.zz.po.sys.SysHouseDictExpand">
+    select a.*, b.total_num from 
+    (select * from sys_house_dict  
+    <where>
+		<if test="hdId != null and hdId != ''" >
+        	and hd_id = #{hdId,jdbcType=INTEGER}
+      	</if>
+	  	<if test="hdProvince != null and hdProvince != ''" >
+	  		and hd_province = #{hdProvince,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="hdCity != null and hdCity != ''" >
+	  		and hd_city = #{hdCity,jdbcType=VARCHAR}
+	  	</if>
+		<if test="hdDistrict != null and hdDistrict != ''" >
+			and hd_district = #{hdDistrict,jdbcType=VARCHAR}
+		</if>
+		<if test="hdZone != null and hdZone != ''" >
+			and hd_zone = #{hdZone,jdbcType=VARCHAR}
+		</if>
+		<if test="hdCommunity != null and hdCommunity != ''" >
+			and hd_community = #{hdCommunity,jdbcType=VARCHAR}
+		</if>
+    </where>
+	)a,
+	(select count(hd_id) total_num from sys_house_dict
+   	<where>
+		<if test="hdId != null and hdId != ''" >
+        	and hd_id = #{hdId,jdbcType=INTEGER}
+      	</if>
+	  	<if test="hdProvince != null and hdProvince != ''" >
+	  		and hd_province = #{hdProvince,jdbcType=VARCHAR}
+	  	</if>
+	  	<if test="hdCity != null and hdCity != ''" >
+	  		and hd_city = #{hdCity,jdbcType=VARCHAR}
+	  	</if>
+		<if test="hdDistrict != null and hdDistrict != ''" >
+			and hd_district = #{hdDistrict,jdbcType=VARCHAR}
+		</if>
+		<if test="hdZone != null and hdZone != ''" >
+			and hd_zone = #{hdZone,jdbcType=VARCHAR}
+		</if>
+		<if test="hdRoad != null and hdRoad != ''" >
+			and hd_road = #{hdRoad,jdbcType=VARCHAR}
+		</if>
+		<if test="hdCommunity != null and hdCommunity != ''" >
+			and hd_community = #{hdCommunity,jdbcType=VARCHAR}
+		</if>
+	</where>
+    )b 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+		
+  <!-- 查城市、城区、小区 -->
+  <select id="selectForAddress" resultType="java.lang.String" parameterType="com.zz.po.sys.SysHouseDictExpand" >
+	  <choose>
+	  	<when test="hdCity == null or hdCity ==''"><!-- 查城市 -->
+		  	select distinct hd_city from sys_house_dict
+	    </when>
+	    <when test="hdCity != null and hdCity !=''">
+		    <choose>
+		    	<when test="hdDistrict == null or hdDistrict ==''"><!-- 查城区 -->
+		    		select distinct hd_district from sys_house_dict where hd_city = #{hdCity}
+		    	</when>
+		    	<when test="hdDistrict != null or hdDistrict !=''"><!--查询楼盘信息 -->
+			   		select distinct hd_community from sys_house_dict where hd_city = #{hdCity} and hd_district = #{hdDistrict} 
+		    	</when>
+		    </choose>
+		    </when>
+	  </choose>
+  </select>
+    <!-- 查城市、城区、小区 -->
+  <select id="selectAddress" resultType="java.lang.String" parameterType="com.zz.po.sys.SysHouseDictExpand" >
+	  <choose>
+	  	<when test="hdCity == null or hdCity ==''"><!-- 查城市 -->
+		  	select distinct hd_city from sys_house_dict
+	    </when>
+	    <when test="hdCity != null and hdCity !=''">
+		    <choose>
+		    	<when test="hdDistrict == null or hdDistrict ==''"><!-- 查城区 -->
+		    		select distinct hd_district from sys_house_dict where hd_city = #{hdCity}
+		    	</when>
+		    	<when test="hdDistrict != null or hdDistrict !=''"><!-- 查小区 -->
+			   		select distinct hd_community from sys_house_dict where hd_city = #{hdCity} and hd_district = #{hdDistrict}and
+			   		hd_community = #{hdCommunity} and hd_zone= #{hdZone} and hd_road=#{hdRoad}  
+		    	</when>
+		    </choose>
+		    </when>
+	  </choose>
+  </select>
+  
+
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select * from sys_house_dict where hd_id = #{hdId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_house_dict where hd_id = #{hdId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.sys.SysHouseDictExpand" 
+  		 useGeneratedKeys="true" keyProperty="hdId"> 
+    insert into sys_house_dict
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hdProvince != null and hdProvince != ''" >
+        hd_province,
+      </if>
+      <if test="hdCity != null and hdCity != ''" >
+        hd_city,
+      </if>
+      <if test="hdDistrict != null and hdDistrict != ''" >
+        hd_district,
+      </if>
+      <if test="hdZone != null and hdZone != ''" >
+        hd_zone,
+      </if>
+      <if test="hdRoad != null and hdRoad != ''" >
+        hd_road,
+      </if>
+      <if test="hdCommunity != null and hdCommunity != ''" >
+        hd_community,
+      </if>
+      <if test="hdBuilding != null and hdBuilding != ''" >
+		hd_building,
+	  </if>
+	  <if test="hdDoorplatenoRelus != null and hdDoorplatenoRelus != ''" >
+		hd_doorplateno_relus,
+	  </if>
+	
+      <if test="hdPinyin != null and hdPinyin != ''" >
+        hd_pinyin,
+      </if>
+      <if test="hdBaiduLongitudeX != null and hdBaiduLongitudeX != ''" >
+        hd_baidu_longitude_x,
+      </if>
+      <if test="hdBaiduLatitudeY != null and hdBaiduLatitudeY != ''" >
+        hd_baidu_latitude_y,
+      </if>
+      <if test="hdBuildingForm != null and hdBuildingForm != ''" >
+        hd_building_form,
+      </if>
+      <if test="hdPropertyType != null and hdPropertyType != ''" >
+        hd_property_type,
+      </if>
+      <if test="hdBuildingDevelopers != null and hdBuildingDevelopers != ''" >
+        hd_building_developers,
+      </if>
+      <if test="hdBeCompletedTime != null and hdBeCompletedTime != ''" >
+        hd_be_completed_time,
+      </if>
+      <if test="hdItemFeatures != null and hdItemFeatures != ''" >
+        hd_item_features,
+      </if>
+      <if test="hdLoopPosition != null and hdLoopPosition != ''" >
+        hd_loop_position,
+      </if>
+      <if test="hdPlotRatio != null and hdPlotRatio != ''" >
+        hd_plot_ratio,
+      </if>
+      <if test="hdAfforestationRate != null and hdAfforestationRate != ''" >
+        hd_afforestation_rate,
+      </if>
+      <if test="hdPropertyFee != null and hdPropertyFee != ''" >
+        hd_property_fee,
+      </if>
+      <if test="hdPropertyCompany != null and hdPropertyCompany != ''" >
+        hd_property_company,
+      </if>
+      <if test="hdAdditionalInformation != null and hdAdditionalInformation != ''" >
+        hd_additional_information,
+      </if>
+      <if test="hdCoversAnAreaOf != null and hdCoversAnAreaOf != ''" >
+        hd_covers_an_area_of,
+      </if>
+      <if test="hdFloorArea != null and hdFloorArea != ''" >
+        hd_floor_area,
+      </if>
+      <if test="hdSumHouseholds != null and hdSumHouseholds != ''" >
+        hd_sum_households,
+      </if>
+      <if test="hdTheCurrentNumber != null and hdTheCurrentNumber != ''" >
+        hd_the_current_number,
+      </if>
+      <if test="hdParkingSpaceTop != null and hdParkingSpaceTop != ''" >
+        hd_parking_space_top,
+      </if>
+      <if test="hdParkingSpaceNuder != null and hdParkingSpaceNuder != ''" >
+        hd_parking_space_nuder,
+      </if>
+      <if test="hdZoneBitIntroduce != null and hdZoneBitIntroduce != ''" >
+        hd_zone_bit_introduce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hdProvince != null and hdProvince != ''" >
+        #{hdProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hdCity != null and hdCity != ''" >
+        #{hdCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hdDistrict != null and hdDistrict != ''" >
+        #{hdDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="hdZone != null and hdZone != ''" >
+        #{hdZone,jdbcType=VARCHAR},
+      </if>
+      <if test="hdRoad != null and hdRoad != ''" >
+        #{hdRoad,jdbcType=VARCHAR},
+      </if>
+      <if test="hdCommunity != null and hdCommunity != ''" >
+        #{hdCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBuilding != null and hdBuilding != ''" >
+		#{hdBuilding,jdbcType=VARCHAR},
+	  </if>
+	  <if test="hdDoorplatenoRelus != null and hdDoorplatenoRelus != ''" >
+		#{hdDoorplatenoRelus,jdbcType=VARCHAR},
+	  </if>
+	
+      <if test="hdPinyin != null and hdPinyin != ''" >
+        #{hdPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBaiduLongitudeX != null and hdBaiduLongitudeX != ''" >
+        #{hdBaiduLongitudeX,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBaiduLatitudeY != null and hdBaiduLatitudeY != ''" >
+        #{hdBaiduLatitudeY,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBuildingForm != null and hdBuildingForm != ''" >
+        #{hdBuildingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="hdPropertyType != null and hdPropertyType != ''" >
+        #{hdPropertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBuildingDevelopers != null and hdBuildingDevelopers != ''" >
+        #{hdBuildingDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBeCompletedTime != null and hdBeCompletedTime != ''" >
+        #{hdBeCompletedTime,jdbcType=DATE},
+      </if>
+      <if test="hdItemFeatures != null and hdItemFeatures != ''" >
+        #{hdItemFeatures,jdbcType=VARCHAR},
+      </if>
+      <if test="hdLoopPosition != null and hdLoopPosition != ''" >
+        #{hdLoopPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="hdPlotRatio != null and hdPlotRatio != ''" >
+        #{hdPlotRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="hdAfforestationRate != null and hdAfforestationRate != ''" >
+        #{hdAfforestationRate,jdbcType=DOUBLE},
+      </if>
+      <if test="hdPropertyFee != null and hdPropertyFee != ''" >
+        #{hdPropertyFee,jdbcType=VARCHAR},
+      </if>
+      <if test="hdPropertyCompany != null and hdPropertyCompany != ''" >
+        #{hdPropertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="hdAdditionalInformation != null and hdAdditionalInformation != ''" >
+        #{hdAdditionalInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="hdCoversAnAreaOf != null and hdCoversAnAreaOf != ''" >
+        #{hdCoversAnAreaOf,jdbcType=DOUBLE},
+      </if>
+      <if test="hdFloorArea != null and hdFloorArea != ''" >
+        #{hdFloorArea,jdbcType=DOUBLE},
+      </if>
+      <if test="hdSumHouseholds != null and hdSumHouseholds != ''" >
+        #{hdSumHouseholds,jdbcType=VARCHAR},
+      </if>
+      <if test="hdTheCurrentNumber != null and hdTheCurrentNumber != ''" >
+        #{hdTheCurrentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="hdParkingSpaceTop != null and hdParkingSpaceTop != ''" >
+        #{hdParkingSpaceTop,jdbcType=INTEGER},
+      </if>
+      <if test="hdParkingSpaceNuder != null and hdParkingSpaceNuder != ''" >
+        #{hdParkingSpaceNuder,jdbcType=VARCHAR},
+      </if>
+      <if test="hdZoneBitIntroduce != null and hdZoneBitIntroduce != ''" >
+        #{hdZoneBitIntroduce,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.sys.SysHouseDictExpand" >
+    update sys_house_dict
+    <set >
+      <if test="hdProvince != null and hdProvince != ''" >
+        hd_province = #{hdProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hdCity != null and hdCity != ''" >
+        hd_city = #{hdCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hdDistrict != null and hdDistrict != ''" >
+        hd_district = #{hdDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="hdZone != null and hdZone != ''" >
+        hd_zone = #{hdZone,jdbcType=VARCHAR},
+      </if>
+      <if test="hdRoad != null and hdRoad != ''" >
+        hd_road = #{hdRoad,jdbcType=VARCHAR},
+      </if>
+      <if test="hdCommunity != null and hdCommunity != ''" >
+        hd_community = #{hdCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBuilding != null and hdBuilding != ''" >
+		hd_building = #{hdBuilding,jdbcType=VARCHAR},
+	  </if>
+	  <if test="hdDoorplatenoRelus != null and hdDoorplatenoRelus != ''" >
+		hd_doorplateno_relus = #{hdDoorplatenoRelus,jdbcType=VARCHAR},
+	  </if>
+      <if test="hdPinyin != null and hdPinyin != ''" >
+        hd_pinyin = #{hdPinyin,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBaiduLongitudeX != null and hdBaiduLongitudeX != ''" >
+        hd_baidu_longitude_x = #{hdBaiduLongitudeX,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBaiduLatitudeY != null and hdBaiduLatitudeY != ''" >
+        hd_baidu_latitude_y = #{hdBaiduLatitudeY,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBuildingForm != null and hdBuildingForm != ''" >
+        hd_building_form = #{hdBuildingForm,jdbcType=VARCHAR},
+      </if>
+      <if test="hdPropertyType != null and hdPropertyType != ''" >
+        hd_property_type = #{hdPropertyType,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBuildingDevelopers != null and hdBuildingDevelopers != ''" >
+        hd_building_developers = #{hdBuildingDevelopers,jdbcType=VARCHAR},
+      </if>
+      <if test="hdBeCompletedTime != null and hdBeCompletedTime != ''" >
+        hd_be_completed_time = #{hdBeCompletedTime,jdbcType=DATE},
+      </if>
+      <if test="hdItemFeatures != null and hdItemFeatures != ''" >
+        hd_item_features = #{hdItemFeatures,jdbcType=VARCHAR},
+      </if>
+      <if test="hdLoopPosition != null and hdLoopPosition != ''" >
+        hd_loop_position = #{hdLoopPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="hdPlotRatio != null and hdPlotRatio != ''" >
+        hd_plot_ratio = #{hdPlotRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="hdAfforestationRate != null and hdAfforestationRate != ''" >
+        hd_afforestation_rate = #{hdAfforestationRate,jdbcType=DOUBLE},
+      </if>
+      <if test="hdPropertyFee != null and hdPropertyFee != ''" >
+        hd_property_fee = #{hdPropertyFee,jdbcType=VARCHAR},
+      </if>
+      <if test="hdPropertyCompany != null and hdPropertyCompany != ''" >
+        hd_property_company = #{hdPropertyCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="hdAdditionalInformation != null and hdAdditionalInformation != ''" >
+        hd_additional_information = #{hdAdditionalInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="hdCoversAnAreaOf != null and hdCoversAnAreaOf != ''" >
+        hd_covers_an_area_of = #{hdCoversAnAreaOf,jdbcType=DOUBLE},
+      </if>
+      <if test="hdFloorArea != null and hdFloorArea != ''" >
+        hd_floor_area = #{hdFloorArea,jdbcType=DOUBLE},
+      </if>
+      <if test="hdSumHouseholds != null and hdSumHouseholds != ''" >
+        hd_sum_households = #{hdSumHouseholds,jdbcType=VARCHAR},
+      </if>
+      <if test="hdTheCurrentNumber != null and hdTheCurrentNumber != ''" >
+        hd_the_current_number = #{hdTheCurrentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="hdParkingSpaceTop != null and hdParkingSpaceTop != ''" >
+        hd_parking_space_top = #{hdParkingSpaceTop,jdbcType=INTEGER},
+      </if>
+      <if test="hdParkingSpaceNuder != null and hdParkingSpaceNuder != ''" >
+        hd_parking_space_nuder = #{hdParkingSpaceNuder,jdbcType=VARCHAR},
+      </if>
+      <if test="hdZoneBitIntroduce != null and hdZoneBitIntroduce != ''" >
+        hd_zone_bit_introduce = #{hdZoneBitIntroduce,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hd_id = #{hdId,jdbcType=INTEGER}
+  </update>
+</mapper>

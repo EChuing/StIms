@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 已优化 -->
+<mapper namespace="com.zz.mapper.info.InfoLandlordIntentionPersonMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoLandlordIntentionPerson" >
+    <id column="lip_id" property="lipId" jdbcType="INTEGER" />
+    <result column="lip_registrar" property="lipRegistrar" jdbcType="INTEGER" />
+    <result column="lip_landlord_name" property="lipLandlordName" jdbcType="VARCHAR" />
+    <result column="lip_landlord_phone" property="lipLandlordPhone" jdbcType="VARCHAR" />
+    <result column="lip_landlord_other_contact" property="lipLandlordOtherContact" jdbcType="VARCHAR" />
+    <result column="lip_contacts_people" property="lipContactsPeople" jdbcType="VARCHAR" />
+    <result column="lip_contact_information" property="lipContactInformation" jdbcType="VARCHAR" />
+    <result column="lip_other_contact_info" property="lipOtherContactInfo" jdbcType="VARCHAR" />
+    <result column="lip_the_agent" property="lipTheAgent" jdbcType="VARCHAR" />
+    <result column="lip_agent_phone" property="lipAgentPhone" jdbcType="VARCHAR" />
+    <result column="lip_agent_other_contact" property="lipAgentOtherContact" jdbcType="VARCHAR" />
+    <result column="lip_registration_time" property="lipRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="lip_note" property="lipNote" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    lip_id, lip_registrar, lip_landlord_name, lip_landlord_phone, lip_landlord_other_contact, 
+    lip_contacts_people, lip_contact_information, lip_other_contact_info, lip_the_agent, 
+    lip_agent_phone, lip_agent_other_contact, lip_registration_time,lip_note
+  </sql>
+  
+  <!-- 转移查询 -->
+  <select id="getpersonUserId" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoLandlordIntentionPerson" >
+  	select * from info_intended_landlord
+  	where lip_registrar = #{lipRegistrar}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoLandlordIntentionPerson" >
+    select a.* ,b.totalNum from 
+    (select <include refid="Base_Column_List" /> from info_intended_landlord
+    <where>
+    	<if test="lipId != null and lipId != ''">
+    		and lip_id = #{lipId,jdbcType=INTEGER}
+    	</if>
+    	<if test="lipLandlordName != null and lipLandlordName != ''">
+    		and lip_landlord_name = #{lipLandlordName}
+    	</if>
+    	<if test="lipLandlordPhone != null and lipLandlordPhone != ''">
+    		and lip_landlord_phone = #{lipLandlordPhone}
+    	</if>
+    	<if test="lipRegistrar != null and lipRegistrar != ''">
+    		and lip_registrar = #{lipRegistrar}
+    	</if>
+    </where>
+    ) a,
+    (select count(lip_id) totalNum from info_intended_landlord
+   	<where>
+    	<if test="lipId != null and lipId != ''">
+    		and lip_id = #{lipId,jdbcType=INTEGER}
+    	</if>
+    	<if test="lipLandlordName != null and lipLandlordName != ''">
+    		and lip_landlord_name = #{lipLandlordName}
+    	</if>
+    	<if test="lipLandlordPhone != null and lipLandlordPhone != ''">
+    		and lip_landlord_phone = #{lipLandlordPhone}
+    	</if>
+    	<if test="lipRegistrar != null and lipRegistrar != ''">
+    		and lip_registrar = #{lipRegistrar}
+    	</if>
+   	</where>
+    ) b
+    ORDER BY lip_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_intended_landlord
+    where lip_id = #{lipId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoLandlordIntentionPerson"
+  	useGeneratedKeys="true" keyProperty="lipId" >
+    insert into info_intended_landlord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="lipId != null" >
+        lip_id,
+      </if>
+      <if test="lipRegistrar != null" >
+        lip_registrar,
+      </if>
+      <if test="lipLandlordName != null" >
+        lip_landlord_name,
+      </if>
+      <if test="lipLandlordPhone != null" >
+        lip_landlord_phone,
+      </if>
+      <if test="lipLandlordOtherContact != null" >
+        lip_landlord_other_contact,
+      </if>
+      <if test="lipContactsPeople != null" >
+        lip_contacts_people,
+      </if>
+      <if test="lipContactInformation != null" >
+        lip_contact_information,
+      </if>
+      <if test="lipOtherContactInfo != null" >
+        lip_other_contact_info,
+      </if>
+      <if test="lipTheAgent != null" >
+        lip_the_agent,
+      </if>
+      <if test="lipAgentPhone != null" >
+        lip_agent_phone,
+      </if>
+      <if test="lipAgentOtherContact != null" >
+        lip_agent_other_contact,
+      </if>
+      <if test="lipRegistrationTime != null" >
+        lip_registration_time,
+      </if>
+      <if test="lipNote != null" >
+        lip_note,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="lipId != null" >
+        #{lipId,jdbcType=INTEGER},
+      </if>
+      <if test="lipRegistrar != null" >
+        #{lipRegistrar,jdbcType=INTEGER},
+      </if>
+      <if test="lipLandlordName != null" >
+        #{lipLandlordName,jdbcType=VARCHAR},
+      </if>
+      <if test="lipLandlordPhone != null" >
+        #{lipLandlordPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lipLandlordOtherContact != null" >
+        #{lipLandlordOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="lipContactsPeople != null" >
+        #{lipContactsPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="lipContactInformation != null" >
+        #{lipContactInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="lipOtherContactInfo != null" >
+        #{lipOtherContactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lipTheAgent != null" >
+        #{lipTheAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="lipAgentPhone != null" >
+        #{lipAgentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lipAgentOtherContact != null" >
+        #{lipAgentOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="lipRegistrationTime != null" >
+        #{lipRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lipNote != null" >
+        #{lipNote},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoLandlordIntentionPerson" >
+    update info_intended_landlord
+    <set >
+      <if test="lipRegistrar != null" >
+        lip_registrar = #{lipRegistrar,jdbcType=INTEGER},
+      </if>
+      <if test="lipLandlordName != null" >
+        lip_landlord_name = #{lipLandlordName,jdbcType=VARCHAR},
+      </if>
+      <if test="lipLandlordPhone != null" >
+        lip_landlord_phone = #{lipLandlordPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lipLandlordOtherContact != null" >
+        lip_landlord_other_contact = #{lipLandlordOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="lipContactsPeople != null" >
+        lip_contacts_people = #{lipContactsPeople,jdbcType=VARCHAR},
+      </if>
+      <if test="lipContactInformation != null" >
+        lip_contact_information = #{lipContactInformation,jdbcType=VARCHAR},
+      </if>
+      <if test="lipOtherContactInfo != null" >
+        lip_other_contact_info = #{lipOtherContactInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="lipTheAgent != null" >
+        lip_the_agent = #{lipTheAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="lipAgentPhone != null" >
+        lip_agent_phone = #{lipAgentPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="lipAgentOtherContact != null" >
+        lip_agent_other_contact = #{lipAgentOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="lipRegistrationTime != null" >
+        lip_registration_time = #{lipRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lipNote != null" >
+        lip_note = #{lipNote},
+      </if>
+    </set>
+    where lip_id = #{lipId,jdbcType=INTEGER}
+  </update>
+</mapper>

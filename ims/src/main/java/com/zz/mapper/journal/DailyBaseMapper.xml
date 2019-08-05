@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.DailyBaseMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.DailyBase" >
+    <id column="db_id" property="dbId" jdbcType="INTEGER" />
+    <result column="db_received_renter_rent" property="dbReceivedRenterRent" jdbcType="INTEGER" />
+    <result column="db_received_renter_rent_money" property="dbReceivedRenterRentMoney" jdbcType="DOUBLE" />
+    <result column="db_not_received_renter_rent" property="dbNotReceivedRenterRent" jdbcType="INTEGER" />
+    <result column="db_not_received_renter_rent_money" property="dbNotReceivedRenterRentMoney" jdbcType="DOUBLE" />
+    <result column="db_renter_rent_on_time_rate" property="dbRenterRentOnTimeRate" jdbcType="DOUBLE" />
+    <result column="db_paid_landlord_rent" property="dbPaidLandlordRent" jdbcType="INTEGER" />
+    <result column="db_paid_landlord_rent_money" property="dbPaidLandlordRentMoney" jdbcType="DOUBLE" />
+    <result column="db_not_paid_landlord_rent" property="dbNotPaidLandlordRent" jdbcType="INTEGER" />
+    <result column="db_not_paid_landlord_rent_money" property="dbNotPaidLandlordRentMoney" jdbcType="DOUBLE" />
+    <result column="db_landlord_rent_on_time_rate" property="dbLandlordRentOnTimeRate" jdbcType="DOUBLE" />
+    <result column="db_all_house" property="dbAllHouse" jdbcType="INTEGER" />
+    <result column="db_not_rent_house" property="dbNotRentHouse" jdbcType="INTEGER" />
+    <result column="db_rent_house" property="dbRentHouse" jdbcType="INTEGER" />
+    <result column="db_vacant_house" property="dbVacantHouse" jdbcType="INTEGER" />
+    <result column="db_vacant_rate" property="dbVacantRate" jdbcType="DOUBLE" />
+    <result column="db_vacant_future_rate" property="dbVacantFutureRate" jdbcType="DOUBLE" />
+    <result column="db_vacant_cost" property="dbVacantCost" jdbcType="DOUBLE" />
+    <result column="db_whole_rent_vacant_house" property="dbWholeRentVacantHouse" jdbcType="INTEGER" />
+    <result column="db_whole_rent_vacant_rate" property="dbWholeRentVacantRate" jdbcType="DOUBLE" />
+    <result column="db_joint_rent_vacant_house" property="dbJointRentVacantHouse" jdbcType="INTEGER" />
+    <result column="db_joint_rent_vacant_rate" property="dbJointRentVacantRate" jdbcType="DOUBLE" />
+    <result column="db_intended_person" property="dbIntendedPerson" jdbcType="INTEGER" />
+    <result column="db_account_balance" property="dbAccountBalance" jdbcType="DOUBLE" />
+    <result column="db_new_renter_contract" property="dbNewRenterContract" jdbcType="INTEGER" />
+    <result column="db_new_landlord_contract" property="dbNewLandlordContract" jdbcType="INTEGER" />
+    <result column="db_rent_money_loss_rate" property="dbRentMoneyLossRate" jdbcType="DOUBLE" />
+    <result column="db_rent_money_loss_detail" property="dbRentMoneyLossDetail" jdbcType="LONGVARCHAR" />
+    <result column="db_date" property="dbDate" jdbcType="VARCHAR" />
+    <result column="db_time" property="dbTime" jdbcType="TIMESTAMP" />
+    <result column="startDate" jdbcType="VARCHAR" />
+    <result column="endDate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    db_id, db_received_renter_rent, db_received_renter_rent_money, db_not_received_renter_rent, 
+    db_not_received_renter_rent_money, db_renter_rent_on_time_rate, db_paid_landlord_rent, 
+    db_paid_landlord_rent_money, db_not_paid_landlord_rent, db_not_paid_landlord_rent_money, 
+    db_landlord_rent_on_time_rate, db_all_house, db_not_rent_house, db_rent_house, db_vacant_house, 
+    db_vacant_rate, db_vacant_future_rate, db_vacant_cost, db_whole_rent_vacant_house, db_whole_rent_vacant_rate, 
+    db_joint_rent_vacant_house, db_joint_rent_vacant_rate, db_intended_person, db_account_balance, 
+    db_new_renter_contract, db_new_landlord_contract, db_date, db_time, db_rent_money_loss_rate, db_rent_money_loss_detail
+  </sql>
+  
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.journal.DailyBase" >
+    select 
+    <include refid="Base_Column_List" />
+    from dash_calendar_history
+    order by db_time DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <select id="selectByDate" resultMap="BaseResultMap" parameterType="com.zz.po.journal.DailyBase" >
+    select 
+    <include refid="Base_Column_List" />
+    from dash_calendar_history
+    where db_date between #{startDate} and #{endDate}
+  </select>
+</mapper>

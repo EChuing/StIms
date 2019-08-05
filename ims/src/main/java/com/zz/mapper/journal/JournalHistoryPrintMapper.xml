@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalHistoryPrintMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalHistoryPrintExpand" >
+  	 	<id column="jhp_id" property="jhpId" jdbcType="INTEGER" />
+    	<result column="jhp_house4rent_id" property="jhpHouse4rentId" jdbcType="INTEGER" />
+    	<result column="jhp_house4store_id" property="jhpHouse4storeId" jdbcType="INTEGER" />
+    	<result column="jhp_house_id" property="jhpHouseId" jdbcType="INTEGER" />
+    	<result column="jhp_renter_id" property="jhpRenterId" jdbcType="INTEGER" />
+    	<result column="jhp_coc_id" property="jhpCocId" jdbcType="INTEGER" />
+    	<result column="jhp_landlord_id" property="jhpLandlordId" jdbcType="INTEGER" />
+    	<result column="jhp_user_id" property="jhpUserId" jdbcType="INTEGER" />
+    	<result column="jhp_json" property="jhpJson" jdbcType="VARCHAR" />
+    	<result column="jhp_type" property="jhpType" jdbcType="VARCHAR" />
+    	<result column="jhp_title" property="jhpTitle" jdbcType="VARCHAR" />
+    	<result column="jhp_note" property="jhpNote" jdbcType="VARCHAR" />
+    	<result column="jhp_register_time" property="jhpRegisterTime" jdbcType="TIMESTAMP" />
+    	<result column="jhp_printAddress" property="jhpPrintAddress" jdbcType="VARCHAR" />
+    	
+    	<result column="jhp_special_number" property="jhpSpecialNumber" jdbcType="VARCHAR" />
+    	<result column="jhp_voucher_no" property="jhpVoucherNo" jdbcType="VARCHAR" />
+    	<!-- 其他 -->
+    	<result column="username" property="username" jdbcType="VARCHAR" />
+    	<result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+	    <result column="fromTime" property="fromTime" jdbcType="VARCHAR" />
+	    <result column="toTime" property="toTime" jdbcType="VARCHAR" />
+	    <result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+	    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+	    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+	    <result column="add_district" property="addDistrict" jdbcType="VARCHAR" />
+	    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+	    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+	    <result column="add_zone" property="addZone" jdbcType="VARCHAR" />
+	    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+	    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+	    <result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+	    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+	    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+	    <result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+	    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+	    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+	    <result column="add_province" property="addProvince" jdbcType="VARCHAR" />
+	    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+	    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+	    <result column="add_city" property="addCity" jdbcType="VARCHAR" />
+	    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+	    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+	    <result column="add_street" property="addStreet" jdbcType="VARCHAR" />
+	    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+	    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+	    <result column="coc_contacts" property="cocContacts" jdbcType="VARCHAR" />
+  </resultMap>
+  	<!-- (数据与统计分开)查询所有-->
+	<select id="selectAllPrint" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalHistoryPrintExpand" >
+	  select 
+	  	<if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			count(jhp_id) total_num 
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			jhp.*, u.su_staff_name username, 
+			h.add_zone, h.add_community, h.add_building, h.add_doorplateno,
+			hs.hs_add_zone, hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno, 
+			hr.hr_add_zone, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno,
+			coc.coc_contacts
+		</if>
+		from jour_printed_history jhp 
+		left outer join sys_users u on u.user_coding = jhp.jhp_user_id
+		left outer join info_house_paper h on h.house_coding = jhp.jhp_house_id
+		left outer join info_house_4store hs on hs.hs_id = jhp.jhp_house4store_id
+		left outer join info_house_4rent hr on hr.hr_id = jhp.jhp_house4rent_id
+		left outer join cs_outside_customer coc on coc.coc_id = jhp.jhp_coc_id
+		<where>
+			<if test="addCommunity != null and addCommunity != ''" >
+				and (add_community like '%${addCommunity}%'  
+					or hr_add_community like '%${addCommunity}%'  
+					or hs_add_community like '%${addCommunity}%' )
+			</if>
+			<if test="addBuilding != null and addBuilding != '' ">
+				and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%'
+						or hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+						or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+						)
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != ''">
+				and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%'
+					or hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					)
+			</if>
+	    	<if test="jhpType !=null and jhpType != '' ">
+	    		and jhp_type = #{jhpType}
+	    	</if>
+	    	<if test="jhpTitle !=null and jhpTitle != '' ">
+	    		and jhp_title like '%${jhpTitle}%'
+	    	</if>
+	    	<if test="fromTime !=null and fromTime != '' and toTime !=null and toTime !=''">
+	    		and (between fromTime and toTime)
+	    	</if>
+	    	<if test="jhpSpecialNumber != null and jhpSpecialNumber != ''">
+	    		and jhp_special_number like '%${jhpSpecialNumber}%'
+	    	</if>
+	    	<if test="jhpId != null and jhpId != ''">
+	    		and jhp_id = #{jhpId}
+	    	</if>
+		</where>
+		<if test="splitFlag ==1">
+			 ORDER BY jhp_register_time DESC 
+		    <if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+	</select>
+	
+   <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalHistoryPrintExpand" >
+    select 
+    aa.*, bb.total_num
+	from 
+		(select jhp.*, u.su_staff_name username, h.add_zone, h.add_community, h.add_building, h.add_doorplateno
+		from jour_printed_history jhp 
+		left outer join sys_users u on u.user_coding = jhp.jhp_user_id
+		left outer join info_house_paper h on h.house_coding = jhp.jhp_house_id
+		<where>
+			<if test="addCommunity !=null and addCommunity != '' ">
+	    		and add_community like '%${addCommunity}%'
+	    	</if>
+	    	<if test="addBuilding !=null and addBuilding != '' ">
+	    		and add_building like '%${addBuilding}%'
+	    	</if>
+			<if test="addDoorplateno !=null and addDoorplateno != '' ">
+	    		and add_doorplateno like '%${addDoorplateno}%'
+	    	</if>
+	    	<if test="jhpType !=null and jhpType != '' ">
+	    		and jhp_type = #{jhpType}
+	    	</if>
+	    	<if test="jhpTitle !=null and jhpTitle != '' ">
+	    		and jhp_title like '%${jhpTitle}%'
+	    	</if>
+	    	<if test="fromTime !=null and fromTime != '' and toTime !=null and toTime !=''">
+	    		and (between fromTime and toTime)
+	    	</if>
+	    	<if test="jhpSpecialNumber != null and jhpSpecialNumber != ''">
+	    		and jhp_special_number like '%${jhpSpecialNumber}%'
+	    	</if>
+	    	<if test="jhpId != null and jhpId != ''">
+	    		and jhp_id = #{jhpId}
+	    	</if>
+	    </where>
+    )  aa ,
+    (
+    	select count(jhp_id) total_num 
+    	from jour_printed_history jhp 
+		left outer join sys_users u on u.user_coding = jhp.jhp_user_id
+		left outer join info_house_paper h on h.house_coding = jhp.jhp_house_id
+		<where>
+			<if test="addCommunity !=null and addCommunity != '' ">
+	    		and add_community like '%${addCommunity}%'
+	    	</if>
+	    	<if test="addBuilding !=null and addBuilding != '' ">
+	    		and add_building like '%${addBuilding}%'
+	    	</if>
+			<if test="addDoorplateno !=null and addDoorplateno != '' ">
+	    		and add_doorplateno like '%${addDoorplateno}%'
+	    	</if>
+	    	<if test="jhpType !=null and jhpType != '' ">
+	    		and jhp_type = #{jhpType}
+	    	</if>
+	    	<if test="jhpTitle !=null and jhpTitle != '' ">
+	    		and jhp_title like '%${jhpTitle}%'
+	    	</if>
+	    	<if test="fromTime !=null and fromTime != '' and toTime !=null and toTime !=''">
+	    		and (between fromTime and toTime)
+	    	</if>
+	    	<if test="jhpSpecialNumber != null and jhpSpecialNumber != ''">
+	    		and jhp_special_number like '%${jhpSpecialNumber}%'
+	    	</if>
+	    	<if test="jhpId != null and jhpId != ''">
+	    		and jhp_id = #{jhpId}
+	    	</if>
+	    </where>
+    )bb
+    ORDER BY jhp_register_time DESC 
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalHistoryPrintExpand" useGeneratedKeys="true" keyProperty="jhpId">
+    insert into jour_printed_history
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      	<if test="jhpHouse4rentId !=null and jhpHouse4rentId != '' ">
+    		jhp_house4rent_id,
+    	</if>
+    	<if test="jhpHouse4storeId !=null and jhpHouse4storeId != '' ">
+    		jhp_house4store_id,
+    	</if>
+    	<if test="jhpHouseId !=null and jhpHouseId != '' ">
+    		jhp_house_id,
+    	</if>
+    	<if test="jhpRenterId !=null and jhpRenterId != '' ">
+    		jhp_renter_id,
+    	</if>
+    	<if test="jhpCocId !=null and jhpCocId != '' ">
+			jhp_coc_id,
+    	</if>
+    	<if test="jhpLandlordId !=null and jhpLandlordId != '' ">
+    		jhp_landlord_id,
+    	</if>
+    	<if test="jhpUserId !=null and jhpUserId != '' ">
+    		jhp_user_id,
+    	</if>
+    	<if test="jhpJson !=null and jhpJson != '' ">
+    		jhp_json,
+    	</if>
+    	<if test="jhpType !=null and jhpType != '' ">
+    		jhp_type,
+    	</if>
+    	<if test="jhpTitle !=null and jhpTitle != '' ">
+    		jhp_title,
+    	</if>
+    	<if test="jhpNote !=null and jhpNote != '' ">
+    		jhp_note,
+    	</if>
+    	<if test="jhpPrintAddress !=null and jhpPrintAddress != '' ">
+    		jhp_printAddress,
+    	</if>
+    	<if test="jhpSpecialNumber !=null and jhpSpecialNumber != '' ">
+    		jhp_special_number,
+    	</if>
+    	<if test="jhpVoucherNo !=null and jhpVoucherNo != '' ">
+    		jhp_voucher_no,
+    	</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      	<if test="jhpHouse4rentId !=null and jhpHouse4rentId != '' ">
+    		#{jhpHouse4rentId},
+    	</if>
+    	<if test="jhpHouse4storeId !=null and jhpHouse4storeId != '' ">
+    		#{jhpHouse4storeId},
+    	</if>
+    	<if test="jhpHouseId !=null and jhpHouseId != '' ">
+    		#{jhpHouseId},
+    	</if>
+    	<if test="jhpRenterId !=null and jhpRenterId != '' ">
+    		#{jhpRenterId},
+    	</if>
+    	<if test="jhpCocId !=null and jhpCocId != '' ">
+    		#{jhpCocId},
+    	</if>
+    	<if test="jhpLandlordId !=null and jhpLandlordId != '' ">
+    		#{jhpLandlordId},
+    	</if>
+    	<if test="jhpUserId !=null and jhpUserId != '' ">
+    		#{jhpUserId},
+    	</if>
+    	<if test="jhpJson !=null and jhpJson != '' ">
+    		#{jhpJson},
+    	</if>
+    	<if test="jhpType !=null and jhpType != '' ">
+    		#{jhpType},
+    	</if>
+    	<if test="jhpTitle !=null and jhpTitle != '' ">
+    		#{jhpTitle},
+    	</if>
+    	<if test="jhpNote !=null and jhpNote != '' ">
+    		#{jhpNote},
+    	</if>
+    	<if test="jhpPrintAddress !=null and jhpPrintAddress != '' ">
+    		#{jhpPrintAddress},
+    	</if>
+    	<if test="jhpSpecialNumber !=null and jhpSpecialNumber != '' ">
+    		#{jhpSpecialNumber},
+    	</if>
+    	<if test="jhpVoucherNo !=null and jhpVoucherNo != '' ">
+    		#{jhpVoucherNo},
+    	</if>
+    </trim>
+  </insert>
+</mapper>

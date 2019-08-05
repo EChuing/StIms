@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.push.PushBkHouseStatusMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.push.PushBkHouseStatus" >
+    <id column="pbhs_id" property="pbhsId" jdbcType="INTEGER" />
+    <result column="pbhs_house_id" property="pbhsHouseId" jdbcType="VARCHAR" />
+    <result column="pbhs_house_type" property="pbhsHouseType" jdbcType="VARCHAR" />
+    <result column="pbhs_audit_status" property="pbhsAuditStatus" jdbcType="VARCHAR" />
+    <result column="pbhs_onoff_status" property="pbhsOnoffStatus" jdbcType="VARCHAR" />
+    <result column="pbhs_problem_status" property="pbhsProblemStatus" jdbcType="VARCHAR" />
+    <result column="pbhs_gmt_create" property="pbhsGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="pbhs_detail" property="pbhsDetail" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+  	*
+    from push_bk_house_status
+    where pbhs_id = #{pbhsId,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryBkHouseStatus" resultMap="BaseResultMap" parameterType="com.zz.po.push.PushBkHouseStatus" >
+    select 
+  	*
+    from push_bk_house_status
+    <where>
+      <if test="pbhsId != null" >
+       and pbhs_id = #{pbhsId}
+      </if>
+      <if test="pbhsHouseId != null" >
+       and pbhs_house_id = #{pbhsHouseId}
+      </if>
+      <if test="pbhsHouseType != null" >
+       and pbhs_house_type = #{pbhsHouseType}
+      </if>
+      <if test="pbhsAuditStatus != null" >
+       and pbhs_audit_status = #{pbhsAuditStatus}
+      </if>
+      <if test="pbhsOnoffStatus != null" >
+       and pbhs_onoff_status = #{pbhsOnoffStatus}
+      </if>
+      <if test="pbhsProblemStatus != null" >
+       and pbhs_problem_status = #{pbhsProblemStatus}
+      </if>
+      <if test="pbhsGmtCreate != null" >
+       and pbhs_gmt_create = #{pbhsGmtCreate}
+      </if>
+      <if test="pbhsDetail != null" >
+       and pbhs_detail = #{pbhsDetail}
+      </if>
+    </where>
+  </select>
+
+  <insert id="insertSelective" parameterType="com.zz.po.push.PushBkHouseStatus" >
+    insert into push_bk_house_status
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+       <if test="pbhsId != null" >
+        pbhs_id,
+      </if>
+      <if test="pbhsHouseId != null" >
+        pbhs_house_id,
+      </if>
+      <if test="pbhsHouseType != null" >
+        pbhs_house_type,
+      </if>
+      <if test="pbhsAuditStatus != null" >
+        pbhs_audit_status,
+      </if>
+      <if test="pbhsOnoffStatus != null" >
+        pbhs_onoff_status,
+      </if>
+      <if test="pbhsProblemStatus != null" >
+        pbhs_problem_status,
+      </if>
+      <if test="pbhsGmtCreate != null" >
+        pbhs_gmt_create,
+      </if>
+      <if test="pbhsDetail != null" >
+        pbhs_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pbhsId != null" >
+        #{pbhsId,jdbcType=INTEGER},
+      </if>
+      <if test="pbhsHouseId != null" >
+        #{pbhsHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsHouseType != null" >
+        #{pbhsHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsAuditStatus != null" >
+        #{pbhsAuditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsOnoffStatus != null" >
+        #{pbhsOnoffStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsProblemStatus != null" >
+        #{pbhsProblemStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsGmtCreate != null" >
+        #{pbhsGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbhsDetail != null" >
+        #{pbhsDetail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.push.PushBkHouseStatus" >
+    update push_bk_house_status
+    <set >
+      <if test="pbhsHouseId != null" >
+        pbhs_house_id = #{pbhsHouseId,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsHouseType != null" >
+        pbhs_house_type = #{pbhsHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsAuditStatus != null" >
+        pbhs_audit_status = #{pbhsAuditStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsOnoffStatus != null" >
+        pbhs_onoff_status = #{pbhsOnoffStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsProblemStatus != null" >
+        pbhs_problem_status = #{pbhsProblemStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="pbhsGmtCreate != null" >
+        pbhs_gmt_create = #{pbhsGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pbhsDetail != null" >
+        pbhs_detail = #{pbhsDetail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where pbhs_id = #{pbhsId,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

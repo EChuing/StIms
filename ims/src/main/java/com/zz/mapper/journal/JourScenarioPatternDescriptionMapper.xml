@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourScenarioPatternDescriptionMapper">
+	<resultMap id="BaseResultMap" type="com.zz.po.journal.JourScenarioPatternDescription">
+		<id column="spd_id" property="spdId" jdbcType="INTEGER" />
+		<result column="spd_number" property="spdNumber" jdbcType="INTEGER" />
+		<result column="spd_describe" property="spdDescribe" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<!--查询情景名称 -->
+	<select id="selectScenarioName" resultMap="BaseResultMap"  parameterType="com.zz.po.journal.JourScenarioPatternDescription">
+		select * from jour_scenario_pattern_description
+	</select>
+</mapper>

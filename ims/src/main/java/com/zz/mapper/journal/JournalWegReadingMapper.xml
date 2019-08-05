@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalWegReadingMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalWegReading" >
+    <id column="wegrd_id" property="wegrdId" jdbcType="INTEGER" />
+    <result column="wegrd_renter_id" property="wegrdRenterId" jdbcType="VARCHAR" />
+    <result column="wegrd_house4rent_id" property="wegrdHouse4rentId" jdbcType="INTEGER" />
+    <result column="wegrd_house4store_id" property="wegrdHouse4storeId" jdbcType="INTEGER" />
+    <result column="wegrd_user_id" property="wegrdUserId" jdbcType="INTEGER" />
+    <result column="wegrd_do_user_id" property="wegrdDoUserId" jdbcType="INTEGER" />
+    <result column="wegrd_department" property="wegrdDepartment" jdbcType="INTEGER" />
+    <result column="wegrd_storefront" property="wegrdStorefront" jdbcType="INTEGER" />
+    <result column="wegrd_type" property="wegrdType" jdbcType="VARCHAR" />
+    <result column="wegrd_cost_ways" property="wegrdCostWays" jdbcType="INTEGER" />
+    <result column="wegrd_nums" property="wegrdNums" jdbcType="DOUBLE" />
+    <result column="wegrd_month" property="wegrdMonth" jdbcType="DATE" />
+    <result column="wegrd_nature" property="wegrdNature" jdbcType="VARCHAR" />
+    <result column="wegrd_register_time" property="wegrdRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+	<result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+	<result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+	<result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+	<result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+	<result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+	<result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+	<result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+	<result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+	<result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="register_people" property="registerPeople" jdbcType="VARCHAR" />
+    <result column="deal_people" property="dealPeople" jdbcType="VARCHAR" />
+    <result column="jhd_hs_id" property="hsId" jdbcType="VARCHAR" />
+    <result column="dev_auth_id" property="devAuthId" jdbcType="VARCHAR" />
+    <result column="dev_brand_id" property="brandId" jdbcType="VARCHAR" />
+    <!-- 其他 --> 
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    wegrd_id, wegrd_renter_id, wegrd_house4rent_id, wegrd_house4store_id, wegrd_user_id, 
+    wegrd_do_user_id, wegrd_department, wegrd_storefront, wegrd_type, wegrd_nums, wegrd_month, 
+    wegrd_nature, wegrd_register_time
+  </sql>
+  <!-- (数据与统计分开)查询所有-->
+  <select id="selectAllWegReading" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalWegReading" >
+	  select 
+	    <if test="splitFlag ==0">
+			<!-- 统计查询 -->
+			count(weg.wegrd_id) total_num
+		</if>
+		<if test="splitFlag ==1">
+			<!-- 数据查询 -->
+			weg.*, u.su_staff_name register_people, u1.su_staff_name deal_people, hr.hr_add_community,
+			hr.hr_add_district,hr.hr_add_zone,hr.hr_add_building,hr.hr_add_doorplateno, hs.hs_add_community,
+			hs.hs_add_district,hs.hs_add_zone,hs.hs_add_building,hs.hs_add_doorplateno
+		</if>
+		from jour_livingfee_records weg
+		left outer join sys_users u on weg.wegrd_user_id=u.user_coding
+		left outer join sys_users u1 on weg.wegrd_do_user_id = u1.user_coding
+		left outer join info_house_4rent hr on weg.wegrd_house4rent_id = hr.hr_id
+		left outer join info_house_4store hs on weg.wegrd_house4store_id = hs.hs_id
+		<where>
+			<if test="wegrdId != null and wegrdId != ''" >
+				and wegrd_id = #{wegrdId,jdbcType=INTEGER} </if>
+			<if test="wegrdRenterId != null and wegrdRenterId != ''" >
+				and wegrd_renter_id = #{wegrdRenterId,jdbcType=INTEGER} </if>
+			<if test="wegrdHouse4rentId != null and wegrdHouse4rentId != ''" >
+				and wegrd_house4rent_id = #{wegrdHouse4rentId,jdbcType=INTEGER} </if>
+			<if test="wegrdHouse4storeId != null and wegrdHouse4storeId != ''" >
+				and wegrd_house4store_id = #{wegrdHouse4storeId,jdbcType=INTEGER} </if>
+			<if test="wegrdType != null and wegrdType != ''" >
+				and wegrd_type = #{wegrdType,jdbcType=VARCHAR} </if>
+			<if test="wegrdNature != null and wegrdNature != ''" >
+				and wegrd_nature = #{wegrdNature,jdbcType=VARCHAR} </if>
+			<if test="wegrdMonth != null and wegrdMonth != ''" >
+				and wegrd_month = #{wegrdMonth,jdbcType=DATE} </if>
+			<if test="addDistrict != null and addDistrict != '' ">
+				and (hr_add_district like '%${addDistrict}%' or hs_add_district like '%${addDistrict}%')
+			</if>
+			<if test="addCommunity != null and addCommunity != '' ">
+				and (hr_add_community like '%${addCommunity}%' or  hs_add_community like '%${addCommunity}%')
+			</if>
+			<if test="addZone != null and addZone != '' ">
+				and (hr_add_zone like '%${addZone}%' or  hs_add_zone like '%${addZone}%')
+			</if>
+			<if test="addBuilding != null and addBuilding != '' ">
+				and (hr_add_building like '%${addBuilding}%' or  hs_add_building like '%${addBuilding}%'
+				)
+			</if>
+			<if test="thisMonthFukuanri != null and thisMonthFukuanri !='' and lastMonthFukuanri != null and lastMonthFukuanri !='' ">
+				<if test="conditionalType ==0 ">
+					and wegrd_month between #{lastMonthFukuanri} and #{thisMonthFukuanri}
+				</if>
+				<if test="conditionalType ==1 ">
+					and (wegrd_month &lt; #{lastMonthFukuanri} or wegrd_month &gt; #{thisMonthFukuanri})
+				</if>
+			</if>
+			<if test="addDoorplateno != null and addDoorplateno != '' ">
+				and (hr_add_doorplateno like '%${addDoorplateno}%'or hs_add_doorplateno like '%${addDoorplateno}%'
+				)
+			</if>
+			<if test="arr != null">
+				and wegrd_cost_ways in
+				<foreach collection="arr" item="item" separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</if>
+		</where>
+		<if test="splitFlag ==1">
+			ORDER BY wegrd_id DESC 
+			<if test="startNum != '' and startNum != null">
+				limit ${startNum}
+				<if test="endNum != '' and endNum != null">
+					,${endNum}
+				</if>
+			</if>
+		</if>
+  </select>
+  <!-- 根据ID查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from jour_livingfee_records
+    where wegrd_id = #{wegrdId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询所有，给条件则为条件查询 -->
+  <select id="selectWegReadingAll" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalWegReading">
+  	select a.*, b.total_num from		
+	(select weg.*, u.su_staff_name register_people, u1.su_staff_name deal_people, hr.hr_add_community,
+			hr.hr_add_district,hr.hr_add_zone,hr.hr_add_building,hr.hr_add_doorplateno, hs.hs_add_community,
+			hs.hs_add_district,hs.hs_add_zone,hs.hs_add_building,hs.hs_add_doorplateno
+	from jour_livingfee_records weg
+	left outer join sys_users u on weg.wegrd_user_id=u.user_coding
+	left outer join sys_users u1 on weg.wegrd_do_user_id = u1.user_coding
+	left outer join info_house_4rent hr on weg.wegrd_house4rent_id = hr.hr_id
+	left outer join info_house_4store hs on weg.wegrd_house4store_id = hs.hs_id
+	<where>
+		<if test="wegrdId != null and wegrdId != ''" >
+			and wegrd_id = #{wegrdId,jdbcType=INTEGER} </if>
+		<if test="wegrdRenterId != null and wegrdRenterId != ''" >
+			and wegrd_renter_id = #{wegrdRenterId,jdbcType=INTEGER} </if>
+		<if test="wegrdHouse4rentId != null and wegrdHouse4rentId != ''" >
+			and wegrd_house4rent_id = #{wegrdHouse4rentId,jdbcType=INTEGER} </if>
+		<if test="wegrdHouse4storeId != null and wegrdHouse4storeId != ''" >
+			and wegrd_house4store_id = #{wegrdHouse4storeId,jdbcType=INTEGER} </if>
+		<if test="wegrdType != null and wegrdType != ''" >
+			and wegrd_type = #{wegrdType,jdbcType=VARCHAR} </if>
+		<if test="wegrdNature != null and wegrdNature != ''" >
+			and wegrd_nature = #{wegrdNature,jdbcType=VARCHAR} </if>
+		<if test="wegrdMonth != null and wegrdMonth != ''" >
+			and wegrd_month = #{wegrdMonth,jdbcType=DATE} </if>
+		<if test="addDistrict != null and addDistrict != '' ">
+			and (hr_add_district like '%${addDistrict}%' or hs_add_district like '%${addDistrict}%')
+		</if>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and (hr_add_community like '%${addCommunity}%' or  hs_add_community like '%${addCommunity}%')
+		</if>
+		<if test="addZone != null and addZone != '' ">
+			and (hr_add_zone like '%${addZone}%' or  hs_add_zone like '%${addZone}%')
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hr_add_building like '%${addBuilding}%' or  hs_add_building like '%${addBuilding}%'
+			)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and (hr_add_doorplateno like '%${addDoorplateno}%'or hs_add_doorplateno like '%${addDoorplateno}%'
+			)
+		</if>
+  	</where>
+	) a,
+	(select count(weg.wegrd_id) total_num
+	from jour_livingfee_records weg
+	left outer join sys_users u on weg.wegrd_user_id=u.user_coding
+	left outer join sys_users u1 on weg.wegrd_do_user_id = u1.user_coding
+	left outer join info_house_4rent hr on weg.wegrd_house4rent_id = hr.hr_id
+	left outer join info_house_4store hs on weg.wegrd_house4store_id = hs.hs_id
+	  <where>
+	  	<if test="wegrdId != null and wegrdId != ''" >
+			and wegrd_id = #{wegrdId,jdbcType=INTEGER} </if>
+		<if test="wegrdRenterId != null and wegrdRenterId != ''" >
+			and wegrd_renter_id = #{wegrdRenterId,jdbcType=INTEGER} </if>
+		<if test="wegrdHouse4rentId != null and wegrdHouse4rentId != ''" >
+			and wegrd_house4rent_id = #{wegrdHouse4rentId,jdbcType=INTEGER} </if>
+		<if test="wegrdHouse4storeId != null and wegrdHouse4storeId != ''" >
+			and wegrd_house4store_id = #{wegrdHouse4storeId,jdbcType=INTEGER} </if>
+		<if test="wegrdType != null and wegrdType != ''" >
+			and wegrd_type = #{wegrdType,jdbcType=VARCHAR} </if>
+		<if test="wegrdNature != null and wegrdNature != ''" >
+			and wegrd_nature = #{wegrdNature,jdbcType=VARCHAR} </if>
+		<if test="wegrdMonth != null and wegrdMonth != ''" >
+			and wegrd_month = #{wegrdMonth,jdbcType=DATE} </if>
+		<if test="addDistrict != null and addDistrict != '' ">
+			and (hr_add_district like '%${addDistrict}%' or hs_add_district like '%${addDistrict}%')
+		</if>
+		<if test="addCommunity != null and addCommunity != '' ">
+			and (hr_add_community like '%${addCommunity}%' or  hs_add_community like '%${addCommunity}%')
+		</if>
+		<if test="addZone != null and addZone != '' ">
+			and (hr_add_zone like '%${addZone}%' or  hs_add_zone like '%${addZone}%')
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hr_add_building like '%${addBuilding}%' or hs_add_building like '%${addBuilding}%'
+			)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != '' ">
+			and (hr_add_doorplateno like '%${addDoorplateno}%'or hs_add_doorplateno like '%${addDoorplateno}%'
+			)
+		</if>
+	  </where>
+	  ) b	
+	ORDER BY wegrd_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <select id="selectLast" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalWegReading">
+		select * from jour_livingfee_records 
+		where wegrd_house4rent_id = #{wegrdHouse4rentId}  and wegrd_type = #{wegrdType}
+		order by wegrd_id desc
+		limit 1
+  </select> 
+  
+  <!-- 根据抄表读数查抄表日期 -->
+  <select id="selectWegDate" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalWegReading" >
+  	select * from jour_livingfee_records 
+  	<where>
+  		<if test="wegrdHouse4rentId != null and wegrdHouse4rentId != '' ">
+  			and wegrd_house4rent_id = #{wegrdHouse4rentId}
+  		</if>
+  		<if test="wegrdHouse4storeId != null and wegrdHouse4storeId != '' ">
+  			and wegrd_house4store_id = #{wegrdHouse4storeId}
+  		</if>
+  		<if test="wegrdType != null and wegrdType != '' ">
+  			and wegrd_type = #{wegrdType}
+  		</if>
+  		<if test="wegrdNums != null and wegrdNums != '' ">
+  			and wegrd_nums = #{wegrdNums}
+  		</if>
+  	</where>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_livingfee_records
+    where wegrd_id = #{wegrdId,jdbcType=INTEGER}
+  </delete>
+  
+   <!-- 批量生成 -->
+<insert id="signingRentWegReading" parameterType="java.util.List">
+	insert into jour_livingfee_records(
+			wegrd_renter_id,
+			wegrd_house4rent_id,
+			wegrd_house4store_id,
+			wegrd_user_id,
+			wegrd_do_user_id,
+			wegrd_department,
+			wegrd_storefront,
+			wegrd_month,
+			wegrd_nature,
+			wegrd_nums,
+			wegrd_cost_ways,
+			wegrd_type
+	 	)
+  		values
+	  <foreach item="item" index="index" collection="list" separator=",">
+	  (
+  		#{item.wegrdRenterId},
+		#{item.wegrdHouse4rentId},
+		#{item.wegrdHouse4storeId},
+		#{item.wegrdUserId},
+		<choose>
+			<when test="item.wegrdDoUserId != null and item.wegrdDoUserId != ''">
+				#{item.wegrdDoUserId},
+			</when>
+			<otherwise>
+				null,
+			</otherwise>
+		</choose>
+		#{item.wegrdDepartment},
+		#{item.wegrdStorefront},
+		<choose>
+			<when test="item.wegrdMonth != null and item.wegrdMonth != ''">
+				#{item.wegrdMonth},
+			</when>
+			<otherwise>
+				null,
+			</otherwise>
+		</choose>
+		<choose>
+			<when test="item.wegrdNature != null and item.wegrdNature != ''">
+				#{item.wegrdNature},
+			</when>
+			<otherwise>
+				"正常抄表",
+			</otherwise>
+		</choose>
+		#{item.wegrdNums},
+		#{item.wegrdCostWays},
+		#{item.wegrdType}
+	  )
+      </foreach>
+</insert>
+  
+  <!-- 新增一条记录 -->
+  <insert id="insert" parameterType="com.zz.po.journal.JournalWegReading" 
+  		useGeneratedKeys="true" keyProperty="wegrdId">
+    insert into jour_livingfee_records
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wegrdId != null and wegrdId != ''" >
+        wegrd_id,
+      </if>
+      <if test="wegrdRenterId != null and wegrdRenterId != ''" >
+        wegrd_renter_id,
+      </if>
+      <if test="wegrdHouse4rentId != null and wegrdHouse4rentId != ''" >
+        wegrd_house4rent_id,
+      </if>
+      <if test="wegrdHouse4storeId != null and wegrdHouse4storeId != ''" >
+        wegrd_house4store_id,
+      </if>
+      <if test="wegrdUserId != null and wegrdUserId != ''" >
+        wegrd_user_id,
+      </if>
+      <if test="wegrdDoUserId != null and wegrdDoUserId != ''" >
+        wegrd_do_user_id,
+      </if>
+      <if test="wegrdDepartment != null and wegrdDepartment != ''" >
+        wegrd_department,
+      </if>
+      <if test="wegrdStorefront != null and wegrdStorefront != ''" >
+        wegrd_storefront,
+      </if>
+      <if test="wegrdCostWays != null and wegrdCostWays != ''" >
+        wegrd_cost_ways,
+      </if>
+      <if test="wegrdType != null and wegrdType != ''" >
+        wegrd_type,
+      </if>
+      <if test="wegrdNums != null and wegrdNums != ''" >
+        wegrd_nums,
+      </if>
+      <if test="wegrdMonth != null and wegrdMonth != ''" >
+        wegrd_month,
+      </if>
+      <if test="wegrdNature != null and wegrdNature != ''" >
+        wegrd_nature,
+      </if>
+      <if test="wegrdRegisterTime != null and wegrdRegisterTime != ''" >
+        wegrd_register_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wegrdId != null and wegrdId != ''" >
+        #{wegrdId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdRenterId != null and wegrdRenterId != ''" >
+        #{wegrdRenterId,jdbcType=VARCHAR},
+      </if>
+      <if test="wegrdHouse4rentId != null and wegrdHouse4rentId != ''" >
+        #{wegrdHouse4rentId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdHouse4storeId != null and wegrdHouse4storeId != ''" >
+        #{wegrdHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdUserId != null and wegrdUserId != ''" >
+        #{wegrdUserId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdDoUserId != null and wegrdDoUserId != ''" >
+        #{wegrdDoUserId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdDepartment != null and wegrdDepartment != ''" >
+        #{wegrdDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdStorefront != null and wegrdStorefront != ''" >
+        #{wegrdStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdCostWays != null and wegrdCostWays != ''" >
+        #{wegrdCostWays,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdType != null and wegrdType != ''" >
+        #{wegrdType,jdbcType=VARCHAR},
+      </if>
+      <if test="wegrdNums != null and wegrdNums != ''" >
+        #{wegrdNums,jdbcType=DOUBLE},
+      </if>
+      <if test="wegrdMonth != null and wegrdMonth != ''" >
+        #{wegrdMonth,jdbcType=DATE},
+      </if>
+      <if test="wegrdNature != null and wegrdNature != ''" >
+        #{wegrdNature,jdbcType=VARCHAR},
+      </if>
+      <if test="wegrdRegisterTime != null and wegrdRegisterTime != ''" >
+        #{wegrdRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改 -->
+  <update id="updateByPrimaryKey" parameterType="com.zz.po.journal.JournalWegReading" >
+    update jour_livingfee_records
+    <set >
+      <if test="wegrdRenterId != null" >
+        wegrd_renter_id = #{wegrdRenterId,jdbcType=VARCHAR},
+      </if>
+      <if test="wegrdHouse4rentId != null" >
+        wegrd_house4rent_id = #{wegrdHouse4rentId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdHouse4storeId != null" >
+        wegrd_house4store_id = #{wegrdHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdUserId != null" >
+        wegrd_user_id = #{wegrdUserId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdDoUserId != null" >
+        wegrd_do_user_id = #{wegrdDoUserId,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdDepartment != null" >
+        wegrd_department = #{wegrdDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdStorefront != null" >
+        wegrd_storefront = #{wegrdStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdCostWays != null" >
+        wegrd_cost_ways = #{wegrdCostWays,jdbcType=INTEGER},
+      </if>
+      <if test="wegrdType != null" >
+        wegrd_type = #{wegrdType,jdbcType=VARCHAR},
+      </if>
+      <if test="wegrdNums != null" >
+        wegrd_nums = #{wegrdNums,jdbcType=DOUBLE},
+      </if>
+      <if test="wegrdMonth != null" >
+        wegrd_month = #{wegrdMonth,jdbcType=DATE},
+      </if>
+      <if test="wegrdNature != null" >
+        wegrd_nature = #{wegrdNature,jdbcType=VARCHAR},
+      </if>
+      <if test="wegrdRegisterTime != null" >
+        wegrd_register_time = #{wegrdRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where wegrd_id = #{wegrdId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 智能设备抄表 -->
+  <select id="queryDevice" parameterType="INTEGER" resultMap="BaseResultMap">
+  	SELECT * FROM jour_device a LEFT JOIN jour_hs_device b ON b.jhd_device_id=a.id WHERE b.jhd_hs_id=#{hsId,jdbcType=INTEGER}
+  </select>
+</mapper>

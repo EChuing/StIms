@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoResidentTableMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoResidentTable" >
+    <id column="rt_id" property="rtId" jdbcType="INTEGER" />
+    <result column="rt_pl_id" property="rtPlId" jdbcType="INTEGER" />
+    <result column="rt_ur_id" property="rtUrId" jdbcType="INTEGER" />
+    <result column="rt_department_id" property="rtDepartmentId" jdbcType="INTEGER" />
+    <result column="rt_storefront_id" property="rtStorefrontId" jdbcType="INTEGER" />
+    <result column="hs_auto_send_msg" property="hsAutoSendMsg" jdbcType="VARCHAR"/>
+    <result column="rt_other_contacts" property="rtOtherContacts" jdbcType="VARCHAR" />
+    <result column="rt_other_contact_phone" property="rtOtherContactPhone" jdbcType="VARCHAR" />
+    <result column="rt_date" property="rtDate" jdbcType="DATE" />
+    <result column="rt_hr_id" property="rtHrId" jdbcType="INTEGER" />
+    
+    <result column="popName" property="popName" jdbcType="VARCHAR" />
+    <result column="popTelephone" property="popTelephone" jdbcType="VARCHAR" />
+    <result column="popIdcard" property="popIdcard" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="renterPopName" property="renterPopName" jdbcType="VARCHAR" />
+    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="rt_type" property="rtType" jdbcType="VARCHAR" />
+    <result column="popModifyTheRecord" property="popModifyTheRecord" jdbcType="VARCHAR" />
+    
+    <result column="pop_nation" property="popNation" jdbcType="VARCHAR" />
+    <result column="pop_marriage_state" property="popMarriageState" jdbcType="VARCHAR" />
+    <result column="pop_from_area" property="popFromArea" jdbcType="VARCHAR" />
+    <result column="pop_present_address" property="popPresentAddress" jdbcType="VARCHAR" />
+    <result column="pop_idcard_type" property="popIdcardType" jdbcType="VARCHAR" />
+    <result column="pop_birth" property="popBirth" jdbcType="VARCHAR" />
+    <result column="pop_sex" property="popSex" jdbcType="VARCHAR" />
+    <result column="pop_degree_education" property="popDegreeEducation" jdbcType="VARCHAR" />
+    <result column="pop_occupation" property="popOccupation" jdbcType="VARCHAR" />
+    <result column="pop_unit_service" property="popUnitService" jdbcType="VARCHAR" />
+    <result column="pop_checkin_time" property="popCheckinTime" jdbcType="DATE" />
+    <result column="pop_residence_type" property="popResidenceType" jdbcType="VARCHAR" />
+    <result column="pop_residence_cause" property="popResidenceCause" jdbcType="VARCHAR" />
+    <result column="pop_relation" property="popRelation" jdbcType="VARCHAR" />
+    <result column="popNameRemark" property="popNameRemark" jdbcType="VARCHAR" />
+    <result column="rPopNameRemark" property="rPopNameRemark" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    rt_id, rt_pl_id, rt_ur_id, rt_department_id, rt_storefront_id, rt_other_contacts, 
+    rt_other_contact_phone, rt_date, rt_hr_id,rt_type
+  </sql>
+  
+  <select id="selectRtplid" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoResidentTable" >
+    select * from info_living_men
+    where rt_pl_id = #{rtPlId}
+  </select>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoResidentTable" >
+  select aa.*,bb.totalNum from
+	(select rt.*, pop.pop_name popName, pop.pop_telephone popTelephone, pop.pop_idcard popIdcard, ih.hr_add_province, ih.hr_add_city, ih.hr_add_district, ih.hr_add_zone, ih.hr_add_street, 
+		ih.hr_add_community, ih.hr_add_building, ih.hr_add_doorplateno, su_staff_name username, renter.renter_population_id, rpop.pop_name renterPopName, rpop.pop_modify_the_record 
+		popModifyTheRecord, rpop.pop_name_remark popNameRemark, pop.pop_name_remark rPopNameRemark
+	from info_living_men rt
+	left outer join info_pop_tmp pop on rt.rt_pl_id = pop.pop_id
+	left outer join info_house_4rent ih on ih.hr_id = rt_hr_id
+	left outer join sys_users u on rt_ur_id = u.user_coding
+	left outer join info_renter renter on renter.renter_id =ih.hr_renter_id
+	left outer join info_pop_tmp rpop on rpop.pop_id =renter.renter_population_id
+	<where>
+		<if test="addProvince != null and addProvince != ''">
+			and hr_add_province = #{addProvince}
+		</if>
+		<if test="addCity != null and addCity != ''">
+			and hr_add_city = #{addCity}
+		</if>
+		<if test="addDistrict != null and addDistrict != ''">
+			and hr_add_district = #{addDistrict}
+		</if>
+		<if test="addZone != null and addZone != ''">
+			and hr_add_zone = #{addZone}
+		</if>
+		<if test="addStreet != null and addStreet != ''">
+			and hr_add_street like '%${addStreet}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and hr_add_community like '%${addCommunity}%' 
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="rtHrId != null and rtHrId != '' ">
+			and rt_hr_id = #{rtHrId,jdbcType=INTEGER}
+		</if>
+    	<if test="rtId != null and rtId != '' ">
+    		and rt_id = #{rtId,jdbcType=INTEGER}
+    	</if>
+    	<if test="rtUrId != null and rtUrId != '' ">
+    		and rt_ur_id = #{rtUrId,jdbcType=INTEGER}
+    	</if>
+    	<if test="popName != null and popName != '' ">
+    		and pop.pop_name like '%${popName}%'
+    	</if>
+    	<if test="popTelephone != null and popTelephone != '' ">
+    		and pop.pop_telephone like '%${popTelephone}%'
+    	</if>
+    	<if test="popIdcard != null and popIdcard != '' ">
+    		and pop.pop_idcard like '%${popIdcard}%'
+    	</if>
+    	<if test="rtPlId != null and rtPlId != '' ">
+    		and rt_pl_id = #{rtPlId}
+    	</if>
+    	<if test="rtType != null and rtType != '' ">
+    		and rt_type = #{rtType}
+    	</if>
+   	</where>
+	) aa,
+   	(select count(rt_id) totalNum
+	from info_living_men rt 
+	left outer join info_house_4rent ih on rt.rt_hr_id = ih.hr_id
+	left outer join info_pop_tmp pop on rt_pl_id = pop.pop_id
+	left outer join sys_users u on rt_ur_id = u.user_coding
+	left outer join info_renter renter on renter.renter_id =ih.hr_renter_id
+	left outer join info_pop_tmp rpop on rpop.pop_id =renter.renter_population_id
+	<where>
+		<if test="addProvince != null and addProvince != ''">
+			and hr_add_province = #{addProvince}
+		</if>
+		<if test="addCity != null and addCity != ''">
+			and hr_add_city = #{addCity}
+		</if>
+		<if test="addDistrict != null and addDistrict != ''">
+			and hr_add_district = #{addDistrict}
+		</if>
+		<if test="addZone != null and addZone != ''">
+			and hr_add_zone = #{addZone}
+		</if>
+		<if test="addStreet != null and addStreet != ''">
+			and hr_add_street like '%${addStreet}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and hr_add_community like '%${addCommunity}%' 
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="rtHrId != null and rtHrId != '' ">
+			and rt_hr_id = #{rtHrId,jdbcType=INTEGER}
+		</if>
+    	<if test="rtId != null and rtId != '' ">
+    		and rt_id = #{rtId,jdbcType=INTEGER}
+    	</if>
+    	<if test="rtUrId != null and rtUrId != '' ">
+    		and rt_ur_id = #{rtUrId,jdbcType=INTEGER}
+    	</if>
+    	<if test="popName != null and popName != '' ">
+    		and pop.pop_name like '%${popName}%'
+    	</if>
+    	<if test="popTelephone != null and popTelephone != '' ">
+    		and pop.pop_telephone like '%${popTelephone}%'
+    	</if>
+    	<if test="popIdcard != null and popIdcard != '' ">
+    		and pop.pop_idcard like '%${popIdcard}%'
+    	</if>
+    	<if test="rtPlId != null and rtPlId != '' ">
+    		and rt_pl_id = #{rtPlId}
+    	</if>
+    	<if test="rtType != null and rtType != '' ">
+    		and rt_type = #{rtType}
+    	</if>
+   	</where>
+	) bb
+    ORDER BY rt_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_living_men
+    where rt_id = #{rtId,jdbcType=INTEGER}
+  </delete>
+    
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoResidentTable" >
+    insert into info_living_men
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rtType != null and rtType != ''" >
+        rt_type,
+      </if>
+      <if test="rtId != null and rtId != ''" >
+        rt_id,
+      </if>
+      <if test="rtPlId != null and rtPlId != ''" >
+        rt_pl_id,
+      </if>
+      <if test="rtHrId != null and rtHrId != ''" >
+       rt_hr_id,
+      </if>
+      <if test="rtUrId != null and rtUrId != ''" >
+        rt_ur_id,
+      </if>
+      <if test="rtDepartmentId != null and rtDepartmentId != ''" >
+        rt_department_id,
+      </if>
+      <if test="rtStorefrontId != null and rtStorefrontId != ''" >
+        rt_storefront_id,
+      </if>
+      <if test="rtOtherContacts != null and rtOtherContacts != ''" >
+        rt_other_contacts,
+      </if>
+      <if test="rtOtherContactPhone != null and rtOtherContactPhone != ''" >
+        rt_other_contact_phone,
+      </if>
+      <if test="rtDate != null and rtDate != ''" >
+        rt_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rtType != null and rtType != ''" >
+        #{rtType,jdbcType=INTEGER},
+      </if>
+      <if test="rtId != null" >
+        #{rtId,jdbcType=INTEGER},
+      </if>
+      <if test="rtPlId != null and rtPlId != ''" >
+        #{rtPlId,jdbcType=INTEGER},
+      </if>
+      <if test="rtHrId != null and rtHrId != ''" >
+        #{rtHrId,jdbcType=INTEGER},
+      </if>
+      <if test="rtUrId != null and rtUrId != ''" >
+        #{rtUrId,jdbcType=INTEGER},
+      </if>
+      <if test="rtDepartmentId != null and rtDepartmentId != ''" >
+        #{rtDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="rtStorefrontId != null and rtStorefrontId != ''" >
+        #{rtStorefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="rtOtherContacts != null and rtOtherContacts != ''" >
+        #{rtOtherContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="rtOtherContactPhone != null and rtOtherContactPhone != ''" >
+        #{rtOtherContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rtDate != null and rtDate != ''" >
+        #{rtDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoResidentTable" >
+    update info_living_men
+    <set >
+      <if test="rtPlId != null" >
+        rt_pl_id = #{rtPlId,jdbcType=INTEGER},
+      </if>
+      <if test="rtUrId != null" >
+        rt_ur_id = #{rtUrId,jdbcType=INTEGER},
+      </if>
+      <if test="rtHrId != null" >
+        rt_hr_id = #{rtHrId,jdbcType=INTEGER},
+      </if>
+      <if test="rtDepartmentId != null" >
+        rt_department_id = #{rtDepartmentId,jdbcType=INTEGER},
+      </if>
+      <if test="rtStorefrontId != null" >
+        rt_storefront_id = #{rtStorefrontId,jdbcType=INTEGER},
+      </if>
+      <if test="rtOtherContacts != null" >
+        rt_other_contacts = #{rtOtherContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="rtOtherContactPhone != null" >
+        rt_other_contact_phone = #{rtOtherContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rtDate != null" >
+        rt_date = #{rtDate,jdbcType=DATE},
+      </if>
+      <if test="rtType != null" >
+        rt_type = #{rtType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rt_id = #{rtId,jdbcType=INTEGER}
+  </update>
+</mapper>

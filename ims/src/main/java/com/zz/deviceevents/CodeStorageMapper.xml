@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.deviceevents.CodeStorageMapper">
+	<resultMap id="MyCodeStorage" type="com.zz.deviceevents.CodeStorage" >
+		<id column="cs_id" property="csId" jdbcType="INTEGER"/>
+		<result column="cs_co_id" property="csCoId" jdbcType="VARCHAR"/>
+		<result column="cs_sn" property="csSn" jdbcType="VARCHAR"/>
+		<result column="cs_air_conditioning_code" property="csAirConditioningCode" jdbcType="VARCHAR"/>
+		<result column="cs_road" property="csRoad" jdbcType="VARCHAR"/>
+		<result column="cs_time" property="csTime" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 获取查询code_storage表中的值-->
+	<select id="queryCodeStorage" resultMap="MyCodeStorage" parameterType="com.zz.deviceevents.CodeStorage">
+		<!-- select wm_num,wm_time from water_meter_events
+		where wm_device_SN = #{wmDeviceSn,jdbcType=VARCHAR}
+		order by wm_time desc limit 0,1
+		 -->
+		 select * from code_storage
+			where cs_co_id = #{csCoId,jdbcType=VARCHAR} and cs_sn = #{csSn,jdbcType=VARCHAR}
+		
+		<!-- select * from code_storage
+		where cs_co_id = 'hz' and cs_sn = '03525301040DAA' -->
+		
+	</select>
+
+</mapper>

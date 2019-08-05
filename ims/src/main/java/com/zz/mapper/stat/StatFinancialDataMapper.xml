@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.stat.StatFinancialDataMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.stat.StatFinancialData" >
+    <id column="fd_id" property="fdId" jdbcType="INTEGER" />
+    <result column="fd_date" property="fdDate" jdbcType="DATE" />
+    <result column="fd_office_id" property="fdOfficeId" jdbcType="INTEGER" />
+    <result column="fd_office_name" property="fdOfficeName" jdbcType="VARCHAR" />
+    <result column="fd_dept_id" property="fdDeptId" jdbcType="INTEGER" />
+    <result column="fd_dept_name" property="fdDeptName" jdbcType="VARCHAR" />
+    <result column="fd_emp_id" property="fdEmpId" jdbcType="INTEGER" />
+    <result column="fd_emp_name" property="fdEmpName" jdbcType="VARCHAR" />
+    <result column="fd_hs_id" property="fdHsId" jdbcType="INTEGER" />
+    <result column="fd_add_community" property="fdAddCommunity" jdbcType="VARCHAR" />
+    <result column="fd_add_building" property="fdAddBuilding" jdbcType="VARCHAR" />
+    <result column="fd_add_doorplateno" property="fdAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="fd_split_identifier" property="fdSplitIdentifier" jdbcType="VARCHAR" />
+    <result column="fd_in_price" property="fdInPrice" jdbcType="DOUBLE" />
+    <result column="fd_transaction_price" property="fdTransactionPrice" jdbcType="DOUBLE" />
+    <result column="fd_difference" property="fdDifference" jdbcType="DOUBLE" />
+    <result column="fd_rent_loss_value" property="fdRentLossValue" jdbcType="DOUBLE" />
+    <result column="fd_rent_loss_rate" property="fdRentLossRate" jdbcType="DOUBLE" />
+    <result column="fd_vacant_day" property="fdVacantDay" jdbcType="INTEGER" />
+    <result column="fd_trust_day" property="fdTrustDay" jdbcType="INTEGER" />
+    <result column="fd_vacant_rate" property="fdVacantRate" jdbcType="DOUBLE" />
+    <result column="fd_forecast_income" property="fdForecastIncome" jdbcType="DOUBLE" />
+    <result column="fd_real_income" property="fdRealIncome" jdbcType="DOUBLE" />
+    <result column="fd_cost" property="fdCost" jdbcType="DOUBLE" />
+  </resultMap>
+  <select id="selectByDate" resultMap="BaseResultMap" >
+    select * from stat_financial_data
+    <where>
+	  	<if test="year != null " >
+	        and date_format(fd_date,"%Y") = #{year}
+	    </if>
+	  	<if test="month != null " >
+	  	    and date_format(fd_date,"%m") = #{month}
+	  	</if>
+    </where>
+  </select>
+</mapper>

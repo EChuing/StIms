@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.push.Push58HouseMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.push.Push58House" >
+    <id column="p5h_id" property="p5hId" jdbcType="INTEGER" />
+    <result column="p5h_p5u_id" property="p5hP5uId" jdbcType="INTEGER" />
+    <result column="p5h_house_id" property="p5hHouseId" jdbcType="BIGINT" />
+    <result column="p5h_gmt_create" property="p5hGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="p5h_gmt_modified" property="p5hGmtModified" jdbcType="TIMESTAMP" />
+    <result column="p5h_detail" property="p5hDetail" jdbcType="LONGVARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="hs_add_province" property="hsAddProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="hsAddCity" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="hsAddDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="hsAddZone" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="hsAddStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="query58House" resultMap="MyBaseResultMap" parameterType="com.zz.po.push.Push58House" >
+    select aa.*, bb.totalNum 
+    from (select * from push_58_house p5h
+    left outer join push_58_unit p5u on p5u.p5u_id = p5h.p5h_p5u_id
+    left outer join info_house_4store hs on hs.hs_id = p5u.p5u_hs_id
+    <where>
+    	<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+    </where>
+    ) aa, 
+    (select count(p5h_id) totalNum from push_58_house p5h
+    left outer join push_58_unit p5u on p5u.p5u_id = p5h.p5h_p5u_id
+    left outer join info_house_4store hs on hs.hs_id = p5u.p5u_hs_id
+    <where>
+    	<if test="hsAddCity != null and hsAddCity != ''" >
+			and hs_add_city = #{hsAddCity,jdbcType=VARCHAR}</if>
+		<if test="hsAddDistrict != null and hsAddDistrict != ''" >
+			and hs_add_district = #{hsAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hsAddZone != null and hsAddZone != ''" >
+			and hs_add_zone = #{hsAddZone,jdbcType=VARCHAR}</if>
+		<if test="hsAddStreet != null and hsAddStreet != ''" >
+			and hs_add_street like '%${hsAddStreet}%'</if>
+		<if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+					or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')</if>
+    </where>
+    ) bb
+    ORDER BY p5h_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from push_58_house
+    where p5h_id = #{p5hId,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.push.Push58House" >
+    insert into push_58_house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="p5hId != null" >
+        p5h_id,
+      </if>
+      <if test="p5hP5uId != null" >
+        p5h_p5u_id,
+      </if>
+      <if test="p5hHouseId != null" >
+        p5h_house_id,
+      </if>
+      <if test="p5hGmtCreate != null" >
+        p5h_gmt_create,
+      </if>
+      <if test="p5hGmtModified != null" >
+        p5h_gmt_modified,
+      </if>
+      <if test="p5hDetail != null" >
+        p5h_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="p5hId != null" >
+        #{p5hId,jdbcType=INTEGER},
+      </if>
+      <if test="p5hP5uId != null" >
+        #{p5hP5uId,jdbcType=INTEGER},
+      </if>
+      <if test="p5hHouseId != null" >
+        #{p5hHouseId},
+      </if>
+      <if test="p5hGmtCreate != null" >
+        #{p5hGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5hGmtModified != null" >
+        #{p5hGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5hDetail != null" >
+        #{p5hDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.push.Push58House" >
+    update push_58_house
+    <set >
+      <if test="p5hP5uId != null" >
+        p5h_p5u_id = #{p5hP5uId,jdbcType=INTEGER},
+      </if>
+      <if test="p5hHouseId != null" >
+        p5h_house_id = #{p5hHouseId},
+      </if>
+      <if test="p5hGmtCreate != null" >
+        p5h_gmt_create = #{p5hGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5hGmtModified != null" >
+        p5h_gmt_modified = #{p5hGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5hDetail != null" >
+        p5h_detail = #{p5hDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where p5h_id = #{p5hId,jdbcType=INTEGER}
+  </update>
+</mapper>

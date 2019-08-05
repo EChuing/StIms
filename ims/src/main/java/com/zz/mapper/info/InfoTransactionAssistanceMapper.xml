@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 已优化 -->
+<mapper namespace="com.zz.mapper.info.InfoTransactionAssistanceMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoTransactionExpand">
+  	<id column="assist_id" property="assistId" jdbcType="INTEGER" />
+    <result column="assist_register_people" property="assistRegisterPeople" jdbcType="INTEGER" />
+    <result column="assist_department" property="assistDepartment" jdbcType="INTEGER" />
+    <result column="assist_storefront" property="assistStorefront" jdbcType="INTEGER" />
+    <result column="assist_house_4rent" property="assistHouse4rent" jdbcType="INTEGER" />
+    <result column="assist_house_4store" property="assistHouse4store" jdbcType="INTEGER" />
+    <result column="assist_userId" property="assistUserId" jdbcType="INTEGER" />
+    <result column="assist_bonus" property="assistBonus" jdbcType="DOUBLE" />
+    <result column="assist_type" property="assistType" jdbcType="VARCHAR" />
+    <result column="assist_register_time" property="assistRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="assist_state" property="assistState" jdbcType="VARCHAR" />
+    <result column="assist_remark" property="assistRemark" jdbcType="VARCHAR" />
+    <!-- house -->
+    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <!-- user -->
+    <result column="registerPeople" property="registerPeople" jdbcType="VARCHAR" />
+    <result column="assistPeople" property="assistPeople" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 转移查询 -->
+  <select id="" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoTransactionExpand">
+  
+  </select>
+  
+ <!-- ******************* -->
+ <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoTransactionExpand">
+ 	select aa.*, bb.total_num from 
+ 	(select hs.hs_add_community,hs.hs_add_building,hs.hs_add_doorplateno,
+	    hr.hr_add_community,hr.hr_add_building,hr.hr_add_doorplateno,u1.su_staff_name assistPeople, ta.*,u.su_staff_name registerPeople         
+	from info_business_assistor ta  
+	left outer join sys_users u on ta.assist_register_people = u.user_coding 
+	left outer join sys_users u1 on ta.assist_userId = u1.user_coding 
+	left outer join info_house_4rent hr on ta.assist_house_4rent = hr.hr_id
+	left outer join info_house_4store hs on ta.assist_house_4store = hs.hs_id
+	<where>
+		assist_state != '失效'
+		<if test="addCommunity != null and addCommunity != ''" >
+			and (hr_add_community like '%${addCommunity}%' 
+			or hs_add_community like '%${addCommunity}%')
+		</if>
+		<if test="addBuilding != null and addBuilding != ''" >
+			and (hr_add_building like '${addBuilding}%'
+			or hr_add_building like '0${addBuilding}%'
+			or hs_add_building like '${addBuilding}%'
+			or hs_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''" >
+			and (hr_add_doorplateno like '${addDoorplateno}%'
+			or hr_add_doorplateno like '0${addDoorplateno}%'
+			or hs_add_doorplateno like '${addDoorplateno}%'
+			or hs_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="assistHouse4store != null and assistHouse4store != ''" >
+			and assist_house_4store = #{assistHouse4store,jdbcType=INTEGER}
+		</if>
+		<if test="assistHouse4rent != null and assistHouse4rent != ''" >
+			and assist_house_4rent = #{assistHouse4rent,jdbcType=INTEGER}
+		</if>
+		<if test="assistUserId != null and assistUserId != ''" >
+			and assist_userId = #{assistUserId,jdbcType=INTEGER}
+		</if>
+		<if test="assistType != null and assistType != ''" >
+			and assist_type = #{assistType,jdbcType=VARCHAR}
+		</if>
+		<if test="assistRegisterPeople != null and assistRegisterPeople != ''">
+			and assist_register_people = #{assistRegisterPeople}
+		</if>
+	</where>
+	) aa,    
+	(select count(assist_id) total_num 
+	from info_business_assistor ta
+	left outer join sys_users u on ta.assist_register_people = u.user_coding 
+	left outer join sys_users u1 on ta.assist_userId = u1.user_coding 
+	left outer join info_house_4rent hr on ta.assist_house_4rent = hr.hr_id
+	left outer join info_house_4store hs on ta.assist_house_4store = hs.hs_id
+	<where>
+		assist_state != '失效'
+		<if test="addCommunity != null and addCommunity != ''" >
+			and (hr_add_community like '%${addCommunity}%' 
+			or hs_add_community like '%${addCommunity}%')
+		</if>
+		<if test="addBuilding != null and addBuilding != ''" >
+			and (hr_add_building like '${addBuilding}%' 
+			or hr_add_building like '0${addBuilding}%' 
+			or hs_add_building like '${addBuilding}%'
+			or hs_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''" >
+			and (hr_add_doorplateno like '${addDoorplateno}%' 
+			or hr_add_doorplateno like '0${addDoorplateno}%' 
+			or hs_add_doorplateno like '${addDoorplateno}%'
+			or hs_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="assistHouse4store != null and assistHouse4store != ''" >
+			and assist_house_4store = #{assistHouse4store,jdbcType=INTEGER}
+		</if>
+		<if test="assistHouse4rent != null and assistHouse4rent != ''" >
+			and assist_house_4rent = #{assistHouse4rent,jdbcType=INTEGER}
+		</if>
+		<if test="assistUserId != null and assistUserId != ''" >
+			and assist_userId = #{assistUserId,jdbcType=INTEGER}
+		</if>
+		<if test="assistType != null and assistType != ''" >
+			and assist_type = #{assistType,jdbcType=VARCHAR}
+		</if>
+		<if test="assistRegisterPeople != null and assistRegisterPeople != ''">
+			and assist_register_people = #{assistRegisterPeople}
+		</if>
+	</where>
+	) bb
+	ORDER BY assist_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+ </select>
+ <insert id="insertTAList" parameterType="java.util.List" >
+    insert into info_business_assistor (assist_register_people, 
+      assist_department, assist_storefront, assist_house_4rent, 
+      assist_house_4store, assist_userId, assist_bonus, 
+      assist_type)
+    values
+    <foreach collection="list" index="index" separator="," item="item">
+     (#{item.assistRegisterPeople,jdbcType=INTEGER}, 
+      #{item.assistDepartment,jdbcType=INTEGER}, #{item.assistStorefront,jdbcType=INTEGER}, 
+      #{item.assistHouse4rent,jdbcType=INTEGER}, #{item.assistHouse4store,jdbcType=INTEGER}, 
+      #{item.assistUserId,jdbcType=INTEGER}, #{item.assistBonus,jdbcType=DOUBLE}, 
+      #{item.assistType,jdbcType=VARCHAR})
+     </foreach>
+  </insert>
+ <!-- ******************* -->
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoTransactionAssistance" >
+    insert into info_business_assistor
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="assistId != null" >
+        assist_id,
+      </if>
+      <if test="assistRegisterPeople != null" >
+        assist_register_people,
+      </if>
+      <if test="assistDepartment != null" >
+        assist_department,
+      </if>
+      <if test="assistStorefront != null" >
+        assist_storefront,
+      </if>
+      <if test="assistHouse4rent != null" >
+        assist_house_4rent,
+      </if>
+      <if test="assistHouse4store != null" >
+        assist_house_4store,
+      </if>
+      <if test="assistUserId != null" >
+        assist_userId,
+      </if>
+      <if test="assistBonus != null" >
+        assist_bonus,
+      </if>
+      <if test="assistType != null" >
+        assist_type,
+      </if>
+      <if test="assistRegisterTime != null" >
+        assist_register_time,
+      </if>
+      <if test="assistState != null" >
+        assist_state,
+      </if>
+      <if test="assistRemark != null" >
+        assist_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="assistId != null" >
+        #{assistId,jdbcType=INTEGER},
+      </if>
+      <if test="assistRegisterPeople != null" >
+        #{assistRegisterPeople,jdbcType=INTEGER},
+      </if>
+      <if test="assistDepartment != null" >
+        #{assistDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="assistStorefront != null" >
+        #{assistStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="assistHouse4rent != null" >
+        #{assistHouse4rent,jdbcType=INTEGER},
+      </if>
+      <if test="assistHouse4store != null" >
+        #{assistHouse4store,jdbcType=INTEGER},
+      </if>
+      <if test="assistUserId != null" >
+        #{assistUserId,jdbcType=INTEGER},
+      </if>
+      <if test="assistBonus != null" >
+        #{assistBonus,jdbcType=DOUBLE},
+      </if>
+      <if test="assistType != null" >
+        #{assistType,jdbcType=VARCHAR},
+      </if>
+      <if test="assistRegisterTime != null" >
+        #{assistRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assistState != null" >
+        #{assistState,jdbcType=VARCHAR},
+      </if>
+      <if test="assistRemark != null" >
+        #{assistRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoTransactionAssistance" >
+    update info_business_assistor
+    <set>
+      <if test="assistRegisterPeople != null" >
+        assist_register_people = #{assistRegisterPeople,jdbcType=INTEGER},
+      </if>
+      <if test="assistDepartment != null" >
+        assist_department = #{assistDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="assistStorefront != null" >
+        assist_storefront = #{assistStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="assistHouse4rent != null" >
+        assist_house_4rent = #{assistHouse4rent,jdbcType=INTEGER},
+      </if>
+      <if test="assistHouse4store != null" >
+        assist_house_4store = #{assistHouse4store,jdbcType=INTEGER},
+      </if>
+      <if test="assistUserId != null" >
+        assist_userId = #{assistUserId,jdbcType=INTEGER},
+      </if>
+      <if test="assistBonus != null" >
+        assist_bonus = #{assistBonus,jdbcType=DOUBLE},
+      </if>
+      <if test="assistType != null" >
+        assist_type = #{assistType,jdbcType=VARCHAR},
+      </if>
+      <if test="assistRegisterTime != null" >
+        assist_register_time = #{assistRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assistState != null" >
+        assist_state = #{assistState,jdbcType=VARCHAR},
+      </if>
+      <if test="assistRemark != null" >
+        assist_remark = #{assistRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where assist_id = #{assistId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="performanceModificationInterface" parameterType="com.zz.po.info.InfoTransactionAssistance" >
+  	update info_business_assistor
+  	<set>
+  		<if test="assistState != null" >
+        	assist_state = #{assistState,jdbcType=VARCHAR},
+      	</if>
+  	</set>
+  	<where>
+  		<if test="assistHouse4rent != null and assistHouse4rent != ''" >
+			and assist_house_4rent = #{assistHouse4rent,jdbcType=INTEGER}
+		</if>
+	    <if test="assistHouse4store != null and assistHouse4store != ''" >
+	        and assist_house_4store = #{assistHouse4store,jdbcType=INTEGER}
+	    </if>
+  	</where>
+  </update>
+  
+  <delete id="deleteAssist" parameterType="com.zz.po.info.InfoTransactionAssistance" >
+    <if test="assistHouse4store != null and assistHouse4store != '' and assistType != null and assistType != ''" >
+	    delete from info_business_assistor
+	    <where>
+		    <if test="assistHouse4rent != null and assistHouse4rent != ''" >
+		        and assist_house_4rent = #{assistHouse4rent,jdbcType=INTEGER}
+		    </if>
+		    <if test="assistHouse4store != null and assistHouse4store != ''" >
+		        and assist_house_4store = #{assistHouse4store,jdbcType=INTEGER}
+		    </if>
+		    <if test="assistType != null and assistType != ''" >
+		        and assist_type = #{assistType,jdbcType=VARCHAR}
+		    </if>
+	    </where> 
+	</if>
+  </delete>
+</mapper>

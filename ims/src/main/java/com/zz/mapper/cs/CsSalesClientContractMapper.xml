@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsSalesClientContractMapper">
+	<resultMap id="CsOutsideCustomerExpansion" type="com.zz.po.cs.CsOutsideCustomerExpansion">
+		<id column="cs_contract_id" property="csContractId" jdbcType="INTEGER"/>
+		<result column="cs_img_path" property="csImgPath" jdbcType="LONGVARCHAR"/>
+		<result column="cs_img_num" property="csImgNum" jdbcType="VARCHAR"/>
+		<result column="cs_signing_time" property="csSigningTime" jdbcType="DATE"/>
+		<result column="cs_cancellation_time" property="csCancellationTime" jdbcType="DATE"/>
+		<result column="cs_creation_time" property="csCreationTime" jdbcType="DATE"/>
+		<result column="cs_contract_no" property="csContractNo" jdbcType="VARCHAR"/>
+		<result column="cs_name" property="csName" jdbcType="VARCHAR"/>
+		<result column="cs_contract_type" property="csContractType" jdbcType="VARCHAR"/>
+		<result column="cs_remarks" property="csRemarks" jdbcType="LONGVARCHAR"/>
+		<result column="cs_telphone" property="csTelphone" jdbcType="VARCHAR"/>
+		<result column="cs_sign_url" property="csSignUrl" jdbcType="VARCHAR"/>
+		<result column="cs_coc_id" property="csCocId" jdbcType="INTEGER"/>
+		<result column="cs_user_code" property="csUserCode" jdbcType="VARCHAR"/>
+		<result column="cs_contract_template_number" property="csContractTemplateNumber" jdbcType="VARCHAR"/>
+		<result column="cs_template_fill_value" property="csTemplateFillValue" jdbcType="LONGVARCHAR"/>
+		<result column="cs_status" property="csStatus" jdbcType="VARCHAR"/>
+		<result column="cs_id_card_no" property="csIdCardNo" jdbcType="VARCHAR"/>
+	</resultMap>
+	<select id="queryCsSalesClientContract" resultMap="CsOutsideCustomerExpansion" parameterType="com.zz.po.cs.CsOutsideCustomerExpansion">
+		select cscc.* from cs_sales_client_contract cscc
+		<where>
+			<if test="csContractId !=null and csContractId !=''">
+				cs_contract_id = #{csContractId}
+			</if>
+		</where>
+	</select>
+	<select id="queryCsSalesClientContract2" resultMap="CsOutsideCustomerExpansion" parameterType="com.zz.po.cs.CsSalesClientContract">
+		select cscc.* from cs_sales_client_contract cscc
+		<where>
+			<if test="csContractId !=null and csContractId !=''">
+				cs_contract_id = #{csContractId}
+			</if>
+			
+		</where>
+	</select>
+	<select id="selectCsSalesClientContract" resultMap="CsOutsideCustomerExpansion" parameterType="com.zz.po.cs.CsSalesClientContract">
+		select cscc.* from cs_sales_client_contract cscc
+		<where>
+			<if test="csCocId !=null">
+				and cs_coc_id = #{csCocId}
+			</if>
+			<if test="csContractId !=null">
+				and cs_contract_id = #{csContractId}
+			</if>
+			<if test="csContractType !=null and csContractType !=''">
+				and cs_contract_type = #{csContractType}
+			</if>
+			<if test="csStatus !=null and csStatus !=''">
+				and cs_status = #{csStatus}
+			</if>
+		</where>
+	</select>
+	<insert id="insertSelective" parameterType="com.zz.po.cs.CsSalesClientContract"  keyProperty="csContractId" useGeneratedKeys="true">
+		insert into cs_sales_client_contract
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="csRemarks !=null">
+				cs_remarks,
+			</if>
+			<if test="csContractType !=null">
+				cs_contract_type,
+			</if>
+			<if test="csImgPath !=null">
+				cs_img_path,
+			</if>
+			<if test="csImgNum !=null">
+				cs_img_num,
+			</if>
+			<if test="csSigningTime !=null">
+				cs_signing_time,
+			</if>
+			<if test="csCancellationTime !=null">
+				cs_cancellation_time,
+			</if>
+			<if test="csCreationTime !=null">
+				cs_creation_time,
+			</if>
+			<if test="csContractNo !=null">
+				cs_contract_no,
+			</if>
+			<if test="csName !=null">
+				cs_name,
+			</if>
+			<if test="csTelphone !=null">
+				cs_telphone,
+			</if>
+			<if test="csCocId !=null">
+				cs_coc_id,
+			</if>
+			<if test="csUserCode !=null">
+				cs_user_code,
+			</if>
+			<if test="csContractTemplateNumber !=null">
+				cs_contract_template_number,
+			</if>
+			<if test="csTemplateFillValue !=null">
+				cs_template_fill_value,
+			</if>
+			<if test="csStatus !=null">
+				cs_status,
+			</if>
+			<if test="csIdCardNo !=null">
+				cs_id_card_no,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="csRemarks !=null">
+				 #{csRemarks,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="csContractType !=null">
+				 #{csContractType,jdbcType=VARCHAR},
+			</if>
+			<if test="csImgPath !=null">
+				 #{csImgPath,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="csImgNum !=null">
+				 #{csImgNum,jdbcType=VARCHAR},
+			</if>
+			<if test="csSigningTime !=null">
+				 #{csSigningTime,jdbcType=VARCHAR},
+			</if>
+			<if test="csCancellationTime !=null">
+				 #{csCancellationTime,jdbcType=VARCHAR},
+			</if>
+			<if test="csCreationTime !=null">
+				 #{csCreationTime,jdbcType=VARCHAR},
+			</if>
+			<if test="csContractNo !=null">
+				 #{csContractNo,jdbcType=VARCHAR},
+			</if>
+			<if test="csName !=null">
+				 #{csName,jdbcType=VARCHAR},
+			</if>
+			<if test="csTelphone !=null">
+				 #{csTelphone,jdbcType=VARCHAR},
+			</if>
+			<if test="csCocId !=null">
+				#{csCocId,jdbcType=INTEGER},
+			</if>
+			<if test="csUserCode !=null">
+				#{csUserCode,jdbcType=VARCHAR},
+			</if>
+			<if test="csContractTemplateNumber">
+				#{csContractTemplateNumber,jdbcType=VARCHAR},
+			</if>
+			<if test="csTemplateFillValue">
+				#{csTemplateFillValue,jdbcType=LONGVARCHAR},
+			</if>
+			<if test="csStatus">
+				#{csStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="csIdCardNo">
+				#{csIdCardNo,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateCsSalesClientContract" parameterType="com.zz.po.cs.CsSalesClientContract">
+		update cs_sales_client_contract
+		<set>
+			<if test="csSignUrl != null">
+				cs_sign_url = #{csSignUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="csStatus != null">
+				cs_status = #{csStatus,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<where>
+			<if test="csContractId !=null">
+				and cs_contract_id = #{csContractId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</update>
+	<update id="updateCsSalesClientContract2" parameterType="com.zz.po.cs.CsSalesClientContract">
+		update cs_sales_client_contract
+		<set>
+			<if test="csImgPath != null">
+				cs_img_path = #{csImgPath,jdbcType=VARCHAR},
+			</if>
+			<if test="csImgNum != null">
+				cs_img_num = #{csImgNum,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<where>
+			<if test="csContractId !=null">
+				and cs_contract_id = #{csContractId,jdbcType=INTEGER}
+			</if>
+		</where>
+	</update>
+</mapper>

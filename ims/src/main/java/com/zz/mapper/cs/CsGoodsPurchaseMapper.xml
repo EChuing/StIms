@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsPurchaseMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoodsPurchase" >
+    <id column="cgp_id" property="cgpId" jdbcType="INTEGER" />
+    <result column="cgp_operator_id" property="cgpOperatorId" jdbcType="INTEGER" />
+    <result column="cgp_supplier_id" property="cgpSupplierId" jdbcType="INTEGER" />
+    <result column="cgp_numbers" property="cgpNumbers" jdbcType="VARCHAR" />
+    <result column="cgp_total_money" property="cgpTotalMoney" jdbcType="DOUBLE" />
+    <result column="cgp_registration_time" property="cgpRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="cgp_goods_json" property="cgpGoodsJson" jdbcType="LONGVARCHAR" />
+    
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+    <result column="key_administrator" property="supplierName" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="listPurchaseOrder" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsPurchase" >
+    select 
+  	<if test="splitFlag ==0">
+		<!-- 统计查询 -->
+		count(cgp.cgp_id) totalNum
+	</if>
+	<if test="splitFlag ==1">
+		<!-- 数据查询 -->
+		cgp.*,su.su_staff_name,ihp.key_administrator
+	</if>
+  	from cs_goods_purchase cgp   
+  	left outer join sys_users su on su.user_coding = cgp.cgp_operator_id
+  	left outer join info_house_paper ihp on ihp.house_coding = cgp.cgp_supplier_id
+  	<where>
+		<if test="cgpNumbers != null and cgpNumbers != ''">
+			and cgp_numbers like '%${cgpNumbers}%'
+		</if>
+		<if test="supplierName != null and supplierName != ''">
+			and key_administrator like '%${supplierName}%'
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (cgp_registration_time 
+		 	between  
+	 			#{startTime}
+	 			 and
+	 			 #{endTime})
+		 </if>
+  	</where>
+  	ORDER BY cgp_id DESC
+	<if test="splitFlag ==1">
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+	
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoodsPurchase" >
+    insert into cs_goods_purchase
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cgpId != null" >
+        cgp_id,
+      </if>
+      <if test="cgpOperatorId != null" >
+        cgp_operator_id,
+      </if>
+      <if test="cgpSupplierId != null" >
+        cgp_supplier_id,
+      </if>
+      <if test="cgpNumbers != null" >
+        cgp_numbers,
+      </if>
+      <if test="cgpTotalMoney != null" >
+        cgp_total_money,
+      </if>
+      <if test="cgpRegistrationTime != null" >
+        cgp_registration_time,
+      </if>
+      <if test="cgpGoodsJson != null" >
+        cgp_goods_json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cgpId != null" >
+        #{cgpId,jdbcType=INTEGER},
+      </if>
+      <if test="cgpOperatorId != null" >
+        #{cgpOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="cgpSupplierId != null" >
+        #{cgpSupplierId,jdbcType=INTEGER},
+      </if>
+      <if test="cgpNumbers != null" >
+        #{cgpNumbers,jdbcType=VARCHAR},
+      </if>
+      <if test="cgpTotalMoney != null" >
+        #{cgpTotalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="cgpRegistrationTime != null" >
+        #{cgpRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgpGoodsJson != null" >
+        #{cgpGoodsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoodsPurchase" >
+    update cs_goods_purchase
+    <set >
+      <if test="cgpOperatorId != null" >
+        cgp_operator_id = #{cgpOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="cgpSupplierId != null" >
+        cgp_supplier_id = #{cgpSupplierId,jdbcType=INTEGER},
+      </if>
+      <if test="cgpNumbers != null" >
+        cgp_numbers = #{cgpNumbers,jdbcType=VARCHAR},
+      </if>
+      <if test="cgpTotalMoney != null" >
+        cgp_total_money = #{cgpTotalMoney,jdbcType=DOUBLE},
+      </if>
+      <if test="cgpRegistrationTime != null" >
+        cgp_registration_time = #{cgpRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgpGoodsJson != null" >
+        cgp_goods_json = #{cgpGoodsJson,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cgp_id = #{cgpId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getPurchaseMoney" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsPurchase" >
+  	select  
+  	convert(sum(cgp_total_money),decimal(10,2)) totalPurchaseMoney
+  	from cs_goods_purchase cgp
+  	<where>
+  		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (cgp_registration_time 
+		 	between  
+	 			#{startTime}
+	 			 and
+	 			 #{endTime})
+		 </if>
+  	</where>
+  </select>
+</mapper>

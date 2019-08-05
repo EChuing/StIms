@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsGoodsBillingMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsGoodsBilling" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cgb_hr_id" property="cgbHrId" jdbcType="INTEGER" />
+    <result column="cgb_operator_id" property="cgbOperatorId" jdbcType="INTEGER" />
+    <result column="cgb_send_id" property="cgbSendId" jdbcType="INTEGER" />
+    <result column="cgb_coc_id" property="cgbCocId" jdbcType="INTEGER" />
+    <result column="cgb_type" property="cgbType" jdbcType="INTEGER" />
+    <result column="cgb_order_num" property="cgbOrderNum" jdbcType="VARCHAR" />
+    <result column="cgb_total_spending" property="cgbTotalSpending" jdbcType="DOUBLE" />
+    <result column="cgb_shipping_fee" property="cgbShippingFee" jdbcType="DOUBLE" />
+    <result column="cgb_actual_spending" property="cgbActualSpending" jdbcType="DOUBLE" />
+    <result column="cgb_reduce_fee" property="cgbReduceFee" jdbcType="DOUBLE" />
+    <result column="cgb_reduce_reason" property="cgbReduceReason" jdbcType="VARCHAR" />
+    <result column="cgb_refund_num" property="cgbRefundNum" jdbcType="VARCHAR" />
+    <result column="cgb_state" property="cgbState" jdbcType="VARCHAR" />
+    <result column="cgb_pay_type" property="cgbPayType" jdbcType="VARCHAR" />
+    <result column="cgb_accept_time" property="cgbAcceptTime" jdbcType="VARCHAR" />
+    <result column="cgb_send_time" property="cgbSendTime" jdbcType="VARCHAR" />
+    <result column="cgb_mail_name" property="cgbMailName" jdbcType="VARCHAR" />
+    <result column="cgb_mail_num" property="cgbMailNum" jdbcType="VARCHAR" />
+    <result column="cgb_over_time" property="cgbOverTime" jdbcType="VARCHAR" />
+    <result column="cgb_registration_time" property="cgbRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="cgb_payment_status" property="cgbPaymentStatus" jdbcType="VARCHAR" />
+    <result column="cgb_prepay_ratio" property="cgbPrepayRatio" jdbcType="VARCHAR" />
+    <result column="cgb_transportation_methods" property="cgbTransportationMethods" jdbcType="VARCHAR" />
+    
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="coc_address" property="cocAddress" jdbcType="VARCHAR" />
+    <result column="coc_phone" property="cocPhone" jdbcType="VARCHAR" />
+    <result column="coc_mail_data" property="cocMailData" jdbcType="VARCHAR" />
+    <result column="coc_contacts" property="cocContacts" jdbcType="VARCHAR" />
+    <result column="coc_grade" property="cocGrade" jdbcType="VARCHAR" />
+    <result column="coc_company" property="cocCompany" jdbcType="VARCHAR" />
+    <result column="pop_telephone" property="popTelephone" jdbcType="VARCHAR" />
+    
+    <result column="cancelOrder" property="cancelOrder" jdbcType="VARCHAR" />
+    <result column="onlineOrder" property="onlineOrder" jdbcType="VARCHAR" />
+    <result column="unOnlineOrder" property="unOnlineOrder" jdbcType="VARCHAR" />
+    <result column="saleTotalMoney" property="saleTotalMoney" jdbcType="VARCHAR" />
+    <result column="totalProfit" property="totalProfit" jdbcType="VARCHAR" />
+    <result column="saleGoodsTotal" property="saleGoodsTotal" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    cgb.*
+    from cs_goods_billing cgb
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="listCsGoodsBilling" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsBilling" >
+    select 
+    <if test="splitFlag ==0 or splitFlag ==3">
+		<!-- 统计查询 -->
+		count(cgb.id) totalNum
+	</if>
+	<if test="splitFlag ==1 or splitFlag ==2 or splitFlag ==4 or splitFlag ==5">
+		<!-- 数据查询 -->
+		a.*,b.totalNum from(select cgb.*,CONCAT_WS("",hr_add_community,hr_add_building,hr_add_doorplateno) address,ipt.pop_telephone,coc.*
+	</if>
+	<if test="splitFlag == 6">
+        <!-- 统计查询splitFlag=5的个数 -->
+        count(*) totalNum from(select cgb.*,CONCAT_WS("",hr_add_community,hr_add_building,hr_add_doorplateno) address,ipt.pop_telephone,coc.*
+	</if>
+    from cs_goods_billing cgb
+    left outer join info_house_4rent ihr on ihr.hr_id = cgb.cgb_hr_id
+    left outer join info_renter ir on ir.renter_id = ihr.hr_renter_id
+    left outer join info_pop_tmp ipt on ipt.pop_id = ir.renter_population_id
+    left outer join cs_outside_customer coc on coc.coc_id = cgb.cgb_coc_id
+    <where> 
+    	<if test="cgbState != null and cgbState != '' and splitFlag !=4">
+    		and cgb_state = #{cgbState}
+    	</if>
+    	<if test="splitFlag ==5 or splitFlag ==6 ">
+    		and cgb_state != "已接单" and cgb_state != "未接单"
+    	</if>
+    	<if test="splitFlag ==4 or splitFlag ==3 ">
+    		and cgb_state != "已接单" and cgb_state != "配送中" and cgb_state != "未接单"
+    	</if>
+    	<if test="splitFlag ==1 or splitFlag ==0">
+    		and (cgb_state = "已接单" or cgb_state = "配送中")
+    	</if>
+    	<if test="cgbOperatorId != null">
+    		and cgb_operator_id = #{cgbOperatorId}
+    	</if>
+    	<if test="cgbSendId != null">
+    		and cgb_send_id = #{cgbSendId}
+    	</if>
+    	<if test="cgbPayType != null and cgbPayType != ''">
+    		and cgb_pay_type = #{cgbPayType}
+    	</if>
+    	<if test="cgbOrderNum != '' and cgbOrderNum != null">
+			and cgb_order_num like '%${cgbOrderNum}%'
+		</if>
+    	<if test="cgbPaymentStatus != '' and cgbPaymentStatus != null">
+			and cgb_payment_status = #{cgbPaymentStatus}
+		</if>
+		<if test="cocContacts != '' and cocContacts != null">
+			and coc_contacts like '%${cocContacts}%'
+		</if>
+		<if test="cgbCocId != '' and cgbCocId != null">
+			and cgb_coc_id like #{cgbCocId}
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (cgb_registration_time 
+		 	between  
+	 			#{startTime}
+	 			 and
+	 			 #{endTime})
+		 </if>
+    </where>)a,(select count(cgb.id) totalNum from cs_goods_billing cgb
+    left outer join info_house_4rent ihr on ihr.hr_id = cgb.cgb_hr_id
+    left outer join info_renter ir on ir.renter_id = ihr.hr_renter_id
+    left outer join info_pop_tmp ipt on ipt.pop_id = ir.renter_population_id
+    left outer join cs_outside_customer coc on coc.coc_id = cgb.cgb_coc_id)b
+    ORDER BY a.id DESC
+    <if test="splitFlag ==1 or splitFlag ==3 or splitFlag ==4">
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+	<if test="splitFlag ==5">
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsGoodsBilling"  keyProperty="id" useGeneratedKeys="true">
+    insert into cs_goods_billing
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cgbHrId != null" >
+        cgb_hr_id,
+      </if>
+      <if test="cgbCocId != null" >
+        cgb_coc_id,
+      </if>
+      <if test="cgbOperatorId != null" >
+        cgb_operator_id,
+      </if>
+      <if test="cgbOrderNum != null" >
+        cgb_order_num,
+      </if>
+      <if test="cgbTotalSpending != null" >
+        cgb_total_spending,
+      </if>
+      <if test="cgbShippingFee != null" >
+        cgb_shipping_fee,
+      </if>
+      <if test="cgbPayType != null" >
+        cgb_pay_type,
+      </if>
+      <if test="cgbState != null" >
+        cgb_state,
+      </if>
+      <if test="cgbRegistrationTime != null" >
+        cgb_registration_time,
+      </if>
+      <if test="cgbActualSpending != null" >
+        cgb_actual_spending,
+      </if>
+      <if test="cgbReduceFee != null" >
+        cgb_reduce_fee,
+      </if>
+      <if test="cgbReduceReason != null" >
+        cgb_reduce_reason,
+      </if>
+      <if test="cgbRemark != null" >
+        cgb_remark,
+      </if>
+      <if test="cgbPaymentStatus != null" >
+        cgb_payment_status,
+      </if>
+      <if test="cgbPrepayRatio != null" >
+        cgb_prepay_ratio,
+      </if>
+      <if test="cgbSendTime != null and cgbSendTime != ''" >
+        cgb_send_time,
+      </if>
+      <if test="cgbTransportationMethods != null" >
+        cgb_transportation_methods,
+      </if>
+      <if test="cgbType != null" >
+        cgb_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cgbHrId != null" >
+        #{cgbHrId,jdbcType=INTEGER},
+      </if>
+      <if test="cgbCocId != null" >
+        #{cgbCocId,jdbcType=INTEGER},
+      </if>
+      <if test="cgbOperatorId != null" >
+        #{cgbOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="cgbOrderNum != null" >
+        #{cgbOrderNum},
+      </if>
+      <if test="cgbTotalSpending != null" >
+        #{cgbTotalSpending,jdbcType=DOUBLE},
+      </if>
+      <if test="cgbShippingFee != null" >
+        #{cgbShippingFee,jdbcType=DOUBLE},
+      </if>
+      <if test="cgbPayType != null" >
+        #{cgbPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="cgbState != null" >
+        #{cgbState,jdbcType=VARCHAR},
+      </if>
+      <if test="cgbRegistrationTime != null" >
+        #{cgbRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgbActualSpending != null" >
+        #{cgbActualSpending},
+      </if>
+      <if test="cgbReduceFee != null" >
+        #{cgbReduceFee},
+      </if>
+      <if test="cgbReduceReason != null" >
+        #{cgbReduceReason},
+      </if>
+      <if test="cgbRemark != null" >
+        #{cgbRemark},
+      </if>
+      <if test="cgbPaymentStatus != null" >
+        #{cgbPaymentStatus},
+      </if>
+      <if test="cgbPrepayRatio != null" >
+        #{cgbPrepayRatio},
+      </if>
+      <if test="cgbSendTime != null and cgbSendTime != ''" >
+        #{cgbSendTime},
+      </if>
+      <if test="cgbTransportationMethods != null" >
+        #{cgbTransportationMethods},
+      </if>
+      <if test="cgbType != null" >
+        #{cgbType},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsGoodsBilling" >
+    update cs_goods_billing
+    <set >
+      <if test="cgbHrId != null" >
+        cgb_hr_id = #{cgbHrId,jdbcType=INTEGER},
+      </if>
+      <if test="cgbOperatorId != null" >
+        cgb_operator_id = #{cgbOperatorId,jdbcType=INTEGER},
+      </if>
+      <if test="cgbSendId != null" >
+        cgb_send_id = #{cgbSendId},
+      </if>
+      <if test="cgbOrderNum != null" >
+        cgb_order_num = #{cgbOrderNum,jdbcType=INTEGER},
+      </if>
+      <if test="cgbActualSpending != null" >
+         cgb_actual_spending = #{cgbActualSpending,jdbcType=DOUBLE},
+      </if>
+      <if test="cgbTotalSpending != null" >
+        cgb_total_spending = #{cgbTotalSpending,jdbcType=DOUBLE},
+      </if>
+      <if test="cgbShippingFee != null" >
+        cgb_shipping_fee = #{cgbShippingFee,jdbcType=DOUBLE},
+      </if>
+      <if test="cgbPayType != null" >
+        cgb_pay_type = #{cgbPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="cgbState != null" >
+        cgb_state = #{cgbState,jdbcType=VARCHAR},
+      </if>
+      <if test="cgbRegistrationTime != null" >
+        cgb_registration_time = #{cgbRegistrationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cgbAcceptTime != null" >
+        cgb_accept_time = #{cgbAcceptTime},
+      </if>
+      <if test="cgbSendTime != null" >
+        cgb_send_time = #{cgbSendTime},
+      </if>
+      <if test="cgbOverTime != null" >
+        cgb_over_time = #{cgbOverTime},
+      </if>
+      <if test="cgbMailName != null" >
+        cgb_mail_name = #{cgbMailName},
+      </if>
+      <if test="cgbMailNum != null" >
+        cgb_mail_num = #{cgbMailNum},
+      </if>
+      <if test="cgbRefundNum != null" >
+        cgb_refund_num = #{cgbRefundNum},
+      </if>
+      <if test="cgbPaymentStatus != null" >
+        cgb_payment_status = #{cgbPaymentStatus},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+  
+  <select id="getOrderCount" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsBilling" >
+    select cancelOrder,onlineOrder,unOnlineOrder,saleTotalMoney,totalProfit,saleGoodsTotal from 
+	(select  count(*) cancelOrder from cs_goods_billing cgb where cgb_state = "退单完成" and cgb_registration_time  between #{startTime} and #{endTime}) a,
+	(select  count(*) onlineOrder from cs_goods_billing cgb where cgb_pay_type = "在线支付" and cgb_registration_time  between #{startTime} and #{endTime}) b,
+	(select  count(*) unOnlineOrder from cs_goods_billing cgb where cgb_pay_type in ("扫码收银","现金收银","台卡收银") and cgb_registration_time  between #{startTime} and #{endTime}) c,
+	(select  sum(cgb_actual_spending) saleTotalMoney from cs_goods_billing cgb where cgb_state in ("已完成","已送达") and cgb_registration_time  between #{startTime} and #{endTime}) d,
+	(select  convert((profit + otherProfit),decimal(10,2)) totalProfit from  (select sum((cgs_current_price - cgs_cost_price) * cgs_sell_num) profit from cs_goods_billing cgb left outer join cs_goods_sell cgs on cgs.cgs_order_id = cgb.id where cgb_state in ("已完成","已送达") and cgb_registration_time  between #{startTime} and #{endTime}) a, (select sum(cgb_shipping_fee - cgb_reduce_fee) otherProfit from cs_goods_billing cgb left outer join cs_goods_sell cgs on cgs.cgs_order_id = cgb.id where cgb_state in ("已完成","已送达") and cgb_registration_time  between #{startTime} and #{endTime}) b) e,
+	(select  sum(cgs_sell_num) saleGoodsTotal from cs_goods_billing cgb left outer join cs_goods_sell cgs on cgs.cgs_order_id = cgb.id where cgb_state in ("已完成","已送达") and cgb_registration_time between #{startTime} and #{endTime}) f
+  </select>
+  
+  <select id="getProfit" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsBilling" >
+  	select convert((profit + otherProfit),decimal(10,2)) totalProfit from  
+  	 (select sum((cgs_current_price - cgs_cost_price) * cgs_sell_num) profit from cs_goods_billing cgb left outer join cs_goods_sell cgs on cgs.cgs_order_id = cgb.id where cgb_state in ("已完成","已送达")
+  	 <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+	 	and (cgb_registration_time 
+	 	between  
+ 			#{startTime}
+ 			 and
+			#{endTime})
+	 </if>
+  	  ) a,
+  	 (select sum(cgb_shipping_fee - cgb_reduce_fee) otherProfit from cs_goods_billing cgb left outer join cs_goods_sell cgs on cgs.cgs_order_id = cgb.id where cgb_state in ("已完成","已送达")
+	 <if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+	 	and (cgb_registration_time 
+	 	between  
+ 			#{startTime}
+ 			 and
+			#{endTime})
+	 </if>
+	 ) b
+  </select>
+  
+  <select id="getMoney" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsGoodsBilling" >
+    select cashMoneyTotal,otherMoneyTotal,moneyTotal from 
+	(select convert(sum(cgb_actual_spending),decimal(10,2)) cashMoneyTotal from cs_goods_billing where cgb_state in ("已完成","已送达") and cgb_pay_type = "现金收银" 
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (cgb_registration_time 
+		 	between  
+	 			#{startTime}
+	 			 and
+	 			 #{endTime})
+		 </if>
+	) a,
+	(select convert(sum(cgb_actual_spending),decimal(10,2)) otherMoneyTotal from cs_goods_billing where cgb_state in ("已完成","已送达") and cgb_pay_type != "现金收银"
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (cgb_registration_time 
+		 	between  
+	 			#{startTime}
+	 			 and
+	 			 #{endTime})
+		 </if>
+	) b,
+	(select convert(sum(cgb_actual_spending),decimal(10,2)) moneyTotal from cs_goods_billing where cgb_state in ("已完成","已送达")
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != ''">
+		 	and (cgb_registration_time 
+		 	between  
+	 			#{startTime}
+	 			 and
+	 			 #{endTime})
+		 </if>
+	) c
+  </select>
+  
+</mapper>

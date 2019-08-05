@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalRepairProgressMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalRepairProgress" >
+    <id column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="pro_repair_id" property="proRepairId" jdbcType="INTEGER" />
+    <result column="pro_user_id" property="proUserId" jdbcType="INTEGER" />
+    <result column="pro_time" property="proTime" jdbcType="TIMESTAMP" />
+    <result column="pro_state" property="proState" jdbcType="VARCHAR" />
+    <result column="pro_receivable_money" property="proReceivableMoney" jdbcType="VARCHAR" />
+    <result column="pro_billing_info" property="proBillingInfo" jdbcType="VARCHAR" />
+    <result column="pro_remark" property="proRemark" jdbcType="VARCHAR" />
+    <result column="pro_asset_items_record" property="proAssetItemsRecord" jdbcType="VARCHAR" />
+    <!-- user -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="INTEGER" />
+    <result column="storefront" property="storefront" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="MyBaseResultMap" type="com.zz.po.journal.JournalRepairProgressExpand" >
+    <id column="pro_id" property="proId" jdbcType="INTEGER" />
+    <result column="pro_repair_id" property="proRepairId" jdbcType="INTEGER" />
+    <result column="pro_user_id" property="proUserId" jdbcType="INTEGER" />
+    <result column="pro_time" property="proTime" jdbcType="TIMESTAMP" />
+    <result column="pro_state" property="proState" jdbcType="VARCHAR" />
+    <result column="pro_receivable_money" property="proReceivableMoney" jdbcType="VARCHAR" />
+    <result column="pro_man_money" property="proManMoney" jdbcType="DOUBLE" />
+    <result column="pro_use_money" property="proUseMoney" jdbcType="DOUBLE" />
+    <result column="pro_other_money" property="proOtherMoney" jdbcType="DOUBLE" />
+    <result column="pro_billing_info" property="proBillingInfo" jdbcType="VARCHAR" />
+    <result column="pro_remark" property="proRemark" jdbcType="VARCHAR" />
+    <result column="pro_asset_items_record" property="proAssetItemsRecord" jdbcType="VARCHAR" />
+    <!-- user -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="department" property="department" jdbcType="INTEGER" />
+     <result column="storefront" property="storefront" jdbcType="INTEGER" />
+  </resultMap>
+  <!-- *************************** -->
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.journal.JournalRepairProgressExpand" >
+  	select aa.*, bb.total_num
+	from (select rp.*,u.su_staff_name username
+			from jour_oddjobs_followup rp 
+			left outer join sys_users u on rp.pro_user_id=u.user_coding
+	<where>
+		<if test="proRepairId != null and proRepairId != ''" >
+        	and pro_repair_id = #{proRepairId,jdbcType=INTEGER}</if>
+        <if test="proState != null and proState != ''" >
+        	and pro_state = #{proState,jdbcType=VARCHAR}</if>
+	</where>
+	)  aa ,
+	(select count(pro_id) total_num from jour_oddjobs_followup 
+	<where>
+		<if test="proRepairId != null and proRepairId != ''" >
+        	and pro_repair_id = #{proRepairId,jdbcType=INTEGER}</if>
+        <if test="proState != null and proState != ''" >
+        	and pro_state = #{proState,jdbcType=VARCHAR}</if>
+	</where>
+	) bb
+	ORDER BY pro_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <!-- *************************** -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from jour_oddjobs_followup
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_oddjobs_followup
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalRepairProgressExpand" 
+  		useGeneratedKeys="true" keyProperty="proId">
+    insert into jour_oddjobs_followup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="proId != null and proId != ''" >
+        pro_id,
+      </if>
+      <if test="proRepairId != null and proRepairId != ''" >
+        pro_repair_id,
+      </if>
+      <if test="proUserId != null and proUserId != ''" >
+        pro_user_id,
+      </if>
+      <if test="proTime != null and proTime != ''" >
+        pro_time,
+      </if>
+      <if test="proState != null and proState != ''" >
+        pro_state,
+      </if>
+      <if test="proReceivableMoney != null and proReceivableMoney != ''" >
+        pro_receivable_money,
+      </if>
+      <if test="proBillingInfo != null and proBillingInfo != ''" >
+        pro_billing_info,
+      </if>
+      <if test="proRemark != null and proRemark != ''" >
+        pro_remark,
+      </if>
+      
+      <if test="department != null and department !=''" >
+    	department,
+    </if>
+    <if test="storefront != null and storefront !=''" >
+    	storefront,
+    </if>
+    <if test="proAssetItemsRecord != null and proAssetItemsRecord !=''">
+     	pro_asset_items_record,
+     </if>
+     <if test="proManMoney != null and proManMoney !=''">
+     	pro_man_money,
+     </if>
+     <if test="proUseMoney != null and proUseMoney !=''">
+     	pro_use_money,
+     </if>
+     <if test="proOtherMoney != null and proOtherMoney !=''">
+     	pro_other_money,
+     </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="proId != null and proId != ''" >
+        #{proId,jdbcType=INTEGER},
+      </if>
+      <if test="proRepairId != null and proRepairId != ''" >
+        #{proRepairId,jdbcType=INTEGER},
+      </if>
+      <if test="proUserId != null and proUserId != ''" >
+        #{proUserId,jdbcType=INTEGER},
+      </if>
+      <if test="proTime != null and proTime != ''" >
+        #{proTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proState != null and proState != ''" >
+        #{proState,jdbcType=VARCHAR},
+      </if>
+      <if test="proReceivableMoney != null and proReceivableMoney != ''" >
+        #{proReceivableMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="proBillingInfo != null and proBillingInfo != ''" >
+        #{proBillingInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="proRemark != null and proRemark != ''" >
+        #{proRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null and department !=''" >
+     #{department,jdbcType=INTEGER},
+    </if>
+    <if test="storefront != null and storefront !=''" >
+     #{storefront,jdbcType=INTEGER},
+    </if>
+    <if test="proAssetItemsRecord != null and proAssetItemsRecord !=''">
+     	#{proAssetItemsRecord,jdbcType=VARCHAR},
+     </if>
+     <if test="proManMoney != null and proManMoney !=''">
+     	#{proManMoney},
+     </if>
+     <if test="proUseMoney != null and proUseMoney !=''">
+     	#{proUseMoney},
+     </if>
+     <if test="proOtherMoney != null and proOtherMoney !=''">
+     	#{proOtherMoney},
+     </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalRepairProgressExpand" >
+    update jour_oddjobs_followup
+    <set >
+      <if test="proRepairId != null and proRepairId != ''" >
+        pro_repair_id = #{proRepairId,jdbcType=INTEGER},
+      </if>
+      <if test="proUserId != null and proUserId != ''" >
+        pro_user_id = #{proUserId,jdbcType=INTEGER},
+      </if>
+      <if test="proTime != null and proTime != ''" >
+        pro_time = #{proTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="proState != null and proState != ''" >
+        pro_state = #{proState,jdbcType=VARCHAR},
+      </if>
+      <if test="proReceivableMoney != null and proReceivableMoney != ''" >
+        pro_receivable_money = #{proReceivableMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="proBillingInfo != null and proBillingInfo != ''" >
+        pro_billing_info = #{proBillingInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="proRemark != null and proRemark != ''" >
+        pro_remark = #{proRemark,jdbcType=VARCHAR},
+      </if>
+      
+      <if test="department != null and department !=''" >
+    department = #{department,jdbcType=INTEGER},
+   </if>
+   <if test="storefront != null and storefront !=''" >
+    storefront = #{storefront,jdbcType=INTEGER},
+   </if>
+    </set>
+    where pro_id = #{proId,jdbcType=INTEGER}
+  </update>
+</mapper>

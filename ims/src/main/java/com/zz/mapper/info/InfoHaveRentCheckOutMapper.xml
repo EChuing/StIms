@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoHaveRentCheckOutMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoHaveRentCheckOut" >
+    <id column="rco_id" property="rcoId" jdbcType="INTEGER" />
+    <result column="rco_rent_id" property="rcoRentId" jdbcType="INTEGER" />
+    <result column="hr_id" property="hrId" jdbcType="INTEGER" />
+    <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="rco_renter_id" property="rcoRenterId" jdbcType="INTEGER" />
+    <result column="rco_apply_user" property="rcoApplyUser" jdbcType="INTEGER" />
+    <result column="rco_check_out_the_state" property="rcoCheckOutTheState" jdbcType="VARCHAR" />
+    <result column="rco_return_deposit" property="rcoReturnDeposit" jdbcType="DOUBLE" />
+    <result column="rco_return_door_deposit" property="rcoReturnDoorDeposit" jdbcType="DOUBLE" />
+    <result column="rco_return_power_deposit" property="rcoReturnPowerDeposit" jdbcType="DOUBLE" />
+    <result column="rco_return_other_deposit" property="rcoReturnOtherDeposit" jdbcType="DOUBLE" />
+    <result column="rco_return_other_cost" property="rcoReturnOtherCost" jdbcType="DOUBLE" />
+    <result column="rco_remaining_rent" property="rcoRemainingRent" jdbcType="DOUBLE" />
+    <result column="rco_licence_fee" property="rcoLicenceFee" jdbcType="DOUBLE" />
+    <result column="rco_last_water_base" property="rcoLastWaterBase" jdbcType="DOUBLE" />
+    <result column="rco_water_base" property="rcoWaterBase" jdbcType="DOUBLE" />
+    <result column="rco_water_price" property="rcoWaterPrice" jdbcType="DOUBLE" />
+    <result column="rco_water_combined" property="rcoWaterCombined" jdbcType="DOUBLE" />
+    <result column="rco_last_electricity_base" property="rcoLastElectricityBase" jdbcType="DOUBLE" />
+    <result column="rco_electricity_base" property="rcoElectricityBase" jdbcType="DOUBLE" />
+    <result column="rco_electricity_price" property="rcoElectricityPrice" jdbcType="DOUBLE" />
+    <result column="rco_electricity_combined" property="rcoElectricityCombined" jdbcType="DOUBLE" />
+    <result column="rco_gas_base_last" property="rcoGasBaseLast" jdbcType="DOUBLE" />
+    <result column="rco_gas_base_number" property="rcoGasBaseNumber" jdbcType="DOUBLE" />
+    <result column="rco_gas_price" property="rcoGasPrice" jdbcType="DOUBLE" />
+    <result column="rco_gas_combined" property="rcoGasCombined" jdbcType="DOUBLE" />
+    
+    <result column="rco_hotwater_base_last" property="rcoHotWaterBaseLast" jdbcType="DOUBLE" />
+    <result column="rco_hotwater_base_number" property="rcoHotWaterBaseNumber" jdbcType="DOUBLE" />
+    <result column="rco_hotwater_price" property="rcoHotWaterPrice" jdbcType="DOUBLE" />
+    <result column="rco_hotwater_combined" property="rcoHotWaterCombined" jdbcType="DOUBLE" />
+    
+    <result column="rco_hotair_base_last" property="rcoHotAirBaseLast" jdbcType="DOUBLE" />
+    <result column="rco_hotair_base_number" property="rcoHotAirBaseNumber" jdbcType="DOUBLE" />
+    <result column="rco_hotair_price" property="rcoHotAirPrice" jdbcType="DOUBLE" />
+    <result column="rco_hotair_combined" property="rcoHotAirCombined" jdbcType="DOUBLE" />
+    
+    <result column="rco_last_make_property_costs" property="rcoLastMakePropertyCosts" jdbcType="DOUBLE" />
+    <result column="rco_wifi_cost" property="rcoWifiCost" jdbcType="DOUBLE" />
+    <result column="rco_tv_cost" property="rcoTvCost" jdbcType="DOUBLE" />
+    <result column="rco_server_cost" property="rcoServerCost" jdbcType="DOUBLE" />
+    <result column="rco_other_cost" property="rcoOtherCost" jdbcType="DOUBLE" />
+    <result column="rco_total_amount_due" property="rcoTotalAmountDue" jdbcType="VARCHAR" />
+    <result column="rco_property_cost_unit_price" property="rcoPropertyCostUnitPrice" jdbcType="DOUBLE" />
+    <result column="rco_property_costs_in_total" property="rcoPropertyCostsInTotal" jdbcType="DOUBLE" />
+    <result column="rco_other_charges_in_total" property="rcoOtherChargesInTotal" jdbcType="DOUBLE" />
+    <result column="rco_breach_of_contract" property="rcoBreachOfContract" jdbcType="DOUBLE" />
+    <result column="rco_breach_detail" property="rcoBreachDetail" jdbcType="LONGVARCHAR" />
+    <result column="rco_late_fee" property="rcoLateFee" jdbcType="DOUBLE" />
+    <result column="rco_late_fee_detail" property="rcoLateFeeDetail" jdbcType="LONGVARCHAR" />
+    <result column="rco_repair_damages" property="rcoRepairDamages" jdbcType="DOUBLE" />
+    <result column="rco_days_overdue" property="rcoDaysOverdue" jdbcType="INTEGER" />
+    <result column="rco_beyond_the_rent" property="rcoBeyondTheRent" jdbcType="DOUBLE" />
+    <result column="rco_total_should_be_returned" property="rcoTotalShouldBeReturned" jdbcType="DOUBLE" />
+    <result column="rco_check_out_nature" property="rcoCheckOutNature" jdbcType="VARCHAR" />
+    <result column="rco_check_out_time" property="rcoCheckOutTime" jdbcType="DATE" />
+    <result column="rco_apply_for_time" property="rcoApplyForTime" jdbcType="TIMESTAMP" />
+  	<result column="rco_check_out_reason" property="rcoCheckOutReason" jdbcType="LONGVARCHAR" />
+  	
+  	<result column="rco_store_id" property="rcoStoreId" jdbcType="INTEGER" />
+  	<result column="rco_landlord_id" property="rcoLandlordId" jdbcType="INTEGER" />
+  	
+  	<result column="theInitialDeposit" property="theInitialDeposit" jdbcType="DOUBLE" />
+  	<result column="theInitialDoorDeposit" property="theInitialDoorDeposit" jdbcType="DOUBLE" />
+  	<result column="theInitialPowerDeposit" property="theInitialPowerDeposit" jdbcType="DOUBLE" />
+  	<result column="theInitialOtherDeposit" property="theInitialOtherDeposit" jdbcType="DOUBLE" />
+  	
+  	<result column="rco_deduction_combined" property="rcoDeductionCombined" jdbcType="DOUBLE" />
+  	<result column="rco_check_out_actual_time" property="rcoCheckOutActualTime" jdbcType="DATE" />
+  	<result column="rco_a_refund_of_time" property="rcoARefundOfTime" jdbcType="DATE" />
+  	<result column="rco_refund_the_user_name" property="rcoRefundTheUserName" jdbcType="VARCHAR" />
+  	<result column="rco_refund_account" property="rcoRefundAccount" jdbcType="VARCHAR" />
+  	<result column="rco_refund_bank" property="rcoRefundBank" jdbcType="VARCHAR" />
+  	<result column="rco_checkout_account" property="rcoCheckoutAccount" jdbcType="INTEGER" />
+  	<result column="rco_img_path" property="rcoImgPath" jdbcType="LONGVARCHAR" />
+  	<result column="rco_img_num" property="rcoImgNum" jdbcType="VARCHAR" />
+  	<result column="rco_procedures" property="rcoProcedures" jdbcType="VARCHAR" />
+  	<result column="rco_pay_type" property="rcoPayType" jdbcType="VARCHAR" />
+  	<result column="rcoApplyUserName" property="rcoApplyUserName" jdbcType="VARCHAR" />
+    <result column="rco_operation_records" property="rcoOperationRecords" jdbcType="VARCHAR" />
+    <result column="rco_number" property="rcoNumber" jdbcType="VARCHAR" />
+    <result column="rco_water_plan" property="rcoWaterPlan" jdbcType="VARCHAR" />
+    <result column="rco_electricity_plan" property="rcoElectricityPlan" jdbcType="VARCHAR" />
+    <result column="rco_gas_plan" property="rcoGasPlan" jdbcType="VARCHAR" />
+  	
+  	<result column="rco_hotwater_plan" property="rcoHotWaterPlan" jdbcType="VARCHAR" />
+  	<result column="rco_hotair_plan" property="rcoHotAirPlan" jdbcType="VARCHAR" />
+  	
+  	<result column="rco_sys_water" property="rcoSysWater" jdbcType="DOUBLE" />
+  	<result column="rco_sys_electricity" property="rcoSysElectricity" jdbcType="DOUBLE" />
+  	<result column="rco_sys_gas" property="rcoSysGas" jdbcType="DOUBLE" />
+  	
+  	<result column="rco_sys_hotwater" property="rcoSysHotWater" jdbcType="DOUBLE" />
+  	<result column="rco_sys_hotair" property="rcoSysHotAir" jdbcType="DOUBLE" />
+  	
+  	
+  	<result column="rco_handler" property="rcoHandler" jdbcType="INTEGER" />
+  	<result column="rco_return_note" property="rcoReturnNote" jdbcType="LONGVARCHAR" />
+  	<result column="rco_pay_note" property="rcoPayNote" jdbcType="LONGVARCHAR" />
+  	<result column="rco_repair_note" property="rcoRepairNote" jdbcType="LONGVARCHAR" />
+  	<result column="rco_total_money" property="rcoTotalMoney" jdbcType="DOUBLE" />
+  	<result column="rcoHandlerName" property="rcoHandlerName" jdbcType="VARCHAR" />
+  	<result column="rco_save" property="rcoSave" jdbcType="VARCHAR" />
+  	<result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  	<result column="total_num2" property="totalNum2" jdbcType="VARCHAR" />
+  	<result column="rco_actual_receipts" property="rcoActualReceipts" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <!-- 查退房总数量 -->
+  <select id="queryHouseRentNum" resultMap="BaseResultMap" >
+    SELECT a.rco_check_out_the_state, a.total_num, b.total_num total_num2 from 
+  	(select hr_state rco_check_out_the_state, count(*) total_num from info_house_4rent hr 
+	left outer join info_rented_checkout ck on ck.rco_rent_id = hr.hr_id where rco_procedures = '正常' 
+	group by hr_state)a,
+	(select hr_state rco_check_out_the_state, count(*) total_num from info_house_4rent hr 
+	left outer join info_rented_checkout ck on ck.rco_rent_id = hr.hr_id where rco_procedures = '未办手续')b
+  </select>
+  
+  <!-- 押金查询 -->
+  <select id="queryDeposit" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+  	select ih.hr_house_deposit theInitialDeposit,ih.hr_power_deposit theInitialPowerDeposit,ih.hr_door_deposit theInitialDoorDeposit,ih.hr_other_deposit theInitialOtherDeposit
+  	from info_rented_checkout jhr
+	left outer join info_house_4rent ih 
+	on (jhr.rco_rent_id = ih.hr_id)
+	where jhr.rco_rent_id = #{rcoRentId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 查询 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+    select 
+    ihrco.*,u.su_staff_name rcoApplyUserName,u2.su_staff_name rcoHandlerName
+    from info_rented_checkout ihrco
+    left outer join sys_users u on ihrco.rco_apply_user = u.user_coding
+    left outer join sys_users u2 on ihrco.rco_handler = u2.user_coding
+    <where> 
+    	<if test="rcoId != null and rcoId != '' ">
+    		and rco_id = #{rcoId,jdbcType=INTEGER}
+    	</if>
+    	<if test="rcoRentId != null and rcoRentId != '' ">
+    		and rco_rent_id = #{rcoRentId,jdbcType=INTEGER}
+    	</if>
+    </where>
+    ORDER BY rco_id DESC
+    <if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+    delete from info_rented_checkout
+    where rco_id = #{rcoId,jdbcType=INTEGER}
+  </delete>
+  
+  <!-- 新增 -->
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+    insert into info_rented_checkout
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rcoApplyUser != null" >
+        rco_apply_user,
+      </if>
+      <if test="rcoCheckOutActualTime != null" >
+        rco_check_out_actual_time,
+      </if>
+      <if test="rcoARefundOfTime != null" >
+        rco_a_refund_of_time,
+      </if>
+      <if test="rcoRefundTheUserName != null" >
+        rco_refund_the_user_name,
+      </if>
+      <if test="rcoRefundAccount != null" >
+        rco_refund_account,
+      </if>
+      <if test="rcoRefundBank != null" >
+        rco_refund_bank,
+      </if>
+      
+      <if test="rcoStoreId != null" >
+        rco_store_id,
+      </if>
+      <if test="rcoLandlordId != null" >
+        rco_landlord_id,
+      </if>
+      <if test="rcoId != null" >
+        rco_id,
+      </if>
+      <if test="rcoRentId != null" >
+        rco_rent_id,
+      </if>
+      <if test="rcoRenterId != null" >
+        rco_renter_id,
+      </if>
+      <if test="rcoCheckOutTheState != null" >
+        rco_check_out_the_state,
+      </if>
+      <if test="rcoReturnDeposit != null" >
+        rco_return_deposit,
+      </if>
+      <if test="rcoReturnDoorDeposit != null" >
+        rco_return_door_deposit,
+      </if>
+      <if test="rcoReturnPowerDeposit != null" >
+        rco_return_power_deposit,
+      </if>
+      <if test="rcoReturnOtherDeposit != null" >
+        rco_return_other_deposit,
+      </if>
+      <if test="rcoReturnOtherCost != null" >
+        rco_return_other_cost,
+      </if>
+      <if test="rcoRemainingRent != null" >
+        rco_remaining_rent,
+      </if>
+      <if test="rcoLicenceFee != null" >
+        rco_licence_fee,
+      </if>
+      <if test="rcoLastWaterBase != null" >
+        rco_last_water_base,
+      </if>
+      <if test="rcoWaterBase != null" >
+        rco_water_base,
+      </if>
+      <if test="rcoWaterPrice != null" >
+        rco_water_price,
+      </if>
+      <if test="rcoWaterCombined != null" >
+        rco_water_combined,
+      </if>
+      <if test="rcoLastElectricityBase != null" >
+        rco_last_electricity_base,
+      </if>
+      <if test="rcoElectricityBase != null" >
+        rco_electricity_base,
+      </if>
+      <if test="rcoElectricityPrice != null" >
+        rco_electricity_price,
+      </if>
+      <if test="rcoElectricityCombined != null" >
+        rco_electricity_combined,
+      </if>
+      <if test="rcoGasBaseLast != null" >
+        rco_gas_base_last,
+      </if>
+      <if test="rcoGasBaseNumber != null" >
+        rco_gas_base_number,
+      </if>
+      <if test="rcoGasPrice != null" >
+        rco_gas_price,
+      </if>
+      <if test="rcoGasCombined != null" >
+        rco_gas_combined,
+      </if>
+      
+      <if test="rcoHotWaterBaseLast != null" >
+        rco_hotwater_base_last,
+      </if>
+      <if test="rcoHotWaterBaseNumber != null" >
+        rco_hotwater_base_number,
+      </if>
+      <if test="rcoHotWaterPrice != null" >
+        rco_hotwater_price,
+      </if>
+      <if test="rcoHotWaterCombined != null" >
+        rco_hotwater_combined,
+      </if>
+      
+      <if test="rcoHotAirBaseLast != null" >
+        rco_hotair_base_last,
+      </if>
+      <if test="rcoHotAirBaseNumber != null" >
+        rco_hotair_base_number,
+      </if>
+      <if test="rcoHotAirPrice != null" >
+        rco_hotair_price,
+      </if>
+      <if test="rcoHotAirCombined != null" >
+        rco_hotair_combined,
+      </if>
+      
+      <if test="rcoLastMakePropertyCosts != null" >
+        rco_last_make_property_costs,
+      </if>
+      <if test="rcoWifiCost != null" >
+        rco_wifi_cost,
+      </if>
+      <if test="rcoTvCost != null" >
+        rco_tv_cost,
+      </if>
+      <if test="rcoServerCost != null" >
+        rco_server_cost,
+      </if>
+      <if test="rcoOtherCost != null" >
+        rco_other_cost,
+      </if>
+      <if test="rcoTotalAmountDue != null" >
+        rco_total_amount_due,
+      </if>
+      <if test="rcoPropertyCostUnitPrice != null" >
+        rco_property_cost_unit_price,
+      </if>
+      <if test="rcoPropertyCostsInTotal != null" >
+        rco_property_costs_in_total,
+      </if>
+      <if test="rcoOtherChargesInTotal != null" >
+        rco_other_charges_in_total,
+      </if>
+      <if test="rcoBreachOfContract != null" >
+        rco_breach_of_contract,
+      </if>
+      <if test="rcoBreachDetail != null" >
+        rco_breach_detail,
+      </if>
+      <if test="rcoLateFee != null" >
+        rco_late_fee,
+      </if>
+      <if test="rcoLateFeeDetail != null" >
+        rco_late_fee_detail,
+      </if>
+      <if test="rcoRepairDamages != null" >
+        rco_repair_damages,
+      </if>
+      <if test="rcoDaysOverdue != null" >
+        rco_days_overdue,
+      </if>
+      <if test="rcoBeyondTheRent != null" >
+        rco_beyond_the_rent,
+      </if>
+      <if test="rcoTotalShouldBeReturned != null" >
+        rco_total_should_be_returned,
+      </if>
+      <if test="rcoDeductionCombined != null" >
+        rco_deduction_combined,
+      </if>
+      <if test="rcoCheckOutNature != null" >
+        rco_check_out_nature,
+      </if>
+      <if test="rcoCheckOutTime != null" >
+        rco_check_out_time,
+      </if>
+      <if test="rcoApplyForTime != null" >
+        rco_apply_for_time,
+      </if>
+      <if test="rcoCheckOutReason != null" >
+        rco_check_out_reason,
+      </if>
+      <if test="rcoCheckoutAccount != null" >
+        rco_checkout_account,
+      </if>
+      <if test="rcoImgPath != null" >
+        rco_img_path,
+      </if>
+      <if test="rcoImgNum != null" >
+        rco_img_num,
+      </if>
+      <if test="rcoPayType != null" >
+        rco_pay_type,
+      </if>
+      <if test="rcoOperationRecords != null" >
+        rco_operation_records,
+      </if>
+      <if test="rcoNumber != null" >
+        rco_number,
+      </if>
+      <if test="rcoWaterPlan != null" >
+        rco_water_plan,
+      </if>
+      <if test="rcoElectricityPlan != null" >
+        rco_electricity_plan,
+      </if>
+      <if test="rcoGasPlan != null" >
+        rco_gas_plan,
+      </if>
+      
+      <if test="rcoHotWaterPlan != null" >
+        rco_hotwater_plan,
+      </if>
+      <if test="rcoHotAirPlan != null" >
+        rco_hotair_plan,
+      </if>
+      
+      <if test="rcoSysWater != null" >
+        rco_sys_water,
+      </if>
+      <if test="rcoSysElectricity != null" >
+        rco_sys_electricity,
+      </if>
+      <if test="rcoSysGas != null" >
+        rco_sys_gas,
+      </if>
+      
+      <if test="rcoSysHotWater != null" >
+        rco_sys_hotwater,
+      </if>
+      <if test="rcoSysHotAir != null" >
+        rco_sys_hotair,
+      </if>
+      
+      <if test="rcoHandler != null" >
+        rco_handler,
+      </if>
+      <if test="rcoReturnNote != null" >
+        rco_return_note,
+      </if>
+      <if test="rcoPayNote != null" >
+        rco_pay_note,
+      </if>
+      <if test="rcoRepairNote != null" >
+        rco_repair_note,
+      </if>
+      <if test="rcoTotalMoney != null" >
+        rco_total_money,
+      </if>
+      <if test="rcoSave != null" >
+        rco_save,
+      </if>
+      <if test="rcoActualReceipts != null" >
+        rco_actual_receipts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rcoApplyUser != null" >
+        #{rcoApplyUser},
+      </if>
+      <if test="rcoCheckOutActualTime != null" >
+        #{rcoCheckOutActualTime,jdbcType=DATE},
+      </if>
+      <if test="rcoARefundOfTime != null" >
+        #{rcoARefundOfTime,jdbcType=DATE},
+      </if>
+      <if test="rcoRefundTheUserName != null" >
+        #{rcoRefundTheUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoRefundAccount != null" >
+        #{rcoRefundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoRefundBank != null and rcoRefundBank != '' " >
+        #{rcoRefundBank,jdbcType=VARCHAR},
+      </if>
+    
+	  <if test="rcoStoreId != null" >
+        #{rcoStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="rcoLandlordId != null" >
+        #{rcoLandlordId,jdbcType=INTEGER},
+      </if>
+      
+      <if test="rcoId != null" >
+        #{rcoId,jdbcType=INTEGER},
+      </if>
+      <if test="rcoRentId != null" >
+        #{rcoRentId,jdbcType=INTEGER},
+      </if>
+      <if test="rcoRenterId != null" >
+        #{rcoRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="rcoCheckOutTheState != null" >
+        #{rcoCheckOutTheState,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoReturnDeposit != null" >
+        #{rcoReturnDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoReturnDoorDeposit != null" >
+        #{rcoReturnDoorDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoReturnPowerDeposit != null" >
+        #{rcoReturnPowerDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoReturnOtherDeposit != null" >
+        #{rcoReturnOtherDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoReturnOtherCost != null" >
+        #{rcoReturnOtherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoRemainingRent != null" >
+        #{rcoRemainingRent,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="rcoLicenceFee != null" >
+        #{rcoLicenceFee,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoLastWaterBase != null" >
+        #{rcoLastWaterBase,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoWaterBase != null" >
+        #{rcoWaterBase,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoWaterPrice != null" >
+        #{rcoWaterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoWaterCombined != null" >
+        #{rcoWaterCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoLastElectricityBase != null" >
+        #{rcoLastElectricityBase,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoElectricityBase != null" >
+        #{rcoElectricityBase,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoElectricityPrice != null" >
+        #{rcoElectricityPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoElectricityCombined != null" >
+        #{rcoElectricityCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoGasBaseLast != null" >
+        #{rcoGasBaseLast,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoGasBaseNumber != null" >
+        #{rcoGasBaseNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoGasPrice != null" >
+        #{rcoGasPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoGasCombined != null" >
+        #{rcoGasCombined,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="rcoHotWaterBaseLast != null" >
+        #{rcoHotWaterBaseLast,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotWaterBaseNumber != null" >
+        #{rcoHotWaterBaseNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotWaterPrice != null" >
+        #{rcoHotWaterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotWaterCombined != null" >
+        #{rcoHotWaterCombined,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="rcoHotAirBaseLast != null" >
+        #{rcoHotAirBaseLast,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotAirBaseNumber != null" >
+        #{rcoHotAirBaseNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotAirPrice != null" >
+        #{rcoHotAirPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotAirCombined != null" >
+        #{rcoHotAirCombined,jdbcType=DOUBLE},
+      </if>
+      
+      
+      <if test="rcoLastMakePropertyCosts != null" >
+        #{rcoLastMakePropertyCosts,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoWifiCost != null" >
+        #{rcoWifiCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoTvCost != null" >
+        #{rcoTvCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoServerCost != null" >
+        #{rcoServerCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoOtherCost != null" >
+        #{rcoOtherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoTotalAmountDue != null" >
+        #{rcoTotalAmountDue,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoPropertyCostUnitPrice != null" >
+        #{rcoPropertyCostUnitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoPropertyCostsInTotal != null" >
+        #{rcoPropertyCostsInTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoOtherChargesInTotal != null" >
+        #{rcoOtherChargesInTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoBreachOfContract != null" >
+        #{rcoBreachOfContract,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoBreachDetail != null" >
+        #{rcoBreachDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rcoLateFee != null" >
+        #{rcoLateFee,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoLateFeeDetail != null" >
+        #{rcoLateFeeDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rcoRepairDamages != null" >
+        #{rcoRepairDamages,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoDaysOverdue != null" >
+        #{rcoDaysOverdue,jdbcType=INTEGER},
+      </if>
+      <if test="rcoBeyondTheRent != null" >
+        #{rcoBeyondTheRent,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoTotalShouldBeReturned != null" >
+        #{rcoTotalShouldBeReturned,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoDeductionCombined != null" >
+        #{rcoDeductionCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoCheckOutNature != null" >
+        #{rcoCheckOutNature,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoCheckOutTime != null" >
+        #{rcoCheckOutTime,jdbcType=DATE},
+      </if>
+      <if test="rcoApplyForTime != null" >
+        #{rcoApplyForTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcoCheckOutReason != null" >
+        #{rcoCheckOutReason,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rcoCheckoutAccount != null" >
+        #{rcoCheckoutAccount,jdbcType=INTEGER},
+      </if>
+      <if test="rcoImgPath != null" >
+        #{rcoImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rcoImgNum != null" >
+        #{rcoImgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoPayType != null" >
+        #{rcoPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoOperationRecords != null" >
+        #{rcoOperationRecords},
+      </if>
+      <if test="rcoNumber != null" >
+        #{rcoNumber},
+      </if>
+      <if test="rcoWaterPlan != null" >
+        #{rcoWaterPlan},
+      </if>
+      <if test="rcoElectricityPlan != null" >
+        #{rcoElectricityPlan},
+      </if>
+      <if test="rcoGasPlan != null" >
+        #{rcoGasPlan},
+      </if>
+      
+      <if test="rcoHotWaterPlan != null" >
+        #{rcoHotWaterPlan},
+      </if>
+      <if test="rcoHotAirPlan != null" >
+        #{rcoHotAirPlan},
+      </if>
+      
+      <if test="rcoSysWater != null" >
+        #{rcoSysWater},
+      </if>
+      <if test="rcoSysElectricity != null" >
+        #{rcoSysElectricity},
+      </if>
+      <if test="rcoSysGas != null" >
+        #{rcoSysGas},
+      </if>
+      
+      <if test="rcoSysHotWater != null" >
+        #{rcoSysHotWater},
+      </if>
+      <if test="rcoSysHotAir != null" >
+        #{rcoSysHotAir},
+      </if>
+      
+      <if test="rcoHandler != null" >
+        #{rcoHandler},
+      </if>
+      <if test="rcoReturnNote != null" >
+        #{rcoReturnNote},
+      </if>
+      <if test="rcoPayNote != null" >
+        #{rcoPayNote},
+      </if>
+      <if test="rcoRepairNote != null" >
+        #{rcoRepairNote},
+      </if>
+      <if test="rcoTotalMoney != null" >
+        #{rcoTotalMoney},
+      </if>
+      <if test="rcoSave != null" >
+        #{rcoSave},
+      </if>
+      <if test="rcoActualReceipts != null" >
+        #{rcoActualReceipts},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 修改 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+    update info_rented_checkout
+    <set >
+      <if test="rcoCheckOutActualTime != null and rcoCheckOutActualTime !=''" >
+        rco_check_out_actual_time = #{rcoCheckOutActualTime,jdbcType=DATE},
+      </if>
+      <if test="rcoARefundOfTime != null and rcoARefundOfTime !=''" >
+        rco_a_refund_of_time = #{rcoARefundOfTime,jdbcType=DATE},
+      </if>
+      <if test="rcoRefundTheUserName != null and rcoRefundTheUserName !=''" >
+        rco_refund_the_user_name = #{rcoRefundTheUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoRefundAccount != null and rcoRefundAccount !=''" >
+        rco_refund_account = #{rcoRefundAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoRefundBank != null and rcoRefundBank != '' " >
+        rco_refund_bank = #{rcoRefundBank,jdbcType=VARCHAR},
+      </if>
+	  <if test="rcoStoreId != null and rcoStoreId !=''" >
+        rco_store_id = #{rcoStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="rcoLandlordId != null and rcoLandlordId !=''" >
+        rco_landlord_id = #{rcoLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="rcoRentId != null and rcoRentId !=''" >
+        rco_rent_id = #{rcoRentId,jdbcType=INTEGER},
+      </if>
+      <if test="rcoRenterId != null and rcoRenterId !=''" >
+        rco_renter_id = #{rcoRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="rcoCheckOutTheState != null and rcoCheckOutTheState !=''" >
+        rco_check_out_the_state = #{rcoCheckOutTheState,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoReturnDeposit != null and ( rcoReturnDeposit !='' or rcoReturnDeposit ==0)" >
+        rco_return_deposit = #{rcoReturnDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoReturnDoorDeposit != null and ( rcoReturnDoorDeposit !='' or rcoReturnDoorDeposit ==0)" >
+        rco_return_door_deposit = #{rcoReturnDoorDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoReturnPowerDeposit != null and ( rcoReturnPowerDeposit !='' or rcoReturnPowerDeposit ==0)" >
+        rco_return_power_deposit = #{rcoReturnPowerDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoReturnOtherDeposit != null and ( rcoReturnOtherDeposit !='' or rcoReturnOtherDeposit ==0)" >
+        rco_return_other_deposit = #{rcoReturnOtherDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoReturnOtherCost != null and ( rcoReturnOtherCost !='' or rcoReturnOtherCost ==0)" >
+        rco_return_other_cost = #{rcoReturnOtherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoRemainingRent != null and ( rcoRemainingRent !='' or rcoRemainingRent ==0)" >
+        rco_remaining_rent = #{rcoRemainingRent,jdbcType=DOUBLE},
+      </if>
+       <if test="rcoDeductionCombined != null and ( rcoDeductionCombined !='' or rcoDeductionCombined ==0)" >
+        rco_deduction_combined = #{rcoDeductionCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoLicenceFee != null and ( rcoLicenceFee !='' or rcoLicenceFee ==0)" >
+        rco_licence_fee = #{rcoLicenceFee,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoLastWaterBase != null and ( rcoLastWaterBase !='' or rcoLastWaterBase ==0)" >
+        rco_last_water_base = #{rcoLastWaterBase,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoWaterBase != null and ( rcoWaterBase !='' or rcoWaterBase ==0)" >
+        rco_water_base = #{rcoWaterBase,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoWaterPrice != null and ( rcoWaterPrice !='' or rcoWaterPrice ==0)" >
+        rco_water_price = #{rcoWaterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoWaterCombined != null and ( rcoWaterCombined !='' or rcoWaterCombined ==0)" >
+        rco_water_combined = #{rcoWaterCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoLastElectricityBase != null and ( rcoLastElectricityBase !='' or rcoLastElectricityBase ==0)" >
+        rco_last_electricity_base = #{rcoLastElectricityBase,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoElectricityBase != null and ( rcoElectricityBase !='' or rcoElectricityBase ==0)" >
+        rco_electricity_base = #{rcoElectricityBase,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoElectricityPrice != null and ( rcoElectricityPrice !='' or rcoElectricityPrice ==0)" >
+        rco_electricity_price = #{rcoElectricityPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoElectricityCombined != null and ( rcoElectricityCombined !='' or rcoElectricityCombined ==0)" >
+        rco_electricity_combined = #{rcoElectricityCombined,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoGasBaseLast != null and ( rcoGasBaseLast !='' or rcoGasBaseLast ==0)" >
+        rco_gas_base_last = #{rcoGasBaseLast,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoGasBaseNumber != null and ( rcoGasBaseNumber !='' or rcoGasBaseNumber ==0)" >
+        rco_gas_base_number = #{rcoGasBaseNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoGasPrice != null and ( rcoGasPrice !='' or rcoGasPrice ==0)" >
+        rco_gas_price = #{rcoGasPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoGasCombined != null and ( rcoGasCombined !='' or rcoGasCombined ==0)" >
+        rco_gas_combined = #{rcoGasCombined,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="rcoHotWaterBaseLast != null and ( rcoHotWaterBaseLast !='' or rcoHotWaterBaseLast ==0)" >
+        rco_hotwater_base_last = #{rcoHotWaterBaseLast,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotWaterBaseNumber != null and ( rcoHotWaterBaseNumber !='' or rcoHotWaterBaseNumber ==0)" >
+        rco_hotwater_base_number = #{rcoHotWaterBaseNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotWaterPrice != null and ( rcoHotWaterPrice !='' or rcoHotWaterPrice ==0)" >
+        rco_hotwater_price = #{rcoHotWaterPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotWaterCombined != null and ( rcoHotWaterCombined !='' or rcoHotWaterCombined ==0)" >
+        rco_hotwater_combined = #{rcoHotWaterCombined,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="rcoHotAirBaseLast != null and ( rcoHotAirBaseLast !='' or rcoHotAirBaseLast ==0)" >
+        rco_hotair_base_last = #{rcoHotAirBaseLast,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotAirBaseNumber != null and ( rcoHotAirBaseNumber !='' or rcoHotAirBaseNumber ==0)" >
+        rco_hotair_base_number = #{rcoHotAirBaseNumber,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotAirPrice != null and ( rcoHotAirPrice !='' or rcoHotAirPrice ==0)" >
+        rco_hotair_price = #{rcoHotAirPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoHotAirCombined != null and ( rcoHotAirCombined !='' or rcoHotAirCombined ==0)" >
+        rco_hotair_combined	 = #{rcoHotAirCombined,jdbcType=DOUBLE},
+      </if>
+      
+      
+      <if test="rcoLastMakePropertyCosts != null and ( rcoLastMakePropertyCosts !='' or rcoLastMakePropertyCosts ==0)" >
+        rco_last_make_property_costs = #{rcoLastMakePropertyCosts,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoWifiCost != null and ( rcoWifiCost !='' or rcoWifiCost ==0)" >
+        rco_wifi_cost = #{rcoWifiCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoTvCost != null and ( rcoTvCost !='' or rcoTvCost ==0)" >
+        rco_tv_cost = #{rcoTvCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoServerCost != null and ( rcoServerCost !='' or rcoServerCost ==0)" >
+        rco_server_cost = #{rcoServerCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoOtherCost != null and ( rcoOtherCost !='' or rcoOtherCost ==0)" >
+        rco_other_cost = #{rcoOtherCost,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoTotalAmountDue != null and rcoTotalAmountDue !=''" >
+        rco_total_amount_due = #{rcoTotalAmountDue,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoPropertyCostUnitPrice != null and ( rcoPropertyCostUnitPrice !='' or rcoPropertyCostUnitPrice ==0)" >
+        rco_property_cost_unit_price = #{rcoPropertyCostUnitPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoPropertyCostsInTotal != null and ( rcoPropertyCostsInTotal !='' or rcoPropertyCostsInTotal ==0)" >
+        rco_property_costs_in_total = #{rcoPropertyCostsInTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoOtherChargesInTotal != null and ( rcoOtherChargesInTotal !='' or rcoOtherChargesInTotal ==0)" >
+        rco_other_charges_in_total = #{rcoOtherChargesInTotal,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoBreachOfContract != null and ( rcoBreachOfContract !='' or rcoBreachOfContract ==0)" >
+        rco_breach_of_contract = #{rcoBreachOfContract,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoBreachDetail != null and rcoBreachDetail !=''" >
+        rco_breach_detail = #{rcoBreachDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rcoLateFee != null and ( rcoLateFee !='' or rcoLateFee ==0)" >
+        rco_late_fee = #{rcoLateFee,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoLateFeeDetail != null and rcoLateFeeDetail !=''" >
+        rco_late_fee_detail = #{rcoLateFeeDetail,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rcoRepairDamages != null and ( rcoRepairDamages !='' or rcoRepairDamages ==0)" >
+        rco_repair_damages = #{rcoRepairDamages,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoDaysOverdue != null and rcoDaysOverdue !=''" >
+        rco_days_overdue = #{rcoDaysOverdue,jdbcType=INTEGER},
+      </if>
+      <if test="rcoBeyondTheRent != null and ( rcoBeyondTheRent !='' or rcoBeyondTheRent ==0)" >
+        rco_beyond_the_rent = #{rcoBeyondTheRent,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoTotalShouldBeReturned != null and ( rcoTotalShouldBeReturned !='' or rcoTotalShouldBeReturned ==0)" >
+        rco_total_should_be_returned = #{rcoTotalShouldBeReturned,jdbcType=DOUBLE},
+      </if>
+      <if test="rcoCheckOutNature != null and rcoCheckOutNature !=''" >
+        rco_check_out_nature = #{rcoCheckOutNature,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoCheckOutTime != null and rcoCheckOutTime !=''" >
+        rco_check_out_time = #{rcoCheckOutTime,jdbcType=DATE},
+      </if>
+      <if test="rcoApplyForTime != null and rcoApplyForTime !=''" >
+        rco_apply_for_time = #{rcoApplyForTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rcoCheckOutReason != null and rcoCheckOutReason !=''" >
+        rco_check_out_reason = #{rcoCheckOutReason,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="rcoCheckoutAccount != null and rcoCheckoutAccount !=''" >
+        rco_checkout_account = #{rcoCheckoutAccount,jdbcType=INTEGER},
+      </if>
+      <if test="rcoImgPath != null" >
+        rco_img_path = #{rcoImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="rcoImgNum != null" >
+        rco_img_num = #{rcoImgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoProcedures != null and rcoProcedures !=''" >
+        rco_procedures = #{rcoProcedures,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoPayType != null and rcoPayType !=''" >
+        rco_pay_type = #{rcoPayType,jdbcType=VARCHAR},
+      </if>
+      <if test="rcoOperationRecords != null and rcoOperationRecords !=''" >
+        rco_operation_records = #{rcoOperationRecords},
+      </if>
+      <if test="rcoNumber != null and rcoNumber !=''" >
+        rco_number = #{rcoNumber},
+      </if>
+      <if test="rcoWaterPlan != null and rcoWaterPlan !=''" >
+        rco_water_plan = #{rcoWaterPlan},
+      </if>
+      <if test="rcoElectricityPlan != null and rcoElectricityPlan !=''" >
+        rco_electricity_plan = #{rcoElectricityPlan},
+      </if>
+      <if test="rcoGasPlan != null and rcoGasPlan !=''" >
+        rco_gas_plan = #{rcoGasPlan},
+      </if>
+      
+      <if test="rcoHotWaterPlan != null and rcoHotWaterPlan !=''" >
+        rco_hotwater_plan = #{rcoHotWaterPlan},
+      </if>
+      <if test="rcoHotAirPlan != null and rcoHotAirPlan !=''" >
+        rco_hotair_plan = #{rcoHotAirPlan},
+      </if>
+      
+      <if test="rcoSysWater != null" >
+        rco_sys_water = #{rcoSysWater},
+      </if>
+      <if test="rcoSysElectricity != null" >
+        rco_sys_electricity = #{rcoSysElectricity},
+      </if>
+      <if test="rcoSysGas != null" >
+        rco_sys_gas = #{rcoSysGas},
+      </if>
+      
+      <if test="rcoSysHotWater != null" >
+        rco_sys_hotwater = #{rcoSysHotWater},
+      </if>
+      <if test="rcoSysHotAir != null" >
+        rco_sys_hotair = #{rcoSysHotAir},
+      </if>
+      
+      <if test="rcoHandler != null" >
+        rco_handler = #{rcoHandler},
+      </if>
+      <if test="rcoReturnNote != null" >
+        rco_return_note = #{rcoReturnNote},
+      </if>
+      <if test="rcoPayNote != null" >
+        rco_pay_note = #{rcoPayNote},
+      </if>
+      <if test="rcoRepairNote != null" >
+        rco_repair_note = #{rcoRepairNote},
+      </if>
+      <if test="rcoTotalMoney != null" >
+        rco_total_money = #{rcoTotalMoney},
+      </if>
+      <if test="rcoSave != null" >
+        rco_save = #{rcoSave},
+      </if>
+      <if test="rcoActualReceipts != null" >
+        rco_actual_receipts = #{rcoActualReceipts},
+      </if>
+    </set>
+    where rco_id = #{rcoId,jdbcType=INTEGER}
+  </update>
+   <update id="updateHrState" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+  		<if test="hrId != null and hrId !=''" >
+   			update info_house_4rent set hr_lease_state = '在租',hr_state ='正常' where hr_id = #{hrId,jdbcType=INTEGER}
+   		</if>
+   </update>
+   <update id="updateHsState" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+	    <if test="hsId != null and hsId !=''" >
+	   		update info_house_4store set hs_lease_state = '已租' where hs_id = #{hsId,jdbcType=INTEGER}
+	   	</if>
+   </update>
+   <update id="recoveryHaveRentCheckOut" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+   		<if test="rcoId != null and rcoId !=''" >
+   			update info_rented_checkout set rco_check_out_the_state = '正办理退房' 
+   			<if test="rcoOperationRecords != null and rcoOperationRecords !=''" >
+		        , rco_operation_records = #{rcoOperationRecords}
+		    </if>
+   			where rco_id = #{rcoId,jdbcType=INTEGER}
+   		</if>
+   </update>
+   <update id="recoveryHaveRent" parameterType="com.zz.po.info.InfoHaveRentCheckOut" >
+    	<if test="hrId != null and hrId !=''" >
+   			update info_house_4rent set hr_state ='正办理退房' where hr_id = #{hrId,jdbcType=INTEGER}
+   		</if>
+   </update>
+</mapper>

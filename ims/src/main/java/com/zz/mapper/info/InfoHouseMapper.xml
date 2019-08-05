@@ -1,0 +1,1354 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoHouseMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.info.InfoHouse" >
+    <id column="house_coding" property="houseCoding" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="landlord_id" property="landlordId" jdbcType="INTEGER" />
+    <result column="house_dict_id" property="houseDictId" jdbcType="INTEGER" />
+    <result column="section_type" property="sectionType" jdbcType="VARCHAR" />
+    <result column="house_type" property="houseType" jdbcType="VARCHAR" />
+    <result column="house_owner" property="houseOwner" jdbcType="VARCHAR" />
+    <result column="store_square" property="storeSquare" jdbcType="DOUBLE" />
+    <result column="furniture_config" property="furnitureConfig" jdbcType="VARCHAR" />
+    <result column="house_price" property="housePrice" jdbcType="DOUBLE" />
+    <result column="house_remake" property="houseRemake" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="DATE" />
+    <result column="add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="state_owned" property="stateOwned" jdbcType="VARCHAR" />
+    <result column="house_state" property="houseState" jdbcType="VARCHAR" />
+    <result column="house_signed_state" property="houseSignedState" jdbcType="VARCHAR" />
+    <result column="house_people4rent" property="housePeople4rent" jdbcType="INTEGER" />
+    <result column="house_people4sell" property="housePeople4sell" jdbcType="INTEGER" />
+    <result column="key_administrator" property="keyAdministrator" jdbcType="VARCHAR" />
+    <result column="house_entrust4rent" property="houseEntrust4rent" jdbcType="VARCHAR" />
+    <result column="house_entrust4sell" property="houseEntrust4sell" jdbcType="VARCHAR" />
+    <result column="house_source" property="houseSource" jdbcType="VARCHAR" />
+    <result column="house_property" property="houseProperty" jdbcType="VARCHAR" />
+    <result column="house4buy_time" property="house4buyTime" jdbcType="DATE" />
+    <result column="house_selling_price" property="houseSellingPrice" jdbcType="DOUBLE" />
+    <result column="unit_price_rent" property="unitPriceRent" jdbcType="DOUBLE" />
+    <result column="unit_price_sell" property="unitPriceSell" jdbcType="DOUBLE" />
+    <result column="house_direction" property="houseDirection" jdbcType="VARCHAR" />
+    <result column="key_number" property="keyNumber" jdbcType="VARCHAR" />
+    <result column="first_follow" property="firstFollow" jdbcType="INTEGER" />
+    <result column="house_img_path" property="houseImgPath" jdbcType="VARCHAR" />
+
+    <result column="storefront" property="storefront" jdbcType="INTEGER" />
+    <result column="department" property="department" jdbcType="INTEGER" />
+    <result column="rentDepartment" property="rentDepartment" jdbcType="INTEGER" />
+    <result column="sellDepartment" property="sellDepartment" jdbcType="INTEGER" />
+    <result column="inner_virtual_room" property="innerVirtualRoom" jdbcType="INTEGER" />
+    <result column="outer_virtual_room" property="outerVirtualRoom" jdbcType="INTEGER" />
+    <result column="virtualType" property="virtualType" jdbcType="VARCHAR" />
+    <result column="house_lip_id" property="houseLipId" jdbcType="INTEGER" />
+    <result column="tenantName" property="tenantName" jdbcType="VARCHAR" />
+    <result column="whilePeopleName" property="whilePeopleName" jdbcType="VARCHAR" />
+    <result column="keyPeopleName" property="keyPeopleName" jdbcType="VARCHAR" />
+    <!-- 排序 -->
+    <result column= "theSortTerm"  property= "theSortTerm"  jdbcType="VARCHAR" />
+    <result column= "theSortContrary"  property= "theSortContrary"  jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoHouseExpand" >
+    <id column="house_coding" property="houseCoding" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="landlord_id" property="landlordId" jdbcType="INTEGER" />
+    <result column="house_dict_id" property="houseDictId" jdbcType="INTEGER" />
+    <result column="section_type" property="sectionType" jdbcType="VARCHAR" />
+    <result column="house_type" property="houseType" jdbcType="VARCHAR" />
+    <result column="house_owner" property="houseOwner" jdbcType="VARCHAR" />
+    <result column="store_square" property="storeSquare" jdbcType="DOUBLE" />
+    <result column="furniture_config" property="furnitureConfig" jdbcType="VARCHAR" />
+    <result column="house_price" property="housePrice" jdbcType="DOUBLE" />
+    <result column="house_remake" property="houseRemake" jdbcType="VARCHAR" />
+    <result column="register_time" property="registerTime" jdbcType="DATE" />
+    <result column="add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="state_owned" property="stateOwned" jdbcType="VARCHAR" />
+    <result column="house_state" property="houseState" jdbcType="VARCHAR" />
+    <result column="house_signed_state" property="houseSignedState" jdbcType="VARCHAR" />
+    <result column="house_people4rent" property="housePeople4rent" jdbcType="INTEGER" />
+    <result column="house_people4sell" property="housePeople4sell" jdbcType="INTEGER" />
+    <result column="key_administrator" property="keyAdministrator" jdbcType="VARCHAR" />
+    <result column="house_entrust4rent" property="houseEntrust4rent" jdbcType="VARCHAR" />
+    <result column="house_entrust4sell" property="houseEntrust4sell" jdbcType="VARCHAR" />
+    <result column="house_source" property="houseSource" jdbcType="VARCHAR" />
+    <result column="house_property" property="houseProperty" jdbcType="VARCHAR" />
+    <result column="house4buy_time" property="house4buyTime" jdbcType="DATE" />
+    <result column="house_selling_price" property="houseSellingPrice" jdbcType="DOUBLE" />
+    <result column="unit_price_rent" property="unitPriceRent" jdbcType="DOUBLE" />
+    <result column="unit_price_sell" property="unitPriceSell" jdbcType="DOUBLE" />
+    <result column="house_direction" property="houseDirection" jdbcType="VARCHAR" />
+    <result column="key_number" property="keyNumber" jdbcType="VARCHAR" />
+    <result column="first_follow" property="firstFollow" jdbcType="INTEGER" />
+    <result column="house_img_path" property="houseImgPath" jdbcType="VARCHAR" />
+    <!-- house_dict -->
+    <result column="hd_city" property="hdCity" jdbcType="VARCHAR" />
+    <result column="hd_district" property="hdDistrict" jdbcType="VARCHAR" />
+    <result column="hd_zone" property="hdZone" jdbcType="VARCHAR" />
+    <result column="hd_road" property="hdRoad" jdbcType="VARCHAR" />
+    <result column="hd_community" property="hdCommunity" jdbcType="VARCHAR" />
+    <result column="hd_pinyin" property="hdPinyin" jdbcType="VARCHAR" />
+    <result column="hd_baidu_longitude_x" property="hdBaiduLongitudeX" jdbcType="VARCHAR" />
+    <result column="hd_baidu_latitude_y" property="hdBaiduLatitudeY" jdbcType="VARCHAR" />
+    <result column="hd_building_form" property="hdBuildingForm" jdbcType="VARCHAR" />
+    <result column="hd_property_type" property="hdPropertyType" jdbcType="VARCHAR" />
+    <result column="hd_building_developers" property="hdBuildingDevelopers" jdbcType="VARCHAR" />
+    <result column="hd_be_completed_time" property="hdBeCompletedTime" jdbcType="DATE" />
+    <result column="hd_item_features" property="hdItemFeatures" jdbcType="VARCHAR" />
+    <result column="hd_loop_position" property="hdLoopPosition" jdbcType="VARCHAR" />
+    <result column="hd_plot_ratio" property="hdPlotRatio" jdbcType="DOUBLE" />
+    <result column="hd_afforestation_rate" property="hdAfforestationRate" jdbcType="DOUBLE" />
+    <result column="hd_property_fee" property="hdPropertyFee" jdbcType="VARCHAR" />
+    <result column="hd_property_company" property="hdPropertyCompany" jdbcType="VARCHAR" />
+    <result column="hd_additional_information" property="hdAdditionalInformation" jdbcType="VARCHAR" />
+    <result column="hd_covers_an_area_of" property="hdCoversAnAreaOf" jdbcType="DOUBLE" />
+    <result column="hd_floor_area" property="hdFloorArea" jdbcType="DOUBLE" />
+    <result column="hd_sum_households" property="hdSumHouseholds" jdbcType="VARCHAR" />
+    <result column="hd_the_current_number" property="hdTheCurrentNumber" jdbcType="INTEGER" />
+    <result column="hd_parking_space_top" property="hdParkingSpaceTop" jdbcType="INTEGER" />
+    <result column="hd_parking_space_nuder" property="hdParkingSpaceNuder" jdbcType="VARCHAR" />
+    <result column="hd_zone_bit_introduce" property="hdZoneBitIntroduce" jdbcType="VARCHAR" />
+	<result column="hd_zone_bit_introduce" property="hdZoneBitIntroduce" jdbcType="VARCHAR" />
+    <!--user  -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <!-- 排序 -->
+    <result column= "theSortTerm"  property= "theSortTerm"  jdbcType="VARCHAR" />
+    <result column= "theSortContrary"  property= "theSortContrary"  jdbcType="VARCHAR" />
+    <result column="storefront" property="storefront" jdbcType="INTEGER" />
+    <result column="department" property="department" jdbcType="INTEGER" />
+    
+    <result column="rentDepartment" property="rentDepartment" jdbcType="INTEGER" />
+    <result column="sellDepartment" property="sellDepartment" jdbcType="INTEGER" />
+    <result column="inner_virtual_room" property="innerVirtualRoom" jdbcType="INTEGER" />
+    <result column="outer_virtual_room" property="outerVirtualRoom" jdbcType="INTEGER" />
+    <result column="non_cost_virtual_room" property="nonCostVirtualRoom" jdbcType="INTEGER" />
+    <result column="virtualType" property="virtualType" jdbcType="VARCHAR" />
+    <result column="house_lip_id" property="houseLipId" jdbcType="INTEGER" />
+    
+    <result column="lip_registrar" property="lipRegistrar" jdbcType="INTEGER" />
+    <result column="lip_landlord_name" property="lipLandlordName" jdbcType="VARCHAR" />
+    <result column="lip_landlord_phone" property="lipLandlordPhone" jdbcType="VARCHAR" />
+    <result column="lip_landlord_other_contact" property="lipLandlordOtherContact" jdbcType="VARCHAR" />
+    <result column="lip_contacts_people" property="lipContactsPeople" jdbcType="VARCHAR" />
+    <result column="lip_contact_information" property="lipContactInformation" jdbcType="VARCHAR" />
+    <result column="lip_other_contact_info" property="lipOtherContactInfo" jdbcType="VARCHAR" />
+    <result column="lip_the_agent" property="lipTheAgent" jdbcType="VARCHAR" />
+    <result column="lip_agent_phone" property="lipAgentPhone" jdbcType="VARCHAR" />
+    <result column="lip_agent_other_contact" property="lipAgentOtherContact" jdbcType="VARCHAR" />
+    <result column="lip_registration_time" property="lipRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="lip_note" property="lipNote" jdbcType="LONGVARCHAR" />
+    <result column="tenantName" property="tenantName" jdbcType="VARCHAR" />
+    <result column="whilePeopleName" property="whilePeopleName" jdbcType="VARCHAR" />
+    <result column="keyPeopleName" property="keyPeopleName" jdbcType="VARCHAR" />
+    <result column="key" property="key" jdbcType="VARCHAR" />
+    
+    <result column="consumablesNum" property="consumablesNum" jdbcType="INTEGER" />
+    <result column="assetsNum" property="assetsNum" jdbcType="INTEGER" />
+    
+    <!-- info_house_4store -->
+    <result column="hs_id" property="hsId" jdbcType="INTEGER" />
+    <result column="hs_renter_id" property="hsRenterId" jdbcType="INTEGER" />
+    <result column="hs_landlord_id" property="hsLandlordId" jdbcType="INTEGER" />
+    <result column="hs_house_id" property="hsHouseId" jdbcType="INTEGER" />
+    <result column="hs_user_id" property="hsUserId" jdbcType="INTEGER" />
+    <result column="hs_admin_user_id" property="hsAdminUserId" jdbcType="INTEGER" />
+    <result column="hs_house_dict_id" property="hsHouseDictId" jdbcType="INTEGER" />
+    <result column="hs_section_type" property="hsSectionType" jdbcType="VARCHAR" />
+    <result column="hs_house_type" property="hsHouseType" jdbcType="VARCHAR" />
+    <result column="hs_house_direction" property="hsHouseDirection" jdbcType="VARCHAR" />
+    <result column="hs_house_owner" property="hsHouseOwner" jdbcType="VARCHAR" />
+    <result column="hs_house_square" property="hsHouseSquare" jdbcType="DOUBLE" />
+    <result column="hs_furniture_config" property="hsFurnitureConfig" jdbcType="VARCHAR" />
+    <result column="hs_house_price" property="hsHousePrice" jdbcType="DOUBLE" />
+    <result column="hs_water_vol_first" property="hsWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_electrit_vol_first" property="hsElectritVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_gas_vol_first" property="hsGasVolFirst" jdbcType="DOUBLE" />
+    <result column="hs_payment_type" property="hsPaymentType" jdbcType="VARCHAR" />
+    <result column="hs_register_time" property="hsRegisterTime" jdbcType="DATE" />
+    <result column="hs_add_province" property="hsAddProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="hsAddCity" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="hsAddDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="hsAddZone" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="hsAddStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_house_deposit" property="hsHouseDeposit" jdbcType="DOUBLE" />
+    <result column="hs_the_term" property="hsTheTerm" jdbcType="VARCHAR" />
+    <result column="hs_begin_time" property="hsBeginTime" jdbcType="DATE" />
+    <result column="hs_end_time" property="hsEndTime" jdbcType="DATE" />
+    <result column="hs_lease_state" property="hsLeaseState" jdbcType="VARCHAR" />
+    <result column="hs_house_key" property="hsHouseKey" jdbcType="VARCHAR" />
+    <result column="hs_rent_holiday" property="hsRentHoliday" jdbcType="INTEGER" />
+    <result column="hs_house_note" property="hsHouseNote" jdbcType="VARCHAR" />
+    <result column="hs_vacancy_day" property="hsVacancyDay" jdbcType="INTEGER" />
+    <result column="hs_state" property="hsState" jdbcType="VARCHAR" />
+    <result column="hs_assist" property="hsAssist" jdbcType="VARCHAR" />
+    <result column="hs_meter_reading_record" property="hsMeterReadingRecord" jdbcType="VARCHAR" />
+    <result column="hs_primitive_mother" property="hsPrimitiveMother" jdbcType="INTEGER" />
+	<result column="hs_not_rent_split" property="hsNotRentSplit" jdbcType="INTEGER" />
+	<result column="hs_split_identifier" property="hsSplitIdentifier" jdbcType="VARCHAR" />
+	<result column="hs_release_status" property="hsReleaseStatus" jdbcType="VARCHAR" />
+	<result column="hs_release_picture" property="hsReleasePicture" jdbcType="VARCHAR" />
+	<result column="hs_main_img" property="hsMainImg" jdbcType="VARCHAR" />
+	<result column="hs_other_img" property="hsOtherImg" jdbcType="LONGVARCHAR" />
+	<result column="hs_device_json" property="hsDeviceJson" jdbcType="LONGVARCHAR" />
+	<result column="hs_transaction_price" property="hsTransactionPrice" jdbcType="DOUBLE" />
+	<result column="hs_in_price" property="hsInPrice" jdbcType="DOUBLE" />
+	<result column="hs_out_price" property="hsOutPrice" jdbcType="DOUBLE" />
+	<result column="hs_total_vacancy_day" property="hsTotalVacancyDay" jdbcType="INTEGER" />
+	<result column="hs_total_vacancy_cost" property="hsTotalVacancyCost" jdbcType="DOUBLE" />
+	<result column="hs_latest_vacancy_cost" property="hsLatestVacancyCost" jdbcType="DOUBLE" />
+	<result column="hs_pop_id" property="hsPopId" jdbcType="INTEGER" />
+	<result column="hs_price_ladder" property="hsPriceLadder" jdbcType="VARCHAR" />
+	<result column="hs_room_type" property="hsRoomType" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- *************************************************** -->
+  
+  <!-- 查项目 -->
+  <select id="getProject" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand">
+  	select house_coding from info_house_paper where add_city in ('项目', '内部项目', '外部项目', '库房', '供应商', '公区')
+  	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if> 
+  </select>
+  
+  <!-- 转移查询 -->
+  <select id="getemployee" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand">
+  	select * from info_house_paper 
+	where house_people4rent = #{userId} or house_people4sell = #{userId}
+  </select>
+  
+  <!-- 数据导入查询 -->
+  <select id="selectData" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand">
+  	select * from info_house_paper
+  	<where>
+  		<if test="addCity != null and addCity != ''" >
+			and add_city = #{addCity,jdbcType=VARCHAR}</if>
+		<if test="addDistrict != null and addDistrict != ''" >
+			and add_district = #{addDistrict,jdbcType=VARCHAR}</if>
+		<if test="addZone != null and addZone != ''" >
+			and add_zone = #{addZone,jdbcType=VARCHAR}</if>
+		<if test="addStreet != null and addStreet != ''" >
+			and add_street = #{addStreet}</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and add_community = #{addCommunity}</if>
+		<if test="addBuilding != null and addBuilding != ''" >
+			and add_building = #{addBuilding}</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''" >
+			and add_doorplateno = #{addDoorplateno}</if>
+  	</where>
+  </select>
+    
+  <!-- 查询办公区 -->
+  <select id="queryOffice" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand">
+  	select a.*, bb.total_num from
+    (select store.*, ih.*, u.su_staff_name username, u1.*, u2.*
+  	from info_house_4store store
+  	left outer join info_house_paper ih on store.hs_house_id = ih.house_coding
+  	left outer join sys_users u on store.hs_user_id = u.user_coding
+  	left outer join sys_storefront u1 on store.hs_storefront = u1.storefront_id
+  	left outer join sys_department u2 on store.hs_department = u2.department_id
+  	<where>
+		<if test="keyAdministrator != null and keyAdministrator != ''"><!-- 公区名称 -->
+			and key_administrator like '%${keyAdministrator}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''"><!-- 备注描述 -->
+			and add_doorplateno like '%${addDoorplateno}%'
+		</if>
+		<if test="keyNumber != null and keyNumber != ''"><!-- 联系人 -->
+			and key_number like '%${keyNumber}%'
+		</if>
+		<if test="houseEntrust4sell != null and houseEntrust4sell != ''"><!-- 公区状态 -->
+			and house_entrust4sell = #{houseEntrust4sell}
+		</if>
+		<if test="addCity != null and addCity != ''"><!-- 公区名称 -->
+			and add_city = #{addCity}
+		</if>
+  	</where>
+  	) a,
+	(select count(store.hs_id) total_num from info_house_4store store
+	left outer join info_house_paper ih on store.hs_house_id = ih.house_coding
+  	left outer join sys_users u on store.hs_user_id = u.user_coding
+  	left outer join sys_storefront u1 on store.hs_storefront = u1.storefront_id
+  	left outer join sys_department u2 on store.hs_department = u2.department_id 
+	<where>
+		<if test="keyAdministrator != null and keyAdministrator != ''"><!-- 公区名称 -->
+			and key_administrator like '%${keyAdministrator}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''"><!-- 备注描述 -->
+			and add_doorplateno like '%${addDoorplateno}%'
+		</if>
+		<if test="keyNumber != null and keyNumber != ''"><!-- 联系人 -->
+			and key_number like '%${keyNumber}%'
+		</if>
+		<if test="houseEntrust4sell != null and houseEntrust4sell != ''"><!-- 公区状态 -->
+			and house_entrust4sell = #{houseEntrust4sell}
+		</if>
+		<if test="addCity != null and addCity != ''"><!-- 公区名称 -->
+			and add_city = #{addCity}
+		</if>
+	</where>
+	) bb
+  	ORDER BY hs_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if> 
+  </select>
+  
+  <!-- 项目查询 -->
+  <select id="virtualRoomVendorQuery" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand">
+  	select a.*, bb.total_num from	
+	(select h.*,u.su_staff_name username, build.*, lip.*
+	from info_house_paper h 
+	left outer join sys_users u on u.user_coding = h.user_id
+	left outer join sys_house_dict build on h.house_dict_id = build.hd_id	
+	left outer join info_intended_landlord lip on lip.lip_id = h.house_lip_id
+	<where>
+		<if test="addCity != null and addCity != ''">
+			add_city = #{addCity}
+		</if>
+		<if test="houseCoding != null and houseCoding != ''">
+			and house_coding = #{houseCoding,jdbcType=INTEGER}
+		</if>
+		<if test="keyAdministrator != null and keyAdministrator != ''">
+			and key_administrator like '%${keyAdministrator}%'
+		</if>
+		<if test="keyNumber != null and keyNumber != ''">
+			and key_number like '%${keyNumber}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and add_doorplateno like '%${addDoorplateno}%'
+		</if>	
+		<if test="houseEntrust4sell != null and houseEntrust4sell != ''">
+			and house_entrust4sell = #{houseEntrust4sell}
+		</if>
+	</where>
+	) a,
+	(select count(h.house_coding) total_num from info_house_paper h
+	left outer join sys_users u on u.user_coding = h.user_id
+	left outer join sys_house_dict build on h.house_dict_id = build.hd_id	
+	left outer join info_intended_landlord lip on lip.lip_id = h.house_lip_id
+	<where>
+		<if test="addCity != null and addCity != ''">
+			add_city = #{addCity}
+		</if>
+		<if test="houseCoding != null and houseCoding != ''">
+			and house_coding = #{houseCoding,jdbcType=INTEGER}
+		</if>
+		<if test="keyAdministrator != null and keyAdministrator != ''">
+			and key_administrator like '%${keyAdministrator}%'
+		</if>
+		<if test="keyNumber != null and keyNumber != ''">
+			and key_number like '%${keyNumber}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and add_doorplateno like '%${addDoorplateno}%'
+		</if>	
+		<if test="houseEntrust4sell != null and houseEntrust4sell != ''">
+			and house_entrust4sell = #{houseEntrust4sell}
+		</if>
+	</where>
+	) bb
+	ORDER BY house_coding DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if> 
+  </select>
+  
+  <!-- 项目盘源查询 -->
+  <!-- 两个where相同 -->
+  <select id="virtualProperty" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand">
+  	select a.*, bb.total_num from	
+	(select h.*,u.su_staff_name username, build.*, lip.*
+	from info_house_paper h 
+	left outer join sys_users u on u.user_coding = h.user_id
+	left outer join sys_house_dict build on h.house_dict_id = build.hd_id	
+	left outer join info_intended_landlord lip on lip.lip_id = h.house_lip_id
+	<where>
+		add_city != '非成本'
+		<choose>
+			<when test="virtualType == 0">
+				and (inner_virtual_room = 1 or outer_virtual_room = 1 or non_cost_virtual_room = 1
+				or add_city in ('项目','供应商','库房','公区'))
+			</when>
+			<when test="virtualType == 1">
+				and (inner_virtual_room = 1 or add_city in ('项目','供应商','库房','公区'))
+			</when>
+			<when test="virtualType == 2">
+				and (outer_virtual_room = 1 or add_city in ('项目','供应商','库房','公区'))
+			</when>
+			<when test="virtualType == 3">
+				and (non_cost_virtual_room = 1 or add_city in ('项目','供应商','库房','公区'))
+			</when>
+			<when test="virtualType = 4 and taskSign == null">
+				and add_city in ('项目','供应商','库房','公区')
+			</when>
+			<when test="virtualType >= 4 and taskSign == 'task'">
+				and add_city =#{addCity}
+			</when>
+			<when test="virtualType == 5 and taskSign == null">
+				and add_city = '供应商'
+			</when>
+		</choose>
+		<if test="houseCoding != null and houseCoding != ''">
+			and house_coding = #{houseCoding,jdbcType=INTEGER}
+		</if>
+		<if test="keyAdministrator != null and keyAdministrator != ''">
+			and key_administrator like '%${keyAdministrator}%'
+		</if>
+		<if test="keyNumber != null and keyNumber != ''">
+			and key_number like '%${keyNumber}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and add_doorplateno like '%${addDoorplateno}%'
+		</if>	
+		<if test="houseEntrust4sell != null and houseEntrust4sell != ''">
+			and house_entrust4sell = #{houseEntrust4sell}
+		</if>
+	</where>
+	) a,
+	(select count(h.house_coding) total_num from info_house_paper h
+	left outer join sys_users u on u.user_coding = h.user_id
+	left outer join sys_house_dict build on h.house_dict_id = build.hd_id	
+	left outer join info_intended_landlord lip on lip.lip_id = h.house_lip_id
+	<where>
+		add_city != '非成本'
+		<choose>
+			<when test="virtualType == 0">
+				and (inner_virtual_room = 1 or outer_virtual_room = 1 or non_cost_virtual_room = 1
+				or add_city in ('项目','供应商','库房','公区'))
+			</when>
+			<when test="virtualType == 1">
+				and (inner_virtual_room = 1 or add_city in ('项目','供应商','库房','公区'))
+			</when>
+			<when test="virtualType == 2">
+				and (outer_virtual_room = 1 or add_city in ('项目','供应商','库房','公区'))
+			</when>
+			<when test="virtualType == 3">
+				and (non_cost_virtual_room = 1 or add_city in ('项目','供应商','库房','公区'))
+			</when>
+			<when test="virtualType >= 4 and taskSign == 'task'">
+				and add_city =#{addCity}
+			</when>
+			<when test="virtualType == 5 and taskSign == null">
+				and add_city = '供应商'
+			</when>
+		</choose>
+		<if test="houseCoding != null and houseCoding != ''">
+			and house_coding = #{houseCoding,jdbcType=INTEGER}
+		</if>
+		<if test="keyAdministrator != null and keyAdministrator != ''">
+			and key_administrator like '%${keyAdministrator}%'
+		</if>
+		<if test="keyNumber != null and keyNumber != ''">
+			and key_number like '%${keyNumber}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and add_doorplateno like '%${addDoorplateno}%'
+		</if>
+		<if test="houseEntrust4sell != null and houseEntrust4sell != ''">
+			and house_entrust4sell = #{houseEntrust4sell}
+		</if>	
+	</where>
+	) bb
+	ORDER BY house_coding DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if> 
+  </select>
+  
+  <!-- 正常的房源资料查询 -->
+  <!-- 两个where相同 -->
+  <select id="queryHousePaper" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand">
+	select a.*, bb.total_num from	
+	(select h.*,u.su_staff_name username, build.*, lip.*, u1.su_staff_name tenantName, 
+		u2.su_staff_name whilePeopleName,u3.su_staff_name keyPeopleName,jhf.jhf_follow_time maxtime
+	from info_house_paper h 
+	left outer join sys_users u on u.user_coding = h.user_id
+	left outer join sys_house_dict build on h.house_dict_id = build.hd_id	
+	left outer join info_intended_landlord lip on lip.lip_id = h.house_lip_id
+	left outer join sys_users u1 on u1.user_coding = h.house_people4rent
+	left outer join sys_users u2 on u2.user_coding = h.house_people4sell
+	left outer join sys_users u3 on u3.user_coding = h.key_administrator
+	left outer join 
+	(select jhf_house_id, max(jhf_follow_time) as jhf_follow_time from jour_event_followup_records group by jhf_house_id
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	) as  jhf on jhf.jhf_house_id = h.house_coding 
+	<where>
+	    inner_virtual_room = 0 and outer_virtual_room = 0 and non_cost_virtual_room = 0
+	    and add_city != '非成本' and add_city != '库房' and add_city != '供应商' and add_city != '公区' and add_city != '项目'
+	    <if test="stateOwned == '私盘'" >
+			and state_owned = "私盘"
+			<if test="userId != null and userId != ''" >
+        	and ((house_people4rent = #{housePeople4rent,jdbcType=INTEGER}
+        		or house_people4sell = #{housePeople4sell,jdbcType=INTEGER}
+        		) or (house_people4rent is null and house_people4sell is null))
+	       </if>
+	       <if test="department != null and department != ''" >
+	       	and (department = #{department,jdbcType=INTEGER}
+	       		or #{department,jdbcType=INTEGER} = (select su_department_id from sys_users where 
+					house_people4rent = user_coding) 
+				or #{department,jdbcType=INTEGER} = (select su_department_id from sys_users where 
+					house_people4sell = user_coding)
+				or (house_people4rent is null and house_people4sell is null)
+				)
+	       </if>
+		</if>
+		<if test="stateOwned == '公盘'" >
+			and state_owned = "公盘"
+		</if>
+		<if test="stateOwned == '全部'" >
+			and (state_owned = "公盘" or state_owned = "私盘")
+		</if>
+        <if test="storefront != null and storefront != ''" >
+        	and storefront = #{storefront,jdbcType=INTEGER}</if>
+		<if test="houseCoding != null and houseCoding != ''" >
+        	and house_coding = #{houseCoding,jdbcType=INTEGER}</if>
+		<if test="addCity != null and addCity != ''" >
+			and add_city = #{addCity,jdbcType=VARCHAR}</if>
+		<if test="addDistrict != null and addDistrict != ''" >
+			and add_district = #{addDistrict,jdbcType=VARCHAR}</if>
+		<if test="addZone != null and addZone != ''" >
+			and add_zone = #{addZone,jdbcType=VARCHAR}</if>
+		<if test="addStreet != null and addStreet != ''" >
+			and add_street like '%${addStreet}%'</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and add_community like '%${addCommunity}%'</if>
+		<if test="addBuilding != null and addBuilding != ''" >
+			and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%')</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''" >
+			and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%')</if>
+		<if test="houseSignedState != '全部'">
+			<if test="houseSignedState != null and houseSignedState != ''" >
+				and house_signed_state = #{houseSignedState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="houseState != null and houseState != ''">
+			<if test="houseState == 'useful' ">
+				and (house_state = '可租' or house_state = '可售' or house_state = '租售')
+			</if>
+			<if test="houseState != 'useful'">
+				and house_state = #{houseState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="lipLandlordPhone != null and lipLandlordPhone != ''" >
+        	and lip_landlord_phone like '%${lipLandlordPhone}%'
+        </if>
+		<if test="sectionType != null and sectionType != ''" >
+        	and section_type = #{sectionType}
+        </if>
+		<if test="key == 1" >
+        	and key_number is not null and key_number != ''
+        </if>
+		<if test="key == 2" >
+        	and (key_number is null or key_number = '')
+        </if>
+		<if test="housePeople4rent != null" >
+        	and house_people4rent = #{housePeople4rent}
+        </if>
+		<if test="housePeople4sell != null" >
+        	and house_people4sell = #{housePeople4sell}
+        </if>
+	</where>
+	) a,
+	(select count(h.house_coding) total_num from info_house_paper h
+	left outer join sys_users u on u.user_coding = h.user_id
+	left outer join sys_house_dict build on h.house_dict_id = build.hd_id	
+	left outer join info_intended_landlord lip on lip.lip_id = h.house_lip_id
+	left outer join sys_users u1 on u1.user_coding = h.house_people4rent
+	left outer join sys_users u2 on u2.user_coding = h.house_people4sell
+	left outer join sys_users u3 on u3.user_coding = h.key_administrator
+	left outer join 
+	(select jhf_house_id, max(jhf_follow_time) as jhf_follow_time from jour_event_followup_records group by jhf_house_id
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	) as  jhf on jhf.jhf_house_id = h.house_coding
+	<where>
+	    inner_virtual_room = 0 and outer_virtual_room = 0 and non_cost_virtual_room = 0
+	    and add_city != '非成本' and add_city != '库房' and add_city != '供应商' and add_city != '公区' and add_city != '项目'
+	    <if test="stateOwned == '私盘'" >
+			and state_owned = "私盘"
+			<if test="userId != null and userId != ''" >
+        	and ((house_people4rent = #{housePeople4rent,jdbcType=INTEGER}
+        		or house_people4sell = #{housePeople4sell,jdbcType=INTEGER}
+        		) or (house_people4rent is null and house_people4sell is null))
+	       </if>
+	       <if test="department != null and department != ''" >
+	       	and (department = #{department,jdbcType=INTEGER}
+	       		or #{department,jdbcType=INTEGER} = (select su_department_id from sys_users where 
+					house_people4rent = user_coding) 
+				or #{department,jdbcType=INTEGER} = (select su_department_id from sys_users where 
+					house_people4sell = user_coding)
+				or (house_people4rent is null and house_people4sell is null)
+				)
+	       </if>
+		</if>
+		<if test="stateOwned == '公盘'" >
+			and state_owned = "公盘"
+		</if>
+		<if test="stateOwned == '全部'" >
+			and (state_owned = "公盘" or state_owned = "私盘")
+		</if>
+        <if test="storefront != null and storefront != ''" >
+        	and storefront = #{storefront,jdbcType=INTEGER}</if>
+		<if test="houseCoding != null and houseCoding != ''" >
+        	and house_coding = #{houseCoding,jdbcType=INTEGER}</if>
+		<if test="addCity != null and addCity != ''" >
+			and add_city = #{addCity,jdbcType=VARCHAR}</if>
+		<if test="addDistrict != null and addDistrict != ''" >
+			and add_district = #{addDistrict,jdbcType=VARCHAR}</if>
+		<if test="addZone != null and addZone != ''" >
+			and add_zone = #{addZone,jdbcType=VARCHAR}</if>
+		<if test="addStreet != null and addStreet != ''" >
+			and add_street like '%${addStreet}%'</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and add_community like '%${addCommunity}%'</if>
+		<if test="addBuilding != null and addBuilding != ''" >
+			and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%')</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''" >
+			and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%')</if>
+		<if test="houseSignedState != '全部'">
+			<if test="houseSignedState != null and houseSignedState != ''" >
+				and house_signed_state = #{houseSignedState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="houseState != null and houseState != ''">
+			<if test="houseState == 'useful' ">
+				and (house_state = '可租' or house_state = '可售' or house_state = '租售')
+			</if>
+			<if test="houseState != 'useful'">
+				and house_state = #{houseState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="lipLandlordPhone != null and lipLandlordPhone != ''" >
+        	and lip_landlord_phone like '%${lipLandlordPhone}%'
+        </if>
+		<if test="sectionType != null and sectionType != ''" >
+        	and section_type = #{sectionType}
+        </if>
+		<if test="key == 1" >
+        	and key_number is not null and key_number != ''
+        </if>
+		<if test="key == 2" >
+        	and (key_number is null or key_number = '')
+        </if>
+		<if test="housePeople4rent != null" >
+        	and house_people4rent = #{housePeople4rent}
+        </if>
+		<if test="housePeople4sell != null" >
+        	and house_people4sell = #{housePeople4sell}
+        </if>
+	</where>
+	) bb
+	<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+		ORDER BY first_follow DESC ,
+	 	<if test="theSortTerm ==1 ">
+	 		add_community 
+ 		</if>
+ 		<if test="theSortTerm ==2 ">
+	 		add_building 
+ 		</if>
+ 		<if test="theSortTerm ==3 ">
+	 		add_doorplateno 
+ 		</if>
+ 		<if test="theSortTerm ==4 ">
+	 		house_coding
+ 		</if>
+ 		<if test="theSortTerm ==5 ">
+	 		house_price 
+ 		</if>
+ 		<if test="theSortTerm ==6 ">
+	 		house_selling_price 
+ 		</if>
+ 		<if test="theSortTerm ==7 ">
+	 		a.maxtime
+ 		</if>
+ 		<if test="theSortContrary ==1 ">
+ 			ASC
+ 		</if>
+ 		<if test="theSortContrary ==2 ">
+ 			DESC
+ 		</if>
+	</if>
+	<if test="theSortTerm == '' or theSortTerm == null or theSortContrary == '' or theSortContrary == null">
+	 	<if test="registerTime != 'registerTimeASC' and registerTime != 'registerTimeDESC'">
+			ORDER BY first_follow DESC , a.maxtime DESC
+		</if>
+		<if test="registerTime == 'registerTimeASC'" >
+			ORDER BY register_time ASC
+		</if>
+		<if test="registerTime == 'registerTimeDESC'" >
+			ORDER BY register_time DESC
+		</if>
+	</if>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 正常的房源资料查询 -->
+  <!-- 两个where相同 -->
+  <select id="queryHousePaperCommon" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand">
+	select a.*, bb.total_num from	
+	(select hp.*, lip.* from info_house_paper hp 
+	left outer join info_intended_landlord lip on lip.lip_id = hp.house_lip_id
+	<where>
+	    inner_virtual_room = 0 and outer_virtual_room = 0 and non_cost_virtual_room = 0
+	    and add_city != '非成本' and add_city != '库房' and add_city != '供应商' and add_city != '公区' and add_city != '项目'
+        <if test="storefront != null and storefront != ''" >
+        	and storefront = #{storefront,jdbcType=INTEGER}</if>
+		<if test="houseCoding != null and houseCoding != ''" >
+        	and house_coding = #{houseCoding,jdbcType=INTEGER}</if>
+		<if test="addCity != null and addCity != ''" >
+			and add_city = #{addCity,jdbcType=VARCHAR}</if>
+		<if test="addDistrict != null and addDistrict != ''" >
+			and add_district = #{addDistrict,jdbcType=VARCHAR}</if>
+		<if test="addZone != null and addZone != ''" >
+			and add_zone = #{addZone,jdbcType=VARCHAR}</if>
+		<if test="addStreet != null and addStreet != ''" >
+			and add_street like '%${addStreet}%'</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and add_community like '%${addCommunity}%'</if>
+		<if test="addBuilding != null and addBuilding != ''" >
+			and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%')</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''" >
+			and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%')</if>
+		<if test="houseSignedState != '全部'">
+			<if test="houseSignedState != null and houseSignedState != ''" >
+				and house_signed_state = #{houseSignedState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="houseState != null and houseState != ''">
+			<if test="houseState == 'useful' ">
+				and (house_state = '可租' or house_state = '可售' or house_state = '租售')
+			</if>
+			<if test="houseState != 'useful'">
+				and house_state = #{houseState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="lipLandlordPhone != null and lipLandlordPhone != ''" >
+        	and lip_landlord_phone like '%${lipLandlordPhone}%'
+        </if>
+		<if test="sectionType != null and sectionType != ''" >
+        	and section_type = #{sectionType}
+        </if>
+		<if test="key == 1" >
+        	and key_number is not null and key_number != ''
+        </if>
+		<if test="key == 2" >
+        	and (key_number is null or key_number = '')
+        </if>
+	</where>
+	) a,
+	(select count(h.house_coding) total_num from info_house_paper h
+	left outer join sys_users u on u.user_coding = h.user_id
+	left outer join sys_house_dict build on h.house_dict_id = build.hd_id	
+	left outer join info_intended_landlord lip on lip.lip_id = h.house_lip_id
+	left outer join sys_users u1 on u1.user_coding = h.house_people4rent
+	left outer join sys_users u2 on u2.user_coding = h.house_people4sell
+	left outer join sys_users u3 on u3.user_coding = h.key_administrator
+	<where>
+	    inner_virtual_room = 0 and outer_virtual_room = 0 and non_cost_virtual_room = 0
+	    and add_city != '非成本' and add_city != '库房' and add_city != '供应商' and add_city != '公区' and add_city != '项目'
+        <if test="storefront != null and storefront != ''" >
+        	and storefront = #{storefront,jdbcType=INTEGER}</if>
+		<if test="houseCoding != null and houseCoding != ''" >
+        	and house_coding = #{houseCoding,jdbcType=INTEGER}</if>
+		<if test="addCity != null and addCity != ''" >
+			and add_city = #{addCity,jdbcType=VARCHAR}</if>
+		<if test="addDistrict != null and addDistrict != ''" >
+			and add_district = #{addDistrict,jdbcType=VARCHAR}</if>
+		<if test="addZone != null and addZone != ''" >
+			and add_zone = #{addZone,jdbcType=VARCHAR}</if>
+		<if test="addStreet != null and addStreet != ''" >
+			and add_street like '%${addStreet}%'</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and add_community like '%${addCommunity}%'</if>
+		<if test="addBuilding != null and addBuilding != ''" >
+			and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%')</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''" >
+			and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%')</if>
+		<if test="houseSignedState != '全部'">
+			<if test="houseSignedState != null and houseSignedState != ''" >
+				and house_signed_state = #{houseSignedState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="houseState != null and houseState != ''">
+			<if test="houseState == 'useful' ">
+				and (house_state = '可租' or house_state = '可售' or house_state = '租售')
+			</if>
+			<if test="houseState != 'useful'">
+				and house_state = #{houseState,jdbcType=VARCHAR}
+			</if>
+		</if>
+		<if test="lipLandlordPhone != null and lipLandlordPhone != ''" >
+        	and lip_landlord_phone like '%${lipLandlordPhone}%'
+        </if>
+		<if test="sectionType != null and sectionType != ''" >
+        	and section_type = #{sectionType}
+        </if>
+		<if test="key == 1" >
+        	and key_number is not null and key_number != ''
+        </if>
+		<if test="key == 2" >
+        	and (key_number is null or key_number = '')
+        </if>
+	</where>
+	) bb
+	ORDER BY house_coding DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <select id="selectForAddress" resultType="java.lang.String" parameterType="com.zz.po.info.InfoHouseExpand" >
+	  <choose>
+	  	<when test="addCity == null or addCity ==''">
+		  	select distinct
+		  		add_city 
+		    from 
+		    	info_house_paper
+	    </when>
+	    <when test="addCity != null and addCity !=''">
+		    <choose>
+		    	<when test="addDistrict == null or addDistrict ==''">
+		    		select distinct
+			  			add_district 
+			    	from 
+			    		info_house_paper
+			    	where
+			    		add_city = #{addCity,jdbcType=VARCHAR}
+		    	</when>
+		    	<when test="addDistrict != null or addDistrict !=''">
+			    	<choose>
+				    	<when test="addZone == null or addZone ==''">
+				    		select distinct
+					  			add_zone 
+					    	from 
+					    		info_house_paper
+					    	where
+					    		add_city = #{addCity,jdbcType=VARCHAR} and
+					    		add_district = #{addDistrict,jdbcType=VARCHAR}
+				    	</when>
+				    	<when test="addZone != null or addZone !=''">
+				    		select distinct
+					  			add_community 
+					    	from 
+					    		info_house_paper
+					    	where
+					    		add_city = #{addCity,jdbcType=VARCHAR} and
+					    		add_district = #{addDistrict,jdbcType=VARCHAR} and
+					    		add_zone = #{addZone,jdbcType=VARCHAR}
+				    	</when>
+			   		</choose>
+		    	</when>
+		    </choose>
+	    </when>
+	  </choose>
+  </select>
+  
+  <insert id="insertList" parameterType="java.util.List" >
+    insert into info_house_paper
+    (
+      user_id,house_dict_id,
+      add_province, add_district, add_zone, add_city, add_street,
+      add_community, add_building, add_doorplateno,
+      storefront, department, house_lip_id
+   )
+   values
+   <foreach collection="list" index="index" item="item" separator=",">
+        (
+        #{item.userId,jdbcType=INTEGER},
+        #{item.houseDictId,jdbcType=INTEGER},
+        #{item.addProvince,jdbcType=VARCHAR},
+        #{item.addDistrict,jdbcType=VARCHAR},
+        #{item.addZone,jdbcType=VARCHAR},
+        #{item.addCity,jdbcType=VARCHAR},
+        #{item.addStreet,jdbcType=VARCHAR},
+        #{item.addCommunity,jdbcType=VARCHAR},
+        #{item.addBuilding,jdbcType=VARCHAR},
+        #{item.addDoorplateno,jdbcType=VARCHAR},
+        #{item.storefront,jdbcType=INTEGER},
+        #{item.department,jdbcType=INTEGER},
+        #{item.houseLipId,jdbcType=INTEGER}
+       )
+   </foreach>
+  </insert>
+  
+  <!--***************************************************  -->
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouseExpand" >
+    select 
+    *,(select su_department_id from sys_users where house_people4rent = user_coding) rentDepartment ,
+	(select su_department_id from sys_users where house_people4sell = user_coding) sellDepartment
+    from info_house_paper
+    where house_coding = #{houseCoding,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 项目余额的修改累加 -->
+  <update id="updateVirBalance" parameterType="com.zz.po.info.InfoHouseExpand" >
+  	update info_house_paper set
+  	unit_price_sell = (#{unitPriceSell,jdbcType=INTEGER}+unit_price_sell)
+  	where house_coding = #{houseCoding,jdbcType=INTEGER}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_house_paper
+    where house_coding = #{houseCoding,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoHouseExpand" 
+  		useGeneratedKeys="true" keyProperty="houseCoding">
+    insert into info_house_paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="nonCostVirtualRoom != null and nonCostVirtualRoom != ''">
+      	non_cost_virtual_room,
+      </if>
+      <if test="innerVirtualRoom != null and innerVirtualRoom != ''" >
+        inner_virtual_room,
+      </if>
+      <if test="outerVirtualRoom != null and outerVirtualRoom != ''" >
+        outer_virtual_room,
+      </if>
+      <if test="userId != null and userId != ''" >
+        user_id,
+      </if>
+      <if test="landlordId != null and landlordId != ''" >
+        landlord_id,
+      </if>
+      <if test="houseDictId != null and houseDictId != ''" >
+        house_dict_id,
+      </if>
+      <if test="sectionType != null and sectionType != ''" >
+        section_type,
+      </if>
+      <if test="houseType != null and houseType != ''" >
+        house_type,
+      </if>
+      <if test="houseOwner != null and houseOwner != ''" >
+        house_owner,
+      </if>
+      <if test="storeSquare != null and storeSquare != ''" >
+        store_square,
+      </if>
+      <if test="furnitureConfig != null and furnitureConfig != ''" >
+        furniture_config,
+      </if>
+      <if test="housePrice != null and housePrice != ''" >
+        house_price,
+      </if>
+      <if test="houseRemake != null and houseRemake != ''" >
+        house_remake,
+      </if>
+      <if test="registerTime != null and registerTime != ''" >
+        register_time,
+      </if>
+      <if test="addProvince != null and addProvince != ''" >
+        add_province,
+      </if>
+      <if test="addDistrict != null and addDistrict != ''" >
+        add_district,
+      </if>
+      <if test="addZone != null and addZone != ''" >
+        add_zone,
+      </if>
+      <if test="addCity != null and addCity != ''" >
+        add_city,
+      </if>
+      <if test="addStreet != null and addStreet != ''" >
+        add_street,
+      </if>
+      <if test="addCommunity != null and addCommunity != ''" >
+        add_community,
+      </if>
+      <if test="addBuilding != null and addBuilding != ''" >
+        add_building,
+      </if>
+      <if test="addDoorplateno != null and addDoorplateno != ''" >
+        add_doorplateno,
+      </if>
+      <if test="stateOwned != null and stateOwned != ''" >
+        state_owned,
+      </if>
+      <if test="houseState != null and houseState != ''" >
+        house_state,
+      </if>
+      <if test="houseSignedState != null and houseSignedState != ''" >
+		house_signed_state,
+	  </if>
+	  <if test="housePeople4rent != null and housePeople4rent != ''" >
+        house_people4rent,
+      </if>
+      <if test="housePeople4sell != null and housePeople4sell != ''" >
+        house_people4sell,
+      </if>
+      <if test="keyAdministrator != null and keyAdministrator != ''" >
+        key_administrator,
+      </if>
+      <if test="houseEntrust4rent != null and houseEntrust4rent != ''" >
+        house_entrust4rent,
+      </if>
+      <if test="houseEntrust4sell != null and houseEntrust4sell != ''" >
+        house_entrust4sell,
+      </if>
+      <if test="houseSource != null and houseSource != ''" >
+        house_source,
+      </if>
+      <if test="houseProperty != null and houseProperty != ''" >
+        house_property,
+      </if>
+      <if test="house4buyTime != null and house4buyTime != ''" >
+        house4buy_time,
+      </if>
+      <if test="houseSellingPrice != null and houseSellingPrice != ''" >
+        house_selling_price,
+      </if>
+      <if test="unitPriceRent != null and unitPriceRent != ''" >
+        unit_price_rent,
+      </if>
+      <if test="unitPriceSell != null and unitPriceSell != ''" >
+        unit_price_sell,
+      </if>
+      <if test="houseDirection != null and houseDirection != ''" >
+        house_direction,
+      </if>
+      <if test="keyNumber != null and keyNumber != ''" >
+        key_number,
+      </if>
+      <if test="firstFollow != null and firstFollow != ''" >
+        first_follow,
+      </if>
+      <if test="storefront != null and storefront != ''" >
+        storefront,
+      </if>
+      <if test="department != null and department != ''" >
+        department,
+      </if>
+      <if test="houseLipId != null and houseLipId != ''" >
+        house_lip_id,
+      </if>
+	  <if test="houseImgPath != null and houseImgPath != ''" >
+		house_img_path,
+	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="nonCostVirtualRoom != null and nonCostVirtualRoom != ''">
+      	#{nonCostVirtualRoom,jdbcType=INTEGER},
+      </if>
+      <if test="innerVirtualRoom != null and innerVirtualRoom != ''" >
+        #{innerVirtualRoom,jdbcType=INTEGER},
+      </if>
+      <if test="outerVirtualRoom != null and outerVirtualRoom != ''" >
+        #{outerVirtualRoom,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null and userId != ''" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="landlordId != null and landlordId != ''" >
+        #{landlordId,jdbcType=INTEGER},
+      </if>
+      <if test="houseDictId != null and houseDictId != ''" >
+        #{houseDictId,jdbcType=INTEGER},
+      </if>
+      <if test="sectionType != null and sectionType != ''" >
+        #{sectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null and houseType != ''" >
+        #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOwner != null and houseOwner != ''" >
+        #{houseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSquare != null and storeSquare != ''" >
+        #{storeSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="furnitureConfig != null and furnitureConfig != ''" >
+        #{furnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="housePrice != null and housePrice != ''" >
+        #{housePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="houseRemake != null and houseRemake != ''" >
+        #{houseRemake,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null and registerTime != ''" >
+        #{registerTime,jdbcType=DATE},
+      </if>
+      <if test="addProvince != null and addProvince != ''" >
+        #{addProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="addDistrict != null and addDistrict != ''" >
+        #{addDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="addZone != null and addZone != ''" >
+        #{addZone,jdbcType=VARCHAR},
+      </if>
+      <if test="addCity != null and addCity != ''" >
+        #{addCity,jdbcType=VARCHAR},
+      </if>
+      <if test="addStreet != null and addStreet != ''" >
+        #{addStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="addCommunity != null and addCommunity != ''" >
+        #{addCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="addBuilding != null and addBuilding != ''" >
+        #{addBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="addDoorplateno != null and addDoorplateno != ''" >
+        #{addDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="stateOwned != null and stateOwned != ''" >
+        #{stateOwned,jdbcType=VARCHAR},
+      </if>
+      <if test="houseState != null and houseState != ''" >
+        #{houseState,jdbcType=VARCHAR},
+      </if>
+      <if test="houseSignedState != null and houseSignedState != ''" >
+		#{houseSignedState,jdbcType=VARCHAR},
+	  </if>
+	  <if test="housePeople4rent != null and housePeople4rent !=''" >
+        #{housePeople4rent,jdbcType=VARCHAR},
+      </if>
+      <if test="housePeople4sell != null and housePeople4sell !=''" >
+        #{housePeople4sell,jdbcType=INTEGER},
+      </if>
+      <if test="keyAdministrator != null and keyAdministrator !=''" >
+        #{keyAdministrator,jdbcType=INTEGER},
+      </if>
+      <if test="houseEntrust4rent != null and houseEntrust4rent !=''" >
+        #{houseEntrust4rent,jdbcType=VARCHAR},
+      </if>
+      <if test="houseEntrust4sell != null and houseEntrust4sell !=''" >
+        #{houseEntrust4sell,jdbcType=VARCHAR},
+      </if>
+      <if test="houseSource != null and houseSource !=''" >
+        #{houseSource,jdbcType=VARCHAR},
+      </if>
+      <if test="houseProperty != null and houseProperty !=''" >
+        #{houseProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="house4buyTime != null and house4buyTime !=''" >
+        #{house4buyTime,jdbcType=DATE},
+      </if>
+      <if test="houseSellingPrice != null and houseSellingPrice !=''" >
+        #{houseSellingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="unitPriceRent != null and unitPriceRent !=''" >
+        #{unitPriceRent,jdbcType=DOUBLE},
+      </if>
+      <if test="unitPriceSell != null and unitPriceSell !=''" >
+        #{unitPriceSell,jdbcType=DOUBLE},
+      </if>
+      <if test="houseDirection != null and houseDirection != ''" >
+        #{houseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="keyNumber != null and keyNumber != ''" >
+        #{keyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="firstFollow != null and firstFollow != ''" >
+        #{firstFollow,jdbcType=INTEGER},
+      </if>
+      <if test="storefront != null and storefront != ''" >
+        #{storefront,jdbcType=INTEGER},
+      </if>
+      <if test="department != null and department != ''" >
+        #{department,jdbcType=INTEGER},
+      </if>
+      <if test="houseLipId != null and houseLipId != ''" >
+        #{houseLipId,jdbcType=INTEGER},
+      </if>
+	  <if test="houseImgPath != null and houseImgPath != ''" >
+		#{houseImgPath},
+	  </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoHouseExpand" >
+    update info_house_paper
+    <set >
+      <if test="nonCostVirtualRoom != null">
+      	non_cost_virtual_room = #{nonCostVirtualRoom,jdbcType=INTEGER},
+      </if>
+      <if test="innerVirtualRoom != null" >
+        inner_virtual_room = #{innerVirtualRoom,jdbcType=INTEGER},
+      </if>
+      <if test="outerVirtualRoom != null" >
+        outer_virtual_room = #{outerVirtualRoom,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="landlordId != null" >
+        landlord_id = #{landlordId,jdbcType=INTEGER},
+      </if>
+      <if test="houseDictId != null" >
+        house_dict_id = #{houseDictId,jdbcType=INTEGER},
+      </if>
+      <if test="sectionType != null" >
+        section_type = #{sectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="houseType != null" >
+        house_type = #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="houseOwner != null" >
+        house_owner = #{houseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSquare != null" >
+        store_square = #{storeSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="furnitureConfig != null" >
+        furniture_config = #{furnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="housePrice != null" >
+        house_price = #{housePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="houseRemake != null" >
+        house_remake = #{houseRemake,jdbcType=VARCHAR},
+      </if>
+      <if test="registerTime != null" >
+        register_time = #{registerTime,jdbcType=DATE},
+      </if>
+      <if test="addProvince != null" >
+        add_province = #{addProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="addDistrict != null" >
+        add_district = #{addDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="addZone != null" >
+        add_zone = #{addZone,jdbcType=VARCHAR},
+      </if>
+      <if test="addCity != null" >
+        add_city = #{addCity,jdbcType=VARCHAR},
+      </if>
+      <if test="addStreet != null" >
+        add_street = #{addStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="addCommunity != null" >
+        add_community = #{addCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="addBuilding != null" >
+        add_building = #{addBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="addDoorplateno != null" >
+        add_doorplateno = #{addDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="stateOwned != null" >
+        state_owned = #{stateOwned,jdbcType=VARCHAR},
+      </if>
+      <if test="houseState != null" >
+        house_state = #{houseState,jdbcType=VARCHAR},
+      </if>
+      <if test="houseSignedState != null" >
+		house_signed_state = #{houseSignedState,jdbcType=VARCHAR},
+	  </if>
+	  <if test="housePeople4rent != null and housePeople4rent != 0" >
+        house_people4rent = #{housePeople4rent,jdbcType=INTEGER},
+      </if>
+	  <if test="housePeople4rent == 0" >
+        house_people4rent = null,
+      </if>
+      <if test="housePeople4sell != null and housePeople4sell != 0" >
+        house_people4sell = #{housePeople4sell,jdbcType=INTEGER},
+      </if>
+      <if test="housePeople4sell == 0" >
+        house_people4sell = null,
+      </if>
+      <if test="keyAdministrator != null" >
+        key_administrator = #{keyAdministrator,jdbcType=VARCHAR},
+      </if>
+      <if test="houseEntrust4rent != null" >
+        house_entrust4rent = #{houseEntrust4rent,jdbcType=VARCHAR},
+      </if>
+      <if test="houseEntrust4sell != null" >
+        house_entrust4sell = #{houseEntrust4sell,jdbcType=VARCHAR},
+      </if>
+      <if test="houseSource != null" >
+        house_source = #{houseSource,jdbcType=VARCHAR},
+      </if>
+      <if test="houseProperty != null" >
+        house_property = #{houseProperty,jdbcType=VARCHAR},
+      </if>
+      <if test="house4buyTime != null and house4buyTime != ''" >
+        house4buy_time = #{house4buyTime,jdbcType=DATE},
+      </if>
+      <if test="house4buyTime == ''" >
+        house4buy_time = null,
+      </if>
+      <if test="houseSellingPrice != null" >
+        house_selling_price = #{houseSellingPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="unitPriceRent != null" >
+        unit_price_rent = #{unitPriceRent,jdbcType=DOUBLE},
+      </if>
+      <if test="unitPriceSell != null" >
+        unit_price_sell = #{unitPriceSell,jdbcType=DOUBLE},
+      </if>
+      <if test="houseDirection != null" >
+        house_direction = #{houseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="keyNumber != null" >
+        key_number = #{keyNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="firstFollow != null" >
+        first_follow = #{firstFollow,jdbcType=INTEGER},
+      </if>
+      <if test="storefront != null" >
+        storefront = #{storefront,jdbcType=INTEGER},
+      </if>
+      <if test="department != null" >
+        department = #{department,jdbcType=INTEGER},
+      </if>
+      <if test="houseLipId != null" >
+        house_lip_id = #{houseLipId,jdbcType=INTEGER},
+      </if>
+	  <if test="houseImgPath != null" >
+		house_img_path = #{houseImgPath},
+	  </if>
+    </set>
+    where house_coding = #{houseCoding,jdbcType=INTEGER}
+  </update>
+</mapper>

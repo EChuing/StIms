@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourSetupHouseNexusMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourSetupHouseNexus" >
+    <id column="jshn_id" property="jshnId" jdbcType="INTEGER" />
+    <result column="jshn_shd_id" property="jshnShdId" jdbcType="INTEGER" />
+    <result column="jshn_jsrsu_id" property="jshnJsrsuId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    jshn_id, jshn_jsrsu_id, jshn_shd_id
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourSetupHouseNexus" >
+    select 
+    <include refid="Base_Column_List" />
+    from jour_setup_house_nexus
+    <where>
+    	<if test="jshnShdId != null">
+    		and jshn_shd_id = #{jshnShdId,jdbcType=INTEGER}
+    	</if>
+    	<if test="jshnJsrsuId != null">
+    		and jshn_jsrsu_id = #{jshnJsrsuId,jdbcType=INTEGER}
+    	</if>
+    </where>
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourSetupHouseNexus" >
+    insert into jour_setup_house_nexus
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jshnId != null" >
+        jshn_id,
+      </if>
+      <if test="jshnShdId != null" >
+        jshn_shd_id,
+      </if>
+      <if test="jshnJsrsuId != null" >
+        jshn_jsrsu_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jshnId != null" >
+        #{jshnId,jdbcType=INTEGER},
+      </if>
+      <if test="jshnShdId != null" >
+        #{jshnShdId,jdbcType=INTEGER},
+      </if>
+      <if test="jshnJsrsuId != null" >
+        #{jshnJsrsuId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

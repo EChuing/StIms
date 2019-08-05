@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JournalEventApprovalMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JournalEventApproval" >
+    <id column="ea_id" property="eaId" jdbcType="INTEGER" />
+    <result column="ea_rent_id" property="eaRentId" jdbcType="INTEGER" />
+    <result column="ea_store_id" property="eaStoreId" jdbcType="INTEGER" />
+    <result column="ea_house_id" property="eaHouseId" jdbcType="INTEGER" />
+    <result column="ea_coc_id" property="eaCocId" jdbcType="INTEGER" />
+    <result column="ea_event_publisher" property="eaEventPublisher" jdbcType="INTEGER" />
+    <result column="ea_event_handler" property="eaEventHandler" jdbcType="INTEGER" />
+    <result column="ea_event_type" property="eaEventType" jdbcType="VARCHAR" />
+    <result column="ea_event_state" property="eaEventState" jdbcType="VARCHAR" />
+    <result column="ea_whether_generate_record" property="eaWhetherGenerateRecord" jdbcType="VARCHAR" />
+    <result column="ea_amount_involved" property="eaAmountInvolved" jdbcType="DOUBLE" />
+    <result column="ea_financial_coding" property="eaFinancialCoding" jdbcType="VARCHAR" />
+    <result column="ea_amount_type" property="eaAmountType" jdbcType="VARCHAR" />
+    <result column="ea_release_time" property="eaReleaseTime" jdbcType="TIMESTAMP" />
+    <result column="ea_completion_time" property="eaCompletionTime" jdbcType="DATE" />
+    <result column="ea_pay_time" property="eaPayTime" jdbcType="DATE" />
+    <result column="ea_event_content" property="eaEventContent" jdbcType="LONGVARCHAR" />
+    <result column="ea_historical_process" property="eaHistoricalProcess" jdbcType="LONGVARCHAR" />
+    <result column="ea_treatment_opinion" property="eaTreatmentOpinion" jdbcType="LONGVARCHAR" />
+    <result column="ea_home_type" property="eaHomeType" jdbcType="VARCHAR" />
+    <result column="ea_img_path" property="eaImgPath" jdbcType="LONGVARCHAR" />
+    <result column="ea_img_num" property="eaImgNum" jdbcType="VARCHAR" />
+    <result column="ea_use_time" property="eaUseTime" jdbcType="TIMESTAMP" />
+    <result column="ea_approval_number" property="eaApprovalNumber" jdbcType="VARCHAR" />
+    <result column="ea_bank_name" property="eaBankName" jdbcType="VARCHAR" />
+    <result column="ea_bank_username" property="eaBankUsername" jdbcType="VARCHAR" />
+    <result column="ea_bank_account_number" property="eaBankAccountNumber" jdbcType="VARCHAR" />
+    <result column="ea_bank_account_number" property="eaBankAccountNumber" jdbcType="VARCHAR" />
+    <result column="ea_subordinate_branch" property="eaSubordinateBranch" jdbcType="VARCHAR" />
+    <result column="ea_bank_account_description" property="eaBankAccountDescription" jdbcType="VARCHAR" />
+
+ 	<!-- 其他 -->
+ 	<result column="startTime" property="startTime" jdbcType="VARCHAR" />
+    <result column="endTime" property="endTime" jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="publisherName" property="publisherName" jdbcType="VARCHAR" />
+    <result column="handlerName" property="handlerName" jdbcType="VARCHAR" />
+    
+    <result column="add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hr_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="key_administrator" property="keyAdministrator" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="departmentId" property="departmentId" jdbcType="INTEGER" />
+    <result column="storefrontId" property="storefrontId" jdbcType="INTEGER" />
+    <result column="coc_contacts" property="cocContacts" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- (数据与统计分开)查询所有的事务信息-->
+  <select id="selectAllEvent" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalEventApproval" >
+    select 
+    <if test="splitFlag ==0">
+		<!-- 统计查询 -->
+		count(ea.ea_id) totalNum 
+	</if>
+	<if test="splitFlag ==1">
+		<!-- 数据查询 -->
+		ea.*, u.su_staff_name publisherName, u.su_department_id department1,u.su_store_id storefront1, u1.su_staff_name handlerName, 
+		u1.su_store_id storefront2, u1.su_department_id department2, 
+		h.add_province, h.add_city, h.add_district, h.add_zone, h.add_street, h.add_community, h.add_building, h.add_doorplateno, h.key_administrator ,
+		hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, hs.hs_add_community, hs.hs_add_building, hs.hs_add_doorplateno, 
+		hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone, hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno,
+		coc.coc_contacts
+	</if>
+	from jour_approval_paper ea
+	left outer join sys_users u on u.user_coding = ea.ea_event_publisher
+	left outer join sys_users u1 on u1.user_coding = ea.ea_event_handler
+	left outer join info_house_paper h on h.house_coding = ea.ea_house_id
+	left outer join info_house_4store hs on hs.hs_id = ea.ea_store_id
+	left outer join info_house_4rent hr on hr.hr_id = ea.ea_rent_id
+	left outer join cs_outside_customer coc on coc.coc_id = ea.ea_coc_id
+	<where>
+		<if test="eaCocId != null">
+			and ea.coc_id = #{eaCocId}
+		</if>
+		<if test="userId != null and userId != '' ">
+			and (ea_event_publisher = #{userId} or ea_event_handler = #{userId})
+		</if>
+		<if test="departmentId != null and departmentId != '' ">
+			and u.su_department_id = #{departmentId}
+		</if>
+		<if test="storefrontId != null and storefrontId != '' ">
+			and u.su_store_id = #{storefrontId}
+		</if>
+        <if test="handlerDetId != null and handlerDetId != '' ">
+            and u1.su_department_id = #{handlerDetId}
+        </if>
+        <if test="handlerStoreId != null and handlerStoreId != '' ">
+            and u1.su_store_id = #{handlerStoreId}
+        </if>
+		<if test="eaId != null and eaId != '' ">
+			and ea_id = #{eaId}
+		</if>
+		<if test="eaHouseId != null and eaHouseId != '' ">
+			and ea_house_id = #{eaHouseId}
+		</if>
+		<if test="eaEventState != null and eaEventState != '' "> 
+			and ea_event_state = #{eaEventState}
+		</if>
+		<if test="eaEventType != null and eaEventType != '' ">
+			and ea_event_type = #{eaEventType}
+		</if>
+		<if test="eaHomeType != null and eaHomeType != '' ">
+			and ea_home_type = #{eaHomeType}
+		</if>
+		<if test="publisherName != null and publisherName != '' ">
+			and u.su_staff_name like '%${publisherName}%'
+		</if>
+		<if test="handlerName != null and handlerName != '' ">
+			and u1.su_staff_name like '%${handlerName}%'
+		</if>
+		<if test="eaEventPublisher != null and eaEventPublisher != '' ">
+			and ea_event_publisher = #{eaEventPublisher}
+		</if>
+		<if test="eaEventHandler != null and eaEventHandler != '' ">
+			and ea_event_handler = #{eaEventHandler}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ea_release_time &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != '' ">
+			and ea_release_time &lt;= #{endTime}
+		</if>
+		<if test="payStartTime != null and payStartTime != ''">
+			and ea_pay_time &gt;= #{payStartTime}
+		</if>
+		<if test="payEndTime != null and payEndTime != '' ">
+			and ea_pay_time &lt;= #{payEndTime}
+		</if>
+		<if test="addProvince != null and addProvince != '' ">
+			and (add_province = #{addProvince} or hs_add_province = #{addProvince} or hr_add_province = #{addProvince})
+		</if>
+		<!-- <if test="addCity != null and addCity != '' ">
+			and (add_city = #{addCity} or hr_add_city = #{addCity} or hr_add_city = #{addCity})
+		</if> -->
+		<if test="addDistrict != null and addDistrict != ''" >
+			and (add_district like #{addDistrict}  or hr_add_district like #{addDistrict}  or hs_add_district like #{addDistrict} )
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and (add_community like '%${addCommunity}%'  or hr_add_community like '%${addCommunity}%'  or hs_add_community like '%${addCommunity}%' )
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%'
+					or hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%'
+				or hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+				or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				)
+		</if>
+		<if test="eaEventContent != null and eaEventContent != '' ">
+			and ea_event_content like '%${eaEventContent}%'
+		</if>
+	</where>
+	<if test="splitFlag ==1">
+		ORDER BY ea_id DESC
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JournalEventApproval" >
+    select aa.*, bb.totalNum 
+	from (select ea.*, u.su_staff_name publisherName, u.su_department_id department1,u.su_store_id storefront1, u1.su_staff_name handlerName, 
+	u1.su_store_id storefront2, u1.su_department_id department2, h.add_province, h.add_city, h.add_district, h.add_zone, h.add_street, h.add_community, h.add_building, 
+	h.add_doorplateno, hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone, hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, 
+	hr.hr_add_doorplateno, hs.hs_add_province, hs.hs_add_city, hs.hs_add_district, hs.hs_add_zone, hs.hs_add_street, hs.hs_add_community, hs.hs_add_building, 
+	hs.hs_add_doorplateno, h.key_administrator 
+	from jour_approval_paper ea
+	left outer join sys_users u on u.user_coding = ea.ea_event_publisher
+	left outer join sys_users u1 on u1.user_coding = ea.ea_event_handler
+	left outer join info_house_paper h on h.house_coding = ea.ea_house_id
+	left outer join info_house_4rent hr on hr.hr_id = ea.ea_rent_id
+	left outer join info_house_4store hs on hs.hs_id = ea.ea_store_id
+	<where>
+		<if test="eaId != null and eaId != '' ">
+			and ea_id = #{eaId}
+		</if>
+		<if test="eaHouseId != null and eaHouseId != '' ">
+			and ea_house_id = #{eaHouseId}
+		</if>
+		<if test="eaStoreId != null and eaStoreId != '' ">
+			and ea_store_id = #{eaStoreId}
+		</if>
+		<if test="userId != null and userId != '' ">
+			and (ea_event_publisher = #{userId} or ea_event_handler = #{userId})
+		</if>
+		<if test="departmentId != null and departmentId != '' ">
+			and (u.su_department_id = #{departmentId} or u1.su_department_id = #{departmentId})
+		</if>
+		<if test="storefrontId != null and storefrontId != '' ">
+			and (u.su_store_id = #{storefrontId} or u1.su_store_id = #{storefrontId})
+		</if>
+		<if test="eaEventState != null and eaEventState != '' "> 
+			and ea_event_state = #{eaEventState}
+		</if>
+		<if test="eaEventType != null and eaEventType != '' ">
+			and ea_event_type = #{eaEventType}
+		</if>
+		<if test="eaHomeType != null and eaHomeType != '' ">
+			and ea_home_type = #{eaHomeType}
+		</if>
+		<if test="publisherName != null and publisherName != '' ">
+			and u.su_staff_name like '%${publisherName}%'
+		</if>
+		<if test="handlerName != null and handlerName != '' ">
+			and u1.su_staff_name like '%${handlerName}%'
+		</if>
+		<if test="eaEventPublisher != null and eaEventPublisher != '' ">
+			and ea_event_publisher = #{eaEventPublisher}
+		</if>
+		<if test="eaEventHandler != null and eaEventHandler != '' ">
+			and ea_event_handler = #{eaEventHandler}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ea_release_time &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != '' ">
+			and ea_release_time &lt;= #{endTime}
+		</if>
+		<if test="addProvince != null and addProvince != '' ">
+			and (add_province = #{addProvince} or hs_add_province = #{addProvince} or hr_add_province = #{addProvince})
+		</if>
+		<!-- <if test="addCity != null and addCity != '' ">
+			and (add_city = #{addCity} or hr_add_city = #{addCity} or hr_add_city = #{addCity})
+		</if> -->
+		<if test="addDistrict != null and addDistrict != ''" >
+			and (add_district like #{addDistrict}  or hr_add_district like #{addDistrict}  or hs_add_district like #{addDistrict} )
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and (add_community like '%${addCommunity}%'  or hr_add_community like '%${addCommunity}%'  or hs_add_community like '%${addCommunity}%' )
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%'
+					or hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%'
+				or hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+				or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+				)
+		</if>
+		<if test="eaEventContent != null and eaEventContent != '' ">
+			and ea_event_content like '%${eaEventContent}%'
+		</if>
+		
+	</where>
+	) aa,
+	(select count(ea.ea_id) totalNum 
+	from jour_approval_paper ea
+	left outer join sys_users u on u.user_coding = ea.ea_event_publisher
+	left outer join sys_users u1 on u1.user_coding = ea.ea_event_handler
+	left outer join info_house_paper h on h.house_coding = ea.ea_house_id
+	left outer join info_house_4rent hr on hr.hr_id = ea.ea_rent_id
+	left outer join info_house_4store hs on hs.hs_id = ea.ea_store_id
+	<where>
+		<if test="eaId != null and eaId != '' ">
+			and ea_id = #{eaId}
+		</if>
+		<if test="eaHouseId != null and eaHouseId != '' ">
+			and ea_house_id = #{eaHouseId}
+		</if>
+		<if test="eaStoreId != null and eaStoreId != '' ">
+			and ea_store_id = #{eaStoreId}
+		</if>
+		<if test="userId != null and userId != '' ">
+			and (ea_event_publisher = #{userId} or ea_event_handler = #{userId})
+		</if>
+		<if test="departmentId != null and departmentId != '' ">
+			and (u.su_department_id = #{departmentId} or u1.su_department_id = #{departmentId})
+		</if>
+		<if test="storefrontId != null and storefrontId != '' ">
+			and (u.su_store_id = #{storefrontId} or u1.su_store_id = #{storefrontId})
+		</if>
+		<if test="eaEventState != null and eaEventState != '' ">
+			and ea_event_state = #{eaEventState}
+		</if>
+		<if test="eaEventType != null and eaEventType != '' ">
+			and ea_event_type = #{eaEventType}
+		</if>
+		<if test="eaHomeType != null and eaHomeType != '' ">
+			and ea_home_type = #{eaHomeType}
+		</if>
+		<if test="publisherName != null and publisherName != '' ">
+			and u.su_staff_name like '%${publisherName}%'
+		</if>
+		<if test="handlerName != null and handlerName != '' ">
+			and u1.su_staff_name like '%${handlerName}%'
+		</if>
+		<if test="eaEventPublisher != null and eaEventPublisher != '' ">
+			and ea_event_publisher = #{eaEventPublisher}
+		</if>
+		<if test="eaEventHandler != null and eaEventHandler != '' ">
+			and ea_event_handler = #{eaEventHandler}
+		</if>
+		<if test="startTime != null and startTime != ''">
+			and ea_release_time &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != '' ">
+			and ea_release_time &lt;= #{endTime}
+		</if>
+		<if test="addProvince != null and addProvince != '' ">
+			and (add_province = #{addProvince} or hs_add_province = #{addProvince} or hr_add_province = #{addProvince})
+		</if>
+		<!-- <if test="addCity != null and addCity != '' ">
+			and (add_city = #{addCity} or hr_add_city = #{addCity} or hr_add_city = #{addCity})
+		</if> -->
+		<if test="addDistrict != null and addDistrict != ''" >
+			and (add_district like #{addDistrict}  or hr_add_district like #{addDistrict}  or hs_add_district like #{addDistrict} )
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and (add_community like '%${addCommunity}%'  or hr_add_community like '%${addCommunity}%'  or hs_add_community like '%${addCommunity}%' )
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (add_building like '${addBuilding}%' or add_building like '0${addBuilding}%'
+					or hr_add_building like '${addBuilding}%' or hr_add_building like '0${addBuilding}%'
+					or hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%'
+					)
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (add_doorplateno like '${addDoorplateno}%' or add_doorplateno like '0${addDoorplateno}%'
+					or hr_add_doorplateno like '${addDoorplateno}%' or hr_add_doorplateno like '0${addDoorplateno}%'
+					or hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%'
+					)
+		</if>
+		<if test="eaEventContent != null and eaEventContent != '' ">
+			and ea_event_content like '%${eaEventContent}%'
+		</if>
+	</where>
+	) bb
+	ORDER BY ea_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  	select ap.*, h.add_city, h.add_community 
+  	from jour_approval_paper ap
+	left outer join info_house_paper h on h.house_coding = ap.ea_house_id 
+	where ea_id = #{eaId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_approval_paper
+    where ea_id = #{eaId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JournalEventApproval" >
+    insert into jour_approval_paper
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="eaId != null" >
+        ea_id,
+      </if>
+      <if test="eaRentId != null" >
+        ea_rent_id,
+      </if>
+      <if test="eaStoreId != null" >
+        ea_store_id,
+      </if>
+      <if test="eaHouseId != null" >
+        ea_house_id,
+      </if>
+      <if test="eaCocId != null">
+      	ea_coc_id,
+      </if>
+      <if test="eaEventPublisher != null" >
+        ea_event_publisher,
+      </if>
+      <if test="eaEventHandler != null" >
+        ea_event_handler,
+      </if>
+      <if test="eaEventType != null" >
+        ea_event_type,
+      </if>
+      <if test="eaEventState != null" >
+        ea_event_state,
+      </if>
+      <if test="eaWhetherGenerateRecord != null" >
+        ea_whether_generate_record,
+      </if>
+      <if test="eaAmountInvolved != null" >
+        ea_amount_involved,
+      </if>
+      <if test="eaFinancialCoding != null" >
+        ea_financial_coding,
+      </if>
+      <if test="eaAmountType != null" >
+        ea_amount_type,
+      </if>
+      <if test="eaReleaseTime != null" >
+        ea_release_time,
+      </if>
+      <if test="eaCompletionTime != null" >
+        ea_completion_time,
+      </if>
+      <if test="eaEventContent != null" >
+        ea_event_content,
+      </if>
+      <if test="eaHistoricalProcess != null" >
+        ea_historical_process,
+      </if>
+      <if test="eaTreatmentOpinion != null" >
+        ea_treatment_opinion,
+      </if>
+      <if test="eaHomeType != null" >
+        ea_home_type,
+      </if>  
+      <if test="eaImgPath != null" >
+        ea_img_path,
+      </if> 
+      <if test="eaImgNum != null" >
+        ea_img_num,
+      </if> 
+      <if test="eaUseTime != null" >
+        ea_use_time,
+      </if>
+      <if test="eaApprovalNumber != null" >
+        ea_approval_number,
+      </if>
+      <if test="eaBankName != null" >
+        ea_bank_name,
+      </if>
+      <if test="eaBankUsername != null" >
+        ea_bank_username,
+      </if>
+      <if test="eaBankAccountNumber != null" >
+        ea_bank_account_number,
+      </if>
+      <if test="eaSubordinateBranch != null" >
+		  ea_subordinate_branch,
+      </if>
+      <if test="eaBankAccountDescription != null" >
+		  ea_bank_account_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="eaId != null" >
+        #{eaId,jdbcType=INTEGER},
+      </if>
+      <if test="eaRentId != null" >
+        #{eaRentId,jdbcType=INTEGER},
+      </if>
+      <if test="eaStoreId != null" >
+        #{eaStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="eaHouseId != null" >
+        #{eaHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="eaCocId != null" >
+        #{eaCocId,jdbcType=INTEGER},
+      </if>
+      <if test="eaEventPublisher != null" >
+        #{eaEventPublisher,jdbcType=INTEGER},
+      </if>
+      <if test="eaEventHandler != null" >
+        #{eaEventHandler,jdbcType=INTEGER},
+      </if>
+      <if test="eaEventType != null" >
+        #{eaEventType,jdbcType=VARCHAR},
+      </if>
+      <if test="eaEventState != null" >
+        #{eaEventState,jdbcType=VARCHAR},
+      </if>
+      <if test="eaWhetherGenerateRecord != null" >
+        #{eaWhetherGenerateRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="eaAmountInvolved != null" >
+        #{eaAmountInvolved,jdbcType=DOUBLE},
+      </if>
+      <if test="eaFinancialCoding != null" >
+        #{eaFinancialCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="eaAmountType != null" >
+        #{eaAmountType,jdbcType=VARCHAR},
+      </if>
+      <if test="eaReleaseTime != null" >
+        #{eaReleaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eaCompletionTime != null" >
+        #{eaCompletionTime,jdbcType=DATE},
+      </if>
+      <if test="eaEventContent != null" >
+        #{eaEventContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="eaHistoricalProcess != null" >
+        #{eaHistoricalProcess,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="eaTreatmentOpinion != null" >
+        #{eaTreatmentOpinion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="eaHomeType != null" >
+        #{eaHomeType},
+      </if>
+      <if test="eaImgPath != null" >
+        #{eaImgPath,jdbcType=LONGVARCHAR},
+      </if> 
+      <if test="eaImgNum != null" >
+        #{eaImgNum,jdbcType=VARCHAR},
+      </if> 
+      <if test="eaUseTime != null" >
+        #{eaUseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eaApprovalNumber != null" >
+        #{eaApprovalNumber},
+      </if>
+      <if test="eaBankName != null" >
+        #{eaBankName},
+      </if>
+      <if test="eaBankUsername != null" >
+        #{eaBankUsername},
+      </if>
+      <if test="eaBankAccountNumber != null" >
+        #{eaBankAccountNumber},
+      </if>
+      <if test="eaSubordinateBranch != null" >
+        #{eaSubordinateBranch},
+      </if>
+      <if test="eaBankAccountDescription != null" >
+        #{eaBankAccountDescription},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JournalEventApproval" >
+    update jour_approval_paper
+    <set >
+      <if test="eaRentId != null" >
+        ea_rent_id = #{eaRentId,jdbcType=INTEGER},
+      </if>
+      <if test="eaStoreId != null" >
+        ea_store_id = #{eaStoreId,jdbcType=INTEGER},
+      </if>
+      <if test="eaHouseId != null" >
+        ea_house_id = #{eaHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="eaEventPublisher != null" >
+        ea_event_publisher = #{eaEventPublisher,jdbcType=INTEGER},
+      </if>
+      <if test="eaEventHandler != null" >
+        ea_event_handler = #{eaEventHandler,jdbcType=INTEGER},
+      </if>
+      <if test="eaEventType != null" >
+        ea_event_type = #{eaEventType,jdbcType=VARCHAR},
+      </if>
+      <if test="eaEventState != null" >
+        ea_event_state = #{eaEventState,jdbcType=VARCHAR},
+      </if>
+      <if test="eaWhetherGenerateRecord != null" >
+        ea_whether_generate_record = #{eaWhetherGenerateRecord,jdbcType=VARCHAR},
+      </if>
+      <if test="eaAmountInvolved != null" >
+        ea_amount_involved = #{eaAmountInvolved,jdbcType=DOUBLE},
+      </if>
+      <if test="eaFinancialCoding != null" >
+        ea_financial_coding = #{eaFinancialCoding,jdbcType=VARCHAR},
+      </if>
+      <if test="eaAmountType != null" >
+        ea_amount_type = #{eaAmountType,jdbcType=VARCHAR},
+      </if>
+      <if test="eaReleaseTime != null" >
+        ea_release_time = #{eaReleaseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eaCompletionTime != null and eaCompletionTime != ''" >
+        ea_completion_time = #{eaCompletionTime,jdbcType=DATE},
+      </if>
+       <if test="eaPayTime != null and eaPayTime != ''" >
+        ea_pay_time = #{eaPayTime,jdbcType=DATE},
+      </if>
+      <if test="eaEventContent != null" >
+        ea_event_content = #{eaEventContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="eaHistoricalProcess != null" >
+        ea_historical_process = #{eaHistoricalProcess,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="eaTreatmentOpinion != null" >
+        ea_treatment_opinion = #{eaTreatmentOpinion,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="eaHomeType != null" >
+        ea_home_type = #{eaHomeType},
+      </if>
+      <if test="eaImgPath != null" >
+        ea_img_path = #{eaImgPath,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="eaImgNum != null" >
+        ea_img_num = #{eaImgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="eaUseTime != null" >
+        ea_use_time = #{eaUseTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eaApprovalNumber != null" >
+        ea_approval_number = #{eaApprovalNumber},
+      </if>
+      <if test="eaBankName != null" >
+        ea_bank_name = #{eaBankName},
+      </if>
+      <if test="eaBankUsername != null" >
+        ea_bank_username = #{eaBankUsername},
+      </if>
+      <if test="eaBankAccountNumber != null" >
+        ea_bank_account_number = #{eaBankAccountNumber},
+      </if>
+      <if test="eaSubordinateBranch != null" >
+		ea_subordinate_branch = #{eaSubordinateBranch},
+      </if>
+      <if test="eaBankAccountDescription != null" >
+		ea_bank_account_description = #{eaBankAccountDescription},
+      </if>
+    </set>
+    where ea_id = #{eaId,jdbcType=INTEGER}
+  </update>
+</mapper>

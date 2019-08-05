@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.DashRentCheckoutMapper" >
+  <resultMap id="dashRentCheckout" type="com.zz.po.journal.DashRentCheckout" >
+    <id column="drc_id" property="drcId" jdbcType="INTEGER" />
+    <result column="drc_monthly_num" property="drcMonthlyNum" jdbcType="VARCHAR" />
+    <result column="drc_monthly_money" property="drcMonthlyMoney" jdbcType="VARCHAR" />
+    <result column="drc_gmt_create" property="drcGmtCreate" jdbcType="VARCHAR" />
+    <result column="drc_gmt_modified" property="drcGmtModified" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 查询退房潮预测 -->
+  <select id="select" resultMap="dashRentCheckout">
+    select drc_id, drc_monthly_num, drc_monthly_money from stat_renter_leaving_wave limit 1
+  </select>
+
+</mapper>

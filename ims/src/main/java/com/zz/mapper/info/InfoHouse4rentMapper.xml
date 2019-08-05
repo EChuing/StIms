@@ -1,0 +1,2234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoHouse4rentMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoHouse4rentExpand" >  
+    <id column="hr_id" property="hrId" jdbcType="INTEGER" />
+    <result column="hr_renter_id" property="hrRenterId" jdbcType="INTEGER" />
+    <result column="hr_landlord_id" property="hrLandlordId" jdbcType="INTEGER" />
+    <result column="hr_house_4store_id" property="hrHouse4storeId" jdbcType="INTEGER" />
+    <result column="hr_user_id" property="hrUserId" jdbcType="INTEGER" />
+    <result column="hr_admin_user_id" property="hrAdminUserId" jdbcType="INTEGER" />
+    <result column="hr_house_dict_id" property="hrHouseDictId" jdbcType="INTEGER" />
+    <result column="hr_water_plan" property="hrWaterPlan" jdbcType="INTEGER" />
+    <result column="hr_electrit_plan" property="hrElectritPlan" jdbcType="INTEGER" />
+    <result column="hr_gas_plan" property="hrGasPlan" jdbcType="INTEGER" />
+    <result column="hr_hotwater_plan" property="hrHotwaterPlan" jdbcType="INTEGER" />
+    <result column="hr_hotair_plan" property="hrHotairPlan" jdbcType="INTEGER" />
+    
+
+    <result column="hr_section_type" property="hrSectionType" jdbcType="VARCHAR" />
+    <result column="hr_house_type" property="hrHouseType" jdbcType="VARCHAR" />
+    <result column="hr_house_direction" property="hrHouseDirection" jdbcType="VARCHAR" />
+    <result column="hr_house_owner" property="hrHouseOwner" jdbcType="VARCHAR" />
+    <result column="hr_house_square" property="hrHouseSquare" jdbcType="DOUBLE" />
+    <result column="hr_furniture_config" property="hrFurnitureConfig" jdbcType="VARCHAR" />
+    <result column="hr_house_price" property="hrHousePrice" jdbcType="DOUBLE" />
+    <result column="hr_water_vol_first" property="hrWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="hr_electrit_vol_first" property="hrElectritVolFirst" jdbcType="DOUBLE" />
+    <result column="hr_gas_vol_first" property="hrGasVolFirst" jdbcType="DOUBLE" />
+    
+    <!-- tzl -->
+    <result column="hr_hotwater_vol_first" property="hrHotWaterVolFirst" jdbcType="DOUBLE" />
+    <result column="hr_hotair_vol_first" property="hrHotAirVolFirst" jdbcType="DOUBLE" />
+    
+    
+    <result column="hr_payment_type" property="hrPaymentType" jdbcType="VARCHAR" />
+    <result column="hr_register_time" property="hrRegisterTime" jdbcType="DATE" />
+    <result column="hr_add_province" property="hrAddProvince" jdbcType="VARCHAR" />
+    <result column="hr_add_city" property="hrAddCity" jdbcType="VARCHAR" />
+    <result column="hr_add_district" property="hrAddDistrict" jdbcType="VARCHAR" />
+    <result column="hr_add_zone" property="hrAddZone" jdbcType="VARCHAR" />
+    <result column="hr_add_street" property="hrAddStreet" jdbcType="VARCHAR" />
+    <result column="hr_add_community" property="hrAddCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="hrAddBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="hrAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="hr_house_deposit" property="hrHouseDeposit" jdbcType="DOUBLE" />
+    <result column="hr_power_deposit" property="hrPowerDeposit" jdbcType="DOUBLE" />
+    <result column="hr_door_deposit" property="hrDoorDeposit" jdbcType="DOUBLE" />
+    <result column="hr_other_deposit" property="hrOtherDeposit" jdbcType="DOUBLE" />
+	  <result column="hr_door_trend_fee" property="hrDoorTrendFee" jdbcType="DOUBLE" />
+	  <result column="hr_com_service_fee" property="hrComServiceFee" jdbcType="DOUBLE" />
+	  <result column="hr_lock_fee" property="hrLockFee" jdbcType="DOUBLE" />
+	  <result column="hr_other_fee" property="hrOtherFee" jdbcType="DOUBLE" />
+
+	  <result column="hr_manage_cost" property="hrManageCost" jdbcType="DOUBLE" />
+    <result column="hr_the_term" property="hrTheTerm" jdbcType="VARCHAR" />
+    <result column="hr_begin_time" property="hrBeginTime" jdbcType="DATE" />
+    <result column="hr_end_time" property="hrEndTime" jdbcType="DATE" />
+    <result column="hr_lease_state" property="hrLeaseState" jdbcType="VARCHAR" />
+    <result column="hr_house_key" property="hrHouseKey" jdbcType="VARCHAR" />
+    <result column="hr_house_note" property="hrHouseNote" jdbcType="VARCHAR" />
+    <result column="hr_state" property="hrState" jdbcType="VARCHAR" />
+    <result column="hr_assist" property="hrAssist" jdbcType="VARCHAR" />
+    <result column="hr_tv_charge" property="hrTvCharge" jdbcType="DOUBLE" />
+    <result column="hr_wifi_charge" property="hrWifiCharge" jdbcType="DOUBLE" />
+    <result column="hr_server_cost" property="hrServerCost" jdbcType="DOUBLE" />
+    <result column="hr_sms_notification_time" property="hrSmsNotificationTime" jdbcType="DATE" />
+    <result column="hr_other_pay" property="hrOtherPay" jdbcType="DOUBLE" />
+    <result column="hr_flat_share_logo" property="hrFlatShareLogo" jdbcType="INTEGER" />
+    <result column="hr_split_identifier" property="hrSplitIdentifier" jdbcType="VARCHAR" />
+    <result column="hr_meter_reading_record" property="hrMeterReadingRecord" jdbcType="VARCHAR" />
+    <result column="hr_follow_time" property="hrFollowTime" jdbcType="VARCHAR" />
+    <result column="hr_sign_time" property="hrSignTime" jdbcType="VARCHAR" />
+    <!-- renter -->
+    <result column="renter_coding" property="renterCoding" jdbcType="VARCHAR" />
+    <result column="pop_id" property="popId" jdbcType="INTEGER" />
+    <result column="pop_name" property="renterPopName" jdbcType="VARCHAR" />
+    <result column="pop_telephone" property="renterPopTelephone" jdbcType="VARCHAR" />
+    <result column="pop_idcard" property="renterPopIdcard" jdbcType="VARCHAR" />
+    <result column="pop_name_remark" property="renterPopNameRemark" jdbcType="VARCHAR" />
+    <result column="wx_openid" property="wxOpenid" jdbcType="VARCHAR" />
+    <result column="renter_second_contacts" property="renterSecondContacts" jdbcType="VARCHAR" />
+    <result column="renter_second_phone" property="renterSecondPhone" jdbcType="VARCHAR" />
+    <result column="pop_name_remark" property="popNameRemark" jdbcType="VARCHAR" />
+    <!-- landlord -->
+    <result column="landlordPopName" property="landlordPopName" jdbcType="VARCHAR" />
+    <result column="landlordPopTelephone" property="landlordPopTelephone" jdbcType="VARCHAR" />
+    <!-- house_4store -->
+    <result column="hs_lease_state" property="hsLeaseState" jdbcType="VARCHAR" />
+    <!-- house_dict -->
+    <result column="hd_city" property="hdCity" jdbcType="VARCHAR" />
+    <result column="hd_district" property="hdDistrict" jdbcType="VARCHAR" />
+    <result column="hd_zone" property="hdZone" jdbcType="VARCHAR" />
+    <result column="hd_road" property="hdRoad" jdbcType="VARCHAR" />
+    <result column="hd_community" property="hdCommunity" jdbcType="VARCHAR" />
+    <result column="hd_pinyin" property="hdPinyin" jdbcType="VARCHAR" />
+    <result column="hd_baidu_longitude_x" property="hdBaiduLongitudeX" jdbcType="VARCHAR" />
+    <result column="hd_baidu_latitude_y" property="hdBaiduLatitudeY" jdbcType="VARCHAR" />
+    <result column="hd_building_form" property="hdBuildingForm" jdbcType="VARCHAR" />
+    <result column="hd_property_type" property="hdPropertyType" jdbcType="VARCHAR" />
+    <result column="hd_building_developers" property="hdBuildingDevelopers" jdbcType="VARCHAR" />
+    <result column="hd_be_completed_time" property="hdBeCompletedTime" jdbcType="DATE" />
+    <result column="hd_item_features" property="hdItemFeatures" jdbcType="VARCHAR" />
+    <result column="hd_loop_position" property="hdLoopPosition" jdbcType="VARCHAR" />
+    <result column="hd_plot_ratio" property="hdPlotRatio" jdbcType="DOUBLE" />
+    <result column="hd_afforestation_rate" property="hdAfforestationRate" jdbcType="DOUBLE" />
+    <result column="hd_property_fee" property="hdPropertyFee" jdbcType="VARCHAR" />
+    <result column="hd_property_company" property="hdPropertyCompany" jdbcType="VARCHAR" />
+    <result column="hd_additional_information" property="hdAdditionalInformation" jdbcType="VARCHAR" />
+    <result column="hd_covers_an_area_of" property="hdCoversAnAreaOf" jdbcType="DOUBLE" />
+    <result column="hd_floor_area" property="hdFloorArea" jdbcType="DOUBLE" />
+    <result column="hd_sum_households" property="hdSumHouseholds" jdbcType="VARCHAR" />
+    <result column="hd_the_current_number" property="hdTheCurrentNumber" jdbcType="INTEGER" />
+    <result column="hd_parking_space_top" property="hdParkingSpaceTop" jdbcType="INTEGER" />
+    <result column="hd_parking_space_nuder" property="hdParkingSpaceNuder" jdbcType="VARCHAR" />
+    <result column="hd_zone_bit_introduce" property="hdZoneBitIntroduce" jdbcType="VARCHAR" />
+    <!--user  -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <result column="adminname" property="adminName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    <result column="total_num2" property="totalNum2" jdbcType="VARCHAR" />
+    <result column="total_num3" property="totalNum3" jdbcType="VARCHAR" />
+    <result column="totalMoney" property="totalMoney" jdbcType="DOUBLE" />
+    <result column="hr_manager_user_id" property="hrManagerUserId" jdbcType="INTEGER" />
+    <result column="hr_storefront" property="hrStorefront" jdbcType="INTEGER" />
+    <result column="hr_department" property="hrDepartment" jdbcType="INTEGER" />
+    <!-- 排序 -->
+    <result column= "theSortTerm"  property= "theSortTerm"  jdbcType="VARCHAR" />
+    <result column= "theSortContrary"  property= "theSortContrary"  jdbcType="VARCHAR" />
+    
+    <result column="hr_house_id" property="hrHouseId" jdbcType="INTEGER" />
+    <result column="departmentnum" property="departmentnum" jdbcType="INTEGER" />
+    <result column="hr_base" property="hrBase" jdbcType="DOUBLE" />
+    <result column="arithmeticBase" property="arithmeticBase" jdbcType="DOUBLE" />
+    <result column="overplusTime" property="overplusTime" jdbcType="VARCHAR" />
+    <result column="tempAssist" property="tempAssist" jdbcType="VARCHAR" />
+    
+    <result column="assist_userId" property="assistUserId" jdbcType="INTEGER" />
+    <result column="assist_department" property="assistDepartment" jdbcType="INTEGER" />
+    <result column="assist_storefront" property="assistStorefront" jdbcType="INTEGER" />
+    
+    
+    <result column="water" property="water" jdbcType="VARCHAR" />
+    <result column="waterPlan" property="waterPlan" jdbcType="VARCHAR" />
+    <result column="electrit" property="electrit" jdbcType="VARCHAR" />
+    <result column="electritPlan" property="electritPlan" jdbcType="VARCHAR" />
+    <result column="gasPlan" property="gasPlan" jdbcType="VARCHAR" />
+    <result column="gas" property="gas" jdbcType="VARCHAR" />
+    <result column="hs_meter_reading_record" property="hsMeterReadingRecord" jdbcType="VARCHAR" />
+    <!-- <result column="hs_meter_reading_record" property="meterReadingRecord" jdbcType="VARCHAR" />
+    <result column="hr_meter_reading_record" property="meterReadingRecord" jdbcType="VARCHAR" /> -->
+    <result column="hs_auto_send_msg" property="hsAutoSendMsg" jdbcType="VARCHAR" />
+   
+    <result column="jci_id" property="jciId" jdbcType="INTEGER" />
+    <result column="jci_begin_periods" property="jciBeginPeriods" jdbcType="DATE" />
+    <result column="jci_end_periods" property="jciEndPeriods" jdbcType="DATE" />
+    <result column="jci_fukuanri" property="jciFukuanri" jdbcType="DATE" />
+    <result column="jci_message_time" property="jciMessageTime" jdbcType="DATE" />
+	<result column="jci_periods" property="jciPeriods"></result>
+    <result column="jci_message_note" property="jciMessageNote" jdbcType="VARCHAR" />
+    <result column="jci_money" property="jciMoney" jdbcType="DOUBLE" />
+    <result column="jci_state" property="jciState" jdbcType="VARCHAR" />
+    <result column="jci_payment_voucher" property="jciPaymentVoucher" jdbcType="VARCHAR" />
+    <result column="jci_read" property="jciRead" jdbcType="VARCHAR" />
+ 	<result column="jci_manage_cost" property="jciManageCost" jdbcType="DOUBLE" />
+    <result column="jci_server_cost" property="jciServerCost" jdbcType="DOUBLE" />
+    <result column="jci_label_type" property="jciLabelType" jdbcType="INTEGER" />
+    <result column="jci_bill_json" property="jciBillJson" jdbcType="VARCHAR" />
+    <result column="jci_register_time" property="jciRegisterTime" jdbcType="VARCHAR" />
+    <result column="jci_overdue_days" property="jciOverdueDays" jdbcType="INTEGER" />
+    <result column= "startTime"  property= "startTime"  jdbcType="VARCHAR" />
+    <result column= "endTime"  property= "endTime"  jdbcType="VARCHAR" />
+	<result column= "ifpPopId"  property= "ifpPopId"  jdbcType="VARCHAR" />
+	<result column="jrr_renewal_coding" property="jrrRenewalCoding" jdbcType="VARCHAR" />
+    <result column="jrr_house_4rent_id" property="jrrHouse4rentId" jdbcType="INTEGER" />
+    <result column="jrr_renter_id" property="jrrRenterId" jdbcType="INTEGER" />
+    <result column="jrr_house_4store_id" property="jrrHouse4storeId" jdbcType="INTEGER" />
+    <result column="jrr_landlord_id" property="jrrLandlordId" jdbcType="INTEGER" />
+    <result column="jrr_user_id" property="jrrUserId" jdbcType="INTEGER" />
+    <result column="jrr_department" property="jrrDepartment" jdbcType="INTEGER" />
+    <result column="jrr_storefront" property="jrrStorefront" jdbcType="INTEGER" />
+    <result column="jrr_contract_type" property="jrrContractType" jdbcType="VARCHAR" />
+    <result column="jrr_rental_type" property="jrrRentalType" jdbcType="VARCHAR" />
+    <result column="jrr_begin_time" property="jrrBeginTime" jdbcType="DATE" />
+    <result column="jrr_end_time" property="jrrEndTime" jdbcType="DATE" />
+    <result column="jrr_signed_time" property="jrrSignedTime" jdbcType="DATE" />
+    <result column="jrr_registration_time" property="jrrRegistrationTime" jdbcType="TIMESTAMP" />
+    <result column="jrr_money" property="jrrMoney" jdbcType="DOUBLE" />
+    <result column="jrr_the_term" property="jrrTheTerm" jdbcType="VARCHAR" />
+    <result column="jrr_the_contract" property="jrrTheContract" jdbcType="VARCHAR" />
+    <result column="jrr_in_advance_pay" property="jrrInAdvancePay" jdbcType="INTEGER" />
+    <result column="jrr_payment_method" property="jrrPaymentMethod" jdbcType="VARCHAR" />
+    <result column="jrr_remark" property="jrrRemark" jdbcType="VARCHAR" />
+    <result column="jrr_img_path" property="jrrImgPath" jdbcType="LONGVARCHAR" />
+    <result column="jrr_img_num" property="jrrImgNum" jdbcType="VARCHAR" />
+    <result column="jrr_manage_cost" property="jrrManageCost" jdbcType="DOUBLE" />
+    <result column="jrr_manage_payment" property="jrrManagePayment" jdbcType="VARCHAR" />
+    <result column="jrr_server_cost" property="jrrServerCost" jdbcType="DOUBLE" />
+    <result column="jrr_server_payment" property="jrrServerPayment" jdbcType="VARCHAR" />
+	<result column="hrManagerUserName" property="hrManagerUserName" jdbcType="VARCHAR" />
+	<result column="hrAdminUserName" property="hrAdminUserName" jdbcType="VARCHAR" />
+	<result column="rco_id" property="rcoId" jdbcType="VARCHAR" />
+	<result column="rco_a_refund_of_time" property="rcoARefundOfTime" jdbcType="VARCHAR" />
+	<result column="rco_check_out_time" property="rcoCheckOutTime" jdbcType="VARCHAR" />
+	<result column="rco_procedures" property="rcoProcedures" jdbcType="VARCHAR" />
+	
+	<result column="judgmentMark" property="judgmentMark" jdbcType="INTEGER" />
+	  <result column="jho_device_id" property="jhoDeviceId" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 查询已租房间 -->
+  <select id="queryHouseRent" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+	  select
+	  <if test="splitFlag ==0">
+		  <!-- 统计查询 -->
+		  count(*) totalNum
+	  </if>
+	  <if test="splitFlag ==1">
+		  a.*, bb.total_num
+	  </if>
+  	 from
+	(select hr.*,(DATEDIFF(hr.hr_end_time,CURDATE())) overplusTime, r.renter_second_contacts, r.renter_second_phone,
+			ip.pop_id popId, ip.pop_name, ip.pop_name_remark, ip.pop_telephone, ip.pop_idcard, ip.wx_openid, 
+			u.su_staff_name username, u1.su_staff_name adminname,u2.su_staff_name hrManagerUserName,
+			dict.*, ipl.pop_name landlordPopName, ipl.pop_telephone landlordPopTelephone
+	from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join info_landlord il on il.la_id = hr.hr_landlord_id
+	left outer join info_pop_tmp ipl on il.la_population_id = ipl.pop_id
+	left outer join sys_users u on hr.hr_user_id = u.user_coding
+	left outer join sys_users u1 on u1.user_coding =hr.hr_admin_user_id 
+	left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = hr.hr_manager_user_id 
+	left outer join info_rented_checkout irc on hr.hr_id = irc.rco_rent_id
+	<where>
+		<if test="personal == 1" >
+			and (hr_user_id = #{hrUserId}
+			or hr_admin_user_id = #{hrUserId}
+			or hr_manager_user_id = #{hrUserId}
+			<!-- or (select count(b.assist_id) num from info_business_assistor b where b.assist_userId = #{assistUserId} and b.assist_house_4rent = hr_id) != 0 -->
+			)
+		</if>
+		<if test="hrDepartment != null and hrDepartment != ''" >
+			and (hr_department = #{hrDepartment}
+				 or #{hrDepartment} = (select su_department_id from sys_users where user_coding = hr_user_id)
+				 or #{hrDepartment} = (select su_department_id from sys_users where user_coding = hr_manager_user_id and su_state = '正常')
+			)
+		</if>
+		<if test="hrStorefront != null and hrStorefront != ''" >
+			and hr_storefront = #{hrStorefront,jdbcType=INTEGER}</if>
+		<if test="hrId != null and hrId != ''" >
+			and hr_id = #{hrId,jdbcType=INTEGER}</if>
+		<if test="hrHouse4storeId != null and hrHouse4storeId != ''" >
+			and hr_house_4store_id = #{hrHouse4storeId,jdbcType=INTEGER}</if>
+		<if test="hrAddCity != null and hrAddCity != ''" >
+			and hr_add_city = #{hrAddCity,jdbcType=VARCHAR}</if>
+		<if test="hrAddDistrict != null and hrAddDistrict != ''" >
+			and hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hrAddZone != null and hrAddZone != ''" >
+			and hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}</if>
+		<if test="hrAddStreet != null and hrAddStreet != ''" >
+			and hr_add_street like '%${hrAddStreet}%'</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != ''" >
+			and hr_add_community like '%${hrAddCommunity}%'</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+			and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+			and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')</if>
+		<if test="hrLeaseState != null and hrLeaseState != ''" >
+			<if test="hrLeaseState =='正办退房'" >
+				and (hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账')
+			</if>
+			<if test="hrLeaseState =='已退房'" >
+				and hr_state = '退房完成'
+			</if>
+			<if test="hrLeaseState !='正办退房' and hrLeaseState !='已退房'" >
+				and hr_lease_state = #{hrLeaseState} and hr_state = '正常'
+			</if>
+		</if>
+		<if test="hrState != null and hrState != ''">
+			and hr_state = #{hrState}
+		</if>
+		<if test=" hrManagerUserId != null and hrManagerUserId != ''">
+		 	and hr_manager_user_id = #{hrManagerUserId}
+		</if>
+		<if test=" hrAdminUserId != null and hrAdminUserId != ''">
+		 	and hr_admin_user_id = #{hrAdminUserId}
+		</if>
+		<if test="hrFlatShareLogo != null and hrFlatShareLogo != ''">
+			<!-- 整租房 -->
+			<if test="hrFlatShareLogo == 1 ">
+				and hr_flat_share_logo = 0
+			</if>
+			<!-- 合租房 -->
+			<if test="hrFlatShareLogo == 2 ">
+				and hr_flat_share_logo  = 1
+			</if>
+		</if>
+		<if test="hrRenterId != null and hrRenterId != '' ">
+			hr_renter_id = #{hrRenterId}
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+			and ip.pop_name like '%${renterPopName}%'
+		</if>
+		<if test="landlordPopName != null and landlordPopName != '' ">
+			and ipl.pop_name like '%${landlordPopName}%'
+		</if>
+		<if test="searchButtonState != null and searchButtonState != '' ">
+			<if test="searchButtonState == '即将到期'">
+				and (DATEDIFF(hr.hr_end_time,CURDATE())) &lt;= 40 and (DATEDIFF(hr.hr_end_time,CURDATE())) &gt;= 1
+			</if>
+			<if test="searchButtonState == '正在转租'">
+				and irc.rco_check_out_nature = "租客转租" and irc.rco_check_out_the_state != '退房完成'
+			</if>
+			<if test="searchButtonState == '到期不续'">
+				and irc.rco_check_out_nature = "到期不续" and irc.rco_check_out_the_state = '正办理退房' and irc.rco_procedures = '正常'
+			</if>
+		</if>
+	</where>
+	) a,
+	(select count(hr.hr_id) total_num from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join info_landlord il on il.la_id = hr.hr_landlord_id
+	left outer join info_pop_tmp ipl on il.la_population_id = ipl.pop_id
+	left outer join sys_users u on hr.hr_user_id = u.user_coding
+	left outer join sys_users u1 on hr.hr_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = hr.hr_manager_user_id
+	left outer join info_rented_checkout irc on hr.hr_id = irc.rco_rent_id
+	<where>	
+		<if test="personal == 1" >
+			and (hr_user_id = #{hrUserId}
+			or hr_admin_user_id = #{hrUserId}
+			or hr_manager_user_id = #{hrUserId}
+			<!-- or (select count(b.assist_id) num from info_business_assistor b where b.assist_userId = #{assistUserId} and b.assist_house_4rent = hr_id) != 0 -->
+			)
+		</if>
+		<if test="hrDepartment != null and hrDepartment != ''" >
+			and (hr_department = #{hrDepartment}
+				 or #{hrDepartment} = (select su_department_id from sys_users where user_coding = hr_user_id)
+				 or #{hrDepartment} = (select su_department_id from sys_users where user_coding = hr_manager_user_id and su_state = '正常')
+			)
+		</if>
+		<if test="hrStorefront != null and hrStorefront != ''" >
+			and hr_storefront = #{hrStorefront,jdbcType=INTEGER}</if>
+		<if test="hrId != null and hrId != ''" >
+			and hr_id = #{hrId,jdbcType=INTEGER}</if>
+		<if test="hrHouse4storeId != null and hrHouse4storeId != ''" >
+			and hr_house_4store_id = #{hrHouse4storeId,jdbcType=INTEGER}</if>
+		<if test="hrAddCity != null and hrAddCity != ''" >
+			and hr_add_city = #{hrAddCity,jdbcType=VARCHAR}</if>
+		<if test="hrAddDistrict != null and hrAddDistrict != ''" >
+			and hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hrAddZone != null and hrAddZone != ''" >
+			and hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}</if>
+		<if test="hrAddStreet != null and hrAddStreet != ''" >
+			and hr_add_street like '%${hrAddStreet}%'</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != ''" >
+			and hr_add_community like '%${hrAddCommunity}%'</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+			and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+			and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')</if>
+		<if test="hrLeaseState != null and hrLeaseState != ''" >
+			<if test="hrLeaseState =='正办退房'" >
+				and (hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账')
+			</if>
+			<if test="hrLeaseState =='已退房'" >
+				and hr_state = '退房完成'
+			</if>
+			<if test="hrLeaseState !='正办退房' and hrLeaseState !='已退房'" >
+				and hr_lease_state = #{hrLeaseState} and hr_state = '正常'
+			</if>
+		</if>
+		<if test="hrState != null and hrState != ''">
+			and hr_state = #{hrState}
+		</if>
+		<if test="hrState == null or hrState == ''">
+			<if test="hrLeaseState == null or hrLeaseState == ''" >
+				and (hr_state = '正常' or hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账')
+			</if>
+		</if>
+		<if test=" hrManagerUserId != null and hrManagerUserId != ''">
+		 	and hr_manager_user_id = #{hrManagerUserId}
+		</if>
+		<if test=" hrAdminUserId != null and hrAdminUserId != ''">
+		 	and hr_admin_user_id = #{hrAdminUserId}
+		</if>
+		<if test="hrFlatShareLogo != null and hrFlatShareLogo != ''">
+			<!-- 整租房 -->
+			<if test="hrFlatShareLogo == 1 ">
+				and hr_flat_share_logo = 0
+			</if>
+			<!-- 合租房 -->
+			<if test="hrFlatShareLogo == 2 ">
+				and hr_flat_share_logo  = 1
+			</if>
+		</if>
+		<if test="hrRenterId != null and hrRenterId != '' ">
+			hr_renter_id = #{hrRenterId}
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+			and ip.pop_name like '%${renterPopName}%'
+		</if>
+		<if test="landlordPopName != null and landlordPopName != '' ">
+			and ipl.pop_name like '%${landlordPopName}%'
+		</if>
+		<if test="searchButtonState != null and searchButtonState != '' ">
+			<if test="searchButtonState == '即将到期'">
+				and (DATEDIFF(hr.hr_end_time,CURDATE())) &lt;= 40 and (DATEDIFF(hr.hr_end_time,CURDATE())) &gt;= 1
+			</if>
+			<if test="searchButtonState == '正在转租'">
+				and irc.rco_check_out_nature = "租客转租" and irc.rco_check_out_the_state != '退房完成'
+			</if>
+			<if test="searchButtonState == '到期不续'">
+				and irc.rco_check_out_nature = "到期不续" and irc.rco_check_out_the_state = '正办理退房' and irc.rco_procedures = '正常'
+			</if>
+		</if>
+	</where>
+	) bb
+	<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+	 	<if test="theSortTerm ==1 ">
+	 		ORDER BY hr_add_community 
+ 		</if>
+ 		<if test="theSortTerm ==2 ">
+	 		ORDER BY hr_add_building 
+ 		</if>
+ 		<if test="theSortTerm ==3 ">
+	 		ORDER BY hr_add_doorplateno 
+ 		</if>
+ 		<if test="theSortTerm ==4 ">
+	 		ORDER BY hr_id
+ 		</if>
+ 		<if test="theSortTerm ==5 ">
+	 		ORDER BY hr_begin_time 
+ 		</if>
+ 		<if test="theSortTerm ==6 ">
+	 		ORDER BY hr_end_time 
+ 		</if>
+ 		<if test="theSortTerm ==7 ">
+	 		ORDER BY hr_lease_state 
+ 		</if>
+ 		<if test="theSortTerm ==8 ">
+	 		ORDER BY overplusTime 
+ 		</if>
+ 		<if test="theSortTerm ==9 ">
+	 		ORDER BY hr_house_price 
+ 		</if>
+ 		<if test="theSortTerm ==10 ">
+	 		ORDER BY hr_follow_time
+ 		</if>
+ 		<if test="theSortTerm ==11 ">
+	 		ORDER BY hr_sign_time
+ 		</if>
+ 		<if test="theSortContrary ==1 ">
+ 			ASC
+ 		</if>
+ 		<if test="theSortContrary ==2 ">
+ 			DESC
+ 		</if>
+	</if>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 查询已租房间 -->
+  <select id="queryHouseRentCommon" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select a.*, bb.total_num from
+	(select hr.*, ip.pop_name, ip.pop_telephone, ip2.pop_name landlordPopName, ip2.pop_telephone landlordPopTelephone
+	from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join info_landlord l on l.la_id = hr.hr_landlord_id
+	left outer join info_pop_tmp ip2 on l.la_population_id = ip2.pop_id
+	
+	<where>
+		<if test="hrId != null and hrId != ''" >
+			and hr_id = #{hrId,jdbcType=INTEGER}</if>
+		<if test="hrHouse4storeId != null and hrHouse4storeId != ''" >
+			and hr_house_4store_id = #{hrHouse4storeId,jdbcType=INTEGER}</if>
+		<if test="hrAddCity != null and hrAddCity != ''" >
+			and hr_add_city = #{hrAddCity,jdbcType=VARCHAR}</if>
+		<if test="hrAddDistrict != null and hrAddDistrict != ''" >
+			and hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hrAddZone != null and hrAddZone != ''" >
+			and hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}</if>
+		<if test="hrAddStreet != null and hrAddStreet != ''" >
+			and hr_add_street like '%${hrAddStreet}%'</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != ''" >
+			and hr_add_community like '%${hrAddCommunity}%'</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+			and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+			and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')</if>
+		<if test="hrLeaseState != null and hrLeaseState != ''" >
+			<if test="hrLeaseState =='正办退房'" >
+				and (hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账')
+			</if>
+			<if test="hrLeaseState =='已退房'" >
+				and hr_state = '退房完成'
+			</if>
+			<if test="hrLeaseState !='正办退房' and hrLeaseState !='已退房'" >
+				and hr_lease_state = #{hrLeaseState} and hr_state = '正常'
+			</if>
+		</if>
+		<if test="hrState != null and hrState != ''">
+			<if test="hrState !='正常和正办理退房'">
+				and hr_state = #{hrState}
+			</if>
+			<if test="hrState =='正常和正办理退房'">
+				and (hr_state = '正常' or hr_state = '正办理退房')
+			</if>
+		</if>
+		<if test="hrState == null or hrState == ''">
+			<if test="hrLeaseState == null or hrLeaseState == ''" >
+				and (hr_state = '正常' or hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账')
+			</if>
+		</if>
+		<if test=" hrManagerUserId != null and hrManagerUserId != ''">
+		 	and hr_manager_user_id = #{hrManagerUserId}
+		</if>
+		<if test=" hrAdminUserId != null and hrAdminUserId  != ''">
+		 	and hr_admin_user_id = #{hrAdminUserId }
+		</if>
+		<if test="hrFlatShareLogo != null and hrFlatShareLogo != ''">
+			<!-- 整租房 -->
+			<if test="hrFlatShareLogo == 1 ">
+				and hr_flat_share_logo = 0
+			</if>
+			<!-- 合租房 -->
+			<if test="hrFlatShareLogo == 2 ">
+				and hr_flat_share_logo  = 1
+			</if>
+		</if>
+		<if test="hrRenterId != null and hrRenterId != '' ">
+			hr_renter_id = #{hrRenterId}
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+			and ip.pop_name like '%${renterPopName}%'
+		</if>
+	</where>
+	) a,
+	(select count(hr.hr_id) total_num from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	<where>
+		<if test="hrId != null and hrId != ''" >
+			and hr_id = #{hrId,jdbcType=INTEGER}</if>
+		<if test="hrHouse4storeId != null and hrHouse4storeId != ''" >
+			and hr_house_4store_id = #{hrHouse4storeId,jdbcType=INTEGER}</if>
+		<if test="hrAddCity != null and hrAddCity != ''" >
+			and hr_add_city = #{hrAddCity,jdbcType=VARCHAR}</if>
+		<if test="hrAddDistrict != null and hrAddDistrict != ''" >
+			and hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hrAddZone != null and hrAddZone != ''" >
+			and hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}</if>
+		<if test="hrAddStreet != null and hrAddStreet != ''" >
+			and hr_add_street like '%${hrAddStreet}%'</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != ''" >
+			and hr_add_community like '%${hrAddCommunity}%'</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+			and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+			and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')</if>
+		<if test="hrLeaseState != null and hrLeaseState != ''" >
+			<if test="hrLeaseState =='正办退房'" >
+				and (hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账')
+			</if>
+			<if test="hrLeaseState =='已退房'" >
+				and hr_state = '退房完成'
+			</if>
+			<if test="hrLeaseState !='正办退房' and hrLeaseState !='已退房'" >
+				and hr_lease_state = #{hrLeaseState} and hr_state = '正常'
+			</if>
+		</if>
+		<if test="hrState != null and hrState != ''">
+			<if test="hrState !='正常和正办理退房'">
+				and hr_state = #{hrState}
+			</if>
+			<if test="hrState =='正常和正办理退房'">
+				and (hr_state = '正常' or hr_state = '正办理退房')
+			</if>
+		</if>
+		<if test="hrState == null or hrState == ''">
+			<if test="hrLeaseState == null or hrLeaseState == ''" >
+				and (hr_state = '正常' or hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账')
+			</if>
+		</if>
+		<if test=" hrManagerUserId != null and hrManagerUserId != ''">
+		 	and hr_manager_user_id = #{hrManagerUserId}
+		</if>
+		<if test=" hrAdminUserId != null and hrAdminUserId  != ''">
+		 	and hr_admin_user_id = #{hrAdminUserId }
+		</if>
+		<if test="hrFlatShareLogo != null and hrFlatShareLogo != ''">
+			<!-- 整租房 -->
+			<if test="hrFlatShareLogo == 1 ">
+				and hr_flat_share_logo = 0
+			</if>
+			<!-- 合租房 -->
+			<if test="hrFlatShareLogo == 2 ">
+				and hr_flat_share_logo  = 1
+			</if>
+		</if>
+		<if test="hrRenterId != null and hrRenterId != '' ">
+			hr_renter_id = #{hrRenterId}
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+			and ip.pop_name like '%${renterPopName}%'
+		</if>
+	</where>
+	) bb
+	ORDER BY hr_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 租客账单查询数量 -->
+  <select id="getRenterBillNum" resultMap="MyBaseResultMap">
+  	select a.total_num, b.total_num2, c.total_num3 from
+	(select count(*) total_num from info_contract_divider divider
+		left outer join info_house_4rent hr on divider.jci_house4rent_id = hr.hr_id 
+		where jci_type = '租客租金' and jci_fukuanri &lt; curdate() and jci_state = '待收' and (hr_state = '正常' or hr_state = '正办理退房'))a,
+	(select count(*) total_num2 from info_contract_divider where jci_type = '租客租金' and jci_fukuanri = curdate() and jci_state = '待收')b,
+	(select count(*) total_num3 from info_contract_divider where jci_type = '租客租金' and jci_fukuanri between curdate() and date_add(curdate(),interval 6 day) and jci_state = '待收')c
+  </select>
+  
+  <!-- 统计已租房源 -->
+  <select id="queryHouseRentNum" resultType="java.lang.Integer" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select count(*) from info_house_4rent
+  	 where hr_lease_state = '在租' and hr_state = '正常' 
+  </select>
+  
+  <!-- 退房查询 -->
+  <select id="queryRenterCheckOut" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+	  	select a.*, bb.total_num from
+		(select hr.*, r.renter_second_contacts, r.renter_second_phone,
+				ip.pop_name, ip.pop_name_remark, ip.pop_telephone, ip.pop_idcard, u.su_staff_name username, u1.su_staff_name adminname,
+				dict.*, rr.*,ihrco.rco_id,ihrco.rco_a_refund_of_time,ihrco.rco_procedures,ihrco.rco_check_out_time,hs.hs_lease_state
+		from info_house_4rent hr
+		left outer join info_renter r on r.renter_id = hr.hr_renter_id
+		left outer join info_house_4store hs on hs.hs_id = hr.hr_house_4store_id
+		left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+		left outer join sys_users u on hr.hr_user_id = u.user_coding
+		left outer join sys_users u1 on hr.hr_admin_user_id = u1.user_coding
+		left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+		left outer join info_renter_contract rr on rr.jrr_house_4rent_id = hr.hr_id
+		left outer join info_rented_checkout ihrco on ihrco.rco_rent_id = hr.hr_id
+		<where>
+			jrr_id in (
+				select rr.jrr_id from info_renter_contract rr where EXISTS (
+				 select jrr_id from (SELECT max(jrr_id) as jrr_id FROM info_renter_contract 
+				 group by jrr_house_4rent_id) t where t.jrr_id = rr.jrr_id
+				))
+			<if test="hrAddCity != null and hrAddCity != ''" >
+				and hr_add_city = #{hrAddCity,jdbcType=VARCHAR}</if>
+			<if test="hrAddDistrict != null and hrAddDistrict != ''" >
+				and hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}</if>
+			<if test="hrAddZone != null and hrAddZone != ''" >
+				and hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}</if>
+			<if test="hrAddStreet != null and hrAddStreet != ''" >
+				and hr_add_street like '%${hrAddStreet}%'</if>
+			<if test="hrAddCommunity != null and hrAddCommunity != ''" >
+				and hr_add_community like '%${hrAddCommunity}%'</if>
+			<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+				and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')</if>
+			<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+				and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+					or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')</if>
+			<choose>
+				<when test="hrState == null or hrState == '' ">
+					and (hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账' or hr_state = '退房完成')
+				</when>
+				<when test="hrState == '未办手续' ">
+					
+				</when>
+				<when test="hrState != null and hrState != '' ">
+					and hr_state = #{hrState}
+				</when>
+			</choose>
+			<if test="hrState == '未办手续'" >
+				and rco_procedures = '未办手续'</if>
+			<if test="hrState != '未办手续'" >
+				and rco_procedures = '正常'</if>
+		</where>
+		) a,
+		(select count(hr.hr_id) total_num from info_house_4rent hr
+		left outer join info_renter r on r.renter_id = hr.hr_renter_id
+		left outer join info_house_4store hs on hs.hs_id = hr.hr_house_4store_id
+		left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+		left outer join sys_users u on hr.hr_user_id = u.user_coding
+		left outer join sys_users u1 on hr.hr_admin_user_id = u1.user_coding
+		left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+		left outer join info_renter_contract rr on rr.jrr_house_4rent_id = hr.hr_id
+		left outer join info_rented_checkout ihrco on ihrco.rco_rent_id = hr.hr_id
+		<where>
+			jrr_id in (
+				select rr.jrr_id from info_renter_contract rr where EXISTS (
+				 select jrr_id from (SELECT max(jrr_id) as jrr_id FROM info_renter_contract 
+				 group by jrr_house_4rent_id) t where t.jrr_id = rr.jrr_id
+				))
+			<if test="hrAddCity != null and hrAddCity != ''" >
+				and hr_add_city = #{hrAddCity,jdbcType=VARCHAR}</if>
+			<if test="hrAddDistrict != null and hrAddDistrict != ''" >
+				and hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}</if>
+			<if test="hrAddZone != null and hrAddZone != ''" >
+				and hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}</if>
+			<if test="hrAddStreet != null and hrAddStreet != ''" >
+				and hr_add_street like '%${hrAddStreet}%'</if>
+			<if test="hrAddCommunity != null and hrAddCommunity != ''" >
+				and hr_add_community like '%${hrAddCommunity}%'</if>
+			<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+				and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')</if>
+			<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+				and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+					or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')</if>
+			<choose>
+				<when test="hrState == null or hrState == '' ">
+					and (hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账' or hr_state = '退房完成')
+				</when>
+				<when test="hrState == '未办手续' ">
+					
+				</when>
+				<when test="hrState != null and hrState != '' ">
+					and hr_state = #{hrState}
+				</when>
+			</choose>
+			<if test="hrState == '未办手续'" >
+				and rco_procedures = '未办手续'</if>
+			<if test="hrState != '未办手续'" >
+				and rco_procedures = '正常'</if>
+		</where>
+		)bb
+		ORDER BY rco_a_refund_of_time DESC
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+  </select>
+  
+   <!-- 租客月度巡查查询-总金额部分 -->
+  <select id="getMonthTotalMoney" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select hr.hr_id, hr.hr_house_4store_id, hr.hr_house_id, hr.hr_renter_id, hr.hr_landlord_id, hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone,hr.hr_state, 
+			hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno, hr.hr_sms_notification_time, hr.hr_manage_cost,  hr.hr_other_pay, 
+			hr.hr_base, hr.hr_tv_charge, hr.hr_wifi_charge, hr.hr_server_cost, jci.jci_id, jci.jci_begin_periods, jci.jci_end_periods, jci.jci_money, jci.jci_manage_cost, jci.jci_server_cost, 
+			hs.hs_meter_reading_record,  pop.pop_id, 
+			pop.pop_name, pop.pop_telephone, jci.jci_rent_cont_id, jci.jci_type, jci.jci_fukuanri, jci.jci_message_time, jci.jci_message_note,jci.jci_bill_json, jci.jci_state, jci.jci_payment_voucher, jci.jci_read, renwal.jrr_in_advance_pay
+	from info_house_4rent hr
+	left outer join info_contract_divider jci on jci.jci_house4rent_id = hr.hr_id
+	left outer join info_house_4store hs on hs.hs_id = hr.hr_house_4store_id
+	left outer join info_renter re on re.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp pop on pop.pop_id = re.renter_population_id
+	left outer join info_renter_contract renwal on renwal.jrr_id = jci.jci_rent_cont_id
+	<where>
+		and jci_type = '租客租金' 
+		<if test="hrId != null and hrId != '' ">
+			hr_id = #{hrId}
+		</if>
+		<if test="hrRenterId != null and hrRenterId != '' ">
+			hr_renter_id = #{hrRenterId}
+		</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != '' ">
+			and hr_add_community like '%${hrAddCommunity}%'
+		</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != '' ">
+			and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')
+		</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != '' ">
+			and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+			and pop_name like '%${renterPopName}%'
+		</if>
+		<if test="jciBeginPeriods != null and jciBeginPeriods != '' ">
+			and jci_begin_periods = #{jciBeginPeriods}
+		</if>
+		<if test="jciFukuanri != null and jciFukuanri != '' ">
+			and jci_fukuanri = #{jciFukuanri}
+		</if>
+		<if test="jciState != null and jciState != '' ">
+			and jci_state = #{jciState}
+		</if>
+		<if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
+			and jci_fukuanri between #{startTime} and #{endTime}
+		</if>
+		<if test="timeOut == 1 ">
+			and jci_fukuanri &lt; curdate()
+		</if>
+		<if test="jciMessageTime != null and jciMessageTime != '' ">
+			<if test="jciMessageTime =='已通知' ">
+				and jci_message_time is not null
+			</if>
+			<if test="jciMessageTime =='未通知' ">
+				and jci_message_time is null
+			</if>
+		</if>
+		<if test="hrState != null and hrState != '' ">
+			<if test="hrState == '管理中' ">
+				and (hr_state = '正常' or hr_state = '正办理退房')
+			</if>
+			<if test="hrState == '已退房' ">
+				and (hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账' or hr_state = '退房完成')
+			</if>
+		</if>
+	</where>
+  </select>
+  <!-- 租客月度巡查查询-信息部分 -->
+  <select id="tenantMonthlyInspection" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select a.*, c.total_num ,d.totalMoney from
+	(select hr.hr_id, hr.hr_house_4store_id, hr.hr_house_id, hr.hr_renter_id, hr.hr_landlord_id, hr.hr_add_province, hr.hr_add_city, hr.hr_add_district, hr.hr_add_zone,hr.hr_state, 
+			hr.hr_add_street, hr.hr_add_community, hr.hr_add_building, hr.hr_add_doorplateno, hr.hr_sms_notification_time, hr.hr_manage_cost,  hr.hr_other_pay, 
+			hr.hr_base, hr.hr_tv_charge, hr.hr_wifi_charge, hr.hr_server_cost, jci.jci_id, jci.jci_begin_periods, jci.jci_end_periods, jci.jci_money, jci.jci_manage_cost, jci.jci_server_cost,jci.jci_bill_json, 
+			hs.hs_meter_reading_record,hs.hs_auto_send_msg, pop.pop_id, pop.pop_name_remark,jci.jci_label_type,
+			pop.pop_name, pop.pop_telephone, jci.jci_rent_cont_id, jci.jci_type, jci.jci_fukuanri, jci.jci_message_time,
+			jci.jci_message_note, jci.jci_state, jci.jci_payment_voucher,jci.jci_register_time, jci.jci_read, jci.jci_overdue_days,jci.jci_periods,
+			renwal.jrr_in_advance_pay
+	from info_house_4rent hr
+	left outer join info_contract_divider jci on jci.jci_house4rent_id = hr.hr_id
+	left outer join info_house_4store hs on hs.hs_id = hr.hr_house_4store_id
+	left outer join info_renter re on re.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp pop on pop.pop_id = re.renter_population_id
+	left outer join info_renter_contract renwal on renwal.jrr_id = jci.jci_rent_cont_id
+	<where>
+		and jci.jci_type = '租客租金' 
+		<if test="hrId != null and hrId != '' ">
+			hr_id = #{hrId}
+		</if>
+		<if test="hrRenterId != null and hrRenterId != '' ">
+			hr_renter_id = #{hrRenterId}
+		</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != '' ">
+			and hr_add_community like '%${hrAddCommunity}%'
+		</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != '' ">
+			and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')
+		</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != '' ">
+			and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+			and pop_name like '%${renterPopName}%'
+		</if>
+		<if test="jciBeginPeriods != null and jciBeginPeriods != '' ">
+			and jci_begin_periods = #{jciBeginPeriods}
+		</if>
+		<if test="jciFukuanri != null and jciFukuanri != '' ">
+			and jci_fukuanri = #{jciFukuanri}
+		</if>
+		<if test="jciState != null and jciState != '' ">
+			and jci_state = #{jciState}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			and jci_fukuanri &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != '' ">
+			and jci_fukuanri &lt;= #{endTime}
+		</if>
+		<if test="timeOut == 1 ">
+			and jci_fukuanri &lt; curdate()
+		</if>
+		<if test="jciMessageTime != null and jciMessageTime != '' ">
+			<if test="jciMessageTime =='已通知' ">
+				and jci_message_time is not null
+			</if>
+			<if test="jciMessageTime =='未通知' ">
+				and jci_message_time is null
+			</if>
+		</if>
+		<if test="hrState != null and hrState != '' ">
+			<if test="hrState == '管理中' ">
+				and (hr_state = '正常' or hr_state = '正办理退房')
+			</if>
+			<if test="hrState == '已退房' ">
+				and (hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账' or hr_state = '退房完成')
+			</if>
+		</if>
+	</where>
+	) a,
+	(select count(hr.hr_id) total_num
+	from info_house_4rent hr
+	left outer join info_contract_divider jci on jci.jci_house4rent_id = hr.hr_id
+	left outer join info_house_4store hs on hs.hs_id = hr.hr_house_4store_id
+	left outer join info_renter re on re.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp pop on pop.pop_id = re.renter_population_id
+	left outer join info_renter_contract renwal on renwal.jrr_id = jci.jci_rent_cont_id
+	<where>
+		and jci.jci_type = '租客租金' 
+		<if test="hrId != null and hrId != '' ">
+			hr.hr_id = #{hrId}
+		</if>
+		<if test="hrRenterId != null and hrRenterId != '' ">
+			hr_renter_id = #{hrRenterId}
+		</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != '' ">
+			and hr.hr_add_community like '%${hrAddCommunity}%'
+		</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != '' ">
+			and (hr.hr_add_building like '${hrAddBuilding}%' or hr.hr_add_building like '0${hrAddBuilding}%')
+		</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != '' ">
+			and (hr.hr_add_doorplateno like '${hrAddDoorplateno}%' or hr.hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+			and pop.pop_name like '%${renterPopName}%'
+		</if>
+		<if test="jciBeginPeriods != null and jciBeginPeriods != '' ">
+			and jci.jci_begin_periods = #{jciBeginPeriods}
+		</if>
+		<if test="jciFukuanri != null and jciFukuanri != '' ">
+			and jci.jci_fukuanri = #{jciFukuanri}
+		</if>
+		<if test="jciState != null and jciState != '' ">
+			and jci_state = #{jciState}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			and jci_fukuanri &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != '' ">
+			and jci_fukuanri &lt;= #{endTime}
+		</if>
+		<if test="timeOut == 1 ">
+			and jci_fukuanri &lt; curdate()
+		</if>
+		<if test="jciMessageTime != null and jciMessageTime != '' ">
+			<if test="jciMessageTime =='已通知' ">
+				and jci_message_time is not null
+			</if>
+			<if test="jciMessageTime =='未通知' ">
+				and jci_message_time is null
+			</if>
+		</if>
+		<if test="hrState != null and hrState != '' ">
+			<if test="hrState == '管理中' ">
+				and (hr_state = '正常' or hr_state = '正办理退房')
+			</if>
+			<if test="hrState == '已退房' ">
+				and (hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账' or hr_state = '退房完成')
+			</if>
+		</if>
+	</where>
+	) c,(select sum(jci.jci_money) totalMoney 
+	from info_house_4rent hr
+	left outer join info_contract_divider jci on jci.jci_house4rent_id = hr.hr_id
+	left outer join info_house_4store hs on hs.hs_id = hr.hr_house_4store_id
+	left outer join info_renter re on re.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp pop on pop.pop_id = re.renter_population_id
+	left outer join info_renter_contract renwal on renwal.jrr_id = jci.jci_rent_cont_id
+	<where>
+		and jci.jci_type = '租客租金' 
+		<if test="hrId != null and hrId != '' ">
+			hr.hr_id = #{hrId}
+		</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != '' ">
+			and hr.hr_add_community like '%${hrAddCommunity}%'
+		</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != '' ">
+			and (hr.hr_add_building like '${hrAddBuilding}%' or hr.hr_add_building like '0${hrAddBuilding}%')
+		</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != '' ">
+			and (hr.hr_add_doorplateno like '${hrAddDoorplateno}%' or hr.hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')
+		</if>
+		<if test="renterPopName != null and renterPopName != '' ">
+			and pop.pop_name like '%${renterPopName}%'
+		</if>
+		<if test="jciBeginPeriods != null and jciBeginPeriods != '' ">
+			and jci.jci_begin_periods = #{jciBeginPeriods}
+		</if>
+		<if test="jciFukuanri != null and jciFukuanri != '' ">
+			and jci.jci_fukuanri = #{jciFukuanri}
+		</if>
+		<if test="jciState != null and jciState != '' ">
+			and jci_state = #{jciState}
+		</if>
+		<if test="startTime != null and startTime != '' ">
+			and jci_fukuanri &gt;= #{startTime}
+		</if>
+		<if test="endTime != null and endTime != '' ">
+			and jci_fukuanri &lt;= #{endTime}
+		</if>
+		<if test="timeOut == 1 ">
+			and jci_fukuanri &lt; curdate()
+		</if>
+		<if test="jciMessageTime != null and jciMessageTime != '' ">
+			<if test="jciMessageTime =='已通知' ">
+				and jci_message_time is not null
+			</if>
+			<if test="jciMessageTime =='未通知' ">
+				and jci_message_time is null
+			</if>
+		</if>
+		<if test="hrState != null and hrState != '' ">
+			<if test="hrState == '管理中' ">
+				and (hr_state = '正常' or hr_state = '正办理退房')
+			</if>
+			<if test="hrState == '已退房' ">
+				and (hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账' or hr_state = '退房完成')
+			</if>
+		</if>
+	</where>
+	) d
+	ORDER BY hr_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 水电气计费结算查询 -->
+  <select id="getMeterReadingScheme" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select hs.hs_meter_reading_record, hr.*,
+  		pt1.plan_name water,    pt1.plan_package waterPlan,
+  		pt2.plan_name electrit, pt2.plan_package electritPlan,
+		pt3.plan_name gas,      pt3.plan_package gasPlan,
+		pt4.plan_name hotwater, pt4.plan_package hotwaterplan,
+		pt5.plan_name hotair,   pt5.plan_package hotairplan
+		from info_house_4rent hr
+		left outer join info_house_4store hs on hs.hs_id = hr.hr_house_4store_id
+		left outer join info_charging_table pt1 on pt1.plan_id = hr.hr_water_plan
+		left outer join info_charging_table pt2 on pt2.plan_id = hr.hr_electrit_plan
+		left outer join info_charging_table pt3 on pt3.plan_id = hr.hr_gas_plan
+		<!--  -->
+		left outer join info_charging_table pt4 on pt4.plan_id = hr.hr_hotwater_plan
+		left outer join info_charging_table pt5 on pt5.plan_id = hr.hr_hotair_plan
+		
+		<!--  -->
+		where hr.hr_id = #{hrId}
+  </select><!--  and hr.hr_house_4store_id = #{hrHouse4storeId} 多余的条件删了，留待观察 -->
+  
+  <!-- 转移查询 -->
+  <select id="getrentiuserId" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select * from info_house_4rent
+	where hr_user_id = #{hrUserId} or hr_manager_user_id = #{hrManagerUserId}
+  </select>
+  
+  <!-- 增减基数修改 -->
+  <update id="arithmetic" parameterType="com.zz.po.info.InfoHouse4rentExpand" >
+  	update info_house_4rent
+  	<set>
+  		hr_base = hr_base + #{arithmeticBase,jdbcType=DOUBLE}
+  	</set>
+  	where hr_id = #{hrId,jdbcType=INTEGER}
+  </update>
+
+	<!-- 条件查询已租房id -->
+	<select id="selectRentByTJ" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+		select * from info_house_4rent
+		<where>
+			<if test="hrHouse4storeId != null and hrHouse4storeId != ''" >
+				and hr_house_4store_id = #{hrHouse4storeId,jdbcType=INTEGER}
+			</if>
+			<if test="hrRenterId != null and hrRenterId != ''" >
+				and hr_renter_id = #{hrRenterId,jdbcType=INTEGER}
+			</if>
+			<if test="hrLandlordId != null and hrLandlordId != ''" >
+				and hr_landlord_id = #{hrLandlordId,jdbcType=INTEGER}
+			</if>
+			<if test="hrLeaseState != null and hrLeaseState != ''" >
+				and hr_lease_state = #{hrLeaseState,jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+
+
+
+
+
+
+	
+  <!-- 查询openid -->
+  <select id="selectopenid" resultType="java.lang.Integer" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+	select count(lm.rt_id) 
+	from info_living_men lm 
+	left outer join info_pop_tmp pop on pop.pop_id = lm.rt_pl_id
+	where
+	lm.rt_hr_id = #{hrId,jdbcType=VARCHAR}
+	and pop.wx_openid != 0
+	and lm.rt_type = '在住'
+  </select>
+  
+  <!--  ************************查询按钮数量***************************  -->
+  <!-- 
+  	a:租客即将到期
+  	b:逾期房间
+  	c:正在转租
+  	d:到期不续
+  	e:正在维保
+   -->
+  <select id="selectButtonNumAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select a.num kuaidaoqiNum,b.num yuqiNum,c.num zhuanzuNum,d.num daoqiNum,e.num weibaoNum from
+	(select count(*) num
+	from info_house_4rent hr
+	where (DATEDIFF(hr.hr_end_time,CURDATE())) &lt;= 40 and (DATEDIFF(hr.hr_end_time,CURDATE())) &gt;= 1 and hr_state != '退房完成'
+	) a,
+	
+	(select count(DISTINCT hr.hr_id) num
+	from info_house_4rent hr
+	left outer join info_contract_divider icd on icd.jci_house4rent_id = hr.hr_id 
+	left outer join info_rented_checkout irc on hr.hr_id = irc.rco_rent_id
+	where irc.rco_procedures='正常' and icd.jci_type = '租客租金' and icd.jci_state = '待收' and icd.jci_fukuanri &lt; CURDATE() 
+	) b,
+	
+	(select count(DISTINCT hr.hr_id) num 
+	from info_house_4rent hr
+	left outer join info_rented_checkout irc on hr.hr_id = irc.rco_rent_id
+	where irc.rco_check_out_nature = "租客转租" and irc.rco_check_out_the_state != '退房完成'
+	) c,
+	
+	(select count(DISTINCT hr.hr_id) num 
+	from info_house_4rent hr
+	left outer join info_rented_checkout irc on hr.hr_id = irc.rco_rent_id
+	where irc.rco_check_out_nature = "到期不续" and irc.rco_check_out_the_state = '正办理退房' and irc.rco_procedures = '正常'
+	) d,
+	
+	(select count(DISTINCT hr.hr_id) num 
+	from info_house_4rent hr
+	left outer join jour_oddjobs jo on hr.hr_id = jo.rep_house_4rent_id
+	where (jo.rep_state = "未领取" || jo.rep_state = "跟进中") and (jo.rep_type_rp = "租务维修" || jo.rep_type_rp = "微信报修") and hr_state != '退房完成'
+	) e
+  </select>
+  
+  <!--************************查询逾期房间***************************  -->
+  <select id="selectOverdueAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select a.*, bb.total_num from
+	(select hr.*,(DATEDIFF(hr.hr_end_time,CURDATE())) overplusTime, r.renter_second_contacts, r.renter_second_phone,
+			ip.pop_name, ip.pop_telephone, ip.pop_idcard, ip.wx_openid, u.su_staff_name username, u1.su_staff_name adminname, u2.su_staff_name hrManagerUserName,
+			dict.*, ipl.pop_name landlordPopName, ipl.pop_telephone landlordPopTelephone
+	from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join info_landlord il on il.la_id = hr.hr_landlord_id
+	left outer join info_pop_tmp ipl on il.la_population_id = ipl.pop_id
+	left outer join sys_users u on hr.hr_user_id = u.user_coding
+	left outer join sys_users u1 on hr.hr_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = hr.hr_manager_user_id 
+	left outer join info_contract_divider icd on icd.jci_house4rent_id = hr.hr_id 
+	left outer join info_rented_checkout irc on hr.hr_id = irc.rco_rent_id
+	<where>
+		irc.rco_procedures='正常' and icd.jci_type = '租客租金' and  icd.jci_state = '待收' and icd.jci_fukuanri &lt; CURDATE()
+	</where>
+	group by hr.hr_id
+	) a,
+	(select count(DISTINCT hr.hr_id) total_num from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join info_landlord il on il.la_id = hr.hr_landlord_id
+	left outer join info_pop_tmp ipl on il.la_population_id = ipl.pop_id
+	left outer join sys_users u on hr.hr_user_id = u.user_coding
+	left outer join sys_users u1 on hr.hr_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = hr.hr_manager_user_id
+	left outer join info_contract_divider icd on icd.jci_house4rent_id = hr.hr_id
+	left outer join info_rented_checkout irc on hr.hr_id = irc.rco_rent_id
+	<where>
+		irc.rco_procedures='正常' and icd.jci_type = '租客租金' and  icd.jci_state = '待收' and icd.jci_fukuanri &lt; CURDATE()
+	</where>
+	) bb
+	 <if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+	 	<if test="theSortTerm ==1 ">
+	 		ORDER BY hr_add_community 
+ 		</if>
+ 		<if test="theSortTerm ==2 ">
+	 		ORDER BY hr_add_building 
+ 		</if>
+ 		<if test="theSortTerm ==3 ">
+	 		ORDER BY hr_add_doorplateno 
+ 		</if>
+ 		<if test="theSortTerm ==4 ">
+	 		ORDER BY hr_id
+ 		</if>
+ 		<if test="theSortTerm ==5 ">
+	 		ORDER BY hr_begin_time 
+ 		</if>
+ 		<if test="theSortTerm ==6 ">
+	 		ORDER BY hr_end_time 
+ 		</if>
+ 		<if test="theSortTerm ==7 ">
+	 		ORDER BY hr_lease_state 
+ 		</if>
+ 		<if test="theSortTerm ==8 ">
+	 		ORDER BY overplusTime 
+ 		</if>
+ 		<if test="theSortTerm ==9 ">
+	 		ORDER BY hr_house_price 
+ 		</if>
+ 		<if test="theSortTerm ==10 ">
+	 		ORDER BY hr_follow_time
+ 		</if>
+ 		<if test="theSortTerm ==11 ">
+	 		ORDER BY hr_sign_time
+ 		</if>
+ 		<if test="theSortContrary ==1 ">
+ 			ASC
+ 		</if>
+ 		<if test="theSortContrary ==2 ">
+ 			DESC
+ 		</if>
+	</if>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!--************************查询正在维保***************************  -->
+  <select id="selectRepairAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select a.*, bb.total_num from
+	(select hr.*,(DATEDIFF(hr.hr_end_time,CURDATE())) overplusTime, r.renter_second_contacts, r.renter_second_phone,
+			ip.pop_name, ip.pop_telephone, ip.pop_idcard, ip.wx_openid, u.su_staff_name username, u1.su_staff_name adminname, u2.su_staff_name hrManagerUserName,
+			dict.*, ipl.pop_name landlordPopName, ipl.pop_telephone landlordPopTelephone
+	from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join info_landlord il on il.la_id = hr.hr_landlord_id
+	left outer join info_pop_tmp ipl on il.la_population_id = ipl.pop_id
+	left outer join sys_users u on hr.hr_user_id = u.user_coding
+	left outer join sys_users u1 on hr.hr_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = hr.hr_manager_user_id 
+	left outer join jour_oddjobs jo on hr.hr_id = jo.rep_house_4rent_id
+	
+	<where>
+		(jo.rep_state = "未领取" || jo.rep_state = "跟进中") and (jo.rep_type_rp = "租务维修" || jo.rep_type_rp = "微信报修") and hr_state != '退房完成'
+	</where>
+	group by hr.hr_id
+	) a,
+	(select count(DISTINCT hr.hr_id) total_num from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join info_landlord il on il.la_id = hr.hr_landlord_id
+	left outer join info_pop_tmp ipl on il.la_population_id = ipl.pop_id
+	left outer join sys_users u on hr.hr_user_id = u.user_coding
+	left outer join sys_users u1 on hr.hr_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = hr.hr_manager_user_id
+	left outer join jour_oddjobs jo on hr.hr_id = jo.rep_house_4rent_id
+  	<where>
+	  	(jo.rep_state = "未领取" || jo.rep_state = "跟进中") and (jo.rep_type_rp = "租务维修" || jo.rep_type_rp = "微信报修") and hr_state != '退房完成'
+  	</where>
+	) bb
+	<if test="theSortTerm != '' and theSortTerm != null and theSortContrary != '' and theSortContrary != null">
+	 	<if test="theSortTerm ==1 ">
+	 		ORDER BY hr_add_community 
+ 		</if>
+ 		<if test="theSortTerm ==2 ">
+	 		ORDER BY hr_add_building 
+ 		</if>
+ 		<if test="theSortTerm ==3 ">
+	 		ORDER BY hr_add_doorplateno 
+ 		</if>
+ 		<if test="theSortTerm ==4 ">
+	 		ORDER BY hr_id
+ 		</if>
+ 		<if test="theSortTerm ==5 ">
+	 		ORDER BY hr_begin_time 
+ 		</if>
+ 		<if test="theSortTerm ==6 ">
+	 		ORDER BY hr_end_time 
+ 		</if>
+ 		<if test="theSortTerm ==7 ">
+	 		ORDER BY hr_lease_state 
+ 		</if>
+ 		<if test="theSortTerm ==8 ">
+	 		ORDER BY overplusTime 
+ 		</if>
+ 		<if test="theSortTerm ==9 ">
+	 		ORDER BY hr_house_price 
+ 		</if>
+ 		<if test="theSortTerm ==10 ">
+	 		ORDER BY hr_follow_time
+ 		</if>
+ 		<if test="theSortTerm ==11 ">
+	 		ORDER BY hr_sign_time
+ 		</if>
+ 		<if test="theSortContrary ==1 ">
+ 			ASC
+ 		</if>
+ 		<if test="theSortContrary ==2 ">
+ 			DESC
+ 		</if>
+	</if>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+ 
+  <!-- 抄表查询已租房 -->
+  <select id="meterReadingHasBeenRented" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select hr.*,( DATEDIFF(hr.hr_end_time,CURDATE())) overplusTime, r.renter_second_contacts, r.renter_second_phone,
+			ip.pop_name, ip.pop_telephone, ip.pop_idcard, ip.wx_openid, u.su_staff_name username, u1.su_staff_name adminname, u2.su_staff_name hrManagerUserName,
+			dict.*, ipl.pop_name landlordPopName, ipl.pop_telephone landlordPopTelephone
+	from info_house_4rent hr
+	left outer join info_renter r on r.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join info_landlord il on il.la_id = hr.hr_landlord_id
+	left outer join info_pop_tmp ipl on il.la_population_id = ipl.pop_id
+	left outer join sys_users u on hr.hr_user_id = u.user_coding
+	left outer join sys_users u1 on hr.hr_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on hr.hr_house_dict_id = dict.hd_id
+	left outer join sys_users u2 on u2.user_coding = hr.hr_manager_user_id
+	<where>
+		hr.hr_house_4store_id = #{hrHouse4storeId}
+	</where>
+	ORDER BY hr_id DESC
+	limit 0,1
+  </select>
+  
+  <!-- 出房人修改已租房查询 -->
+  <select id="selectRentOutOfTheRoom" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select hr.hr_id, hr.hr_house_4store_id, hr.hr_user_id, ita.assist_userId, ita.assist_department, u.su_department_id from info_house_4rent hr 
+		left outer join info_business_assistor ita on ita.assist_house_4rent = hr.hr_id
+		left outer join sys_users u on u.user_coding = hr.hr_user_id
+		<where>
+			hr.hr_id = #{hrId}
+		 	and hr.hr_house_4store_id = #{hrHouse4storeId}
+			<if test="assistUserId != null and assistUserId != '' ">
+		 		and ita.assist_userId = #{assistUserId}
+		 	</if>
+		 	<if test="hrDepartment != null and hrDepartment != '' ">
+		 		and u.su_department_id = #{hrDepartment}
+		 	</if>
+		 	<if test="hrUserId != null and hrUserId != '' ">
+		 		and hr_user_id = #{hrUserId}
+		 	</if>
+		</where>
+  </select>
+  
+  <!-- 查询地址 -->
+  <select id="selectForAddress" resultType="java.lang.String" parameterType="com.zz.po.info.InfoHouse4rentExpand" >
+	  <choose>
+	  	<when test="hrAddCity == null or hrAddCity ==''">
+		  	select distinct
+		  		hr_add_city 
+		    from 
+		    	info_house_4rent
+	    </when>
+	    <when test="hrAddCity != null and hrAddCity !=''">
+		    <choose>
+		    	<when test="hrAddDistrict == null or hrAddDistrict ==''">
+		    		select distinct
+			  			hr_add_district 
+			    	from 
+			    		info_house_4rent
+			    	where
+			    		hr_add_city = #{hrAddCity,jdbcType=VARCHAR}
+		    	</when>
+		    	<when test="hrAddDistrict != null or hrAddDistrict !=''">
+			    	<choose>
+				    	<when test="hrAddZone == null or hrAddZone ==''">
+				    		select distinct
+					  			hr_add_zone 
+					    	from 
+					    		info_house_4rent
+					    	where
+					    		hr_add_city = #{hrAddCity,jdbcType=VARCHAR} and
+					    		hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}
+				    	</when>
+				    	<when test="hrAddZone != null or hrAddZone !=''">
+				    		select distinct
+					  			hr_add_community 
+					    	from 
+					    		info_house_4rent
+					    	where
+					    		hr_add_city = #{hrAddCity,jdbcType=VARCHAR} and
+					    		hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR} and
+					    		hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}
+				    	</when>
+			   		</choose>
+		    	</when>
+		    </choose>
+	    </when>
+	  </choose>
+  </select>
+  <!-- 根据ID查找 -->
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select rent.*, r.renter_second_contacts, r.renter_second_phone,
+		ip.pop_name, ip.pop_telephone, ip.pop_idcard, ip.pop_name_remark, 
+		u.su_staff_name username, u1.su_staff_name adminname,
+		dict.*,ct1.plan_name waterPlan,ct2.plan_name electritPlan,ct3.plan_name gasPlan
+	from info_house_4rent rent
+	left outer join info_renter r on r.renter_id = rent.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join sys_users u on rent.hr_user_id = u.user_coding
+	left outer join sys_users u1 on rent.hr_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on rent.hr_house_dict_id = dict.hd_id
+	left outer join info_charging_table ct1  on rent.hr_water_plan = ct1.plan_id
+	left outer join info_charging_table ct2  on rent.hr_electrit_plan = ct2.plan_id
+	left outer join info_charging_table ct3  on rent.hr_gas_plan = ct3.plan_id
+	<where>
+		hr_id = #{hrId}
+	</where>
+  </select>
+  
+  <!-- 根据ID查找 -->
+  <select id="selectByPrimaryKey1" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select rent.*, r.renter_second_contacts, r.renter_second_phone,
+		ip.pop_name, ip.pop_telephone, ip.pop_idcard, ip.pop_name_remark, 
+		u.su_staff_name username, u1.su_staff_name adminname,
+		dict.*,ct1.plan_name waterPlan,ct2.plan_name electritPlan,ct3.plan_name gasPlan
+	from info_house_4rent rent
+	left outer join info_renter r on r.renter_id = rent.hr_renter_id
+	left outer join info_pop_tmp ip on r.renter_population_id = ip.pop_id
+	left outer join sys_users u on rent.hr_user_id = u.user_coding
+	left outer join sys_users u1 on rent.hr_admin_user_id = u1.user_coding
+	left outer join sys_house_dict dict on rent.hr_house_dict_id = dict.hd_id
+	left outer join info_charging_table ct1  on rent.hr_water_plan = ct1.plan_id
+	left outer join info_charging_table ct2  on rent.hr_electrit_plan = ct2.plan_id
+	left outer join info_charging_table ct3  on rent.hr_gas_plan = ct3.plan_id
+	<where>
+		hr_id = #{hrId}
+	</where>
+  </select>
+ 
+   <select id="selectById" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+    select * from info_house_4rent
+    <where>
+    	<if test="hrId != null ">
+    		and hr_id = #{hrId}
+    	</if>
+    	<if test="hrHouse4storeId != null ">
+    		and hr_house_4store_id = #{hrHouse4storeId}
+    	</if>
+    	<if test="hrState != null and hrState != '' ">
+    		and hr_state = #{hrState}
+    	</if>
+    </where>
+  </select> 
+  
+  <!-- 临时账单生成，查询已租房源数据 -->
+  <select id="queryRentingSourceData" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select *, p.pop_name
+  	from info_house_4rent hr
+	left outer join info_renter re on re.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp p on p.pop_id = re.renter_population_id ,
+	(select count(hr_id) total_num 
+	from info_house_4rent hr
+	left outer join info_renter re on re.renter_id = hr.hr_renter_id
+	left outer join info_pop_tmp p on p.pop_id = re.renter_population_id
+	<where> 
+		hr.hr_state in ('正常', '正办理退房')
+		<if test="hrAddDistrict != null and hrAddDistrict != '' ">
+			and hr_add_district = #{hrAddDistrict}
+		</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != '' ">
+			and hr_add_community like '%${hrAddCommunity}%'
+		</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+			and hr_add_building like '%${hrAddBuilding}%'
+		</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+			and hr_add_doorplateno like '%${hrAddDoorplateno}%'
+		</if>
+	</where>) a
+	<where> 
+		hr.hr_state in ('正常', '正办理退房')
+		<if test="hrAddDistrict != null and hrAddDistrict != '' ">
+			and hr_add_district = #{hrAddDistrict}
+		</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != '' ">
+			and hr_add_community like '%${hrAddCommunity}%'
+		</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+			and hr_add_building like '%${hrAddBuilding}%'
+		</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+			and hr_add_doorplateno like '%${hrAddDoorplateno}%'
+		</if>
+	</where>
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+	</if>
+	<if test="endNum != '' and endNum != null">
+		,${endNum}
+	</if>
+  </select>
+  
+  <!-- 业绩受益人管理：查当前正在出租的房中还没添加业绩受益人的房 -->
+  <select id="selectNoAssist" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	select aa.*, bb.total_num from
+	(select * from info_house_4rent 
+		where hr_id not in (
+			select distinct assist_house_4rent from info_business_assistor where assist_house_4rent is not null and assist_type = "出房"
+		) and (hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账' or hr_state = '正常')
+		<if test="hrAddCity != null and hrAddCity != ''" >
+			and hr_add_city = #{hrAddCity,jdbcType=VARCHAR}</if>
+		<if test="hrAddDistrict != null and hrAddDistrict != ''" >
+			and hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hrAddZone != null and hrAddZone != ''" >
+			and hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}</if>
+		<if test="hrAddStreet != null and hrAddStreet != ''" >
+			and hr_add_street like '%${hrAddStreet}%'</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != ''" >
+			and hr_add_community like '%${hrAddCommunity}%'</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+			and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%')</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+			and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')</if>
+	) aa,
+	(select count(hr_id) total_num from info_house_4rent 
+		where hr_id not in (
+			select distinct assist_house_4rent from info_business_assistor where assist_house_4rent is not null and assist_type = "出房"
+		) and (hr_state = '正办理退房' or hr_state = '退房待审核' or hr_state = '退房待复核' or hr_state = '退房待出账' or hr_state = '正常')
+		<if test="hrAddCity != null and hrAddCity != ''" >
+			and hr_add_city = #{hrAddCity,jdbcType=VARCHAR}</if>
+		<if test="hrAddDistrict != null and hrAddDistrict != ''" >
+			and hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR}</if>
+		<if test="hrAddZone != null and hrAddZone != ''" >
+			and hr_add_zone = #{hrAddZone,jdbcType=VARCHAR}</if>
+		<if test="hrAddStreet != null and hrAddStreet != ''" >
+			and hr_add_street like '%${hrAddStreet}%'</if>
+		<if test="hrAddCommunity != null and hrAddCommunity != ''" >
+			and hr_add_community like '%${hrAddCommunity}%'</if>
+		<if test="hrAddBuilding != null and hrAddBuilding != ''" >
+			and (hr_add_building like '${hrAddBuilding}%' or hr_add_building like '0${hrAddBuilding}%'
+				or hr_split_identifier like '${hrAddDoorplateno}%' or hr_split_identifier like '0${hrAddDoorplateno}%')</if>
+		<if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+			and (hr_add_doorplateno like '${hrAddDoorplateno}%' or hr_add_doorplateno like '0${hrAddDoorplateno}%')</if>
+	) bb ORDER BY hr_id DESC
+		<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		</if>
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_house_4rent
+    where hr_id = #{hrId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoHouse4rentExpand" 
+  		useGeneratedKeys="true" keyProperty="hrId">
+    insert into info_house_4rent
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hrBase != null and hrBase != ''" >
+        hr_base,
+      </if>
+      <if test="hrHouseId != null and hrHouseId != ''" >
+        hr_house_id,
+      </if>
+      <if test="hrLandlordId != null and hrLandlordId != ''" >
+        hr_landlord_id,
+      </if>
+      <if test="hrRenterId != null and hrRenterId != ''" >
+        hr_renter_id,
+      </if>
+      <if test="hrHouse4storeId != null and hrHouse4storeId != ''" >
+        hr_house_4store_id,
+      </if>
+      <if test="hrUserId != null and hrUserId != ''" >
+        hr_user_id,
+      </if>
+      <if test="hrAdminUserId != null and hrAdminUserId != ''" >
+        hr_admin_user_id,
+      </if>
+      <if test="hrHouseDictId != null and hrHouseDictId != ''" >
+        hr_house_dict_id,
+      </if>
+      <if test="hrWaterPlan != null and hrWaterPlan != ''" >
+        hr_water_plan,
+      </if>
+      <if test="hrElectritPlan != null and hrElectritPlan != ''" >
+        hr_electrit_plan,
+      </if>
+      <if test="hrGasPlan != null and hrGasPlan != ''" >
+        hr_gas_plan,
+      </if>
+      
+       <if test="hrHotwaterPlan != null and hrHotwaterPlan != ''" >
+        hr_hotwater_plan,
+      </if>
+       <if test="hrHotairPlan != null and hrHotairPlan != ''" >
+        hr_hotair_plan,
+      </if>
+      
+      <if test="hrSectionType != null and hrSectionType != ''" >
+        hr_section_type,
+      </if>
+      <if test="hrHouseType != null and hrHouseType != ''" >
+        hr_house_type,
+      </if>
+      <if test="hrHouseDirection != null and hrHouseDirection != ''" >
+        hr_house_direction,
+      </if>
+      <if test="hrHouseOwner != null and hrHouseOwner != ''" >
+        hr_house_owner,
+      </if>
+      <if test="hrHouseSquare != null and hrHouseSquare != ''" >
+        hr_house_square,
+      </if>
+      <if test="hrFurnitureConfig != null and hrFurnitureConfig != ''" >
+        hr_furniture_config,
+      </if>
+      <if test="hrHousePrice != null and hrHousePrice != ''" >
+        hr_house_price,
+      </if>
+      <if test="hrWaterVolFirst != null and hrWaterVolFirst != ''" >
+        hr_water_vol_first,
+      </if>
+      <if test="hrElectritVolFirst != null and hrElectritVolFirst != ''" >
+        hr_electrit_vol_first,
+      </if>
+      <if test="hrGasVolFirst != null and hrGasVolFirst != ''" >
+        hr_gas_vol_first,
+      </if>
+      
+      <!-- tzl -->
+       <if test="hrHotWaterVolFirst != null and hrHotWaterVolFirst != ''" >
+        hr_hotwater_vol_first,
+      </if>
+       <if test="hrHotAirVolFirst != null and hrHotAirVolFirst != ''" >
+        hr_hotair_vol_first,
+      </if>
+      
+      <if test="hrPaymentType != null and hrPaymentType != ''" >
+        hr_payment_type,
+      </if>
+      <if test="hrRegisterTime != null and hrRegisterTime != ''" >
+        hr_register_time,
+      </if>
+      <if test="hrAddProvince != null and hrAddProvince != ''" >
+        hr_add_province,
+      </if>
+      <if test="hrAddCity != null and hrAddCity != ''" >
+        hr_add_city,
+      </if>
+      <if test="hrAddDistrict != null and hrAddDistrict != ''" >
+        hr_add_district,
+      </if>
+      <if test="hrAddZone != null and hrAddZone != ''" >
+        hr_add_zone,
+      </if>
+      <if test="hrAddStreet != null and hrAddStreet != ''" >
+        hr_add_street,
+      </if>
+      <if test="hrAddCommunity != null and hrAddCommunity != ''" >
+        hr_add_community,
+      </if>
+      <if test="hrAddBuilding != null and hrAddBuilding != ''" >
+        hr_add_building,
+      </if>
+      <if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+        hr_add_doorplateno,
+      </if>
+      <if test="hrHouseDeposit != null and hrHouseDeposit != ''" >
+        hr_house_deposit,
+      </if>
+      <if test="hrPowerDeposit != null and hrPowerDeposit != ''" >
+        hr_power_deposit,
+      </if>
+      <if test="hrDoorDeposit != null and hrDoorDeposit != ''" >
+        hr_door_deposit,
+      </if>
+      <if test="hrOtherDeposit != null and hrOtherDeposit != ''" >
+        hr_other_deposit,
+      </if>
+		<if test="hrDoorTrendFee != null and hrDoorTrendFee != ''" >
+			hr_door_trend_fee,
+		</if>
+		<if test="hrComServiceFee != null and hrComServiceFee != ''" >
+			hr_com_service_fee,
+		</if>
+		<if test="hrLockFee != null and hrLockFee != ''" >
+			hr_lock_fee,
+		</if>
+		<if test="hrOtherFee != null and hrOtherFee != ''" >
+			hr_other_fee,
+		</if>
+      <if test="hrManageCost != null and hrManageCost != ''" >
+        hr_manage_cost,
+      </if>
+      <if test="hrTheTerm != null and hrTheTerm != ''" >
+        hr_the_term,
+      </if>
+      <if test="hrBeginTime != null and hrBeginTime != ''" >
+        hr_begin_time,
+      </if>
+      <if test="hrEndTime != null and hrEndTime != ''" >
+        hr_end_time,
+      </if>
+      <if test="hrLeaseState != null and hrLeaseState != ''" >
+        hr_lease_state,
+      </if>
+      <if test="hrHouseKey != null and hrHouseKey != ''" >
+        hr_house_key,
+      </if>
+      <if test="hrHouseNote != null and hrHouseNote != ''" >
+        hr_house_note,
+      </if>
+      <if test="hrState != null and hrState != ''" >
+        hr_state,
+      </if>
+      <if test="hrAssist != null and hrAssist != ''" >
+        hr_assist,
+      </if>
+      <if test="hrStorefront != null and hrStorefront != ''" >
+        hr_storefront,
+      </if>
+      <if test="hrDepartment != null and hrDepartment != ''" >
+        hr_department,
+      </if>
+      <if test="hrTvCharge != null and hrTvCharge != ''" >
+        hr_tv_charge,
+      </if>
+      <if test="hrWifiCharge != null and hrWifiCharge != ''" >
+        hr_wifi_charge,
+      </if>
+      <if test="hrServerCost != null and hrServerCost != ''" >
+        hr_server_cost,
+      </if>
+      <if test="hrSmsNotificationTime != null and hrSmsNotificationTime != ''" >
+        hr_sms_notification_time,
+      </if>
+      <if test="hrManagerUserId != null and hrManagerUserId != ''" >
+        hr_manager_user_id,
+      </if>
+      <if test="hrFlatShareLogo != null and hrFlatShareLogo != ''" >
+        hr_flat_share_logo,
+      </if>
+      <if test="hrOtherPay != null and hrOtherPay != ''" >
+        hr_other_pay,
+      </if>
+      <if test="hrMeterReadingRecord != null and hrMeterReadingRecord != ''" >
+        hr_meter_reading_record,
+      </if>
+      <if test="hrSplitIdentifier != null and hrSplitIdentifier != ''" >
+        hr_split_identifier,
+      </if>
+      <if test="hrFollowTime != null and hrFollowTime != ''" >
+        hr_follow_time,
+      </if>
+      <if test="hrSignTime != null and hrSignTime != ''" >
+        hr_sign_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hrBase != null and hrBase != ''" >
+        #{hrBase,jdbcType=DOUBLE},
+      </if>
+      <if test="hrHouseId != null and hrHouseId != ''" >
+        #{hrHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="hrLandlordId != null and hrLandlordId != ''" >
+        #{hrLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="hrRenterId != null and hrRenterId != ''" >
+        #{hrRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="hrHouse4storeId != null and hrHouse4storeId != ''" >
+        #{hrHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="hrUserId != null and hrUserId != ''" >
+        #{hrUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hrAdminUserId != null and hrAdminUserId != ''" >
+        #{hrAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hrHouseDictId != null and hrHouseDictId != ''" >
+        #{hrHouseDictId,jdbcType=INTEGER},
+      </if>
+      <if test="hrWaterPlan != null and hrWaterPlan != ''" >
+        #{hrWaterPlan,jdbcType=INTEGER},
+      </if>
+      <if test="hrElectritPlan != null and hrElectritPlan != ''" >
+        #{hrElectritPlan,jdbcType=INTEGER},
+      </if>
+      <if test="hrGasPlan != null and hrGasPlan != ''" >
+        #{hrGasPlan,jdbcType=INTEGER},
+      </if>
+      
+       <if test="hrHotwaterPlan != null and hrHotwaterPlan != ''" >
+        #{hrHotwaterPlan,jdbcType=INTEGER},
+      </if>
+       <if test="hrHotairPlan != null and hrHotairPlan != ''" >
+        #{hrHotairPlan,jdbcType=INTEGER},
+      </if>
+      
+      <if test="hrSectionType != null and hrSectionType != ''" >
+        #{hrSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseType != null and hrHouseType != ''" >
+        #{hrHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseDirection != null and hrHouseDirection != ''" >
+        #{hrHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseOwner != null and hrHouseOwner != ''" >
+        #{hrHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseSquare != null and hrHouseSquare != ''" >
+        #{hrHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="hrFurnitureConfig != null and hrFurnitureConfig != ''" >
+        #{hrFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHousePrice != null and hrHousePrice != ''" >
+        #{hrHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hrWaterVolFirst != null and hrWaterVolFirst != ''" >
+        #{hrWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrElectritVolFirst != null and hrElectritVolFirst != ''" >
+        #{hrElectritVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrGasVolFirst != null and hrGasVolFirst != ''" >
+        #{hrGasVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="hrHotWaterVolFirst != null and hrHotWaterVolFirst != ''" >
+        #{hrHotWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrHotAirVolFirst != null and hrHotAirVolFirst != ''" >
+        #{hrHotAirVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="hrPaymentType != null and hrPaymentType != ''" >
+        #{hrPaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrRegisterTime != null and hrRegisterTime != ''" >
+        #{hrRegisterTime,jdbcType=DATE},
+      </if>
+      <if test="hrAddProvince != null and hrAddProvince != ''" >
+        #{hrAddProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddCity != null and hrAddCity != ''" >
+        #{hrAddCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddDistrict != null and hrAddDistrict != ''" >
+        #{hrAddDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddZone != null and hrAddZone != ''" >
+        #{hrAddZone,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddStreet != null and hrAddStreet != ''" >
+        #{hrAddStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddCommunity != null and hrAddCommunity != ''" >
+        #{hrAddCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddBuilding != null and hrAddBuilding != ''" >
+        #{hrAddBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+        #{hrAddDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseDeposit != null and hrHouseDeposit != ''" >
+        #{hrHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrPowerDeposit != null and hrPowerDeposit != ''" >
+        #{hrPowerDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrDoorDeposit != null and hrDoorDeposit != ''" >
+        #{hrDoorDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrOtherDeposit != null and hrOtherDeposit != ''" >
+        #{hrOtherDeposit,jdbcType=DOUBLE},
+      </if>
+		<if test="hrDoorTrendFee != null and hrDoorTrendFee != ''" >
+			#{hrDoorTrendFee,jdbcType=DOUBLE},
+		</if>
+		<if test="hrComServiceFee != null and hrComServiceFee != ''" >
+			#{hrComServiceFee,jdbcType=DOUBLE},
+		</if>
+		<if test="hrLockFee != null and hrLockFee != ''" >
+			#{hrLockFee,jdbcType=DOUBLE},
+		</if>
+		<if test="hrOtherFee != null and hrOtherFee != ''" >
+			#{hrOtherFee,jdbcType=DOUBLE},
+		</if>
+      <if test="hrManageCost != null and hrManageCost != ''" >
+        #{hrManageCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hrTheTerm != null and hrTheTerm != ''" >
+        #{hrTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="hrBeginTime != null and hrBeginTime != ''" >
+        #{hrBeginTime,jdbcType=DATE},
+      </if>
+      <if test="hrEndTime != null and hrEndTime != ''" >
+        #{hrEndTime,jdbcType=DATE},
+      </if>
+      <if test="hrLeaseState != null and hrLeaseState != ''" >
+        #{hrLeaseState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseKey != null and hrHouseKey != ''" >
+        #{hrHouseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseNote != null and hrHouseNote != ''" >
+        #{hrHouseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="hrState != null and hrState != ''" >
+        #{hrState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAssist != null and hrAssist != ''" >
+        #{hrAssist,jdbcType=VARCHAR},
+      </if>
+      <if test="hrStorefront != null and hrStorefront != ''" >
+        #{hrStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="hrDepartment != null and hrDepartment != ''" >
+        #{hrDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="hrTvCharge != null and hrTvCharge != ''" >
+        #{hrTvCharge,jdbcType=DOUBLE},
+      </if>
+      <if test="hrWifiCharge != null and hrWifiCharge != ''" >
+        #{hrWifiCharge,jdbcType=DOUBLE},
+      </if>
+      <if test="hrServerCost != null and hrServerCost != ''" >
+        #{hrServerCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hrSmsNotificationTime != null and hrSmsNotificationTime != ''" >
+        #{hrSmsNotificationTime},
+      </if>
+      <if test="hrManagerUserId != null and hrManagerUserId != ''" >
+        #{hrManagerUserId},
+      </if>
+      <if test="hrFlatShareLogo != null and hrFlatShareLogo != ''" >
+        #{hrFlatShareLogo},
+      </if>
+      <if test="hrOtherPay != null and hrOtherPay != ''" >
+        #{hrOtherPay},
+      </if>
+      <if test="hrMeterReadingRecord != null and hrMeterReadingRecord != ''" >
+        #{hrMeterReadingRecord},
+      </if>
+      <if test="hrSplitIdentifier != null and hrSplitIdentifier != ''" >
+        #{hrSplitIdentifier},
+      </if>
+      <if test="hrFollowTime != null and hrFollowTime != ''" >
+        #{hrFollowTime},
+      </if>
+      <if test="hrSignTime != null and hrSignTime != ''" >
+        #{hrSignTime},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoHouse4rentExpand" >
+    update info_house_4rent
+    <set >
+      <if test="hrBase != null" >
+        hr_base = #{hrBase,jdbcType=DOUBLE},
+      </if>
+      <if test="hrHouseId != null and hrHouseId != ''" >
+        hr_house_id = #{hrHouseId,jdbcType=INTEGER},
+      </if>
+      <if test="hrLandlordId != null and hrLandlordId != ''" >
+        hr_landlord_id = #{hrLandlordId,jdbcType=INTEGER},
+      </if>
+      <if test="hrRenterId != null and hrRenterId != ''" >
+        hr_renter_id = #{hrRenterId,jdbcType=INTEGER},
+      </if>
+      <if test="hrHouse4storeId != null and hrHouse4storeId != ''" >
+        hr_house_4store_id = #{hrHouse4storeId,jdbcType=INTEGER},
+      </if>
+      <if test="hrUserId != null and hrUserId != ''" >
+        hr_user_id = #{hrUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hrAdminUserId != null and hrAdminUserId != ''" >
+        hr_admin_user_id = #{hrAdminUserId,jdbcType=INTEGER},
+      </if>
+      <if test="hrHouseDictId != null and hrHouseDictId != ''" >
+        hr_house_dict_id = #{hrHouseDictId,jdbcType=INTEGER},
+      </if>
+      <if test="hrWaterPlan != null and hrWaterPlan != ''" >
+        hr_water_plan = #{hrWaterPlan,jdbcType=INTEGER},
+      </if>
+      <if test="hrElectritPlan != null and hrElectritPlan != ''" >
+        hr_electrit_plan = #{hrElectritPlan,jdbcType=INTEGER},
+      </if>
+      <if test="hrGasPlan != null and hrGasPlan != ''" >
+        hr_gas_plan = #{hrGasPlan,jdbcType=INTEGER},
+      </if>
+      <!-- tzl -->
+      
+       <if test="hrHotwaterPlan != null and hrHotwaterPlan != ''" >
+        hr_hotwater_plan = #{hrHotwaterPlan,jdbcType=INTEGER},
+      </if>
+      <if test="hrHotairPlan != null and hrHotairPlan != ''" >
+        hr_hotair_plan = #{hrHotairPlan,jdbcType=INTEGER},
+      </if>
+      
+      
+      <if test="hrSectionType != null and hrSectionType != ''" >
+        hr_section_type = #{hrSectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseType != null and hrHouseType != ''" >
+        hr_house_type = #{hrHouseType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseDirection != null and hrHouseDirection != ''" >
+        hr_house_direction = #{hrHouseDirection,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseOwner != null and hrHouseOwner != ''" >
+        hr_house_owner = #{hrHouseOwner,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseSquare != null and (hrHouseSquare != ''or hrHouseSquare ==0)" >
+        hr_house_square = #{hrHouseSquare,jdbcType=DOUBLE},
+      </if>
+      <if test="hrFurnitureConfig != null and hrFurnitureConfig != ''" >
+        hr_furniture_config = #{hrFurnitureConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHousePrice != null and (hrHousePrice != ''or hrHousePrice ==0)" >
+        hr_house_price = #{hrHousePrice,jdbcType=DOUBLE},
+      </if>
+      <if test="hrWaterVolFirst != null and (hrWaterVolFirst != ''or hrWaterVolFirst ==0)" >
+        hr_water_vol_first = #{hrWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrElectritVolFirst != null and (hrElectritVolFirst != ''or hrElectritVolFirst ==0)" >
+        hr_electrit_vol_first = #{hrElectritVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrGasVolFirst != null and (hrGasVolFirst != ''or hrGasVolFirst ==0)" >
+        hr_gas_vol_first = #{hrGasVolFirst,jdbcType=DOUBLE},
+      </if>
+      <!-- tzl -->
+      <if test="hrHotWaterVolFirst != null and (hrHotWaterVolFirst != ''or hrHotWaterVolFirst ==0)" >
+        hr_hotwater_vol_first = #{hrHotWaterVolFirst,jdbcType=DOUBLE},
+      </if>
+      <if test="hrHotAirVolFirst != null and (hrHotAirVolFirst != ''or hrHotAirVolFirst ==0)" >
+        hr_hotair_vol_first = #{hrHotAirVolFirst,jdbcType=DOUBLE},
+      </if>
+      
+      <if test="hrPaymentType != null and hrPaymentType != ''" >
+        hr_payment_type = #{hrPaymentType,jdbcType=VARCHAR},
+      </if>
+      <if test="hrRegisterTime != null and hrRegisterTime != ''" >
+        hr_register_time = #{hrRegisterTime,jdbcType=DATE},
+      </if>
+      <if test="hrAddProvince != null and hrAddProvince != ''" >
+        hr_add_province = #{hrAddProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddCity != null and hrAddCity != ''" >
+        hr_add_city = #{hrAddCity,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddDistrict != null and hrAddDistrict != ''" >
+        hr_add_district = #{hrAddDistrict,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddZone != null and hrAddZone != ''" >
+        hr_add_zone = #{hrAddZone,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddStreet != null and hrAddStreet != ''" >
+        hr_add_street = #{hrAddStreet,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddCommunity != null and hrAddCommunity != ''" >
+        hr_add_community = #{hrAddCommunity,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddBuilding != null and hrAddBuilding != ''" >
+        hr_add_building = #{hrAddBuilding,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAddDoorplateno != null and hrAddDoorplateno != ''" >
+        hr_add_doorplateno = #{hrAddDoorplateno,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseDeposit != null and (hrHouseDeposit != ''or hrHouseDeposit ==0)" >
+        hr_house_deposit = #{hrHouseDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrPowerDeposit != null and (hrPowerDeposit != ''or hrPowerDeposit ==0)" >
+        hr_power_deposit = #{hrPowerDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrDoorDeposit != null and (hrDoorDeposit != ''or hrDoorDeposit ==0)" >
+        hr_door_deposit = #{hrDoorDeposit,jdbcType=DOUBLE},
+      </if>
+      <if test="hrOtherDeposit != null and (hrOtherDeposit != ''or hrOtherDeposit ==0)" >
+        hr_other_deposit = #{hrOtherDeposit,jdbcType=DOUBLE},
+      </if>
+		<if test="hrDoorTrendFee != null and (hrDoorTrendFee != ''or hrDoorTrendFee ==0)" >
+			hr_door_trend_fee = #{hrDoorTrendFee,jdbcType=DOUBLE},
+		</if>
+		<if test="hrComServiceFee != null and (hrComServiceFee != ''or hrComServiceFee ==0)" >
+			hr_com_service_fee = #{hrComServiceFee,jdbcType=DOUBLE},
+		</if>
+		<if test="hrLockFee != null and (hrLockFee != ''or hrLockFee ==0)" >
+			hr_lock_fee = #{hrLockFee,jdbcType=DOUBLE},
+		</if>
+		<if test="hrOtherFee != null and (hrOtherFee != ''or hrOtherFee ==0)" >
+			hr_other_fee = #{hrOtherFee,jdbcType=DOUBLE},
+		</if>
+      <if test="hrManageCost != null and (hrManageCost != ''or hrManageCost ==0)" >
+        hr_manage_cost = #{hrManageCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hrTheTerm != null and hrTheTerm != ''" >
+        hr_the_term = #{hrTheTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="hrBeginTime != null and hrBeginTime != ''" >
+        hr_begin_time = #{hrBeginTime,jdbcType=DATE},
+      </if>
+      <if test="hrEndTime != null and hrEndTime != ''" >
+        hr_end_time = #{hrEndTime,jdbcType=DATE},
+      </if>
+      <if test="hrLeaseState != null and hrLeaseState != ''" >
+        hr_lease_state = #{hrLeaseState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseKey != null and hrHouseKey != ''" >
+        hr_house_key = #{hrHouseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="hrHouseNote != null and hrHouseNote != ''" >
+        hr_house_note = #{hrHouseNote,jdbcType=VARCHAR},
+      </if>
+      <if test="hrState != null and hrState != ''" >
+        hr_state = #{hrState,jdbcType=VARCHAR},
+      </if>
+      <if test="hrAssist != null and hrAssist != ''" >
+        hr_assist = #{hrAssist,jdbcType=VARCHAR},
+      </if>
+      <if test="hrStorefront != null and hrStorefront != ''" >
+        hr_storefront = #{hrStorefront,jdbcType=INTEGER},
+      </if>
+      <if test="hrDepartment != null and hrDepartment != ''" >
+        hr_department = #{hrDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="hrTvCharge != null and (hrTvCharge != ''or hrTvCharge ==0)" >
+        hr_tv_charge = #{hrTvCharge,jdbcType=DOUBLE},
+      </if>
+      <if test="hrWifiCharge != null and (hrWifiCharge != ''or hrWifiCharge==0)" >
+        hr_wifi_charge = #{hrWifiCharge,jdbcType=DOUBLE},
+      </if>
+      <if test="hrServerCost != null and (hrServerCost != ''or hrServerCost)" >
+        hr_server_cost = #{hrServerCost,jdbcType=DOUBLE},
+      </if>
+      <if test="hrSmsNotificationTime != null and hrSmsNotificationTime != ''" >
+        hr_sms_notification_time = #{hrSmsNotificationTime},
+      </if>
+      <if test="hrManagerUserId != null and hrManagerUserId != ''" >
+        hr_manager_user_id = #{hrManagerUserId},
+      </if>
+      <if test="hrFlatShareLogo != null and hrFlatShareLogo != ''" >
+        hr_flat_share_logo = #{hrFlatShareLogo},
+      </if>
+      <if test="hrOtherPay != null and (hrOtherPay != ''or hrOtherPay==0)" >
+        hr_other_pay = #{hrOtherPay},
+      </if>
+      <if test="hrMeterReadingRecord != null and hrMeterReadingRecord != ''" >
+        hr_meter_reading_record = #{hrMeterReadingRecord},
+      </if>
+      <if test="hrSplitIdentifier != null and hrSplitIdentifier != ''" >
+        hr_split_identifier = #{hrSplitIdentifier},
+      </if>
+      <if test="hrFollowTime != null and hrFollowTime != ''" >
+        hr_follow_time = #{hrFollowTime},
+      </if>
+      <if test="hrSignTime != null and hrSignTime != ''" >
+        hr_sign_time = #{hrSignTime},
+      </if>
+    </set>
+    where hr_id = #{hrId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateHouse4renrManager" parameterType="com.zz.po.info.InfoHouse4rentExpand" >
+    update info_house_4rent set  
+    hr_manager_user_id = #{hrManagerUserId} ,
+    hr_storefront = #{hrStorefront} ,
+    hr_department = #{hrDepartment}  
+    where hr_house_4store_id = #{hrHouse4storeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateHouse4storeManager" parameterType="com.zz.po.info.InfoHouse4rentExpand" >
+    update info_house_4store set  hs_manager_user_id = #{hrManagerUserId} ,
+    hs_storefront = #{hrStorefront} ,
+    hs_department = #{hrDepartment}  where hs_id = #{hrHouse4storeId,jdbcType=INTEGER}
+  </update>
+  <!-- 修改未租房门牌号时同时修改已租房门牌号 -->
+  <update id="updateSplitIdentifier" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+  	update info_house_4rent set hr_add_doorplateno = #{hrAddDoorplateno},
+  		hr_split_identifier = #{hrSplitIdentifier}
+  	where hr_house_4store_id = #{hrHouse4storeId}
+  </update>
+	<select id="selecttenantAuthorization" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoHouse4rentExpand">
+		SELECT * FROM
+		(SELECT jho.`*`,ir.renter_population_id,ipt.pop_name,ipt.pop_id,ifp.ifp_pop_id AS ifpPopId,ih4.* FROM jour_hs_office jho
+		right OUTER JOIN info_house_4rent ih4 ON ih4.hr_house_4store_id=jho.jho_hs_id
+		LEFT OUTER JOIN info_renter ir ON ih4.hr_renter_id=ir.renter_id
+		LEFT OUTER JOIN info_pop_tmp ipt ON ir.renter_population_id=ipt.pop_id
+		LEFT OUTER JOIN info_face_person ifp ON ipt.pop_id=ifp.ifp_pop_id
+		<where>
+			jho_device_id = #{jhoDeviceId}
+			<if test="hrAddDoorplateno != '' and hrAddDoorplateno !=null">
+				and hr_add_doorplateno like '%${hrAddDoorplateno}%'
+
+			</if>
+			<if test="renterPopName !='' and renterPopName !=null">
+				and pop_name like '%${renterPopName}%'
+			</if>
+		</where>
+		)a,
+		(SELECT COUNT(*) AS totalNum FROM jour_hs_office jho
+		right OUTER JOIN info_house_4rent ih4 ON ih4.hr_house_4store_id=jho.jho_hs_id
+		LEFT OUTER JOIN info_renter ir ON ih4.hr_renter_id=ir.renter_id
+		LEFT OUTER JOIN info_pop_tmp ipt ON ir.renter_population_id=ipt.pop_id
+		LEFT OUTER JOIN info_face_person ifp ON ipt.pop_id=ifp.ifp_pop_id
+		<where>
+			jho_device_id = #{jhoDeviceId}
+			<if test="hrAddDoorplateno != '' and hrAddDoorplateno !=null">
+				and hr_add_doorplateno like '%${hrAddDoorplateno}%'
+			</if>
+			<if test="renterPopName !='' and renterPopName !=null">
+				and pop_name like '%${renterPopName}%'
+			</if>
+		</where>
+		)b
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</select>
+</mapper>

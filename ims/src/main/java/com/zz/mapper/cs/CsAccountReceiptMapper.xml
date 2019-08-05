@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsAccountReceiptMapper" >
+  <resultMap id="AccountMap" type="com.zz.po.cs.CsAccountReceipt" >
+    <id column="cs_users_id" property="csUsersId" jdbcType="INTEGER" />
+    <result column="cs_account_name" property="csAccountName" jdbcType="VARCHAR" />
+    <result column="cs_bank" property="csBank" jdbcType="VARCHAR" />
+    <result column="cs_account_umber" property="csAccountUmber" jdbcType="VARCHAR" />
+    <result column="cs_subordinate_branch" property="csSubordinateBranch" jdbcType="VARCHAR" />
+    <result column="cs_account_description" property="csAccountDescription" jdbcType="LONGVARCHAR" />
+    
+  </resultMap>
+  <select id="queryCsAccountReceipt" resultMap="AccountMap" parameterType="com.zz.po.cs.CsAccountReceipt" >
+    select 
+    car.*
+    from cs_account_receipt car
+    <where>
+    	<if test="csAccountName !=null and csAccountName != ''">
+    		and cs_account_name = #{csAccountName,jdbcType=VARCHAR}
+    	</if>
+    	<if test="csBank !=null and csBank != ''">
+    		and cs_bank = #{csBank,jdbcType=VARCHAR}
+    	</if>
+    	<if test="csAccountUmber !=null and csAccountUmber != ''">
+    		and cs_account_umber = #{csAccountName,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    <if test="splitFlag ==1">
+		ORDER BY cs_users_id DESC
+		<if test="startNum != '' and startNum != null">
+			limit ${startNum}
+			<if test="endNum != '' and endNum != null">
+				,${endNum}
+			</if>
+		</if>
+	</if>
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsAccountReceipt"  keyProperty="id" useGeneratedKeys="true">
+    insert into cs_account_receipt
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="csAccountName != null and csAccountName != ''" >
+        cs_account_name,
+      </if>
+      <if test="csBank != null and csBank != ''" >
+        cs_bank,
+      </if>
+      <if test="csAccountUmber != null and csAccountUmber != ''" >
+        cs_account_umber,
+      </if>
+      <if test="csSubordinateBranch != null and csSubordinateBranch != ''" >
+        cs_subordinate_branch,
+      </if>
+      <if test="csAccountDescription != null and csAccountDescription != ''" >
+        cs_account_description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="csAccountName != null and csAccountName != ''" >
+        #{csAccountName,jdbcType=VARCHAR},
+      </if>
+      <if test="csBank != null and csBank != ''" >
+        #{csBank,jdbcType=VARCHAR},
+      </if>
+      <if test="csAccountUmber != null and csAccountUmber != ''" >
+        #{csAccountUmber,jdbcType=VARCHAR},
+      </if>
+      <if test="csSubordinateBranch != null and csSubordinateBranch != ''" >
+        #{csSubordinateBranch,jdbcType=VARCHAR},
+      </if>
+      <if test="csAccountDescription != null and csAccountDescription != ''" >
+        #{csAccountDescription,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>  
+</mapper>

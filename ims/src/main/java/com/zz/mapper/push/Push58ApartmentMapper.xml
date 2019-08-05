@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.push.Push58ApartmentMapper" >
+  <resultMap id="MyBaseResultMap" type="com.zz.po.push.Push58Apartment" >
+    <id column="p5a_id" property="p5aId" jdbcType="INTEGER" />
+    <result column="p5a_apartment_id" property="p5aApartmentId" jdbcType="VARCHAR" />
+    <result column="p5a_apartment_name" property="p5aApartmentName" jdbcType="VARCHAR" />
+    <result column="p5a_gmt_create" property="p5aGmtCreate" jdbcType="TIMESTAMP" />
+    <result column="p5a_gmt_modified" property="p5aGmtModified" jdbcType="TIMESTAMP" />
+    <result column="p5a_detail" property="p5aDetail" jdbcType="LONGVARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="query58Apartment" resultMap="MyBaseResultMap" parameterType="com.zz.po.push.Push58Apartment" >
+    select aa.*, bb.totalNum 
+    from (select * from push_58_apartment) aa, 
+    (select count(p5a_id) totalNum from push_58_apartment) bb
+    ORDER BY p5a_id DESC 
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select *
+    from push_58_apartment
+    where p5a_id = #{p5aId,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.zz.po.push.Push58Apartment" >
+    insert into push_58_apartment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="p5aId != null" >
+        p5a_id,
+      </if>
+      <if test="p5aApartmentId != null" >
+        p5a_apartment_id,
+      </if>
+      <if test="p5aApartmentName != null" >
+        p5a_apartment_name,
+      </if>
+      <if test="p5aGmtCreate != null" >
+        p5a_gmt_create,
+      </if>
+      <if test="p5aGmtModified != null" >
+        p5a_gmt_modified,
+      </if>
+      <if test="p5aDetail != null" >
+        p5a_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="p5aId != null" >
+        #{p5aId,jdbcType=INTEGER},
+      </if>
+      <if test="p5aApartmentId != null" >
+        #{p5aApartmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="p5aApartmentName != null" >
+        #{p5aApartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="p5aGmtCreate != null" >
+        #{p5aGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5aGmtModified != null" >
+        #{p5aGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5aDetail != null" >
+        #{p5aDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.push.Push58Apartment" >
+    update push_58_apartment
+    <set >
+      <if test="p5aApartmentId != null" >
+        p5a_apartment_id = #{p5aApartmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="p5aApartmentName != null" >
+        p5a_apartment_name = #{p5aApartmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="p5aGmtCreate != null" >
+        p5a_gmt_create = #{p5aGmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5aGmtModified != null" >
+        p5a_gmt_modified = #{p5aGmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="p5aDetail != null" >
+        p5a_detail = #{p5aDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where p5a_id = #{p5aId,jdbcType=INTEGER}
+  </update>
+</mapper>

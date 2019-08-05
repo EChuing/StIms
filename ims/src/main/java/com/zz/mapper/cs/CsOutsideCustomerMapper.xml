@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.cs.CsOutsideCustomerMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.cs.CsOutsideCustomer" >
+    <id column="coc_id" property="cocId" jdbcType="INTEGER" />
+    <result column="coc_open_id" property="cocOpenId" jdbcType="VARCHAR" />
+    <result column="coc_phone" property="cocPhone" jdbcType="VARCHAR" />
+    <result column="coc_address" property="cocAddress" jdbcType="VARCHAR" />
+    <result column="coc_mail_data" property="cocMailData" jdbcType="VARCHAR" />
+    <result column="coc_register_time" property="cocRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="coc_state" property="cocState" jdbcType="VARCHAR" />
+    <result column="coc_grade" property="cocGrade" jdbcType="VARCHAR" />
+    <result column="coc_superior" property="cocSuperior" jdbcType="INTEGER" />
+    <result column="coc_company" property="cocCompany" jdbcType="VARCHAR" />
+    <result column="coc_company_abbreviation" property="cocCompanyAbbreviation" jdbcType="VARCHAR" />
+    <result column="coc_internal_credit" property="cocInternalCredit" jdbcType="VARCHAR" />
+    <result column="coc_external_credit" property="cocExternalCredit" jdbcType="VARCHAR" />
+    <result column="coc_source" property="cocSource" jdbcType="VARCHAR" />
+    <result column="coc_relation" property="cocRelation" jdbcType="VARCHAR" />
+    <result column="coc_type" property="cocType" jdbcType="VARCHAR" />
+    <result column="coc_scale" property="cocScale" jdbcType="VARCHAR" />
+    <result column="coc_notes" property="cocNotes" jdbcType="VARCHAR" />
+    <result column="coc_img_num" property="cocImgNum" jdbcType="VARCHAR" />
+    <result column="coc_fixed_telephone" property="cocFixedTelephone" jdbcType="VARCHAR" />
+    <result column="coc_url" property="cocUrl" jdbcType="VARCHAR" />
+    <result column="coc_email" property="cocEmail" jdbcType="VARCHAR" />
+    <result column="coc_contacts" property="cocContacts" jdbcType="VARCHAR" />
+    <result column="coc_contacts_post" property="cocContactsPost" jdbcType="VARCHAR" />
+    <result column="coc_username" property="cocUsername" jdbcType="VARCHAR" />
+    <result column="coc_img_path" property="cocImgPath" jdbcType="LONGVARCHAR" />
+    
+    <result column="startNum"  property= "startNum"  jdbcType="VARCHAR" />
+    <result column="endNum"  property= "endNum"  jdbcType="VARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="coc_username" property="cocUsername" jdbcType="VARCHAR" />
+    <result column="coc_follow_up" property="cocFollowUp" jdbcType="VARCHAR" />
+    <result column="coc_user_code" property="cocUserCode" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * 
+    from cs_outside_customer
+    where coc_id = #{cocId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="queryCustomer" resultMap="BaseResultMap" parameterType="com.zz.po.cs.CsOutsideCustomer" >
+  	select a.*,b.totalNum from 
+	(select coc.*, u.su_staff_name cocUsername 
+	from cs_outside_customer coc 
+	left outer join sys_users u on u.user_coding = coc.coc_username
+    <where>
+    	<if test="cocOpenId != null and cocOpenId != ''">
+    		and coc_open_id = #{cocOpenId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocPhone != null and cocPhone != ''">
+    		and coc_phone = #{cocPhone,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocPhone == null or cocPhone == ''">
+    		and coc_phone is not null and coc_phone != ''
+    	</if>
+    	<if test="cocAddress != null and cocAddress != ''">
+    		and coc_address = #{cocAddress,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocMailData != null and cocMailData != ''">
+    		and coc_mail_data = #{cocMailData,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocRegisterTime != null and cocRegisterTime != ''">
+    		and coc_register_time = #{cocRegisterTime,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocState != null and cocState != ''">
+    		and coc_state = #{cocState,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocGrade != null and cocGrade != ''">
+    		and coc_grade = #{cocGrade,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocSuperior != null and cocSuperior != ''">
+    		and coc_superior = #{cocSuperior,jdbcType=INTEGER}
+    	</if>
+    	<if test="cocCompany != null and cocCompany != ''">
+    		and coc_company = #{cocCompany,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocCompanyAbbreviation != null and cocCompanyAbbreviation != ''">
+    		and coc_company_abbreviation = #{cocCompanyAbbreviation,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocInternalCredit != null and cocInternalCredit != ''">
+    		and coc_internal_credit = #{cocInternalCredit,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocExternalCredit != null and cocExternalCredit != ''">
+    		and coc_external_credit = #{cocExternalCredit,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocSource != null and cocSource != ''">
+    		and coc_source = #{cocSource,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocRelation != null and cocRelation != ''">
+    		and coc_relation = #{cocRelation,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocType != null and cocType != ''">
+    		and coc_type = #{cocType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocScale != null and cocScale != ''">
+    		and coc_scale = #{cocScale,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocNotes != null and cocNotes != ''">
+    		and coc_notes = #{cocNotes,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocImgPath != null and cocImgPath != ''">
+    		and coc_img_path = #{cocImgPath,jdbcType=LONGVARCHAR}
+    	</if>
+    	<if test="cocImgNum != null and cocImgNum != ''">
+    		and coc_img_num = #{cocImgNum,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocFixedTelephone != null and cocFixedTelephone != ''">
+    		and coc_fixed_telephone = #{cocFixedTelephone,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocUrl != null and cocUrl != ''">
+    		and coc_url = #{cocUrl,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocEmail != null and cocEmail != ''">
+    		and coc_email = #{cocEmail,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocContacts != null and cocContacts != ''">
+    		and coc_contacts = #{cocContacts,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocContacts == null or cocContacts == ''">
+    		and coc_contacts is not null and coc_contacts != ''
+    	</if>
+    	<if test="cocContactsPost != null and cocContactsPost != ''">
+    		and coc_contacts_post = #{cocContactsPost,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocUsername != null and cocUsername != ''">
+    		and coc_username = #{cocUsername,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    )a,
+    (select count(coc_id) totalNum from cs_outside_customer coc 
+	left outer join sys_users u on u.user_coding = coc.coc_username
+	<where>
+    	<if test="cocOpenId != null and cocOpenId != ''">
+    		and coc_open_id = #{cocOpenId,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocPhone != null and cocPhone != ''">
+    		and coc_phone = #{cocPhone,jdbcType=VARCHAR}
+    	</if>
+        <if test="cocPhone == null or cocPhone == ''">
+            and coc_phone is not null and coc_phone != ''
+        </if>
+    	<if test="cocAddress != null and cocAddress != ''">
+    		and coc_address = #{cocAddress,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocMailData != null and cocMailData != ''">
+    		and coc_mail_data = #{cocMailData,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocRegisterTime != null and cocRegisterTime != ''">
+    		and coc_register_time = #{cocRegisterTime,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocState != null and cocState != ''">
+    		and coc_state = #{cocState,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocGrade != null and cocGrade != ''">
+    		and coc_grade = #{cocGrade,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocSuperior != null and cocSuperior != ''">
+    		and coc_superior = #{cocSuperior,jdbcType=INTEGER}
+    	</if>
+    	<if test="cocCompany != null and cocCompany != ''">
+    		and coc_company = #{cocCompany,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocCompanyAbbreviation != null and cocCompanyAbbreviation != ''">
+    		and coc_company_abbreviation = #{cocCompanyAbbreviation,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocInternalCredit != null and cocInternalCredit != ''">
+    		and coc_internal_credit = #{cocInternalCredit,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocExternalCredit != null and cocExternalCredit != ''">
+    		and coc_external_credit = #{cocExternalCredit,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocSource != null and cocSource != ''">
+    		and coc_source = #{cocSource,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocRelation != null and cocRelation != ''">
+    		and coc_relation = #{cocRelation,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocType != null and cocType != ''">
+    		and coc_type = #{cocType,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocScale != null and cocScale != ''">
+    		and coc_scale = #{cocScale,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocNotes != null and cocNotes != ''">
+    		and coc_notes = #{cocNotes,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocImgPath != null and cocImgPath != ''">
+    		and coc_img_path = #{cocImgPath,jdbcType=LONGVARCHAR}
+    	</if>
+    	<if test="cocImgNum != null and cocImgNum != ''">
+    		and coc_img_num = #{cocImgNum,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocFixedTelephone != null and cocFixedTelephone != ''">
+    		and coc_fixed_telephone = #{cocFixedTelephone,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocUrl != null and cocUrl != ''">
+    		and coc_url = #{cocUrl,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocEmail != null and cocEmail != ''">
+    		and coc_email = #{cocEmail,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocContacts != null and cocContacts != ''">
+    		and coc_contacts = #{cocContacts,jdbcType=VARCHAR}
+    	</if>
+        <if test="cocContacts == null or cocContacts == ''">
+            and coc_contacts is not null and coc_contacts != ''
+        </if>
+    	<if test="cocContactsPost != null and cocContactsPost != ''">
+    		and coc_contacts_post = #{cocContactsPost,jdbcType=VARCHAR}
+    	</if>
+    	<if test="cocUsername != null and cocUsername != ''">
+    		and coc_username = #{cocUsername,jdbcType=VARCHAR}
+    	</if>
+    </where>
+    )b
+    ORDER BY coc_id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.cs.CsOutsideCustomer" >
+    insert into cs_outside_customer
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cocId != null" >
+        coc_id,
+      </if>
+      <if test="cocOpenId != null" >
+        coc_open_id,
+      </if>
+      <if test="cocPhone != null" >
+        coc_phone,
+      </if>
+      <if test="cocAddress != null" >
+        coc_address,
+      </if>
+      <if test="cocMailData != null" >
+        coc_mail_data,
+      </if>
+      <if test="cocRegisterTime != null" >
+        coc_register_time,
+      </if>
+      <if test="cocState != null" >
+        coc_state,
+      </if>
+      <if test="cocGrade != null" >
+        coc_grade,
+      </if>
+      <if test="cocSuperior != null" >
+        coc_superior,
+      </if>
+      <if test="cocCompany != null" >
+        coc_company,
+      </if>
+      <if test="cocCompanyAbbreviation != null" >
+        coc_company_abbreviation,
+      </if>
+      <if test="cocInternalCredit != null" >
+        coc_internal_credit,
+      </if>
+      <if test="cocExternalCredit != null" >
+        coc_external_credit,
+      </if>
+      <if test="cocSource != null" >
+        coc_source,
+      </if>
+      <if test="cocRelation != null" >
+        coc_relation,
+      </if>
+      <if test="cocType != null" >
+        coc_type,
+      </if>
+      <if test="cocScale != null" >
+        coc_scale,
+      </if>
+      <if test="cocNotes != null" >
+        coc_notes,
+      </if>
+      <if test="cocImgNum != null" >
+        coc_img_num,
+      </if>
+      <if test="cocFixedTelephone != null" >
+        coc_fixed_telephone,
+      </if>
+      <if test="cocUrl != null" >
+        coc_url,
+      </if>
+      <if test="cocEmail != null" >
+        coc_email,
+      </if>
+      <if test="cocContacts != null" >
+        coc_contacts,
+      </if>
+      <if test="cocContactsPost != null" >
+        coc_contacts_post,
+      </if>
+      <if test="cocUsername != null" >
+        coc_username,
+      </if>
+      <if test="cocImgPath != null" >
+        coc_img_path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cocId != null" >
+        #{cocId,jdbcType=INTEGER},
+      </if>
+      <if test="cocOpenId != null" >
+        #{cocOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="cocPhone != null" >
+        #{cocPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cocAddress != null" >
+        #{cocAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cocMailData != null" >
+        #{cocMailData,jdbcType=VARCHAR},
+      </if>
+      <if test="cocRegisterTime != null" >
+        #{cocRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cocState != null" >
+        #{cocState,jdbcType=VARCHAR},
+      </if>
+      <if test="cocGrade != null" >
+        #{cocGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="cocSuperior != null" >
+        #{cocSuperior,jdbcType=INTEGER},
+      </if>
+      <if test="cocCompany != null" >
+        #{cocCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="cocCompanyAbbreviation != null" >
+        #{cocCompanyAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="cocInternalCredit != null" >
+        #{cocInternalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="cocExternalCredit != null" >
+        #{cocExternalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="cocSource != null" >
+        #{cocSource,jdbcType=VARCHAR},
+      </if>
+      <if test="cocRelation != null" >
+        #{cocRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="cocType != null" >
+        #{cocType,jdbcType=VARCHAR},
+      </if>
+      <if test="cocScale != null" >
+        #{cocScale,jdbcType=VARCHAR},
+      </if>
+      <if test="cocNotes != null" >
+        #{cocNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="cocImgNum != null" >
+        #{cocImgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cocFixedTelephone != null" >
+        #{cocFixedTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cocUrl != null" >
+        #{cocUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cocEmail != null" >
+        #{cocEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cocContacts != null" >
+        #{cocContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="cocContactsPost != null" >
+        #{cocContactsPost,jdbcType=VARCHAR},
+      </if>
+      <if test="cocUsername != null" >
+        #{cocUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="cocImgPath != null" >
+        #{cocImgPath,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.cs.CsOutsideCustomer" >
+    update cs_outside_customer
+    <set >
+      <if test="cocUserCode != null">
+      	coc_user_code = #{cocUserCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cocOpenId != null" >
+        coc_open_id = #{cocOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="cocPhone != null" >
+        coc_phone = #{cocPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="cocAddress != null" >
+        coc_address = #{cocAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="cocMailData != null" >
+        coc_mail_data = #{cocMailData,jdbcType=VARCHAR},
+      </if>
+      <if test="cocRegisterTime != null" >
+        coc_register_time = #{cocRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cocState != null" >
+        coc_state = #{cocState,jdbcType=VARCHAR},
+      </if>
+      <if test="cocGrade != null" >
+        coc_grade = #{cocGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="cocSuperior != null" >
+        coc_superior = #{cocSuperior,jdbcType=INTEGER},
+      </if>
+      <if test="cocCompany != null" >
+        coc_company = #{cocCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="cocCompanyAbbreviation != null" >
+        coc_company_abbreviation = #{cocCompanyAbbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="cocInternalCredit != null" >
+        coc_internal_credit = #{cocInternalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="cocExternalCredit != null" >
+        coc_external_credit = #{cocExternalCredit,jdbcType=VARCHAR},
+      </if>
+      <if test="cocSource != null" >
+        coc_source = #{cocSource,jdbcType=VARCHAR},
+      </if>
+      <if test="cocRelation != null" >
+        coc_relation = #{cocRelation,jdbcType=VARCHAR},
+      </if>
+      <if test="cocType != null" >
+        coc_type = #{cocType,jdbcType=VARCHAR},
+      </if>
+      <if test="cocScale != null" >
+        coc_scale = #{cocScale,jdbcType=VARCHAR},
+      </if>
+      <if test="cocNotes != null" >
+        coc_notes = #{cocNotes,jdbcType=VARCHAR},
+      </if>
+      <if test="cocImgNum != null" >
+        coc_img_num = #{cocImgNum,jdbcType=VARCHAR},
+      </if>
+      <if test="cocFixedTelephone != null" >
+        coc_fixed_telephone = #{cocFixedTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="cocUrl != null" >
+        coc_url = #{cocUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cocEmail != null" >
+        coc_email = #{cocEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="cocContacts != null" >
+        coc_contacts = #{cocContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="cocContactsPost != null" >
+        coc_contacts_post = #{cocContactsPost,jdbcType=VARCHAR},
+      </if>
+      <if test="cocUsername != null" >
+        coc_username = #{cocUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="cocImgPath != null" >
+        coc_img_path = #{cocImgPath,jdbcType=LONGVARCHAR},
+      </if>
+       <if test="cocFollowUp != null" >
+        coc_follow_up = #{cocFollowUp,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where coc_id = #{cocId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourDoorCardMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourDoorCard" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="jdc_hr_id" property="jdcHrId" jdbcType="INTEGER" />
+    <result column="jdc_hs_id" property="jdcHsId" jdbcType="INTEGER" />
+    <result column="jdc_ip_id" property="jdcIpId" jdbcType="INTEGER" />
+    <result column="jdc_pop_id" property="jdcPopId" jdbcType="INTEGER" />
+    <result column="jdc_device_id" property="jdcDeviceId" jdbcType="INTEGER" />
+    <result column="jdc_user_id" property="jdcUserId" jdbcType="INTEGER" />
+    <result column="jdc_frequency" property="jdcFrequency" jdbcType="INTEGER" />
+    <result column="jdc_state" property="jdcState" jdbcType="VARCHAR" />
+    <result column="jdc_card_id" property="jdcCardId" jdbcType="VARCHAR" />
+    <result column="jdc_password" property="jdcPassword" jdbcType="VARCHAR" />
+    <result column="jdc_card_num" property="jdcCardNum" jdbcType="VARCHAR" />
+    <result column="jdc_auth_num" property="jdcAuthNum" jdbcType="VARCHAR" />
+    <result column="jdc_deadline_time" property="jdcDeadlineTime" jdbcType="TIMESTAMP" />
+    <result column="jdc_error_time" property="jdcErrorTime" jdbcType="TIMESTAMP" />
+    <result column="jdc_publish_time" property="jdcPublishTime" jdbcType="TIMESTAMP" />
+    <result column="jdc_registered_time" property="jdcRegisteredTime" jdbcType="TIMESTAMP" />
+    <result column="jdc_operating_recording" property="jdcOperatingRecording" jdbcType="VARCHAR" />
+    <result column="jdc_xxxx" property="jdcXxxx" jdbcType="VARCHAR" />
+    <result column="jdc_unlocking_times" property="jdcUnlockingTimes" jdbcType="INTEGER" />
+    <result column="jdc_max_unlocking_times" property="jdcMaxUnlockingTimes" jdbcType="INTEGER" />
+    
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="su_staff_name" property="suStaffName" jdbcType="VARCHAR" />
+    <result column="pop_name" property="popName" jdbcType="VARCHAR" />
+    <result column="dev_nickname" property="devNickname" jdbcType="VARCHAR" />
+
+    <result column="hr_add_community" property="hrAddCommunity" jdbcType="VARCHAR" />
+    <result column="hr_add_building" property="hrAddBuilding" jdbcType="VARCHAR" />
+    <result column="hr_add_doorplateno" property="hrAddDoorplateno" jdbcType="VARCHAR" />
+    
+    <result column="hs_add_community" property="hsAddCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="hsAddBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="hsAddDoorplateno" jdbcType="VARCHAR" />
+    <result column="hs_lease_type" property="hsLeaseType" jdbcType="INTEGER" />
+    
+    <result column="dev_id" property="devId" jdbcType="INTEGER" />
+      <result column="dev_first_type" property="devFirstType" jdbcType="INTEGER" />
+      <result column="dev_second_type" property="devSecondType" jdbcType="INTEGER" />
+      <result column="jdc_equipment_type" property="jdcEquipmentType" jdbcType="VARCHAR" />
+
+  </resultMap>
+  
+  <update id="updateDoorCard" parameterType="com.zz.po.journal.JourDoorCard" >
+    update jour_door_card
+    <set>
+      <if test="jdcMaxUnlockingTimes != null and jdcMaxUnlockingTimes != ''" >
+        jdc_max_unlocking_times = #{jdcMaxUnlockingTimes},
+      </if>
+      <if test="jdcUnlockingTimes != null and jdcUnlockingTimes != ''" >
+        jdc_unlocking_times = #{jdcUnlockingTimes},
+      </if>
+      <if test="jdcState != null and jdcState != ''" >
+        jdc_state = #{jdcState},
+      </if>
+      <if test="jdcOperatingRecording != null and jdcOperatingRecording != ''" >
+        jdc_operating_recording = #{jdcOperatingRecording},
+      </if>
+      <if test="jdcDeadlineTime != null and jdcDeadlineTime != ''" >
+        jdc_deadline_time = #{jdcDeadlineTime},
+      </if>
+      <if test="jdcErrorTime != null and jdcErrorTime != ''" >
+        jdc_error_time = #{jdcErrorTime},
+      </if>
+       <if test="jdcFrequency != null and jdcFrequency != ''" >
+        jdc_frequency = #{jdcFrequency},
+      </if>
+    </set>
+    where id = #{id}
+  </update>
+    <update id="updateDoorCard1" parameterType="com.zz.po.journal.JourDoorCard" >
+        update jour_door_card
+        <set>
+            <if test="jdcState != null and jdcState != ''" >
+                jdc_state = #{jdcState},
+            </if>
+            <if test="jdcDeadlineTime != null and jdcDeadlineTime != ''" >
+                jdc_deadline_time = #{jdcDeadlineTime},
+            </if>
+            <if test="jdcCardId !=null and jdcCardId !=''">
+                jdc_card_id = #{jdcCardId},
+            </if>
+            <if test="jdcCardNum !=null and jdcCardNum !=''">
+                jdc_card_num = #{jdcCardId},
+            </if>
+        </set>
+        <where>
+            <if test="jdcPopId != null and jdcPopId != ''">
+                and jdc_pop_id = #{jdcPopId}
+            </if>
+            <if test="jdcDeviceId != null and jdcDeviceId !=''">
+                and jdc_device_id = #{jdcDeviceId}
+            </if>
+        </where>
+    </update>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDoorCard" >
+    select a.*, b.total_num from
+    (select jdc.*, jd.dev_nickname,jd.id dev_id,jd.dev_first_type devFirstType,jd.dev_second_type devSecondType, su.su_staff_name, ipt.pop_name, ihr.hr_add_community, ihr.hr_add_building, ihr.hr_add_doorplateno,
+    		ihs.hs_add_community, ihs.hs_add_building, ihs.hs_add_doorplateno
+    from jour_door_card jdc 
+    left outer join info_pop_tmp ipt on ipt.pop_id = jdc.jdc_pop_id
+    left outer join jour_device jd on jd.id = jdc.jdc_device_id
+    left outer join info_house_4rent ihr on ihr.hr_id = jdc.jdc_hr_id
+    left outer join sys_users su on su.user_coding = jdc.jdc_user_id
+    left outer join info_house_4store ihs on ihs.hs_id = jdc.jdc_hs_id
+    <where>
+		<if test="id != null">
+			and jdc.id = #{id}
+		</if>
+		<if test="jdcHrId != null">
+			and jdc_hr_id = #{jdcHrId}
+		</if>
+		<if test="jdcHsId != null">
+			and jdc_hs_id = #{jdcHsId}
+		</if>
+		<if test="jdcPopId != null">
+			and jdc_pop_id = #{jdcPopId}
+		</if>
+		<if test="jdcIpId != null">
+			and jdc_ip_id = #{jdcIpId}
+		</if>
+		<if test="jdcDeviceId != null">
+			and jdc_device_id = #{jdcDeviceId}
+		</if>
+		<if test="jdcUserId != null">
+			and jdc_user_id = #{jdcUserId}
+		</if>
+		<if test="jdcPassword != null and jdcPassword != ''">
+			and jdc_password = #{jdcPassword}
+		</if>
+		<if test="jdcState != null and jdcState != '' and stateFlag == null">
+			and jdc_state = #{jdcState}
+		</if>
+		<if test="(jdcState == null or jdcState == '') and stateFlag == 1">
+			and (jdc_state = "使用中" or jdc_state = "注销" or jdc_state = "退卡" or jdc_state = "授权到期")
+		</if>
+		<if test="(jdcState == null or jdcState == '') and stateFlag == 2">
+			and (jdc_state = "已使用" or jdc_state = "未使用" or jdc_state = "已注销" or jdc_state = "已过期" or jdc_state = "错误超限")
+		</if> 
+		<if test="jdcCardNum != null and jdcCardNum != '' ">
+			and jdc_card_num like '%${jdcCardNum}%'
+		</if>
+		<if test="devNickname != null and devNickname != '' ">
+			and dev_nickname like '%${devNickname}%'
+		</if>
+		<if test="jdcMaxUnlockingTimes != null and jdcMaxUnlockingTimes != ''" >
+	        jdc_max_unlocking_times = #{jdcMaxUnlockingTimes},
+	    </if>
+	    <if test="jdcUnlockingTimes != null and jdcUnlockingTimes != ''" >
+	        jdc_unlocking_times = #{jdcUnlockingTimes},
+	    </if>
+	    <if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'
+		</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')
+		</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+				or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')
+		</if>
+		<if test="popName != null and popName != '' ">
+			and pop_name like '%${popName}%'
+		</if>
+		<if test="hsLeaseState == '短租房' ">
+			and (hs_lease_type = 1 or hs_lease_type = 3)
+		</if>
+	</where> 
+	)a,
+	(select count(jdc.id) total_num
+	from jour_door_card jdc 
+    left outer join info_pop_tmp ipt on ipt.pop_id = jdc.jdc_pop_id
+    left outer join jour_device jd on jd.id = jdc.jdc_device_id
+    left outer join info_house_4rent ihr on ihr.hr_id = jdc.jdc_hr_id
+    left outer join sys_users su on su.user_coding = jdc.jdc_user_id
+    left outer join info_house_4store ihs on ihs.hs_id = jdc.jdc_hs_id
+    <where>
+		<if test="id != null">
+			and jdc.id = #{id}
+		</if>
+		<if test="jdcHrId != null">
+			and jdc_hr_id = #{jdcHrId}
+		</if>
+		<if test="jdcHsId != null">
+			and jdc_hs_id = #{jdcHsId}
+		</if>
+		<if test="jdcPopId != null">
+			and jdc_pop_id = #{jdcPopId}
+		</if>
+		<if test="jdcIpId != null">
+			and jdc_ip_id = #{jdcIpId}
+		</if>
+		<if test="jdcDeviceId != null">
+			and jdc_device_id = #{jdcDeviceId}
+		</if>
+		<if test="jdcUserId != null">
+			and jdc_user_id = #{jdcUserId}
+		</if>
+		<if test="jdcPassword != null and jdcPassword != ''">
+			and jdc_password = #{jdcPassword}
+		</if>
+		<if test="jdcState != null and jdcState != '' and stateFlag == null">
+			and jdc_state = #{jdcState}
+		</if>
+		<if test="(jdcState == null or jdcState == '') and stateFlag == 1">
+			and (jdc_state = "使用中" or jdc_state = "注销" or jdc_state = "退卡" or jdc_state = "授权到期")
+		</if>
+		<if test="(jdcState == null or jdcState == '') and stateFlag == 2">
+			and (jdc_state = "已使用" or jdc_state = "未使用" or jdc_state = "已注销" or jdc_state = "已过期" or jdc_state = "错误超限")
+		</if> 
+		<if test="jdcCardNum != null and jdcCardNum != '' ">
+			and jdc_card_num like '%${jdcCardNum}%'
+		</if>
+		<if test="devNickname != null and devNickname != '' ">
+			and dev_nickname like '%${devNickname}%'
+		</if>
+		<if test="jdcMaxUnlockingTimes != null and jdcMaxUnlockingTimes != ''" >
+	        jdc_max_unlocking_times = #{jdcMaxUnlockingTimes},
+	    </if>
+	    <if test="jdcUnlockingTimes != null and jdcUnlockingTimes != ''" >
+	        jdc_unlocking_times = #{jdcUnlockingTimes},
+	    </if>
+	    <if test="hsAddCommunity != null and hsAddCommunity != ''" >
+			and hs_add_community like '%${hsAddCommunity}%'
+		</if>
+		<if test="hsAddBuilding != null and hsAddBuilding != ''" >
+			and (hs_add_building like '${hsAddBuilding}%' or hs_add_building like '0${hsAddBuilding}%')
+		</if>
+		<if test="hsAddDoorplateno != null and hsAddDoorplateno != ''" >
+			and (hs_add_doorplateno like '${hsAddDoorplateno}%' or hs_add_doorplateno like '0${hsAddDoorplateno}%'
+				or hs_split_identifier like '${hsAddDoorplateno}%' or hs_split_identifier like '0${hsAddDoorplateno}%')
+		</if>
+		<if test="popName != null and popName != '' ">
+			and pop_name like '%${popName}%'
+		</if>
+		<if test="hsLeaseState == '短租房' ">
+			and (hs_lease_type = 1 or hs_lease_type = 3)
+		</if>
+	</where> 
+	)b
+	ORDER BY a.id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+
+    <select id="selectByPrimaryUserId" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDoorCard" >
+
+        select jdc.*, jd.dev_nickname,jd.id dev_id,jd.dev_first_type devFirstType,jd.dev_second_type devSecondType, su.su_staff_name, ipt.pop_name, ihr.hr_add_community, ihr.hr_add_building, ihr.hr_add_doorplateno,
+        ihs.hs_add_community, ihs.hs_add_building, ihs.hs_add_doorplateno
+        from jour_door_card jdc
+        left outer join info_pop_tmp ipt on ipt.pop_id = jdc.jdc_pop_id
+        left outer join jour_device jd on jd.id = jdc.jdc_device_id
+        left outer join info_house_4rent ihr on ihr.hr_id = jdc.jdc_hr_id
+        left outer join sys_users su on su.user_coding = jdc.jdc_user_id
+        left outer join info_house_4store ihs on ihs.hs_id = jdc.jdc_hs_id
+        <where>
+            <if test="jdcUserId != null">
+                and jdc_user_id = #{jdcUserId}
+            </if>
+        </where>
+    </select>
+  
+   <!-- <select id="selectByJdcPopId" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDoorCard" >
+    select a.*, b.total_num from
+    (select jdc.*, jd.dev_nickname, su.su_staff_name, ipt.pop_name, ihr.hr_add_community, ihr.hr_add_building, ihr.hr_add_doorplateno,
+    		ihs.hs_add_community, ihs.hs_add_building, ihs.hs_add_doorplateno
+    from jour_door_card jdc 
+    left outer join info_pop_tmp ipt on ipt.pop_id = jdc.jdc_pop_id
+    left outer join jour_device jd on jd.id = jdc.jdc_device_id
+    left outer join info_house_4rent ihr on ihr.hr_id = jdc.jdc_hr_id
+    left outer join sys_users su on su.user_coding = jdc.jdc_user_id
+    left outer join info_house_4store ihs on ihs.hs_id = jdc.jdc_hs_id
+    <where>
+		<if test="jdcpopid != null and popName != '' ">
+			jdc_pop_id=#{}
+		</if>
+	</where> 
+	)a,
+	(select count(jdc.id) total_num
+	from jour_door_card jdc 
+    left outer join info_pop_tmp ipt on ipt.pop_id = jdc.jdc_pop_id
+    left outer join jour_device jd on jd.id = jdc.jdc_device_id
+    left outer join info_house_4rent ihr on ihr.hr_id = jdc.jdc_hr_id
+    left outer join sys_users su on su.user_coding = jdc.jdc_user_id
+    left outer join info_house_4store ihs on ihs.hs_id = jdc.jdc_hs_id
+    <where>
+		<if test="jdcpopid != null and popName != '' ">
+			jdc_pop_id=#{}
+		</if>
+	</where> 
+	)b
+	ORDER BY a.id DESC
+	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select> -->
+  <select id="checkLockPassword" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourDoorCard" >
+    select 
+    *
+    from jour_door_card jdc
+    where
+    jdc_device_id = #{jdcDeviceId} and jdc_hs_id = #{jdcHsId} and jdc_password = #{jdcPassword} and jdc_state != "错误超限" and jdc_state !="过期" and jdc_state !="注销" and jdc_state !="退卡"
+  </select>
+  
+  <insert id="insertList" parameterType="java.util.Map">
+  	insert into jour_door_card
+  	(   
+        jdc_hr_id,
+       	jdc_hs_id,
+        jdc_pop_id,
+        jdc_ip_id,
+        jdc_device_id,
+        jdc_user_id,
+        jdc_state,
+        jdc_password,
+        jdc_card_id,
+        jdc_card_num,
+        jdc_auth_num,
+        jdc_deadline_time,
+        jdc_operating_recording,
+        jdc_max_unlocking_times,
+        jdc_unlocking_times,
+        jdc_equipment_type
+    )
+    values
+    <foreach collection="doorCardList" item="item" index= "index" separator =",">
+    (
+		#{item.jdcHrId},
+		#{item.jdcHsId},
+		#{item.jdcPopId},
+		#{item.jdcIpId},
+		#{item.jdcDeviceId},
+		#{item.jdcUserId},
+		#{item.jdcState},
+		#{item.jdcPassword},
+		#{item.jdcCardId},
+		#{item.jdcCardNum},
+		#{item.jdcAuthNum},
+		#{item.jdcDeadlineTime},
+		#{item.jdcOperatingRecording},
+		#{item.jdcMaxUnlockingTimes},
+		#{item.jdcUnlockingTimes},
+		#{item.jdcEquipmentType}
+    )
+    </foreach>
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourDoorCard" >
+    insert into jour_door_card
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="jdcHrId != null" >
+        jdc_hr_id,
+      </if>
+      <if test="jdcHsId != null" >
+        jdc_hs_id,
+      </if>
+      <if test="jdcPopId != null" >
+        jdc_pop_id,
+      </if>
+      <if test="jdcIpId != null">
+		jdc_ip_id,
+	  </if>
+      <if test="jdcDeviceId != null" >
+        jdc_device_id,
+      </if>
+      <if test="jdcUserId != null" >
+        jdc_user_id,
+      </if>
+      <if test="jdcState != null" >
+        jdc_state,
+      </if>
+      <if test="jdcCardId != null" >
+        jdc_card_id,
+      </if>
+      <if test="jdcPassword != null" >
+        jdc_password,
+      </if>
+      <if test="jdcCardNum != null" >
+        jdc_card_num,
+      </if>
+      <if test="jdcDeadlineTime != null" >
+        jdc_deadline_time,
+      </if>
+      <if test="jdcPublishTime != null" >
+        jdc_publish_time,
+      </if>
+      <if test="jdcRegisteredTime != null" >
+        jdc_registered_time,
+      </if>
+      <if test="jdcOperatingRecording != null" >
+        jdc_operating_recording,
+      </if>
+      <if test="jdcXxxx != null" >
+        jdc_xxxx,
+      </if>
+	  <if test="jdcMaxUnlockingTimes != null and jdcMaxUnlockingTimes != ''" >
+	    jdc_max_unlocking_times = #{jdcMaxUnlockingTimes},
+	  </if>
+	  <if test="jdcUnlockingTimes != null and jdcUnlockingTimes != ''" >
+	    jdc_unlocking_times = #{jdcUnlockingTimes},
+	  </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jdcHrId != null" >
+        #{jdcHrId,jdbcType=INTEGER},
+      </if>
+       <if test="jdcHsId != null" >
+         #{jdcHsId,jdbcType=INTEGER},
+      </if>
+      <if test="jdcPopId != null" >
+        #{jdcPopId,jdbcType=INTEGER},
+      </if>
+      <if test="jdcIpId != null">
+		#{jdcIpId,jdbcType=INTEGER},
+	  </if>
+      <if test="jdcDeviceId != null" >
+        #{jdcDeviceId,jdbcType=INTEGER},
+      </if>
+      <if test="jdcUserId != null" >
+        #{jdcUserId,jdbcType=INTEGER},
+      </if>
+      <if test="jdcState != null" >
+        #{jdcState,jdbcType=VARCHAR},
+      </if>
+      <if test="jdcCardId != null" >
+        #{jdcCardId,jdbcType=VARCHAR},
+      </if>
+      <if test="jdcPassword != null" >
+        #{jdcPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="jdcCardNum != null" >
+        #{jdcCardNum,jdbcType=VARCHAR},
+      </if>
+      <if test="jdcDeadlineTime != null" >
+        #{jdcDeadlineTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jdcPublishTime != null" >
+        #{jdcPublishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jdcRegisteredTime != null" >
+        #{jdcRegisteredTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jdcOperatingRecording != null" >
+        #{jdcOperatingRecording},
+      </if>
+      <if test="jdcXxxx != null" >
+        #{jdcXxxx,jdbcType=VARCHAR},
+      </if>
+	  <if test="jdcMaxUnlockingTimes != null and jdcMaxUnlockingTimes != ''" >
+	    #{jdcMaxUnlockingTimes,jdbcType=INTEGER},
+	  </if>
+	  <if test="jdcUnlockingTimes != null and jdcUnlockingTimes != ''" >
+	    #{jdcUnlockingTimes,jdbcType=INTEGER},
+	  </if>
+    </trim>
+  </insert>
+</mapper>

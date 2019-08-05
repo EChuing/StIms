@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.deviceevents.SmokeAlertEventsMapper">
+	<resultMap id="MySmokeAlertEvent" type="com.zz.deviceevents.SmokeAlertEvents" >
+		<id column="sa_id" property="saId" jdbcType="INTEGER"/>
+		<result column="sa_brand" property="saBrand" jdbcType="VARCHAR"/>
+		<result column="sa_device_SN" property="saDeviceSn" jdbcType="VARCHAR"/>
+		<result column="sa_event_type" property="saEventType" jdbcType="VARCHAR"/>
+		<result column="sa_warning_content" property="saWarningContent" jdbcType="VARCHAR"/>
+		<result column="sa_warning_status" property="saWarningStatus" jdbcType="VARCHAR"/>
+		<result column="sa_device_status" property="saDeviceStatus" jdbcType="VARCHAR"/>
+		<result column="sa_handle_status" property="saHandleStatus" jdbcType="VARCHAR"/>
+		<result column="sa_time" property="saTime" jdbcType="VARCHAR"/>
+		<result column="sa_handle_result" property="saHandleResult" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<select id="selectAlarmRecord" resultMap="MySmokeAlertEvent" parameterType="com.zz.deviceevents.SmokeAlertEvents">
+		select * from smoke_alert_events
+		where sa_device_SN = #{saDeviceSn,jdbcType=VARCHAR} and sa_warning_status in ("设备报警","电量不足","暴力拆除")
+		<if test="saHandleStatus != null and saHandleStatus != ''">
+			and sa_handle_status = #{saHandleStatus,jdbcType=VARCHAR}
+		</if>
+		order by sa_time DESC
+	</select>
+	
+	<select id="selectCountAlarmRecord" resultType="Integer" parameterType="com.zz.deviceevents.SmokeAlertEvents">
+		select count(*) from smoke_alert_events
+		where sa_time >= curdate() and sa_device_SN = #{saDeviceSn,jdbcType=VARCHAR} and sa_warning_status = #{saWarningStatus,jdbcType=VARCHAR}
+	</select>
+	
+	<update id="updateAlarmRecord" parameterType="com.zz.deviceevents.SmokeAlertEvents">
+		update smoke_alert_events 
+		<set>
+			<if test="saHandleStatus != null and saHandleStatus != ''" >
+		       sa_handle_status = #{saHandleStatus,jdbcType=VARCHAR},
+		    </if>
+		</set>
+		where sa_device_SN = #{saDeviceSn,jdbcType=VARCHAR} and sa_warning_status = #{saWarningStatus,jdbcType=VARCHAR}
+		and sa_handle_status = '未处理'
+	</update>
+	<!-- 根据设备SN码获取设备的信息 -->
+	<select id="queryDeviceMessage" resultMap="MySmokeAlertEvent" parameterType="com.zz.deviceevents.SmokeAlertEvents" >
+  	select * from smoke_alert_events
+		where sa_device_SN = #{saDeviceSn}
+  	order by sa_id DESC
+  	limit 0,1
+  </select>
+	
+</mapper>

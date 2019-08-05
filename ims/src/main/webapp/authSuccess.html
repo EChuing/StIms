@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>折扣申请</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=2.0"/>
+    <script src="http://pic-static.fangzhizun.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://pic-static.fangzhizun.com/js/jquery.easyui.min.js"></script>
+    <script src="http://pic-static.fangzhizun.com/js/mytips.js"></script>
+</head>
+<body style="background-color: #ffffff ;">
+
+<div style="height:30%; width:100%; text-align: center; margin-top: 25%;" ><img alt="" src="agree.png" width="30%" height="30%" ></div>
+<div style="color:#ADADAD;font-size: 8vw;  font-weight: bold;  text-align: center; background-color:#FFFFFF; width: 90%; margin-left: 5%;margin-top: 50px; ">
+    审批已同意
+</div>
+
+<div style="color:#444444;font-size: 5vw;  font-weight: bold;  text-align: center; background-color:#FFFFFF; width: 90%; margin-left: 5%;margin-top: 20%; ">
+
+    申请人：<span id="application"></span>
+
+</div>
+
+<div style="color:#444444;font-size: 5vw;  font-weight: bold;  text-align: center; background-color:#FFFFFF; width: 90%; margin-left: 5%;margin-top: 3%; ">
+
+    审批时间：<span id="time"></span>
+
+</div>
+
+</body>
+<script>
+
+    $(function () {
+
+        var co =getUrlParam("co");
+        console.log(co);
+        var jtoid =getUrlParam("jtoId");
+        console.log(time);
+
+        $.ajax({
+            url:"selectTemporaryOrderByOrderId.action?co="+co,
+            type:"post",
+            dataType:"json",
+            data:{
+                jtoId:jtoid,
+            }, success:function (result) {
+
+                if(result.body !=null && result.body !=""){
+
+                    var  dataList =result.body;
+                    apllicant =dataList[0].jtoApplicant;
+                    time =dataList[0].jtoAuthTime;
+                    console.log(time);
+                    time =new Date(time).format("yyyy-MM-dd hh:mm:ss");
+                    console.log(time);
+                    $("#application").html(apllicant);
+                    $("#time").html(time);
+                }
+            }
+
+        });
+
+
+    });
+    //日期时间格式化
+    Date.prototype.format = function (format) {
+        var o = {
+            "M+" : this.getMonth() + 1, //month
+            "d+" : this.getDate(), //day
+            "h+" : this.getHours(), //hour
+            "m+" : this.getMinutes(), //minute
+            "s+" : this.getSeconds(), //second
+            "q+" : Math.floor((this.getMonth() + 3) / 3), //quarter
+            "S" : this.getMilliseconds() //millisecond
+        }
+
+        if (/(y+)/.test(format)) {
+            format = format.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        }
+
+        for (var k in o) {
+            if (new RegExp("(" + k + ")").test(format)) {
+                format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            }
+        }
+        return format;
+    }
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = decodeURI(window.location.search).substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]); return null; //返回参数值
+    }
+
+</script>
+
+
+</html>

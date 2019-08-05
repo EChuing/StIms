@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourCareMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourCare" >
+    <id column="jc_id" property="jcId" jdbcType="INTEGER" />
+    <result column="jc_sending_time" property="jcSendingTime" jdbcType="DATE" />
+    <result column="jc_caring_content" property="jcCaringContent" jdbcType="VARCHAR" />
+    <result column="jc_username" property="jcUsername" jdbcType="VARCHAR" />
+    <result column="jc_caring_mode" property="jcCaringMode" jdbcType="INTEGER" />
+    <result column="jc_register_time" property="jcRegisterTime" jdbcType="TIMESTAMP" />
+    <result column="jc_customer_id" property="jcCustomerId" jdbcType="LONGVARCHAR" />
+    <result column="totalNum" property="totalNum" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column= "startNum"  property= "startNum"  jdbcType="VARCHAR" />
+    <result column= "endNum"  property= "endNum"  jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * 
+    from jour_care
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectCare" resultMap="BaseResultMap" parameterType="com.zz.po.journal.JourCare">
+    select a.*,b.totalNum from
+    (select jc.* ,u.su_staff_name username
+    from jour_care jc
+    left outer join sys_users u on u.user_coding = jc.jc_username
+    <where>
+      <if test="jcSendingTime != null and jcSendingTime != ''">
+        and jc_sending_time = #{jcSendingTime,jdbcType=DATE}
+      </if>
+      <if test="jcUsername != null and jcUsername != ''">
+        and jc_username = #{jcUsername,jdbcType=VARCHAR}
+      </if>
+      <if test="jcCaringMode != null and jcCaringMode != ''">
+        and jc_caring_mode = #{jcCaringMode,jdbcType=INTEGER}
+      </if>
+    </where>
+    )a,
+    (select count(jc_id) totalNum
+    from jour_care jc
+    left outer join sys_users u on u.user_coding = jc.jc_username
+    <where>
+      <if test="jcSendingTime != null and jcSendingTime != ''">
+        and jc_sending_time = #{jcSendingTime,jdbcType=DATE}
+      </if>
+      <if test="jcUsername != null and jcUsername != ''">
+        and jc_username = #{jcUsername,jdbcType=VARCHAR}
+      </if>
+      <if test="jcCaringMode != null and jcCaringMode != ''">
+        and jc_caring_mode = #{jcCaringMode,jdbcType=INTEGER}
+      </if>
+    </where>
+    )b
+    ORDER BY jc_id DESC
+    <if test="startNum != '' and startNum != null">
+      limit ${startNum}
+      <if test="endNum != '' and endNum != null">
+        ,${endNum}
+      </if>
+    </if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from jour_care
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourCare" >
+    insert into jour_care
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jcId != null" >
+        jc_id,
+      </if>
+      <if test="jcSendingTime != null" >
+        jc_sending_time,
+      </if>
+      <if test="jcCaringContent != null" >
+        jc_caring_content,
+      </if>
+      <if test="jcUsername != null" >
+        jc_username,
+      </if>
+      <if test="jcCaringMode != null" >
+        jc_caring_mode,
+      </if>
+      <if test="jcRegisterTime != null" >
+        jc_register_time,
+      </if>
+      <if test="jcCustomerId != null" >
+        jc_customer_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jcId != null" >
+        #{jcId,jdbcType=INTEGER},
+      </if>
+      <if test="jcSendingTime != null" >
+        #{jcSendingTime,jdbcType=DATE},
+      </if>
+      <if test="jcCaringContent != null" >
+        #{jcCaringContent,jdbcType=VARCHAR},
+      </if>
+      <if test="jcUsername != null" >
+        #{jcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="jcCaringMode != null" >
+        #{jcCaringMode,jdbcType=INTEGER},
+      </if>
+      <if test="jcRegisterTime != null" >
+        #{jcRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jcCustomerId != null" >
+        #{jcCustomerId,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourCare" >
+    update jour_care
+    <set >
+      <if test="jcSendingTime != null" >
+        jc_sending_time = #{jcSendingTime,jdbcType=DATE},
+      </if>
+      <if test="jcCaringContent != null" >
+        jc_caring_content = #{jcCaringContent,jdbcType=VARCHAR},
+      </if>
+      <if test="jcUsername != null" >
+        jc_username = #{jcUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="jcCaringMode != null" >
+        jc_caring_mode = #{jcCaringMode,jdbcType=INTEGER},
+      </if>
+      <if test="jcRegisterTime != null" >
+        jc_register_time = #{jcRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jcCustomerId != null" >
+        jc_customer_id = #{jcCustomerId,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where jc_id = #{jcId,jdbcType=INTEGER}
+  </update>
+</mapper>

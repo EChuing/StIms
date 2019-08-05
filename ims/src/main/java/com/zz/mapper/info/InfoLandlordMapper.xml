@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.info.InfoLandlordMapper" >
+  <!-- <resultMap id="BaseResultMap" type="com.zz.po.info.InfoLandlord" > 
+    <id column="la_id" property="landlordId" jdbcType="INTEGER" />
+    <result column="la_user_id" property="laUserId" jdbcType="INTEGER" />
+    <result column="landlord_other_contact" property="landlordOtherContact" jdbcType="VARCHAR" />
+    <result column="la_second_contacts" property="laSecondContacts" jdbcType="VARCHAR" />
+    <result column="la_second_phone" property="laSecondPhone" jdbcType="VARCHAR" />
+    <result column="la_other_contact" property="laOtherContact" jdbcType="VARCHAR" />
+    <result column="la_department" property="laDepartment" jdbcType="INTEGER" />
+    <result column="la_storefront" property="laStorefront" jdbcType="INTEGER" />
+    <result column="la_population_id" property="laPopulationId" jdbcType="INTEGER" />
+    
+    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="pop_name" property="laPopName" jdbcType="VARCHAR" />
+    <result column="pop_telephone" property="laPopTelephone" jdbcType="VARCHAR" />
+    <result column="pop_idcard" property="laPopIdcard" jdbcType="VARCHAR" />
+  </resultMap> -->
+  <resultMap id="MyBaseResultMap" type="com.zz.po.info.InfoLandlordExpand" >
+    <id column="la_id" property="landlordId" jdbcType="INTEGER" />
+    <result column="la_user_id" property="laUserId" jdbcType="INTEGER" />
+   	<result column="landlord_other_contact" property="landlordOtherContact" jdbcType="VARCHAR" />
+    <result column="la_second_contacts" property="laSecondContacts" jdbcType="VARCHAR" />
+    <result column="la_second_phone" property="laSecondPhone" jdbcType="VARCHAR" />
+    <result column="la_other_contact" property="laOtherContact" jdbcType="VARCHAR" />
+    <result column="la_department" property="laDepartment" jdbcType="INTEGER" />
+    <result column="la_storefront" property="laStorefront" jdbcType="INTEGER" />
+    <result column="la_population_id" property="laPopulationId" jdbcType="INTEGER" />
+    <!--user  -->
+    <result column="username" property="userName" jdbcType="VARCHAR" />
+    <!-- 其他 -->
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+    
+    <result column="hs_add_province" property="addProvince" jdbcType="VARCHAR" />
+    <result column="hs_add_district" property="addDistrict" jdbcType="VARCHAR" />
+    <result column="hs_add_zone" property="addZone" jdbcType="VARCHAR" />
+    <result column="hs_add_city" property="addCity" jdbcType="VARCHAR" />
+    <result column="hs_add_street" property="addStreet" jdbcType="VARCHAR" />
+    <result column="hs_add_community" property="addCommunity" jdbcType="VARCHAR" />
+    <result column="hs_add_building" property="addBuilding" jdbcType="VARCHAR" />
+    <result column="hs_add_doorplateno" property="addDoorplateno" jdbcType="VARCHAR" />
+    <result column="pop_name" property="laPopName" jdbcType="VARCHAR" />
+    <result column="pop_telephone" property="laPopTelephone" jdbcType="VARCHAR" />
+    <result column="pop_idcard" property="laPopIdcard" jdbcType="VARCHAR" />
+    
+    <result column="pop_nation" property="popNation" jdbcType="VARCHAR" />
+    <result column="pop_marriage_state" property="popMarriageState" jdbcType="VARCHAR" />
+    <result column="pop_from_area" property="popFromArea" jdbcType="VARCHAR" />
+    <result column="pop_present_address" property="popPresentAddress" jdbcType="VARCHAR" />
+    <result column="pop_idcard_type" property="popIdcardType" jdbcType="VARCHAR" />
+    <result column="pop_birth" property="popBirth" jdbcType="VARCHAR" />
+    <result column="pop_sex" property="popSex" jdbcType="VARCHAR" />
+    <result column="pop_degree_education" property="popDegreeEducation" jdbcType="VARCHAR" />
+    <result column="pop_occupation" property="popOccupation" jdbcType="VARCHAR" />
+    <result column="pop_unit_service" property="popUnitService" jdbcType="VARCHAR" />
+    <result column="pop_checkin_time" property="popCheckinTime" jdbcType="DATE" />
+    <result column="pop_residence_type" property="popResidenceType" jdbcType="VARCHAR" />
+    <result column="pop_residence_cause" property="popResidenceCause" jdbcType="VARCHAR" />
+    <result column="pop_relation" property="popRelation" jdbcType="VARCHAR" />
+    <result column="popModifyTheRecord" property="popModifyTheRecord" jdbcType="VARCHAR" />
+    <result column="pop_name_remark" property="popNameRemark" jdbcType="VARCHAR" />
+    
+    <result column="housingNumber" property="housingNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <!-- 查询房东信息以及房屋数量 -->
+  <select id="queryQuantityInformation" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoLandlordExpand">
+  	select a.*, b.total_num from
+	(select la.*, u.su_staff_name username, ip.pop_name, ip.pop_telephone, ip.pop_idcard
+	from info_landlord la
+	left outer join info_pop_tmp ip on ip.pop_id = la.la_population_id
+	left outer join sys_users u on la.la_user_id = u.user_coding
+	where la_population_id = #{laPopulationId} )a ,
+	(select count(la_id) total_num
+	from info_landlord la
+	left outer join info_house_4store h on la.la_id = h.hs_landlord_id
+	where hs_primitive_mother = 0
+			and la_population_id = #{laPopulationId} ) b
+  </select>
+   
+  <!-- 专用查询业主姓名与联系方式 -->
+  <select id="landlordName" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoLandlordExpand">
+  	select ip.pop_name laPopName, ip.pop_telephone laPopTelephone, ip.pop_idcard laPopIdcard, la.la_id
+	from info_landlord la 
+	left outer join info_pop_tmp ip on la.la_population_id = ip.pop_id
+  	<where>
+		<if test="landlordId != null and landlordId != ''" >
+			and la_id =  #{landlordId,jdbcType=INTEGER}
+		</if>
+		<if test="laPopulationId != null and laPopulationId != ''" >
+			and la_population_id =  #{laPopulationId,jdbcType=INTEGER}
+		</if>
+	</where>
+  </select> 
+  
+  <!-- 根据房源中房东ID查找  -->
+  <select id="selectByHouse4rentOfLandlordId" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoLandlordExpand" >
+    select la.*, ip.pop_name laPopName,ip.pop_telephone laPopTelephone,ip.pop_idcard laPopIdcard, ip.pop_name_remark
+    from info_landlord la 
+    left outer join info_pop_tmp ip on la.la_population_id = ip.pop_id
+    where la_id = #{landlordId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 房东的房屋数量 -->
+  <select id="housingQuantity"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoLandlordExpand">
+ 	select count(la_id) housingNumber from info_landlord l
+	left outer join info_pop_tmp p on l.la_population_id = p.pop_id
+	left outer join info_house_4store ih on l.la_id = ih.hs_landlord_id
+	left outer join sys_users ur on l.la_user_id = ur.user_coding
+	where la_id = #{landlordId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 房东分组查询 -->
+  <select id="landlordGroupQuery"  resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoLandlordExpand">
+  	select lan.*, u.su_staff_name username, h.hs_add_province, h.hs_add_city, h.hs_add_district, h.hs_add_zone, h.hs_add_street,
+		h.hs_add_community, h.hs_add_building, h.hs_add_doorplateno, ip.pop_name, ip.pop_telephone, ip.pop_idcard, bb.total_num
+	from info_landlord lan 
+	left outer join info_pop_tmp ip on lan.la_population_id = ip.pop_id 
+	left outer join info_house_4store h on lan.la_id = h.hs_landlord_id
+	left outer join sys_users u on lan.la_user_id = u.user_coding,
+	(select count(la_id) total_num 
+	from (select * from info_landlord l 
+	left outer join info_pop_tmp p on l.la_population_id = p.pop_id 
+	left outer join info_house_4store ih on l.la_id = ih.hs_landlord_id
+	left outer join sys_users ur on l.la_user_id = ur.user_coding
+	group by la_id) a
+	<where>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and hs_add_community like '%${addCommunity}%' 
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and hs_add_building like '%${addBuilding}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and hs_add_doorplateno like '%${addDoorplateno}%'
+		</if>
+		<if test="addProvince != null and addProvince != ''">
+			and hs_add_province like '%${addProvince}%'
+		</if>
+		<if test="addCity != null and addCity != ''">
+			and hs_add_city like '%${addCity}%'
+		</if>
+		<if test="addDistrict != null and addDistrict != ''">
+			and hs_add_district like '%${addDistrict}%'
+		</if>
+		<if test="addZone != null and addZone != ''">
+			and hs_add_zone like '%${addZone}%'
+		</if>
+		<if test="addStreet != null and addStreet != ''">
+			and hs_add_street like '%${addStreet}%'
+		</if>
+		<if test="laUserId != null and laUserId != ''" >
+      		and la_user_id = '${laUserId}'</if>
+      	<if test="laDepartment != null and laDepartment != ''" >
+      		and la_department = '${laDepartment}'</if>
+      	<if test="laStorefront != null and laStorefront != ''" >
+      		and la_storefront = '${laStorefront}'</if>	
+      	<if test="landlordId != null and landlordId != ''" >
+      		and la_id = '${landlordId}'</if>
+		<if test="laPopName != null and laPopName != '' ">
+	    		and pop_name like '%${laPopName}%'
+    	</if>
+    	<if test="laPopTelephone != null and laPopTelephone != '' ">
+    		and pop_telephone like '%${laPopTelephone}%'
+    	</if>
+    	<if test="laPopIdcard != null and laPopIdcard != '' ">
+    		and pop_idcard like '%${laPopIdcard}%'
+    	</if>
+    	<if test="laPopulationId != null and laPopulationId != '' ">
+    		and la_population_id = '${laPopulationId}'
+    	</if>
+	    </where>
+	) bb
+    <where>
+    	<if test="laPopName != null and laPopName != '' ">
+	    	and pop_name like '%${laPopName}%'
+    	</if>
+    	<if test="laPopTelephone != null and laPopTelephone != '' ">
+    		and pop_telephone like '%${laPopTelephone}%'
+    	</if>
+    	<if test="laPopIdcard != null and laPopIdcard != '' ">
+    		and pop_idcard like '%${laPopIdcard}%'
+    	</if>
+    	<if test="addCommunity != null and addCommunity != ''" >
+			and hs_add_community like '%${addCommunity}%' 
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and hs_add_building like '%${addBuilding}%'
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and hs_add_doorplateno like '%${addDoorplateno}%'
+		</if>
+		<if test="addProvince != null and addProvince != ''">
+			and hs_add_province like '%${addProvince}%'
+		</if>
+		<if test="addCity != null and addCity != ''">
+			and hs_add_city like '%${addCity}%'
+		</if>
+		<if test="addDistrict != null and addDistrict != ''">
+			and hs_add_district like '%${addDistrict}%'
+		</if>
+		<if test="addZone != null and addZone != ''">
+			and hs_add_zone like '%${addZone}%'
+		</if>
+		<if test="addStreet != null and addStreet != ''">
+			and hs_add_street like '%${addStreet}%'
+		</if>
+    	<if test="laUserId != null and laUserId != ''" >
+	      	and la_user_id = '${laUserId}'</if>
+	    <if test="laDepartment != null and laDepartment != ''" >
+	      	and la_department = '${laDepartment}'</if>
+	    <if test="laStorefront != null and laStorefront != ''" >
+	      	and la_storefront = '${laStorefront}'</if>	
+      	<if test="landlordId != null and landlordId != ''" >
+	      	and la_id = '${landlordId}'</if>
+	    <if test="laPopName != null and laPopName != '' ">
+	    		and pop_name like '%${laPopName}%'
+    	</if>
+    	<if test="laPopTelephone != null and laPopTelephone != '' ">
+    		and pop_telephone like '%${laPopTelephone}%'
+    	</if>
+    	<if test="laPopIdcard != null and laPopIdcard != '' ">
+    		and pop_idcard like '%${laPopIdcard}%'
+    	</if>
+		<if test="laPopulationId != null and laPopulationId != '' ">
+    		and la_population_id = '${laPopulationId}'
+    	</if>
+    </where>
+    group by la_id
+   	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <!-- 房东明细查询 -->
+  <select id="selectAll" resultMap="MyBaseResultMap" parameterType="com.zz.po.info.InfoLandlordExpand" >
+	select lan.*, u.su_staff_name username, h.hs_add_province, h.hs_add_city, h.hs_add_district, h.hs_add_zone, h.hs_add_street,
+		h.hs_add_community, h.hs_add_building, h.hs_add_doorplateno, ip.pop_name, ip.pop_telephone, ip.pop_idcard, bb.total_num,
+		u2.su_staff_name pageNumber
+	from info_landlord lan 
+	left outer join info_pop_tmp ip on lan.la_population_id = ip.pop_id 
+	left outer join info_house_4store h on lan.la_id = h.hs_landlord_id
+	left outer join sys_users u on lan.la_user_id = u.user_coding
+	left outer join sys_users u2 on u2.user_coding = h.hs_user_id,
+	(select count(la_id) total_num 
+	from info_landlord l 
+	left outer join info_pop_tmp p on l.la_population_id = p.pop_id 
+	left outer join info_house_4store ih on l.la_id = ih.hs_landlord_id
+	left outer join sys_users ur on l.la_user_id = ur.user_coding
+	left outer join sys_users u1 on u1.user_coding = ih.hs_user_id
+	<where>
+		<if test="addProvince != null and addProvince != ''">
+			and hs_add_province = #{addProvince}
+		</if>
+		<if test="addCity != null and addCity != ''">
+			and hs_add_city = #{addCity}
+		</if>
+		<if test="addDistrict != null and addDistrict != ''">
+			and hs_add_district = #{addDistrict}
+		</if>
+		<if test="addZone != null and addZone != ''">
+			and hs_add_zone = #{addZone}
+		</if>
+		<if test="addStreet != null and addStreet != ''">
+			and hs_add_street like '%${addStreet}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and hs_add_community like '%${addCommunity}%' 
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="laUserId != null and laUserId != ''" >
+      		and la_user_id = #{laUserId}
+      	</if>
+      	<if test="laDepartment != null and laDepartment != ''" >
+      		and la_department = #{laDepartment}
+      	</if>
+      	<if test="laStorefront != null and laStorefront != ''" >
+      		and la_storefront = #{laStorefront}
+      	</if>	
+      	<if test="landlordId != null and landlordId != ''" >
+      		and la_id = #{landlordId}
+      	</if>
+		<if test="laPopName != null and laPopName != '' ">
+	    	and pop_name like '%${laPopName}%'
+    	</if>
+    	<if test="laPopTelephone != null and laPopTelephone != '' ">
+    		and pop_telephone like '%${laPopTelephone}%'
+    	</if>
+    	<if test="laPopIdcard != null and laPopIdcard != '' ">
+    		and pop_idcard like '%${laPopIdcard}%'
+    	</if>
+    	<if test="laPopulationId != null and laPopulationId != '' ">
+    		and la_population_id = #{laPopulationId}
+    	</if>
+	</where>
+	) bb
+    <where>
+		<if test="addProvince != null and addProvince != ''">
+			and hs_add_province = #{addProvince}
+		</if>
+		<if test="addCity != null and addCity != ''">
+			and hs_add_city = #{addCity}
+		</if>
+		<if test="addDistrict != null and addDistrict != ''">
+			and hs_add_district = #{addDistrict}
+		</if>
+		<if test="addZone != null and addZone != ''">
+			and hs_add_zone = #{addZone}
+		</if>
+		<if test="addStreet != null and addStreet != ''">
+			and hs_add_street like '%${addStreet}%'
+		</if>
+		<if test="addCommunity != null and addCommunity != ''" >
+			and hs_add_community like '%${addCommunity}%' 
+		</if>
+		<if test="addBuilding != null and addBuilding != '' ">
+			and (hs_add_building like '${addBuilding}%' or hs_add_building like '0${addBuilding}%')
+		</if>
+		<if test="addDoorplateno != null and addDoorplateno != ''">
+			and (hs_add_doorplateno like '${addDoorplateno}%' or hs_add_doorplateno like '0${addDoorplateno}%')
+		</if>
+		<if test="laUserId != null and laUserId != ''" >
+      		and la_user_id = #{laUserId}
+      	</if>
+      	<if test="laDepartment != null and laDepartment != ''" >
+      		and la_department = #{laDepartment}
+      	</if>
+      	<if test="laStorefront != null and laStorefront != ''" >
+      		and la_storefront = #{laStorefront}
+      	</if>	
+      	<if test="landlordId != null and landlordId != ''" >
+      		and la_id = #{landlordId}
+      	</if>
+		<if test="laPopName != null and laPopName != '' ">
+	    	and pop_name like '%${laPopName}%'
+    	</if>
+    	<if test="laPopTelephone != null and laPopTelephone != '' ">
+    		and pop_telephone like '%${laPopTelephone}%'
+    	</if>
+    	<if test="laPopIdcard != null and laPopIdcard != '' ">
+    		and pop_idcard like '%${laPopIdcard}%'
+    	</if>
+    	<if test="laPopulationId != null and laPopulationId != '' ">
+    		and la_population_id = #{laPopulationId}
+    	</if>
+	</where>
+    ORDER BY la_id DESC
+   	<if test="startNum != '' and startNum != null">
+		limit ${startNum}
+		<if test="endNum != '' and endNum != null">
+			,${endNum}
+		</if>
+	</if>
+  </select>
+  
+  <select id="isExist" resultType="java.lang.Integer" parameterType="java.lang.Integer" >
+    select la_id
+    from info_landlord
+    where la_population_id = #{laPopulationId}
+  </select>
+  <!--***************************************************  -->
+  <select id="selectByPrimaryKey" resultMap="MyBaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    *
+    from info_landlord
+    where la_id = #{landlordId,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from info_landlord
+    where la_id = #{landlordId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.zz.po.info.InfoLandlordExpand" 
+  		useGeneratedKeys="true" keyProperty="landlordId">
+    insert into info_landlord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="laPopulationId != null and laPopulationId != ''" >
+        la_population_id,
+      </if>
+      <if test="laUserId != null and laUserId != ''" >
+        la_user_id,
+      </if>
+      <if test="landlordOtherContact != null and landlordOtherContact != ''" >
+        landlord_other_contact,
+      </if>
+      <if test="laSecondContacts != null and laSecondContacts != ''" >
+        la_second_contacts,
+      </if>
+      <if test="laSecondPhone != null and laSecondPhone != ''" >
+        la_second_phone,
+      </if>
+      <if test="laOtherContact != null and laOtherContact != ''" >
+        la_other_contact,
+      </if>
+      <if test="laDepartment != null and laDepartment != ''" >
+        la_department,
+      </if>
+       <if test="laStorefront != null and laStorefront != ''" >
+        la_storefront,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="laPopulationId != null and laPopulationId != ''" >
+        #{laPopulationId,jdbcType=INTEGER},
+      </if>
+      <if test="laUserId != null and laUserId != ''" >
+        #{laUserId,jdbcType=INTEGER},
+      </if>
+      <if test="landlordOtherContact != null and landlordOtherContact != ''" >
+        #{landlordOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="laSecondContacts != null and laSecondContacts != ''" >
+        #{laSecondContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="laSecondPhone != null and laSecondPhone != ''" >
+        #{laSecondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="laOtherContact != null and laOtherContact != ''" >
+        #{laOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="laDepartment != null and laDepartment != ''" >
+        #{laDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="laStorefront != null and laStorefront != ''" >
+        #{laStorefront,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.info.InfoLandlordExpand" >
+    update info_landlord
+    <set >
+      <if test="laPopulationId != null " >
+        la_Population_id = #{laPopulationId,jdbcType=INTEGER},
+      </if>
+      <if test="laUserId != null " >
+        la_user_id = #{laUserId,jdbcType=INTEGER},
+      </if>
+      <if test="landlordOtherContact != null " >
+        landlord_other_contact = #{landlordOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="laSecondContacts != null " >
+        la_second_contacts = #{laSecondContacts,jdbcType=VARCHAR},
+      </if>
+      <if test="laSecondPhone != null " >
+        la_second_phone = #{laSecondPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="laOtherContact != null " >
+        la_other_contact = #{laOtherContact,jdbcType=VARCHAR},
+      </if>
+      <if test="laDepartment != null " >
+        la_department = #{laDepartment,jdbcType=INTEGER},
+      </if>
+      <if test="laStorefront != null " >
+        la_storefront = #{laStorefront,jdbcType=INTEGER},
+      </if>
+    </set>
+    where la_id = #{landlordId,jdbcType=INTEGER}
+  </update>
+</mapper>

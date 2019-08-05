@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.DashFinancialStatisticsMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.DashFinancialStatistics" >
+    <id column="fs_id" property="fsId" jdbcType="INTEGER" />
+    <result column="fs_monthly_already_income" property="fsMonthlyAlreadyIncome" jdbcType="DOUBLE" />
+    <result column="fs_monthly_should_income" property="fsMonthlyShouldIncome" jdbcType="DOUBLE" />
+    <result column="fs_monthly_already_expenses" property="fsMonthlyAlreadyExpenses" jdbcType="DOUBLE" />
+    <result column="fs_monthly_should_expenses" property="fsMonthlyShouldExpenses" jdbcType="DOUBLE" />
+    <result column="fs_quarterly_already_income" property="fsQuarterlyAlreadyIncome" jdbcType="DOUBLE" />
+    <result column="fs_quarterly_should_income" property="fsQuarterlyShouldIncome" jdbcType="DOUBLE" />
+    <result column="fs_quarterly_already_expenses" property="fsQuarterlyAlreadyExpenses" jdbcType="DOUBLE" />
+    <result column="fs_quarterly_should_expenses" property="fsQuarterlyShouldExpenses" jdbcType="DOUBLE" />
+    <result column="fs_yearly_already_income" property="fsYearlyAlreadyIncome" jdbcType="DOUBLE" />
+    <result column="fs_yearly_should_income" property="fsYearlyShouldIncome" jdbcType="DOUBLE" />
+    <result column="fs_yearly_already_expenses" property="fsYearlyAlreadyExpenses" jdbcType="DOUBLE" />
+    <result column="fs_yearly_should_expenses" property="fsYearlyShouldExpenses" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap" >
+    select * from dash_financial_stat where fs_id = #{fsId}
+  </select>
+</mapper>

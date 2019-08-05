@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zz.mapper.journal.JourTimingTasksMapper" >
+  <resultMap id="BaseResultMap" type="com.zz.po.journal.JourTimingTasks" >
+    <id column="jtt_id" property="jttId" jdbcType="INTEGER" />
+    <result column="jtt_task_name" property="jttTaskName" jdbcType="VARCHAR" />
+    <result column="jtt_start_time" property="jttStartTime" jdbcType="VARCHAR" />
+    <result column="jtt_end_time" property="jttEndTime" jdbcType="VARCHAR" />
+    <result column="jtt_weekly_choices" property="jttWeeklyChoices" jdbcType="VARCHAR" />
+    <result column="jtt_class_room" property="jttClassRoom" jdbcType="LONGVARCHAR" />
+    <result column="jtt_task_content" property="jttTaskContent" jdbcType="LONGVARCHAR" />
+    <result column="jtt_task_status" property="jttTaskStatus" jdbcType="VARCHAR" />
+    <result column="total_num" property="totalNum" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <if test="splitFlag ==0"><!-- 统计查询 -->
+      count(*) total_num
+    </if>
+    <if test="splitFlag ==1"> <!-- 数据查询 -->
+      *
+    </if>
+    from jour_timing_tasks
+    <where>
+      <if test="jttId !=null and jttId !=''">
+        and jtt_id = #{jttId,jdbcType=INTEGER}
+      </if>
+    </where>
+    <if test="startNum != '' and startNum != null">
+      limit ${startNum}
+      <if test="endNum != '' and endNum != null">
+        ,${endNum}
+      </if>
+    </if>
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.zz.po.journal.JourTimingTasks" >
+    update jour_timing_tasks
+    <set >
+      <if test="jttTaskName != null" >
+        jtt_task_name = #{jttTaskName,jdbcType=VARCHAR},
+      </if>
+      <if test="jttStartTime != null" >
+        jtt_start_time = #{jttStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jttEndTime != null" >
+        jtt_end_time = #{jttEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jttWeeklyChoices != null" >
+        jtt_weekly_choices = #{jttWeeklyChoices,jdbcType=VARCHAR},
+      </if>
+      <if test="jttClassRoom != null" >
+        jtt_class_room = #{jttClassRoom,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jttTaskContent != null" >
+        jtt_task_content = #{jttTaskContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jttTaskStatus != null" >
+        jtt_task_status = #{jttTaskStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where jtt_id = #{jttId,jdbcType=INTEGER}
+  </update>
+
+  <insert id="insertSelective" parameterType="com.zz.po.journal.JourTimingTasks" >
+    insert into jour_timing_tasks
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="jttId != null" >
+        jtt_id,
+      </if>
+      <if test="jttTaskName != null" >
+        jtt_task_name,
+      </if>
+      <if test="jttStartTime != null" >
+        jtt_start_time,
+      </if>
+      <if test="jttEndTime != null" >
+        jtt_end_time,
+      </if>
+      <if test="jttWeeklyChoices != null" >
+        jtt_weekly_choices,
+      </if>
+      <if test="jttClassRoom != null" >
+        jtt_class_room,
+      </if>
+      <if test="jttTaskContent != null" >
+        jtt_task_content,
+      </if>
+      <if test="jttTaskStatus != null" >
+        jtt_task_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="jttId != null" >
+        #{jttId,jdbcType=INTEGER},
+      </if>
+      <if test="jttTaskName != null" >
+        #{jttTaskName,jdbcType=VARCHAR},
+      </if>
+      <if test="jttStartTime != null" >
+        #{jttStartTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jttEndTime != null" >
+        #{jttEndTime,jdbcType=VARCHAR},
+      </if>
+      <if test="jttWeeklyChoices != null" >
+        #{jttWeeklyChoices,jdbcType=VARCHAR},
+      </if>
+      <if test="jttClassRoom != null" >
+        #{jttClassRoom,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jttTaskContent != null" >
+        #{jttTaskContent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="jttTaskStatus != null" >
+        #{jttTaskStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
