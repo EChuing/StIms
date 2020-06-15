@@ -80,7 +80,7 @@
 		<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-core</artifactId>
-		    <version>3.1.0.RELEASE</version>
+		    <version>4.2.17.RELEASE</version>
 		</dependency>
 		<!-- <scope>test</scope> 只参与测试代码运行，不用打到WEB项目的lib包下 -->
 		<dependency>
